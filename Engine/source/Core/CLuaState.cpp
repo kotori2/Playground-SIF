@@ -192,3 +192,66 @@ CLuaState::error(const char * fmt, ...)
 
 	return luaL_error(m_L, msg);
 }
+
+const char* Luatype_names[] = {
+	"nil",
+	"boolean",
+	"light_userdata",
+	"number",
+	"string",
+	"table",
+	"function",
+	"userdata",
+	"coroutine",
+	NULL,
+};
+
+void CLuaState::printStack() {
+	for (int i = 1; i <= numArgs(); i++) {
+		int t = lua_type(m_L, i);
+
+		printf("Stack %d is %s", i, Luatype_names[t]);
+
+		switch (t)
+		{
+		case LUA_TBOOLEAN:
+		{
+			printf(": %s\n", getBool(i) ? "true" : "false");
+			break;
+		}
+		case LUA_TNUMBER:
+		{
+			printf(": %lf\n", getDouble(i));
+			break;
+		}
+		case LUA_TSTRING:
+		{
+			klb_assert(luaL_loadstring(m_L, "return string.format(\"%q\", ({...})[1])") == 0, "Syntax error");
+			retValue(i);
+			klb_assert(lua_pcall(m_L, 1, 1, 0) == 0, "Syntax error");
+
+			printf(": %s\n", getString(-1));
+			lua_pop(m_L, 1);
+
+			break;
+		}
+		case LUA_TTABLE:
+		{
+			printf("\nLUA TABLE DUMP START STACK %d\n", i);
+			// only one depth level
+			char* str = "for a,b in pairs(({...})[1])do print(a,b)end";
+			klb_assert(luaL_loadstring(m_L, str) == 0, "Syntax error");
+			retValue(i);
+			klb_assert(lua_pcall(m_L, 1, 0, 0) == 0, "Syntax error");
+			printf("LUA TABLE DUMP END STACK %d\n", i);
+
+			break;
+		}
+		default:
+		{
+			printf(": %p\n", lua_topointer(m_L, i));
+			break;
+		}
+		}
+	}
+}

@@ -34,6 +34,8 @@ CKLBAssetManager::CKLBAssetManager()
 , m_currentLoadingFile	(NULL)
 , m_maxAssetEntry   	(0)
 , m_unloaded			(false)
+, m_placeholder			(NULL)
+, m_notFoundHandler		(NULL)
 {
 	memset32(m_arrayByCharCode, NULL, 256*sizeof(IKLBAssetPlugin*));
 //	init();	// 2012.12.11  Reboot時に通らない為、外で明示的に呼びます
@@ -347,6 +349,7 @@ CKLBAssetManager::loadAssetByFileName(const char* fileName, IKLBAssetPlugin* plu
 				m_currentLoadingFile = NULL;
 				delete pStream;
 				if(!bResult || !pAsset) {
+					// TODO
 					return NULL;
 				}
 				return pAsset;

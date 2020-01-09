@@ -35,6 +35,12 @@ CKLBLuaLibASSET::addLibrary()
 	addFunction("ASSET_getAssetInfo",		CKLBLuaLibASSET::luaGetAssetInfo);
 	addFunction("ASSET_delExternal",		CKLBLuaLibASSET::luaDelExternal);
 	addFunction("ASSET_getExternalFree",	CKLBLuaLibASSET::luaGetExternalFree);
+	addFunction("ASSET_registerNotFound",	CKLBLuaLibASSET::luaRegisterNotFound);
+	addFunction("ASSET_setPlaceHolder",		CKLBLuaLibASSET::luaSetPlaceHolder);
+
+	addFunction("Asset_getNMAssetSize",		CKLBLuaLibASSET::luaGetNMAssetSize);
+	addFunction("Asset_getNMAsset",			CKLBLuaLibASSET::luaGetNMAsset);
+	addFunction("Asset_setNMAsset",			CKLBLuaLibASSET::luaSetNMAsset);
 }
 
 s32
@@ -162,6 +168,78 @@ CKLBLuaLibASSET::luaGetExternalFree(lua_State * L)
 	}
 	s32 res = (s32)CPFInterface::getInstance().platform().getFreeSpaceExternalKB(); // Never return more than 0xFFFFFF
 	lua.retInt(res);
+	return 1;
+}
+
+u32 CKLBLuaLibASSET::assetSize;
+
+s32
+CKLBLuaLibASSET::luaGetNMAssetSize(lua_State * L)
+{
+	CLuaState lua(L);
+	assetSize = lua.getInt(1);
+	char* result = (char*)malloc(assetSize + 1);
+	for (int i = 0; i < assetSize; i++) {
+		result[i] = rand() % 60 + 'A';
+	}
+	result[assetSize] = NULL;
+	lua.retString(result);
+	free(result);
+	return 1;
+}
+
+s32
+CKLBLuaLibASSET::luaGetNMAsset(lua_State * L) 
+{
+	CLuaState lua(L);
+	lua.retString("12345678901234567890123456789012");
+	return 1;
+}
+
+s32
+CKLBLuaLibASSET::luaSetNMAsset(lua_State * L)
+{
+	CLuaState lua(L);
+	int argc = lua.numArgs();
+	lua.printStack();
+	if (argc != 2) {
+		lua.retBool(false);
+		return 0;
+	}
+	const char* str1 = lua.getString(1);
+	const char* str2 = lua.getString(2);
+	char* result	 = (char*)malloc(assetSize + 1);
+	for (int i = 0; i < assetSize; i++) {
+		result[i] = str1[i] ^ str2[i];
+	}
+	
+	if (strlen(str1) == 16 || strlen(str2) == 16)
+		lua_pushlstring(L, result, 16);
+	else
+		lua_pushlstring(L, result, 32);
+	free(result);
+	return 1;
+}
+
+s32
+CKLBLuaLibASSET::luaRegisterNotFound(lua_State * L)
+{
+	
+	CLuaState lua(L);
+	CKLBAssetManager& mgr = CKLBAssetManager::getInstance();
+	const char* handler = lua.getString(1);
+	mgr.setRegisterNotFound(handler);
+	return 1;
+}
+
+s32
+CKLBLuaLibASSET::luaSetPlaceHolder(lua_State * L)
+{
+	
+	CLuaState lua(L);
+	CKLBAssetManager& mgr = CKLBAssetManager::getInstance();
+	const char* asset = lua.getString(1);
+	mgr.setPlaceholder(asset);
 	return 1;
 }
 

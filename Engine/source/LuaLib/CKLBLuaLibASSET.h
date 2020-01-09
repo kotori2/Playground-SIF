@@ -37,6 +37,13 @@ private:
 	static s32	luaGetAssetInfo		(lua_State * L);
 	static s32	luaDelExternal		(lua_State * L);
 	static s32	luaGetExternalFree	(lua_State * L);
+	static s32	luaGetNMAssetSize	(lua_State * L);
+	static s32	luaGetNMAsset		(lua_State * L);
+	static s32	luaSetNMAsset		(lua_State * L);
+	static s32	luaRegisterNotFound (lua_State * L);
+	static s32	luaSetPlaceHolder	(lua_State * L);
+
+	static u32 assetSize;
 };
 
 

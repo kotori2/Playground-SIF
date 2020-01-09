@@ -40,6 +40,7 @@ public:
 	inline bool isNum	(int pos) { return lua_isnumber(m_L, pos)	? true : false; }
 	inline bool isString(int pos) { return lua_isstring(m_L, pos)	? true : false; }
 	inline bool isTable	(int pos) { return lua_istable(m_L, pos)	? true : false; }
+	void printStack();
 
     inline bool getBool(int pos) {
         if(!lua_isboolean(m_L, pos)) {

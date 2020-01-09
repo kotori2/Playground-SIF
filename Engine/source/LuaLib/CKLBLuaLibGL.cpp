@@ -44,6 +44,24 @@ CKLBLuaLibGL::addLibrary()
 	addFunction("GL_Unloadtexture",			CKLBLuaLibGL::luaGLUnloadTexture		);
 	addFunction("GL_Reloadtexture",			CKLBLuaLibGL::luaGLReloadTexture		);
 	addFunction("GL_DoScreenShot",			CKLBLuaLibGL::luaGLDoScreenShot			);
+	addFunction("GL_GetScreenScale",		CKLBLuaLibGL::luaGLGetScreenScale		);
+	addFunction("GL_GetRenderingAPI",		CKLBLuaLibGL::luaGLGetRenderingAPI		);
+}
+
+int CKLBLuaLibGL::luaGLGetRenderingAPI(lua_State* L)
+{
+	CLuaState lua(L);
+	lua.retInt(2);
+	return 1;
+}
+
+int CKLBLuaLibGL::luaGLGetScreenScale(lua_State * L)
+{
+	CLuaState lua(L);
+	CKLBDrawResource& draw = CKLBDrawResource::getInstance();
+	lua.retFloat(draw.scaleX());
+	lua.retFloat(draw.scaleY());
+	return 2;
 }
 
 /*static*/

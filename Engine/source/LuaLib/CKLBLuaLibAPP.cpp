@@ -34,6 +34,7 @@ CKLBLuaLibAPP::addLibrary()
 {
 	addFunction("APP_CallApplication",		CKLBLuaLibAPP::luaCallApplication);
 	addFunction("APP_GetPhysicalMem",		CKLBLuaLibAPP::luaGetPhysicalMem);
+	addFunction("APP_DateTimeNow",			CKLBLuaLibAPP::luaDateTimeNow);
 }
 
 int
@@ -118,4 +119,12 @@ bool CKLBLuaLibAPP::callApplication(IPlatformRequest::APP_TYPE type, const char*
 		break;
 	}
 	return result;
+}
+
+int
+CKLBLuaLibAPP::luaDateTimeNow(lua_State * L)
+{
+	CLuaState lua(L);
+	lua.retInt(0);
+	return 1;
 }

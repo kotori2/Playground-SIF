@@ -306,6 +306,16 @@ public:
 	//
 	void		registerAssetPlugIn	(IKLBAssetPlugin* plugin);
 	void		registerAsset		(CKLBAbstractAsset* pAsset);
+	inline void	setRegisterNotFound	(const char* handler) {
+		m_notFoundHandler = handler;
+	}
+	inline void		setPlaceholder(const char* asset) {
+		m_placeholder = asset;
+	}
+private:
+	const char* m_placeholder;
+	const char* m_notFoundHandler;
+public:
 
 	inline IKLBAssetPlugin* 
 				getPlugin			(u8 charCode) { return m_arrayByCharCode[charCode]; }

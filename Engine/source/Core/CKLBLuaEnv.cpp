@@ -181,6 +181,12 @@ CKLBLuaEnv::setupLuaEnv()
     lua_register(m_L, "bitOR"			,CKLBLuaEnv::bitOR		);
     lua_register(m_L, "bitAND"			,CKLBLuaEnv::bitAND		);
 
+	// other
+	lua_register(m_L, "setGhostPlayerActivity", CKLBLuaEnv::ghostPlayerActivity);
+	lua_register(m_L, "getGhostPlayerActivity", CKLBLuaEnv::ghostPlayerActivity);
+	lua_register(m_L, "addExtMsg",				CKLBLuaEnv::addExtMsg);
+
+
 	// ***********************
 	// 注意
 	// ***********************
@@ -201,6 +207,20 @@ CKLBLuaEnv::setupLuaEnv()
     return true;
 }
 
+int
+CKLBLuaEnv::ghostPlayerActivity(lua_State * L)
+{
+	return 0;
+}
+
+int
+CKLBLuaEnv::addExtMsg(lua_State * L)
+{
+	CLuaState lua(L);
+	const char* msg = lua.getString(1);
+	cmdLogging(msg);
+	return 1;
+}
 int
 CKLBLuaEnv::setGCRatio(lua_State * L)
 {
