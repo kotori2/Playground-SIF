@@ -84,7 +84,7 @@ int fEncryptRead					(sqlite3_file* file, void* buff, int iAmt, sqlite3_int64 iO
 		fileDecrypt->m_decrypt.gotoOffset((u32)iOfst);
 
 		IPlatformRequest& pltf = CPFInterface::getInstance().platform();
-		pltf.ifseek(fileDecrypt->m_file, (long)(iOfst + (fileDecrypt->m_hasHeader * 4)), SEEK_SET);
+		pltf.ifseek(fileDecrypt->m_file, (long)(iOfst + (fileDecrypt->m_decrypt.m_header_size)), SEEK_SET);
 		u32 readSize = pltf.ifread(buff, 1, iAmt, fileDecrypt->m_file);
 
 		fileDecrypt->m_decrypt.decryptBlck(buff, readSize);
@@ -110,7 +110,7 @@ int fEncryptWrite					(sqlite3_file* file, const void* data, int iAmt, sqlite3_i
 
 	if (!fileDecrypt->m_no_op) {
 		IPlatformRequest& pltf = CPFInterface::getInstance().platform();
-		int err = pltf.ifseek(fileDecrypt->m_file, (long)(iOfst + (fileDecrypt->m_hasHeader*4)), SEEK_SET);
+		int err = pltf.ifseek(fileDecrypt->m_file, (long)(iOfst + (fileDecrypt->m_decrypt.m_header_size)), SEEK_SET);
 
 		if (!err) {
 			if (iAmt != 0) {
@@ -159,7 +159,7 @@ int fEncryptFileSize				(sqlite3_file* file, sqlite3_int64 *pSize)
 			IPlatformRequest& pltf = CPFInterface::getInstance().platform();
 			int err = pltf.ifseek(fileDecrypt->m_file, 0, SEEK_END);
 			if (err == 0) {
-				*pSize = pltf.iftell(fileDecrypt->m_file) - (fileDecrypt->m_hasHeader * 4);
+				*pSize = pltf.iftell(fileDecrypt->m_file) - (fileDecrypt->m_decrypt.m_header_size);
 			} else {
 				return SQLITE_ERROR;
 			}
@@ -254,16 +254,6 @@ int fEncryptOpen					(sqlite3_vfs* vfs, const char *zName, sqlite3_file* file, i
 												|| eType == SQLITE_OPEN_SUBJOURNAL
 												|| eType == SQLITE_OPEN_WAL
 												));
-
-	if (isOpenJournal) {
-		// No-Operation
-		fileDecrypt->m_no_op	= true;
-		fileDecrypt->m_file		= (void*)0xFFFFFFFF;
-		// return SQLITE_OK;
-		return SQLITE_ERROR;
-	} else {
-		fileDecrypt->m_no_op	= false;
-	}
 
 	/* Check the following statements are true: 
 	**
@@ -395,8 +385,8 @@ int fEncryptOpen					(sqlite3_vfs* vfs, const char *zName, sqlite3_file* file, i
 		fileDecrypt->m_hasHeader = fileDecrypt->m_decrypt.decryptSetup((const u8*)zName, header);
 
 		pltf.ifseek(f, 0, SEEK_END);
-		fileDecrypt->m_size = pltf.iftell(f) - (fileDecrypt->m_hasHeader*4);
-		pltf.ifseek(f, (fileDecrypt->m_hasHeader*4), SEEK_SET);
+		fileDecrypt->m_size = pltf.iftell(f) - (fileDecrypt->m_decrypt.m_header_size);
+		pltf.ifseek(f, (fileDecrypt->m_decrypt.m_header_size), SEEK_SET);
 
 		return SQLITE_OK;
 	} else {
