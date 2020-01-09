@@ -6,7 +6,9 @@ from os import makedirs, path, remove, chdir
 from shutil import copy2, copytree, rmtree
 import argparse
 import subprocess
+import locale
 import sys
+from colorama import init
 
 class PlaygroundBuilder:
     _rootdir = None
@@ -70,7 +72,7 @@ class PlaygroundBuilder:
     def _output_log(self, p, success_marker=None, fail_marker=None):
         is_succeeded = None
         for l in iter(p.stdout.readline, b''):
-            log_line = l.rstrip().decode('utf-8')
+            log_line = l.rstrip().decode(locale.getpreferredencoding())
             if success_marker is not None and  log_line.find(success_marker) != -1:
                 is_succeeded = True
             if fail_marker is not None and log_line.find(fail_marker) != -1:
@@ -209,6 +211,7 @@ class bcolors:
         self.ENDC = ''
 
 if __name__ == "__main__":
+    init()
     parser = argparse.ArgumentParser(description='Playground for Android Native Binaries Builder')
     parser.add_argument('-p', '--project', help='specify project name', required=True)
     parser.add_argument('-l', '--luavm', help='choose Lua runtime', choices=['lua', 'luajit'], default='lua')
