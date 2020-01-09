@@ -11844,6 +11844,8 @@ struct fts5_api {
   );
 };
 
+sqlite3_vfs* getVFSList();
+
 /*
 ** END OF REGISTRATION API
 *************************************************************************/
