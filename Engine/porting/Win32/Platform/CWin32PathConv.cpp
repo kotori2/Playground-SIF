@@ -45,16 +45,16 @@ CWin32PathConv::setPath(const char * pathInstall, const char * pathExtern)
 const char *
 CWin32PathConv::makePath(const char * path, const char * suffix, const char * base)
 {
-    int extlen  = (suffix) ? strlen(suffix) : 0;
-    int len     = strlen(path) + strlen(base) + extlen + 2;
-    char * buf  = new char [ len ];
+    int extlen = (suffix) ? strlen(suffix) : 0;
+    int len = strlen(path) + strlen(base) + extlen + 2;
+    char* buf = new char[len];
 
-	strcpy(buf, base);
+    strcpy(buf, base);
     //strcat(buf, "/");
     strcat(buf, path);
-    if(suffix) { strcat(buf, suffix); }
+    if (suffix) { strcat(buf, suffix); }
     CPFInterface::getInstance().platform().logging("fullpath: %s", buf);
-    return (const char *)buf;
+    return (const char*)buf;
 }
 
 bool
@@ -63,6 +63,7 @@ CWin32PathConv::checkExists(const char * path)
     bool bResult = true;
     struct stat st;
     int iRes = stat(path, &st);
+    CPFInterface::getInstance().platform().logging("iRes: %d", iRes);
     if((iRes != 0) && (errno == ENOENT)) { bResult = false; }
     return bResult;
 }

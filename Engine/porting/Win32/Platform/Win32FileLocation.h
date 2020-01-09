@@ -21,7 +21,7 @@
 #define Win32FileLocation_h
 
 // Warning : Path must finish with '/'
-#define PATH_EXTERN     "C:/GameEngine2D/examples/"
-#define PATH_INSTALL    "C:/GameEngine2D/examples/"
+#define PATH_EXTERN     "./external/"
+#define PATH_INSTALL    "./install/"
 
 #endif

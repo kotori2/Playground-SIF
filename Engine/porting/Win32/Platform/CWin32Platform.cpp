@@ -39,6 +39,8 @@
 
 #include "FontRendering.h"
 
+constexpr auto BUNDLE_VERSION = "6.9.1";
+
 bool CWin32Platform::g_useDecryption = false;
 
 void CWin32Platform::setEncrypt(bool encrypt) {
@@ -97,10 +99,25 @@ CWin32Platform::create_version_string()
 	// どうするかは後で考えます。とりあえずこの場はJST固定で実装。
 
 	sprintf(buf,
-			"Win32;%s %d.%d.%d/%s;JST",
+			"Win32;%s %d.%d.%d/%s;",
 			OSlabel,
 			verInfo.dwMajorVersion, verInfo.dwMinorVersion, verInfo.dwBuildNumber,
 			verInfo.szCSDVersion);
+
+	// Process the timezone from wchar_t to char
+	{
+		char* temp = KLBNEWA(char, 32);
+		char* converted_name = temp;
+		wchar_t* name = tzInfo.StandardName;
+
+		memset(temp, 0, 32);
+
+		for (; *name != 0; *converted_name++ = *name++) {}
+
+		sprintf(buf, "%s%s", buf, temp);
+
+		KLBDELETEA(temp);
+	}
 
 	int len = strlen(buf);
 
@@ -118,9 +135,10 @@ CWin32Platform::getPlatform()
 }
 
 u32 CWin32Platform::getPhysicalMemKB() {
-	// Do not want to mess with WMI (Windows Management Instrumentation)
-	// We will return a "virtual" 4 GB RAM memory computer.
-	return 4 << (10 + 10);
+	MEMORYSTATUSEX memstat = { sizeof(MEMORYSTATUSEX) };
+	klb_assert(GlobalMemoryStatusEx(&memstat), "GlobalMemoryStatusEx() failed");
+
+	return memstat.ullAvailPhys / 1024;
 }
 
 void
@@ -179,7 +197,7 @@ CWin32Platform::nanotime()
 
 const char*
 CWin32Platform::getBundleVersion() {
-    return "0.0";
+    return BUNDLE_VERSION;
 }
 
 bool CWin32Platform::useEncryption() {
@@ -276,24 +294,23 @@ void removeTmpFileNative(const char* filePath) {
 }
 
 u32 CWin32Platform::getFreeSpaceExternalKB() {
-	const char * fullpath = CWin32PathConv::getInstance().fullpath("external/");
-	char* patch = (char*)&fullpath[3]; // e:/
-	*patch = 0;
+	const char* fullpath = CWin32PathConv::getInstance().fullpath("external/");
 	ULARGE_INTEGER FreeByteCaller;
 	ULARGE_INTEGER TotalByte;
 	ULARGE_INTEGER FreeByteTotal;
-	 
+
 	BOOL success = GetDiskFreeSpaceEx(fullpath, &FreeByteCaller, &TotalByte, &FreeByteTotal);
 	u32 result = 0;
 	if (success) {
 		s64 r = FreeByteCaller.QuadPart;
 		r >>= 10; // Into KB, round down !
-		if (r > 0x00FFFFFFLL) {
-			r = 0x00FFFFFF;
-		}
-		result = (u32)r;
+
+		if (r > 0x7FFFFFFFLL)
+			result = 0x7FFFFFFF;
+		else
+			result = (u32)r;
 	}
-	delete [] fullpath;
+	delete[] fullpath;
 	return result;
 }
 
@@ -707,18 +724,24 @@ CWin32Platform::callApplication(IPlatformRequest::APP_TYPE type, ... )
 	va_list ap;
 	va_start(ap, type);
 
-	switch(type)
+	switch (type)
 	{
 	default:
 		result = false;
 		break;
+	case IPlatformRequest::APP_BROWSER:
+	{
+		const char* url = va_arg(ap, const char*);
+		ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
+	}
+	break;
 
 	case IPlatformRequest::APP_UPDATE:
-		{
-			const char * search_key = va_arg(ap, const char *);
-			MessageBox(m_hWnd, search_key, "CALL Application", MB_OK);
-		}
-		break;
+	{
+		const char* search_key = va_arg(ap, const char*);
+		MessageBox(m_hWnd, search_key, "CALL Application", MB_OK);
+	}
+	break;
 	}
 
 	va_end(ap);
@@ -819,9 +842,16 @@ CWin32Platform::watchThread(void * hThread, s32 * status)
 void
 CWin32Platform::deleteThread(void * hThread)
 {
-	PF_THREAD * pThread = (PF_THREAD *)hThread;
-	CloseHandle( pThread->hWin32Thread );
-	delete pThread;
+	__try
+	{
+		PF_THREAD* pThread = (PF_THREAD*)hThread;
+		CloseHandle(pThread->hWin32Thread);
+		delete pThread;
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		DEBUG_PRINT("WARNING: m_thread is invalid!");
+	}
 }
 
 // スレッドを強制中断する
