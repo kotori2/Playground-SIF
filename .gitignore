@@ -34,9 +34,15 @@ __MACOSX/
 xcuserdata/
 project.xcworkspace/
 
+# Windows stuffs
+/Engine/porting/Win32/Output/Debug/OSSGameLibraryWin32.*
+/Engine/porting/Win32/Debug/
+/Engine/porting/Win32/.vs/
+
 # object files things
 *.exe
 *.pdb
+*.obj
 *.a
 !libcurl.a
 *.so

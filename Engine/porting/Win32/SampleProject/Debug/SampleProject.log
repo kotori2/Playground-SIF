@@ -1,0 +1,16 @@
+﻿  CSampleProjectEntrance.cpp
+  SampleProject.cpp
+  正在生成代码...
+LINK : warning LNK4217: 符号“_malloc”(在“ libucrtd.lib(malloc.obj)”中定义)已由“zlib.lib(zutil.obj)”(函数“_zcalloc”中)导入
+LINK : warning LNK4217: 符号“_free”(在“ libucrtd.lib(free.obj)”中定义)已由“zlib.lib(zutil.obj)”(函数“_zcfree”中)导入
+zlib.lib(adler32.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“zlib.lib(adler32.obj)”或在“C:\Users\lijun\Desktop\PlaygroundOSS-master\Engine\porting\Win32\Output\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+zlib.lib(crc32.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“zlib.lib(crc32.obj)”或在“C:\Users\lijun\Desktop\PlaygroundOSS-master\Engine\porting\Win32\Output\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+zlib.lib(inflate.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“zlib.lib(inflate.obj)”或在“C:\Users\lijun\Desktop\PlaygroundOSS-master\Engine\porting\Win32\Output\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+zlib.lib(inftrees.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“zlib.lib(inftrees.obj)”或在“C:\Users\lijun\Desktop\PlaygroundOSS-master\Engine\porting\Win32\Output\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+zlib.lib(zutil.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“zlib.lib(zutil.obj)”或在“C:\Users\lijun\Desktop\PlaygroundOSS-master\Engine\porting\Win32\Output\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+  SampleProject.vcxproj -> C:\Users\lijun\Desktop\PlaygroundOSS-master\Engine\porting\Win32\Output\Debug\SampleProject.exe
+  C:\Users\lijun\Desktop\PlaygroundOSS-master\Engine\porting\Win32\Output\Debug\..\..\glew32.dll
+  C:\Users\lijun\Desktop\PlaygroundOSS-master\Engine\porting\Win32\Output\Debug\..\..\glew32mx.dll
+  C:\Users\lijun\Desktop\PlaygroundOSS-master\Engine\porting\Win32\Output\Debug\..\..\glut.dll
+  C:\Users\lijun\Desktop\PlaygroundOSS-master\Engine\porting\Win32\Output\Debug\..\..\glut32.dll
+  已复制         4 个文件。
