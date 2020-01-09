@@ -41,10 +41,15 @@
 
 constexpr auto BUNDLE_VERSION = "6.9.1";
 
-bool CWin32Platform::g_useDecryption = false;
+bool CWin32Platform::g_useDecryption = true;
+bool CWin32Platform::g_ignoreError = false;
 
 void CWin32Platform::setEncrypt(bool encrypt) {
 	g_useDecryption = encrypt;
+}
+
+void CWin32Platform::setIgnoreError(bool s) {
+	g_ignoreError = s;
 }
 
 CWin32Platform::CWin32Platform(HWND hWnd)
@@ -202,6 +207,10 @@ CWin32Platform::getBundleVersion() {
 
 bool CWin32Platform::useEncryption() {
 	return g_useDecryption;
+}
+
+bool CWin32Platform::ignoreError() {
+	return g_ignoreError;
 }
 
 IReadStream *

@@ -64,8 +64,12 @@ public:
 	virtual ~CWin32Platform();
 
 	//! Use Encryption for disk I/O
-	virtual bool useEncryption	();
-	static  void setEncrypt		(bool encrypt);
+	virtual bool useEncryption();
+	static  void setEncrypt(bool encrypt);
+
+	//! Set if you want to ignore error and continue executing
+	static  void setIgnoreError(bool s);
+	static  bool ignoreError();
 
 	//! ログ出力
 	void detailedLogging(const char * basefile, const char * functionName, int lineNo, const char * format, ...);
@@ -206,6 +210,7 @@ private:
 	bool m_bNoDefaultFont;
 
 	static bool g_useDecryption;
+	static bool g_ignoreError;
 
 	struct PF_THREAD {
 		jmp_buf jmp;

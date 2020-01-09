@@ -418,6 +418,10 @@ int GameEngineMain(int argc, _TCHAR* argv[])
 					CWin32Platform::setEncrypt(encrypt);
 				}
 
+				if (strcmp("--ignore-error", argv[parse]) == 0) {
+					CWin32Platform::setIgnoreError(true);
+				}
+
 				if (strcmp("-no", argv[parse]) == 0) {
 					if (strcmp("defaultfont", argv[parse+1]) == 0) {
 						hasDefaultFont = false;

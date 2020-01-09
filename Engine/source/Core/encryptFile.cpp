@@ -67,8 +67,9 @@ u32 CDecryptBaseClass::decryptSetup(const u8* ptr, const u8* hdr) {
 			m_header_size = 16;
 		m_dctx->final_setup((const char*)ptr, hdr + 4);
 	}
-	else
+	else {
 		m_header_size = 4;
+	}
 
 	m_useNew = true;
 	m_decrypt = true;

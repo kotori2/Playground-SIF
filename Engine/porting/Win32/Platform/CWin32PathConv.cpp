@@ -63,7 +63,6 @@ CWin32PathConv::checkExists(const char * path)
     bool bResult = true;
     struct stat st;
     int iRes = stat(path, &st);
-    CPFInterface::getInstance().platform().logging("iRes: %d", iRes);
     if((iRes != 0) && (errno == ENOENT)) { bResult = false; }
     return bResult;
 }
