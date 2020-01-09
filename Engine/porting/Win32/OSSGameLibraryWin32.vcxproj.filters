@@ -112,6 +112,9 @@
     <Filter Include="Source Files\Rendering\Font">
       <UniqueIdentifier>{052c5c2d-5ab4-4d1a-bec4-dfa3854f63f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Core\HonokaMiku">
+      <UniqueIdentifier>{71ac4154-9ec9-41da-a978-3b5de0e105b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -671,6 +674,12 @@
     </ClInclude>
     <ClInclude Include="..\..\source\HTTP\CKLBNetAPI.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Core\HonokaMiku\DecrypterContext.h">
+      <Filter>Source Files\Core\HonokaMiku</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Core\HonokaMiku\md5.h">
+      <Filter>Source Files\Core\HonokaMiku</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1783,6 +1792,30 @@
     </ClCompile>
     <ClCompile Include="..\..\source\HTTP\CKLBNetAPI.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Core\HonokaMiku\CN_Decrypter.cc">
+      <Filter>Source Files\Core\HonokaMiku</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Core\HonokaMiku\EN_Decrypter.cc">
+      <Filter>Source Files\Core\HonokaMiku</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Core\HonokaMiku\Helper.cc">
+      <Filter>Source Files\Core\HonokaMiku</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Core\HonokaMiku\JP_Decrypter.cc">
+      <Filter>Source Files\Core\HonokaMiku</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Core\HonokaMiku\TW_Decrypter.cc">
+      <Filter>Source Files\Core\HonokaMiku</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Core\HonokaMiku\V1_Decrypter.cc">
+      <Filter>Source Files\Core\HonokaMiku</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Core\HonokaMiku\V2_Decrypter.cc">
+      <Filter>Source Files\Core\HonokaMiku</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Core\HonokaMiku\V3_Decrypter.cc">
+      <Filter>Source Files\Core\HonokaMiku</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

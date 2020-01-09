@@ -229,6 +229,8 @@
     <ClInclude Include="..\..\source\Core\CLuaState.h" />
     <ClInclude Include="..\..\source\Core\DebugAlloc.h" />
     <ClInclude Include="..\..\source\Core\DebugTracker.h" />
+    <ClInclude Include="..\..\source\Core\HonokaMiku\DecrypterContext.h" />
+    <ClInclude Include="..\..\source\Core\HonokaMiku\md5.h" />
     <ClInclude Include="..\..\source\Core\yasper.h" />
     <ClInclude Include="..\..\source\Database\CKLBDatabase.h" />
     <ClInclude Include="..\..\source\Database\CKLBLanguageDatabase.h" />
@@ -1316,6 +1318,14 @@
     <ClCompile Include="..\..\source\Core\DebugTracker.cpp" />
     <ClCompile Include="..\..\source\Core\Dictionnary.cpp" />
     <ClCompile Include="..\..\source\Core\encryptFile.cpp" />
+    <ClCompile Include="..\..\source\Core\HonokaMiku\CN_Decrypter.cc" />
+    <ClCompile Include="..\..\source\Core\HonokaMiku\EN_Decrypter.cc" />
+    <ClCompile Include="..\..\source\Core\HonokaMiku\Helper.cc" />
+    <ClCompile Include="..\..\source\Core\HonokaMiku\JP_Decrypter.cc" />
+    <ClCompile Include="..\..\source\Core\HonokaMiku\TW_Decrypter.cc" />
+    <ClCompile Include="..\..\source\Core\HonokaMiku\V1_Decrypter.cc" />
+    <ClCompile Include="..\..\source\Core\HonokaMiku\V2_Decrypter.cc" />
+    <ClCompile Include="..\..\source\Core\HonokaMiku\V3_Decrypter.cc" />
     <ClCompile Include="..\..\source\Core\ITmpFile.cpp" />
     <ClCompile Include="..\..\source\Database\CKLBDatabase.cpp" />
     <ClCompile Include="..\..\source\Database\CKLBLanguageDatabase.cpp" />
