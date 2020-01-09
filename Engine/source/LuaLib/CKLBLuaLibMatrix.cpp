@@ -68,30 +68,27 @@ void
 CKLBLuaLibMatrix::addLibrary()
 {
 	// matrixに名前をつける
-	addFunction("GEO_SetMatrixName", CKLBLuaLibMatrix::luaSetMatrixName);
+	addFunction("GEO_SetMatrixName",	CKLBLuaLibMatrix::luaSetMatrixName);
 	// matrixの生成/破棄/複製/変換/復元
-	addFunction("GEO_CreateMatrix", CKLBLuaLibMatrix::luaCreateMatrix);
-	addFunction("GEO_DeleteMatrix", CKLBLuaLibMatrix::luaDeleteMatrix);
-	addFunction("GEO_RevertMatrix", CKLBLuaLibMatrix::luaRevertMatrix);
-	addFunction("GEO_CopyMatrix", CKLBLuaLibMatrix::luaCopyMatrix);
-	addFunction("GEO_OverwriteMatrix", CKLBLuaLibMatrix::luaOverwriteMatrix);
-	addFunction("GEO_DeleteAllMatrix", CKLBLuaLibMatrix::luaDeleteAllMatrix);
+	addFunction("GEO_CreateMatrix",		CKLBLuaLibMatrix::luaCreateMatrix);
+	addFunction("GEO_DeleteMatrix",		CKLBLuaLibMatrix::luaDeleteMatrix);
+	addFunction("GEO_RevertMatrix",		CKLBLuaLibMatrix::luaRevertMatrix);
+	addFunction("GEO_CopyMatrix",		CKLBLuaLibMatrix::luaCopyMatrix);
+	addFunction("GEO_OverwriteMatrix",	CKLBLuaLibMatrix::luaOverwriteMatrix);
+	addFunction("GEO_DeleteAllMatrix",	CKLBLuaLibMatrix::luaDeleteAllMatrix);
 
 	// 二つ以上のmatrixを順次掛け合わせ、結果を第一引数のmatrix objectに書き込む
-	addFunction("GEO_MulMatrix", CKLBLuaLibMatrix::luaMulMatrix);
+	addFunction("GEO_MulMatrix",		CKLBLuaLibMatrix::luaMulMatrix);
 
 	// 逆行列を作る
-	addFunction("GEO_InverseMatrix", CKLBLuaLibMatrix::luaInverseMatrix);
+	addFunction("GEO_InverseMatrix",	CKLBLuaLibMatrix::luaInverseMatrix);
 
 	// 転置行列を作る
 	addFunction("GEO_TransposedMatrix", CKLBLuaLibMatrix::luaTransposedMatrix);
 
 	// vectorにmatrixをかける
-	addFunction("GEO_VecConv", CKLBLuaLibMatrix::luaMulMatVector);
-	addFunction("GEO_VecArrayConv", CKLBLuaLibMatrix::luaMulMatVecArray);
-
-
-
+	addFunction("GEO_VecConv",			CKLBLuaLibMatrix::luaMulMatVector);
+	addFunction("GEO_VecArrayConv",		CKLBLuaLibMatrix::luaMulMatVecArray);
 }
 
 

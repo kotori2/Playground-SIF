@@ -800,6 +800,18 @@ int CKLBCompositeAsset::readInt(long long integerVal)
 		break;
 	case VOL_AUDIO_DOWN:
 		m_pCurrInnerDef->volAudioDown		= (u8)integerVal;
+		break;
+	case ANCHOR:
+		m_pCurrInnerDef->anchor				= (u8)integerVal;
+		break;
+	case ANCHOR_X:
+		m_pCurrInnerDef->anchorX			= (u8)integerVal;
+		break;
+	case ANCHOR_Y:
+		m_pCurrInnerDef->anchorY			= (u8)integerVal;
+		break;
+	case FIT:
+		m_pCurrInnerDef->fit				= (u8)integerVal;
 	}
     return 1;
 }  
@@ -1047,6 +1059,7 @@ static const key_name_value keywords2[] = {
 
 static const key_name_value keywords3[] = {
 	// Size 3
+	{"fit",(sizeof("fit")-1),CKLBCompositeAsset::FIT},
 	{"sub",(sizeof("sub")-1),CKLBCompositeAsset::SUB_FIELD},
 	{"tox",(sizeof("tox")-1),CKLBCompositeAsset::ANIM_TOX},
 	{"toy",(sizeof("toy")-1),CKLBCompositeAsset::ANIM_TOY},
@@ -1094,6 +1107,7 @@ static const key_name_value keywords5[] = {
 
 static const key_name_value keywords6[] = {
 	// Size 6
+	{"anchor",(sizeof("anchor")-1),CKLBCompositeAsset::ANCHOR},
 	{"asset0",(sizeof("asset0")-1),CKLBCompositeAsset::ASSET_FIELD + 0},
 	{"asset1",(sizeof("asset1")-1),CKLBCompositeAsset::ASSET_FIELD + 1},
 	{"asset2",(sizeof("asset2")-1),CKLBCompositeAsset::ASSET_FIELD + 2},
@@ -1126,6 +1140,8 @@ static const key_name_value keywords7[] = {
 	// KEEP LIST IN ORDER !!! UPDATE USING EXCEL, NOT MANUALLY !!!!
 	// Update using EXCEL 
 	//
+	{"anchorX",(sizeof("anchorX") - 1),CKLBCompositeAsset::ANCHOR_X},
+	{"anchorY",(sizeof("anchorY") - 1),CKLBCompositeAsset::ANCHOR_Y},
 	{"animate",(sizeof("animate")-1),CKLBCompositeAsset::ANIMATE_FIELD},
 	{"centerx",(sizeof("centerx")-1),CKLBCompositeAsset::CENTERX_FIELD},
 	{"centery",(sizeof("centery")-1),CKLBCompositeAsset::CENTERY_FIELD},
@@ -1809,6 +1825,22 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 
 	u32 newPrio = priorityOffset + templateDef->priority;
 
+	// THIS IS A REALLY DIRTY WORKAROUND
+	// HERE WE ADJUST TO VALUES, NOT VALUES TO US 
+	if (templateDef->anchor == 2 && templateDef->anchorY == 16 && (
+		// spash text and footer
+		templateDef->y == 640 || templateDef->y == 100)
+		) {
+		templateDef->y = 0;
+	}
+	else if (templateDef->anchor == 2 && templateDef->anchorY == 16 && templateDef->y == -640 && templateDef->height) {
+		// navi
+		templateDef->y = 640 - templateDef->height;
+	}
+	else if (templateDef->anchor == 2 && templateDef->anchorY == 16 && templateDef->y == 194) {
+		// secretbox
+		templateDef->y = 640 - templateDef->y;
+	}
 	klb_assert(
 		   ((((s64)priorityOffset + (s64)templateDef->priority)>>32) != 0)
 		|| ((((s64)priorityOffset + (s64)templateDef->priority)>>32) != -1), "Overflow or underflow");

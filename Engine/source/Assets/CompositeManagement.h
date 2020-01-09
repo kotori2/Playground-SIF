@@ -181,6 +181,10 @@ public:
 		CHARTYPE,
 		VOL_AUDIO_UP,
 		VOL_AUDIO_DOWN,
+		ANCHOR,
+		ANCHOR_X,
+		ANCHOR_Y,
+		FIT,
 	};
 private:
 	bool init();
@@ -365,6 +369,10 @@ public:
 	u8	splineVectorSize;
 	u8	volAudioUp;
 	u8	volAudioDown;
+	u8	anchor;
+	u8	anchorX;
+	u8	anchorY;
+	u8	fit;
 
 	u8	flag[4];
 	bool	visible;

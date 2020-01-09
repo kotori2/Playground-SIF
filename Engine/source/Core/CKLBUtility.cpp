@@ -302,7 +302,7 @@ CKLBUtility::loadAssetScript(const char * asset, u32 * handle, IKLBAssetPlugin* 
 {
 	CKLBAsset * pAsset = loadAsset(asset, handle, plugIn, bSimple);
 	if(!pAsset) {
-		CKLBScriptEnv::getInstance().error("could not load asset: %s", asset);
+		return false;
 	}
 	return pAsset;
 }

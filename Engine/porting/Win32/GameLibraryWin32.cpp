@@ -359,16 +359,9 @@ int GameEngineMain(int argc, _TCHAR* argv[])
 	}
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
-#define HEIGHT	(768)
-#define WIDTH	(1024)
-#define POS_X	(10)
-#define POS_Y	(10)
-//#define HEIGHT	(800)
-//#define WIDTH	(400)
-	int scrW	= WIDTH;
-	int scrH	= HEIGHT;
-	
-	int fixedDelta = 0;
+	int scrW		= 1136;
+	int scrH		= 640;
+	int fixedDelta	= 0;
 
 	*g_basePath = 0;
 	*g_fileName = 0;

@@ -23,6 +23,7 @@ GameSetup()
 
 	CPFInterface& pfif = CPFInterface::getInstance();
 	pfif.setClientRequest(pClient);
+	klb_assert(pfif.platform().registerFont("MotoyaLMaru W3 mono", "asset://MTLmr3m.ttf", true), "[LoveLive base] GAME FONT MTLmr3m.ttf NOT INSTALLED");
 	return true;
 }
 

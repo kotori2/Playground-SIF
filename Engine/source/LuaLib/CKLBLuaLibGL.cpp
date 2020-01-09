@@ -46,6 +46,55 @@ CKLBLuaLibGL::addLibrary()
 	addFunction("GL_DoScreenShot",			CKLBLuaLibGL::luaGLDoScreenShot			);
 	addFunction("GL_GetScreenScale",		CKLBLuaLibGL::luaGLGetScreenScale		);
 	addFunction("GL_GetRenderingAPI",		CKLBLuaLibGL::luaGLGetRenderingAPI		);
+	addFunction("GL_GetUnsafeAreaSize",		CKLBLuaLibGL::luaGLGetUnsafeAreaSize	);
+	addFunction("GL_GetPhysicalSize",		CKLBLuaLibGL::luaGLGetPhysicalSize		);
+	addFunction("GL_IsSafeAreaScreen",		CKLBLuaLibGL::luaGLIsSafeAreaScreen		);
+	addFunction("GL_ComputeMatrixFromToRect",CKLBLuaLibGL::luaGLComputeMatrixFromToRect);
+}
+
+int CKLBLuaLibGL::luaGLComputeMatrixFromToRect(lua_State* L) {
+	CLuaState lua(L);
+
+	if (lua.numArgs() > 7) {
+		float e = 0.0;
+		if (lua.isNum(8)) {
+			e = lua.getFloat(8);
+		}
+
+		lua.retFloat((lua.getFloat(7) - lua.getFloat(5)) / (lua.getFloat(3) - lua.getFloat(1)));
+		lua.retFloat(0.0);
+		lua.retFloat(0.0);
+		lua.retFloat((e - lua.getFloat(6)) / (lua.getFloat(4) - lua.getFloat(2)));
+		lua.retFloat(lua.getFloat(5) - lua.getFloat(1));
+		lua.retFloat(lua.getFloat(6) - lua.getFloat(2));
+		return 6;
+	}
+	else {
+		lua.retBool(false);
+		return 1;
+	}
+}
+
+int CKLBLuaLibGL::luaGLIsSafeAreaScreen(lua_State* L) {
+	CLuaState lua(L);
+	lua.retBool(false);
+	return 1;
+}
+
+int CKLBLuaLibGL::luaGLGetPhysicalSize(lua_State* L)
+{
+	CLuaState lua(L);
+	IClientRequest& itf = CPFInterface::getInstance().client();
+	lua.retInt(itf.getPhysicalScreenWidth());
+	lua.retInt(itf.getPhysicalScreenHeight());
+	return 2;
+}
+
+int CKLBLuaLibGL::luaGLGetUnsafeAreaSize(lua_State* L)
+{
+	CLuaState lua(L);
+	lua.retInt(0);
+	return 1;
 }
 
 int CKLBLuaLibGL::luaGLGetRenderingAPI(lua_State* L)
