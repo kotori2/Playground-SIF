@@ -359,8 +359,8 @@ int GameEngineMain(int argc, _TCHAR* argv[])
 	}
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
-	int scrW		= 1136;
-	int scrH		= 640;
+	int width = 1136;
+	int height = 640;
 	int fixedDelta	= 0;
 
 	*g_basePath = 0;
@@ -379,11 +379,11 @@ int GameEngineMain(int argc, _TCHAR* argv[])
 		while (parse < max) {
 			if(*argv[parse] == '-') {
 				if (strcmp("-w",argv[parse]) == 0) {
-					sscanf_s(argv[parse+1],"%i",&scrW);
+					sscanf_s(argv[parse+1],"%i",&width);
 				}
 
 				if (strcmp("-h",argv[parse]) == 0) {
-					sscanf_s(argv[parse+1],"%i",&scrH);
+					sscanf_s(argv[parse+1],"%i",&height);
 				}
 
 				if (strcmp("-i",argv[parse]) == 0) {
@@ -437,10 +437,21 @@ int GameEngineMain(int argc, _TCHAR* argv[])
 		}
 	}
 
+	DWORD Window_Flags = WS_CAPTION | WS_VISIBLE | WS_MINIMIZEBOX | WS_SYSMENU;
+	RECT temp = { 0, 0, width, height };
+
+	AdjustWindowRect(&temp, Window_Flags, 0);
+
+	int scrW = temp.right - temp.left;
+	int scrH = temp.bottom - temp.top;
+
+	// Create external folder
+	CreateDirectoryA(g_pathExtern, NULL);
+
 	CWin32PathConv& pathconv = CWin32PathConv::getInstance();
 	pathconv.setPath(g_pathInstall, g_pathExtern);
 
-	WNDCLASS wc;
+	WNDCLASSEXA wc = { sizeof(WNDCLASSEXA) };
 	HWND hwnd;
 	HDC hDC;
 	HGLRC hRC;
@@ -457,22 +468,14 @@ int GameEngineMain(int argc, _TCHAR* argv[])
 	wc.hbrBackground = (HBRUSH)GetStockObject( BLACK_BRUSH );
 	wc.lpszMenuName = NULL;
 	wc.lpszClassName = "GameEngineGL";
-	RegisterClass( &wc );
+	RegisterClassExA(&wc);
 	
 	// create main window
-	hwnd = CreateWindow(
+	hwnd = CreateWindowExA(0,
 		"GameEngineGL", "Playground", 
-		WS_CAPTION | WS_POPUPWINDOW | WS_VISIBLE,
-		0, 0, 256, 256,
-		NULL, NULL, hInstance, NULL );
-
-/*		"EngineGL", NULL,
-		WS_THICKFRAME|WS_DISABLED,
-		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-		NULL, NULL, 
-		hInstance, 
-		NULL
-	);*/
+		Window_Flags | WS_CLIPCHILDREN,
+		CW_USEDEFAULT, CW_USEDEFAULT, scrW, scrH,
+		NULL, NULL, hInstance, NULL);
 	
 	if (!hwnd)
 		return -1;
@@ -482,48 +485,8 @@ int GameEngineMain(int argc, _TCHAR* argv[])
 
 	// COM Initialization
 	CoInitialize(NULL);
-
+	OleInitialize(NULL);
 	EnableWindow(hwnd, TRUE);
-
-	DragAcceptFiles(hwnd, true);
-
-	RECT area;
-	area.left = 0;
-	area.top = 0;
-#ifdef _WIN32_WCE
-	area.right = GetSystemMetrics(SM_CXSCREEN);
-	area.bottom = GetSystemMetrics(SM_CYSCREEN);
-
-	SetWindowLong(hwnd, GWL_STYLE, WS_POPUP);
-
-	SetWindowPos(hwnd, HWND_TOPMOST,
-					area.left, area.top,
-					area.right, area.bottom,
-					SWP_FRAMECHANGED);
-#else
-	// Window border hard coded
-	//area.right = scrW + 8;
-	//area.bottom = scrH + 27;
-	////area.right = GetSystemMetrics(SM_CXSCREEN);
-	////area.bottom = GetSystemMetrics(SM_CYSCREEN);
-	int addW = GetSystemMetrics(SM_CXSIZEFRAME) * 2;
-	int addH = GetSystemMetrics(SM_CYSIZEFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION);
-	area.right = scrW + addW;
-	area.bottom = scrH + addH;
-	
-
-	/*
-	AdjustWindowRect(
-		&area,
-		WS_SYSMENU|WS_THICKFRAME|WS_DISABLED,
-		false
-	);*/
-
-	SetWindowPos(hwnd, HWND_TOP,
-					area.left, area.top,
-					area.right, area.bottom,
-					SWP_NOMOVE);
-#endif
 
 	/* set as foreground window to give this app focus in case it doesn't have it */
 	SetForegroundWindow(hwnd);
@@ -531,10 +494,6 @@ int GameEngineMain(int argc, _TCHAR* argv[])
 
 	glClearColor(1.0f, 0.7f, 0.2039f, 0.0f);
 	glDisable( GL_CULL_FACE );
-
-	//
-
-	// testCodeInit();
 
 	CPFInterface& pfif = CPFInterface::getInstance();
 	CWin32Platform * pPlatform = new CWin32Platform(hwnd);
@@ -555,7 +514,7 @@ int GameEngineMain(int argc, _TCHAR* argv[])
 	CWin32AudioMgr::getInstance().init(hwnd);
 
 	// set screen size
-	pfif.client().setScreenInfo(false, scrW, scrH);
+	pfif.client().setScreenInfo(false, width, height);
 	// boot path
 	if (strlen(g_fileName)) {
 		pfif.client().setFilePath(g_fileName);
