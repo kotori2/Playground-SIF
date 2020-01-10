@@ -206,6 +206,8 @@ public:
 
 	inline void forbidSleep(bool is_forbidden) {}
 
+	int			HMAC_SHA1(const char* string, const char* key, char* retbuf);
+
 private:
 	bool m_bNoDefaultFont;
 

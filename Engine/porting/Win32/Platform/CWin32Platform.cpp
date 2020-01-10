@@ -21,6 +21,7 @@
 #include <WinSock.h>
 #include <Rpc.h>
 #include "openssl/sha.h"
+#include "openssl/hmac.h"
 #include "CWin32KeyChain.h"
 
 #include "assert.h"
@@ -959,6 +960,19 @@ CWin32Platform::sha512(const char * string, char * buf, int maxlen)
 		ptr += strlen(ptr);
 	}
 	return strlen(buf);
+}
+
+int
+CWin32Platform::HMAC_SHA1(const char* content, const char* key, char* retbuf)
+{
+	u8* hash = HMAC(EVP_sha1(), key, strlen(key), (const unsigned char*)content, strlen(content), NULL, NULL);
+	char* ptr = retbuf;
+	for (int i = 0; i < 20; i++)
+	{
+		sprintf(ptr, "%02x", hash[i]);
+		ptr += strlen(ptr);
+	}
+	return strlen(retbuf);
 }
 
 bool
