@@ -41,8 +41,42 @@ endif
 LOCAL_LDLIBS    += -lfreetype2
 
 # all directories contain .h files is regarded as include dir
-LOCAL_C_INCLUDES :=	$(ANDROID_NDK_ROOT)/platforms/android-9/arch-$(TARGET_ARCH)/usr/include/
-LOCAL_C_INCLUDES +=	$(shell find ./jni -regex '.*\.h$$' | sed 's/\/[^\/]*$$//' | sort | uniq)
+LOCAL_C_INCLUDES :=	$(ANDROID_NDK_ROOT)/sysroot/usr/include/
+#LOCAL_C_INCLUDES +=	$(shell find ./jni -regex '.*\.h$$' | sed "s/\/[^\/]*$$//" | sort | uniq)
+LOCAL_C_INCLUDES +=	./jni/Android
+LOCAL_C_INCLUDES +=	./jni/include
+LOCAL_C_INCLUDES +=	./jni/libs/curl-7.29.0/include/include/curl
+LOCAL_C_INCLUDES +=	./jni/libs/JSonParser
+LOCAL_C_INCLUDES +=	./jni/libs/JSonParser/api
+LOCAL_C_INCLUDES +=	./jni/libs/libfreetype2/include
+LOCAL_C_INCLUDES +=	./jni/libs/libfreetype2/include/freetype
+LOCAL_C_INCLUDES +=	./jni/libs/libfreetype2/include/freetype/config
+LOCAL_C_INCLUDES +=	./jni/libs/libfreetype2/include/freetype/internal
+LOCAL_C_INCLUDES +=	./jni/libs/libfreetype2/include/freetype/internal/services
+LOCAL_C_INCLUDES +=	./jni/libs/lua
+LOCAL_C_INCLUDES +=	./jni/libs/minizip
+LOCAL_C_INCLUDES +=	./jni/libs/mono/jit
+LOCAL_C_INCLUDES +=	./jni/libs/mono/metadata
+LOCAL_C_INCLUDES +=	./jni/libs/mono/utils
+LOCAL_C_INCLUDES +=	./jni/libs/sha1
+LOCAL_C_INCLUDES +=	./jni/libs/SQLite
+LOCAL_C_INCLUDES +=	./jni/libs/Tremolo
+LOCAL_C_INCLUDES +=	./jni/libs/utf8_converter
+LOCAL_C_INCLUDES +=	./jni/proxy
+LOCAL_C_INCLUDES +=	./jni/source/Animation
+LOCAL_C_INCLUDES +=	./jni/source/Assets
+LOCAL_C_INCLUDES +=	./jni/source/Core
+LOCAL_C_INCLUDES +=	./jni/source/Core/HonokaMiku
+LOCAL_C_INCLUDES +=	./jni/source/Database
+LOCAL_C_INCLUDES +=	./jni/source/HTTP
+LOCAL_C_INCLUDES +=	./jni/source/include
+LOCAL_C_INCLUDES +=	./jni/source/LuaLib
+LOCAL_C_INCLUDES +=	./jni/source/Rendering
+LOCAL_C_INCLUDES +=	./jni/source/SceneGraph
+LOCAL_C_INCLUDES +=	./jni/source/Scripting
+LOCAL_C_INCLUDES +=	./jni/source/Sound
+LOCAL_C_INCLUDES +=	./jni/source/SystemTask
+LOCAL_C_INCLUDES +=	./jni/source/UISystem
 
 # all *.c/*.cpp files under src dirs are listed for building
 SRC_DIRS    := ./jni/include
