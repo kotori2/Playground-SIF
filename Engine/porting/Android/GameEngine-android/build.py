@@ -96,6 +96,9 @@ class PlaygroundBuilder:
             self.rmtree('./jni')
             self.rmtree('./src')
 
+        if not path.isdir('../../../../%s' % project):
+            print(bcolors.WARNING + "No project %s found in %s" % (project, path.abspath(__file__ + "../../../../../../%s"%project)))
+            sys.exit(1)
 
         self.makedirs('./jni')
         self.copytree('../jni/Android', './jni/')
@@ -145,6 +148,7 @@ class PlaygroundBuilder:
         self.rmfile('./jni/source/UnitSystem/CKLBUnitDefinitionServer.cpp')
         self.rmfile('./jni/source/Core/OSSencryptFile.cpp')
         self.rmfile('./jni/source/HTTP/CKLBNetAPIBasic.cpp')
+        self.rmfile('./jni/source/include/unistd.h')
         self.rmfile('./jni/UserTask/game/framework.cpp')
         self.rmfile('./jni/UserTask/game/framework.h')
         self.rmfile('./jni/UserTask/game/out.cpp')
@@ -207,7 +211,7 @@ class bcolors:
         self.OKBLUE = ''
         self.OKGREEN = ''
         self.WARNING = ''
-        self.FAIL = ''
+        self.NOTICE = ''
         self.ENDC = ''
 
 if __name__ == "__main__":

@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     
-    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="17" />
+    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="29" />
 
     <application
         android:icon="@drawable/ic_launcher"

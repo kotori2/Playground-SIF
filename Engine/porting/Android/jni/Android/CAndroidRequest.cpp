@@ -1103,7 +1103,7 @@ CAndroidRequest::callJavaMethod(jvalue& ret, const char * method, const char ret
 		strcpy(wp, "Ljava/lang/String;");
 		methodID = env->GetStaticMethodID(cls_pfif, method, signature);
 		//DEBUG_PRINT("static methodID:%d", methodID);
-		if( methodID > 0 ) {
+		if( methodID != NULL ) {
 			ret.l = env->CallStaticObjectMethodA(cls_pfif, methodID, arrArgs);
 			break;
 		}
@@ -1111,7 +1111,7 @@ CAndroidRequest::callJavaMethod(jvalue& ret, const char * method, const char ret
 		// staticMethodから見つからなかった場合はstaticではないMethodから検索
 		methodID = env->GetMethodID(cls_pfif, method, signature);
 		//DEBUG_PRINT("public methodID:%d", methodID);
-		if( methodID > 0 ) {
+		if( methodID != NULL ) {
 			ret.l = env->CallObjectMethodA(cls_pfif, methodID, arrArgs);
 			break;
 		}

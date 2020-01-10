@@ -66,7 +66,7 @@ LOCAL_C_INCLUDES +=	./jni/proxy
 LOCAL_C_INCLUDES +=	./jni/source/Animation
 LOCAL_C_INCLUDES +=	./jni/source/Assets
 LOCAL_C_INCLUDES +=	./jni/source/Core
-LOCAL_C_INCLUDES +=	./jni/source/Core/HonokaMiku
+#LOCAL_C_INCLUDES +=	./jni/source/Core/HonokaMiku
 LOCAL_C_INCLUDES +=	./jni/source/Database
 LOCAL_C_INCLUDES +=	./jni/source/HTTP
 LOCAL_C_INCLUDES +=	./jni/source/include
@@ -82,10 +82,10 @@ LOCAL_C_INCLUDES +=	./jni/source/UISystem
 SRC_DIRS    := ./jni/include
 SRC_DIRS    += ./jni/libs
 SRC_DIRS    += ./jni/source
-SRC_DIRS    += ./jni/custom
+#SRC_DIRS    += ./jni/custom
 SRC_DIRS    += ./jni/Android
 SRC_DIRS    += ./jni/UserTask 
-SRC_FILES   :=	$(shell find $(SRC_DIRS) -name "*.c" -or -name "*.cpp")
+SRC_FILES   :=	$(shell find $(SRC_DIRS) -name "*.c" -or -name "*.cpp" -or -name "*.cc")
 
 LOCAL_SRC_FILES	:=	$(subst ./jni/,,$(SRC_FILES))
 
@@ -93,9 +93,10 @@ ENGINE_GITHASH  := $(shell git log --pretty=format:%h -1)
 # force refresh engine hash
 $(shell touch ./jni/Android/KLBPlatformMetrics.cpp)
 
-LOCAL_CFLAGS    := -DDEBUG -DLUA_ANSI -DIOAPI_NO_64 $(DEBUG_FLAGS) -DENGINE_GITHASH='"$(ENGINE_GITHASH)"'
+LOCAL_CFLAGS    := -DDEBUG -DLUA_ANSI -DIOAPI_NO_64 $(DEBUG_FLAGS) -DENGINE_GITHASH='"$(ENGINE_GITHASH)"' -DSQLITE_THREADSAFE=1 $(SQLITE_ENABLE_COLUMN_METADATA)
 LOCAL_CPPFLAGS  := -fexceptions -fno-rtti
 LOCAL_MODULE    := libGame
+LOCAL_DISABLE_FATAL_LINKER_WARNINGS := true
 
 ifeq ($(TARGET_ARCH),arm)
 # notice: these assembly files (*.s) generate compile-time warnings under Clang but they are harmless.
