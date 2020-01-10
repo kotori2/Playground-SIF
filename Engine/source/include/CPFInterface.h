@@ -637,6 +637,8 @@ public:
 	virtual void	startAlertDialog( const char* title , const char* message ) = 0;
 
 	virtual void	forbidSleep		(bool is_forbidden) = 0;
+
+	virtual int		HMAC_SHA1		(const char* string, const char* key, char* retbuf) = 0;
 };
 
 #ifdef DEBUG

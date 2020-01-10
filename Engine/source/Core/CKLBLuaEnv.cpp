@@ -292,7 +292,6 @@ CKLBLuaEnv::command(lua_State *L)
     CLuaState lua(L);
     CKLBLuaEnv& env = CKLBLuaEnv::getInstance();
     int argc = lua.numArgs();
-
     if(1 > argc) {
         env.errMsg("Target TASK not given to sysCommand() function.");
         return 0;
@@ -300,6 +299,9 @@ CKLBLuaEnv::command(lua_State *L)
     CKLBLuaTask * pTask = (CKLBLuaTask *)lua.getPointer(1);
     if(!pTask) return 0;
 	CHECKTASK(pTask);
+	if (lua.isNil(2)) {
+		klb_assertAlways("command const is not defined");
+	}
 
 #ifdef INTERNAL_BENCH
 	s64 startCommand = CPFInterface::getInstance().platform().nanotime();

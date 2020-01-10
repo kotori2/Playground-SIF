@@ -30,6 +30,7 @@
 
 // Net Task
 #include "CKLBStoreService.h"
+#include "CKLBNetAPI.h"
 
 // UI Task
 #include "CKLBUIActivityIndicator.h"
@@ -77,6 +78,7 @@ bool EngineTaskReference()
 	bResult = bResult && getFactoryFunc<CKLBAsyncFilecopy>();
 
 	// Net Task
+	bResult = bResult && getFactoryFunc<CKLBNetAPI>();
 	bResult = bResult && getFactoryFunc<CKLBStoreService>();
 	bResult = bResult && getFactoryFunc<CKLBUpdate>();
 	bResult = bResult && getFactoryFunc<CKLBUpdateZip>();

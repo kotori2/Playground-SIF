@@ -1787,9 +1787,6 @@
     <ClCompile Include="EngineStdReferenceOSS.cpp">
       <Filter>boot</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\HTTP\CKLBNetAPI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\Core\HonokaMiku\CN_Decrypter.cc">
       <Filter>Source Files\Core\HonokaMiku</Filter>
     </ClCompile>
@@ -1816,6 +1813,9 @@
     </ClCompile>
     <ClCompile Include="assert.c">
       <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\HTTP\CKLBNetAPI.cpp">
+      <Filter>Source Files\Network\Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

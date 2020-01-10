@@ -22,6 +22,7 @@
 #define CKLBNetAPIKeyChain_h
 
 #include "CKLBUtility.h"
+#include <ctime>
 
 /*!
 * \class CKLBNetAPIKeyChain
@@ -37,6 +38,17 @@ private:
 public:
     static CKLBNetAPIKeyChain& getInstance();
 	void release();
+
+	inline const char* setUrl(const char* url) {
+		KLBDELETEA(m_url);
+		if (url) {
+			m_url = CKLBUtility::copyString(url);
+		}
+		else {
+			m_url = NULL;
+		}
+		return m_url;
+	}
 
     inline const char * setToken(const char * token) {
         KLBDELETEA(m_token);
@@ -97,13 +109,50 @@ public:
 		}
 		return m_userID;
 	}
+
+	inline const char * setLoginKey(const char * loginKey) {
+		KLBDELETEA(m_loginKey);
+		if (loginKey) {
+			m_loginKey = CKLBUtility::copyString(loginKey);
+		}
+		else {
+			m_loginKey = NULL;
+		}
+		return m_loginKey;
+	}
+
+	inline const char* setLoginPwd(const char* loginPwd) {
+		KLBDELETEA(m_loginPwd);
+		if (loginPwd) {
+			m_loginPwd = CKLBUtility::copyString(loginPwd);
+		}
+		else {
+			m_loginPwd = NULL;
+		}
+		return m_loginPwd;
+	}
+
+	inline const char* setSessionKey(const char* sessionKey) {
+		KLBDELETEA(m_sessionKey);
+		if (sessionKey) {
+			m_sessionKey = CKLBUtility::copyString(sessionKey);
+		}
+		else {
+			m_sessionKey = NULL;
+		}
+		return m_sessionKey;
+	}
     
-    inline const char * getToken		() const { return m_token;	}
-    inline const char * getRegion		() const { return m_region; }
-    inline const char * getClient		() const { return m_client; }
-    inline const char * getConsumerKey	() const { return m_cKey;	}
-    inline const char * getAppID		() const { return m_appID;	}
-	inline const char * getUserID		() const { return m_userID; }
+	inline const char * getUrl			() const { return m_url;		}
+    inline const char * getToken		() const { return m_token;		}
+    inline const char * getRegion		() const { return m_region;		}
+    inline const char * getClient		() const { return m_client;		}
+    inline const char * getConsumerKey	() const { return m_cKey;		}
+    inline const char * getAppID		() const { return m_appID;		}
+	inline const char * getUserID		() const { return m_userID;		}
+	inline const char * getLoginKey		() const { return m_loginKey;	}
+	inline const char * getLoginPwd		() const { return m_loginPwd;	}
+	inline const char * getSessionKey	() const { return m_sessionKey; }
 
 	inline int genCmdNumID(char * retBuf, const char * body, time_t timeStamp, int serial) {
 		sprintf(retBuf, "%s-%s.%d.%d",
@@ -113,13 +162,25 @@ public:
 		return len;
 	}
 
+	inline char* getAuthorizeString(int nonce) {
+		char* authorize = KLBNEWA(char, 256);
+		if (m_token) 
+			sprintf(authorize, "consumerKey=%s&timeStamp=%d&version=1.1&token=%s&nonce=%d", m_cKey, int(time(NULL)), m_token, nonce);
+		else 
+			sprintf(authorize, "consumerKey=%s&timeStamp=%d&version=1.1&nonce=%d", m_cKey, int(time(NULL)), nonce);
+		return authorize;
+	}
 private:
+	const char		*	m_url;		// server API url
     const char      *   m_token;    // Authorized Token
     const char      *   m_region;   // region
     const char      *   m_client;   // client version
     const char      *   m_cKey;     // consumerKey
     const char      *   m_appID;    // Application ID
 	const char		*	m_userID;	// User-ID
+	const char		*	m_loginKey; // login_key
+	const char		*	m_loginPwd;	// login_passwd
+	const char		*	m_sessionKey; // bla bla bla
 };
 
 #endif
