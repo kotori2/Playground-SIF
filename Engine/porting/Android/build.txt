@@ -1,0 +1,5 @@
+build instructions
+
+1. pip install colorama
+2. install GNUWin32(coreutils, findutils, sed) if you are using windows. And rename find.exe in C:/Windows/System32 to sth else
+3. execute python .\build.py -p lovelive -r in GameEngine-android
