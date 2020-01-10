@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Projects\WorldTest\CWorldTask.h" />
+    <ClInclude Include="..\..\include\base64.h" />
     <ClInclude Include="..\..\include\BaseType.h" />
     <ClInclude Include="..\..\include\FileSystem.h" />
     <ClInclude Include="..\..\include\ITmpFile.h" />

@@ -81,7 +81,6 @@ private:
 	u32						m_timestart;
 	u32						m_http_header_length;
 	u32						m_nonce;
-	u32						m_failTimes;
 	u32						m_lastCommand;
 	bool					m_canceled;	// セッションがキャンセルされると true になる
 	CKLBJsonItem*			m_pRoot;
