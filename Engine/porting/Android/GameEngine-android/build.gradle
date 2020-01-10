@@ -1,20 +1,22 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.6.+'
+        classpath 'com.android.tools.build:gradle:3.4.2'
     }
 }
-apply plugin: 'android'
+
+apply plugin: 'com.android.application'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "18.1.0"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
 
     sourceSets {
         main {
@@ -25,10 +27,11 @@ android {
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
+            jniLibs.srcDir 'libs'
         }
 
         // Move the tests to tests/java, tests/res, etc...
-        instrumentTest.setRoot('tests')
+        androidTest.setRoot('tests')
 
         // Move the build types to build-types/<type>
         // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
@@ -67,12 +70,8 @@ android {
     }
 
     if(new File(projectDir, "jni").exists()){
-        tasks.withType(Compile) {
+        tasks.withType(JavaCompile) {
             compileTask -> compileTask.dependsOn ndkBuild
-        }
-
-        tasks.withType(com.android.build.gradle.tasks.PackageApplication) {
-            pkgTask -> pkgTask.jniDir new File(projectDir, 'libs')
         }
 
         clean.dependsOn 'ndkClean'
@@ -91,8 +90,4 @@ if (project.hasProperty('keyAlias')) {
 }
 if (project.hasProperty('keyPassword')) {
     android.signingConfigs.release.keyPassword = keyPassword
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.8'
 }
