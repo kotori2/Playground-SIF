@@ -180,6 +180,17 @@ size_t CKLBHTTPInterface::headerReceive_func( void *ptr, size_t size, size_t nme
 		}
 	}
 
+	if (strncmpi("Client-Update:", data, 14/*Client-Update: 1*/) == 0) {
+		data += 14;
+		while ((*data != '\r') && (*data != '\n') && (*data != 0)) {
+			if (*data == '1') {
+				((CKLBHTTPInterface*)userdata)->m_update = true;
+				break;
+			}
+			data++;
+		}
+	}
+
 	if (strncmpi("Status: ",data, 8/*Status: */)==0) {
 		int code = 0;
 		while ((*data >= '0') && (*data <= '9')) {
@@ -324,6 +335,7 @@ CKLBHTTPInterface::CKLBHTTPInterface()
 , m_postForm        (NULL)
 , m_pServerVersion  (NULL)
 , m_maintenance     (false)
+, m_update			(false)
 , m_threadStop      (0)
 , m_stopThread      (false)
 , m_tmpErrorCode    (-1)
@@ -459,6 +471,7 @@ void CKLBHTTPInterface::init() {
 	m_postForm          = NULL;
 	m_pServerVersion    = NULL;
 	m_maintenance       = false;
+	m_update			= false;
 	m_threadStop        = 0;
 	m_stopThread        = false;
 }

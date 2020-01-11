@@ -46,7 +46,7 @@ public:
     void execScript			(int deltaT);
 
 	bool sysLoad			(const char * script_name);
-	bool intoMaintenance	();
+	bool intoMaintenance	(bool clientUpdate = false);
 	bool exitMaintenance	();
 
     void errMsg				(const char * str);

@@ -15,6 +15,7 @@
 */
 #include "CKLBLuaLibASSET.h"
 #include "CKLBUtility.h"
+#include <dirent.h>
 
 static ILuaFuncLib::DEFCONST luaConst[] = {
 //	{ "DBG_M_SWITCH",	DBG_MENU::M_SWITCH },
@@ -247,8 +248,35 @@ s32
 CKLBLuaLibASSET::luaGetFileList(lua_State* L)
 {
 	CLuaState lua(L);
-	klb_assertAlways("Not implemented");
+	IPlatformRequest& platform = CPFInterface::getInstance().platform();
+	const char* path = platform.getFullPath(lua.getString(1));
+
+	DIR* dir;
+	struct dirent* ent;
+	int i = 0;
+	// create parent table
+	lua.tableNew();
+
+	if (dir = opendir(path)) {
+		while (ent = readdir(dir)) {
+			if (strcmp(ent->d_name, ".") && strcmp(ent->d_name, "..")) {
+				// store index in table
+				lua.retInt(i++);
+
+				// create sub table
+				lua.tableNew();
+				lua.retString("name");
+				lua.retString(ent->d_name);
+				// set sub table
+				lua.tableSet();
+				// set parent table
+				lua.tableSet();
+			}
+		}
+		closedir(dir);
+	}
 	
+	delete[] path;
 	return 1;
 }
 

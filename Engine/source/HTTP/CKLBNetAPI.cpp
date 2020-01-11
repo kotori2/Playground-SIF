@@ -126,12 +126,24 @@ CKLBNetAPI::execute(u32 deltaT)
 		// Get Status Code
 		int state = m_http->getHttpState();
 		bool invalid = ((state >= 400) && (state <= 599)) || (state == 204);
-		int msg = invalid == false ? NETAPIMSG_REQUEST_SUCCESS : NETAPIMSG_SERVER_ERROR;
+		int msg = invalid == false ? NETAPIMSG_REQUEST_SUCCESS : mapFail();
+		if (m_skipVersionCheck == false && invalid == false && m_lastCommand == NETAPI_SEND) {
+			const char* server_ver[2];
+			if (m_http->hasHeader("Server-Version", server_ver))
+			{
+				if (strncmp(*server_ver, kc.getClient(), strlen(kc.getClient())))
+				{
+					releaseConnection();
+					CKLBScriptEnv::getInstance().call_netAPI_versionUp(m_verup_callback, this, kc.getClient(), *server_ver);
+					return;
+				}
+			}
+		}
 
-		if (m_http->isMaintenance()) {
-			// server under maintenance
+		if (m_http->isMaintenance() || m_http->isOutdated()) {
+			// enter into maintenance mode
+			CKLBLuaEnv::getInstance().intoMaintenance(m_http->isOutdated());
 			releaseConnection();
-			CKLBLuaEnv::getInstance().intoMaintenance();
 			return;
 		}
 
@@ -140,8 +152,11 @@ CKLBNetAPI::execute(u32 deltaT)
 		// 
 		freeJSonResult();
 		if (bodyLen > 0) m_pRoot = getJsonTree((const char*)body, bodyLen);
+
+		// Release connection
+		releaseConnection();
 		if (m_pRoot == NULL) {
-			lua_callback(NETAPIMSG_SERVER_ERROR, state, NULL, m_nonce);
+			lua_callback(msg, state, NULL, m_nonce);
 			return;
 		}
 
@@ -151,33 +166,16 @@ CKLBNetAPI::execute(u32 deltaT)
 				authKey();
 			}
 			if (m_lastCommand == NETAPI_STARTUP) {
-				releaseConnection();
 				return startUp(state);
 			}
 				
 			if (m_lastCommand == NETAPI_LOGIN) {
-				releaseConnection();
 				return login(state);
 			}
 				
-
-			if (m_skipVersionCheck == false) {
-				const char* server_ver[2];
-				if (m_http->hasHeader("Server-Version", server_ver))
-				{
-					if (strncmp(*server_ver, kc.getClient(), strlen(kc.getClient())))
-					{
-						releaseConnection();
-						CKLBScriptEnv::getInstance().call_netAPI_versionUp(m_verup_callback, this, kc.getClient(), *server_ver);
-						return;
-					}
-				}
-			}
-
 			lua_callback(msg, state, m_pRoot, m_nonce - 1);
 			return;
 		}
-
 		lua_callback(msg, state, m_pRoot, m_nonce);
 		return;
 	}
@@ -226,6 +224,19 @@ CKLBNetAPI::freeHeader() {
 		}
 		KLBDELETEA(m_http_header_array);
 		m_http_header_array = NULL;
+	}
+}
+int
+CKLBNetAPI::mapFail() {
+	switch (m_lastCommand) {
+	case NETAPI_STARTUP:
+		return NETAPIMSG_STARTUP_FAILED;
+	case NETAPI_LOGIN:
+		return NETAPIMSG_LOGIN_FAILED;
+	case NETAPI_SEND:
+		return NETAPIMSG_REQUEST_FAILED;
+	default:
+		return NETAPIMSG_SERVER_ERROR;
 	}
 }
 
@@ -334,7 +345,7 @@ CKLBNetAPI::authKey()
 		unsigned char* unbasedToken = unbase64(dummyToken, strlen(dummyToken), &len);
 
 		const char* clientKey = kc.getClientKey();
-		char sessionKey[33]; // + 1 because of null terminator
+		char sessionKey[33] = ""; // + 1 because of null terminator
 		for (int i = 0; i < 32; i++) {
 			sessionKey[i] = unbasedToken[i] ^ clientKey[i];
 		}
@@ -441,22 +452,24 @@ CKLBNetAPI::startUp(int status)
 		sprintf(URL, "%s/login/startUp", kc.getUrl());
 		m_http->httpPOST(URL, false);
 		m_timestart = 0;
+		m_handle = NETAPIHDL_STARTUP_RESPONSE;
 
 		free(loginKeyB);
 		free(loginPwdB);
 		break;
 	}
 	case NETAPIHDL_STARTUP_RESPONSE: {
+		kc.setToken(NULL);
 		m_nonce = 1;
-		m_handle = -1;
-		lua_callback(NETAPIMSG_STARTUP_SUCCESS, status, m_pRoot, m_nonce);
+		m_handle = 0;
+		lua_callback(NETAPIMSG_STARTUP_SUCCESS, status, m_pRoot, 0);
 	}
 	}
 	
 }
 
 void
-CKLBNetAPI::setHeaders(const char* data)
+CKLBNetAPI::setHeaders(const char* data, const char* key)
 {
 	CPFInterface& pfif = CPFInterface::getInstance();
 	CKLBNetAPIKeyChain& kc = CKLBNetAPIKeyChain::getInstance();
@@ -482,7 +495,10 @@ CKLBNetAPI::setHeaders(const char* data)
 
 	if (data != NULL) {
 		char temp[41];
-		pfif.platform().HMAC_SHA1(data + 13, kc.getSessionKey(), temp);
+		char* signKey = (char*)key;
+		if (signKey == NULL)
+			signKey = (char*)kc.getSessionKey();
+		pfif.platform().HMAC_SHA1(data + 13, signKey, temp);
 		sprintf(xmc, "X-Message-Code: %s", temp);
 	}
 
@@ -636,12 +652,13 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 			//	7. Skip version check?
 			lua.printStack();
 			if(argc < 3 || argc > 9) {
-				DEBUG_PRINT("Too more or not enough args");
+				klb_assertAlways("Too more or not enough args");
 				lua.retBoolean(false);
 			}
 			else
 			if (m_http) {
 				// Connection is still busy,you can not send
+				klb_assertAlways("trying to use connection while it busy");
 				lua.retBoolean(false);
 			}
 			else {
@@ -650,7 +667,10 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 				const char* endPoint = "/api";
 				if(!lua.isNil(4)) endPoint = lua.getString(4);
 				sprintf(URL, "%s%s", kc.getUrl(), endPoint);
+
 				m_skipVersionCheck = lua.getBoolean(7);
+				const char* specialKey = NULL;
+				if (lua.isString(9)) specialKey = lua.getString(9);
 
 				// JSON payload (method POST)
 				freeHeader();
@@ -677,7 +697,7 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 						items[0] = json;
 						items[1] = NULL;
 
-						setHeaders(json);
+						setHeaders(json, specialKey);
 						m_http->setForm(items);
 						m_http->httpPOST(URL, false);
 
