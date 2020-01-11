@@ -28,6 +28,10 @@
 //// 指定しそうなデフォルト値をコメントアウトして書いておく。
 #define DEFAULT_REGION "392"    // 日本
 
+//non-windows
+#ifndef MAX_PATH
+#  define MAX_PATH                      (260)
+#endif
 
 enum {
 	// メッセージ値定義

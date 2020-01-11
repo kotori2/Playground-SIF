@@ -57,6 +57,11 @@
 typedef __builtin_va_list va_list;
 #endif
 
+struct JNIBytesArray {
+	char* buf;
+	int len;
+};
+
 CAndroidRequest * CAndroidRequest::ms_instance = 0;
 
 CAndroidRequest::CAndroidRequest(const char* model, const char * brand, const char * board, const char * version, const char * tz)
@@ -1047,6 +1052,23 @@ CAndroidRequest::callJavaMethod(jvalue& ret, const char * method, const char ret
 				jstrs.push_back(jstr);
 				break;
 			}
+			case '[': //array
+				switch(*(++ptr)){
+					case 'B':
+						/*JNIBytesArray data = va_arg(ap, const char *);
+						jbyte *bytesArray = (jbyte*)data.buf;
+						jbyteArray param = (*env)->NewByteArray(env, data.len);
+						(*env)->SetByteArrayRegin(env, param, 0, data.len, bytesArray);
+						env->SetByteArrayRegin(param, 0, nOutSize, by);*/
+						DEBUG_PRINT("Type of Bytes array called. Ignore.");
+						break;
+					default:{
+						klb_assertAlways("wrong JNI signature. unknown type: [%c", *ptr);
+						break;
+					}
+				}
+				
+
 			default:
 			{
 				klb_assertAlways("wrong JNI signature. unknown type: %c", *ptr);
@@ -1678,6 +1700,37 @@ CAndroidRequest::icreateEmptyFile(const char* name)
 		return true;
 	}
 	return false;
+}
+
+int
+CAndroidRequest::HMAC_SHA1(const char* string, const char* key, char* retbuf) 
+{
+	retbuf[0] = 'a';
+	retbuf[1] = 'a';
+	return 0;
+}
+
+int
+CAndroidRequest::encryptAES128CBC(const char* plaintext, const char* key, const char* iv, unsigned char* out) 
+{
+	jvalue ret;
+    CAndroidRequest::getInstance()->callJavaMethod(ret, "encryptAES128CBC", 'I', "[B[B[B", plaintext, key, out); //TODO: IV
+	return (int)ret.i;
+}
+
+const char* RSAPublicKey = "-----BEGIN PUBLIC KEY-----"
+"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBpUMUVjHWNI5q3ZRjF1vPnh+m"
+"aEGdbZkeosVvzLytBy9eYJ9qLYyFXxOY1LiggWyOLS+xEVMpV3A6frI3VewkVuCw"
+"na52ssCZcQSBA03Ykeb/cfHk5ChsDUP1vmAbloMb9f++Dow6Z4yubFWmBVMCHA6l"
+"fiUDPHjI8JqG56XJKQIDAQAB"
+"-----END PUBLIC KEY-----";
+
+int
+CAndroidRequest::publicKeyEncrypt(unsigned char* plaintext, int plantextLen, unsigned char* out) 
+{
+	jvalue ret;
+    CAndroidRequest::getInstance()->callJavaMethod(ret, "publicKeyEncrypt", 'I', "[B[B[B", plaintext, RSAPublicKey, out);
+	return (int)ret.i;
 }
 
 };

@@ -30,6 +30,7 @@ import android.graphics.Paint;
 import android.graphics.Canvas;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.webkit.WebView;
@@ -39,6 +40,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
 import java.lang.String;
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -49,10 +57,16 @@ import java.io.UnsupportedEncodingException;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
+
 public class PFInterface {
 	public static int MOVIE_FINISHED = 1;
-	
-	// エターナルスタティックファイナル ------- 順番を間違えると相手は死ぬ 
+
+	// エターナルスタティックファイナル ------- 順番を間違えると相手は死ぬ
 	public static final int E_STORE_BAD_ITEMID = 0;         // アイテムIDが無効
 	public static final int E_STORE_GET_PRODUCTS = 1; // ProductListの取得.
 	public static final int E_STORE_PURCHASHING = 2;        // 購入処理中
@@ -69,31 +83,35 @@ public class PFInterface {
     public static final int E_INPUT_TYPE_RELEASE = 2; //!< リリース動作(離す)
     public static final int E_INPUT_TYPE_CANCEL  = 3; //!< Cancel event
 
+	// RSA
+	private static SecureRandom rnd;
+	private static Cipher cipher;
+
 	public enum WEBVIEW_STATUS {
 		E_DIDSTARTLOADWEB(0),
 		E_DIDLOADENDWEB(1),
 		E_FAILEDLOADWEB(2),
 		E_URLJUMP(3);
-		
+
 		private int m_num;
 		private WEBVIEW_STATUS(int _num) {
 			m_num = _num;
 		}
-		
+
 		public int GetNum() { return m_num; }
 	}
-	
+
 	public class DeviceKeyMap {
 		public static final int BACK = 0x00000001;
 		public static final int MENU = 0x00000002;
 	}
-	
+
 	public class DeviceKeyEvent {
 		public static final char PRESS = 0x01;
 		public static final char RELEASE = 0x02;
 		public static final char CLICK = 0x03;
 	}
-	
+
 	// Java の Singleton 流儀。
 	private static PFInterface instance = new PFInterface();	// インスタンス実体はこのメンバ
 	private static String m_path_external = null;
@@ -116,7 +134,7 @@ public class PFInterface {
 
 	private WebViewItem[] m_webList = new WebViewItem [ MAX_WEB_VIEW ];		// WebView の配列
 	private int m_webListCount = -1;
-	
+
 	private MovieViewItem[] m_movieList = new MovieViewItem [ MAX_MOVIE_VIEW ];
 	private int m_movieListCount = -1;
 
@@ -132,23 +150,23 @@ public class PFInterface {
 	public static PFInterface getInstance() {
 		return instance;
 	}
-	
+
 	public void setSenderID(String senderId) {
 		m_senderId = senderId;
 	}
-	
+
 	public String getSenderID() {
 		return m_senderId;
 	}
-	
+
 	public void setRegistrationID(String regId) {
 		m_registrationId = regId;
 	}
-	
+
 	public String getRegistrationID() {
 		return m_registrationId;
 	}
-	
+
 	public String readyRegIDPublic() {
 		if(m_registrationId == null) m_context.queryRegID(m_senderId);
 		return m_registrationId;
@@ -159,18 +177,18 @@ public class PFInterface {
 		for(int i = 0; i < MAX_EDIT_TEXT; i++) m_textList[i] = null;
 		for(int i = 0; i < MAX_WEB_VIEW; i++) m_webList[i] = null;
 	}
-	
+
 	public void setBasePath(String path_install, String path_external) {
 		m_path_external = path_external;
 		m_path_install = path_install;
 	}
-	
-	// 
+
+	//
 	public static String readyRegID() {
 		String regist = getInstance().readyRegIDPublic();
 		return regist;
 	}
-	
+
 	//! UUIDを生成するメソッド。keychain機能で使用される。
 	public static String genUserID() {
 		String uuid = UUID.randomUUID().toString();
@@ -190,7 +208,7 @@ public class PFInterface {
 			throw new RuntimeException("No Such Algorithm: SHA512");
 		}
 	}
-	
+
 	//! keychain 機能 I/F (native から登録要求を受ける口)
 	public static boolean setKeyChain(String service_name, String key, String value) {
 		SharedPreferences pref = getInstance().m_context.getPreferences(Context.MODE_PRIVATE);
@@ -200,7 +218,7 @@ public class PFInterface {
 		e.commit();
 		return true;
 	}
-	
+
 	//! keychain 機能 I/F (native から取得要求を受ける口)
 	public static String getKeyChain(String service_name, String key) {
 		SharedPreferences pref = getInstance().m_context.getPreferences(Context.MODE_PRIVATE);
@@ -208,7 +226,7 @@ public class PFInterface {
 		String ret = pref.getString(pkey, "");
 		return ret;
 	}
-		
+
 	//! keychain 機能 I/F (native から取得要求を受ける口)
 	public static boolean delKeyChain(String service_name, String key) {
 		SharedPreferences pref = getInstance().m_context.getPreferences(Context.MODE_PRIVATE);
@@ -234,7 +252,7 @@ public class PFInterface {
 		ebox = null;
 		return -1;
 	}
-	
+
 	//! 指定された TextBox を破棄する
 	public static boolean textbox_destroy(int index) {
 		PFInterface pfif = PFInterface.getInstance();
@@ -242,7 +260,7 @@ public class PFInterface {
 		edit.m_remove = true;
 		return true;
 	}
-	
+
 	//! TextBoxに文字列を設定
 	public static boolean textbox_setText(int index, String text) {
 		final EditBoxItem control = PFInterface.getInstance().m_textList[index];
@@ -259,7 +277,7 @@ public class PFInterface {
 		});
 		return true;
 	}
-	
+
 	//! TextBoxから文字列を取得
 	public static String textbox_getText(int index) {
 		EditBoxItem control = PFInterface.getInstance().m_textList[index];
@@ -278,24 +296,24 @@ public class PFInterface {
 		edit.setVisible(visible);
 		edit.setEnable(enable);
 	}
-	
+
 	//
 	public static void textbox_setpaint(int index, Paint paint)
 	{
 		PFInterface pfif = PFInterface.getInstance();
 		EditBoxItem edit = pfif.m_textList[index];
 		if(edit == null) return;
-		
+
 		edit.setPaint(paint);
 	}
-	
-	// 
+
+	//
 	public static void textbox_sethint(int index, String hint)
 	{
 		PFInterface pfif = PFInterface.getInstance();
 		EditBoxItem edit = pfif.m_textList[index];
 		if(edit == null) return;
-		
+
 		edit.setHint(hint);
 	}
 
@@ -334,10 +352,10 @@ public class PFInterface {
 
 	//! WebViewの生成
 	public static int webview_create(int x, int y, int width, int height,
-									String defURL, 
+									String defURL,
 									String token, String region, String client, String consumerKey,
 									String applicationId, String userId, boolean nojump) {
-		
+
 		PFInterface pfif = PFInterface.getInstance();
 		GameEngineActivity context = pfif.m_context;
 		WebViewItem web = new WebViewItem(context, defURL, x, y, width, height,
@@ -376,7 +394,7 @@ public class PFInterface {
 		});
 		return true;
 	}
-	
+
 	//! WebViewからWebViewItemを取得
 	public static int webview_getWebViewItem(WebView _webView) {
 		PFInterface pfif = PFInterface.getInstance();
@@ -388,7 +406,7 @@ public class PFInterface {
 		}
 		return -1;
 	}
-	
+
 	//! WebViewの拡大縮小設定
 	public static void webview_setZoom(int _index, boolean _flg)
 	{
@@ -396,15 +414,15 @@ public class PFInterface {
 		if(control == null) return;
 		control.setZoom(_flg);
 	}
-	
+
 	//! WebViewの背景色を設定
-	public static void webview_setColor(int _index, int _alpha, int _col) 
+	public static void webview_setColor(int _index, int _alpha, int _col)
 	{
 		WebViewItem control = PFInterface.getInstance().m_webList[_index];
 		if(control == null) return;
 		control.setColor(_alpha, _col);
 	}
-	
+
 	//! WebViewから文字列を取得
 	public static String webview_getText(int index) {
 		WebViewItem control = PFInterface.getInstance().m_webList[index];
@@ -412,7 +430,7 @@ public class PFInterface {
 		String text = control.getText();
 		return text;
 	}
-	
+
 	//! WebViewから文字列を取得
 	public static String webview_getTmpText(int index) {
 		WebViewItem control = PFInterface.getInstance().m_webList[index];
@@ -426,7 +444,7 @@ public class PFInterface {
 		PFInterface pfif = PFInterface.getInstance();
 		WebViewItem web = pfif.m_webList[index];
 		if(web != null) {
-			web.move(x, y, width, height);		
+			web.move(x, y, width, height);
 			web.setVisible(visible);
 			web.setEnable(enable);
 		}
@@ -434,7 +452,7 @@ public class PFInterface {
 
 	//! MovieViewの生成
 	public static int movieview_create(int x, int y, int width, int height, String defURL, boolean background) {
-		
+
 		PFInterface pfif = PFInterface.getInstance();
 		GameEngineActivity context = pfif.m_context;
 		for(int i = 0; i < pfif.MAX_MOVIE_VIEW; i++) {
@@ -470,7 +488,7 @@ public class PFInterface {
 		});
 		return true;
 	}
-	
+
 	//! MovieBoxから文字列を取得
 	public static String movieview_getText(int index) {
 		WebViewItem control = PFInterface.getInstance().m_webList[index];
@@ -484,20 +502,20 @@ public class PFInterface {
 		PFInterface pfif = PFInterface.getInstance();
 		MovieViewItem movie = pfif.m_movieList[index];
 		if(movie != null) {
-			movie.move(x, y, width, height);		
+			movie.move(x, y, width, height);
 		}
 	}
-	
+
 	//! MovieView に対するコマンド処理
 	public static void movieview_cmd(int index, int cmd) {
 		MovieViewItem movie = getInstance().m_movieList[index];
 		movie.cmd(cmd);
 	}
-		
+
 	//-------------------------------------------
 	//! Indicatorの生成
 	public static int indicator_create(int x, int y, int width, int height, boolean background) {
-		
+
 		PFInterface pfif = PFInterface.getInstance();
 		GameEngineActivity context = pfif.m_context;
 		if(pfif.m_indicator == null)
@@ -523,7 +541,7 @@ public class PFInterface {
 		return true;
 	}
 
-	
+
 	//! IndicatorにURLを設定
 	public static boolean indicator_setText(int index, String text) {
 		IndicatorItem indicator = getInstance().m_indicator;
@@ -531,7 +549,7 @@ public class PFInterface {
 //		indicator.setText(text);
 		return true;
 	}
-	
+
 	//! Indicatorから文字列を取得
 	public static String indicator_getText(int index) {
 		WebViewItem control = PFInterface.getInstance().m_webList[index];
@@ -545,10 +563,10 @@ public class PFInterface {
 		PFInterface pfif = PFInterface.getInstance();
 		IndicatorItem indicator = pfif.m_indicator;
 		if(indicator != null) {
-			indicator.move(x, y, width, height);		
+			indicator.move(x, y, width, height);
 		}
 	}
-	
+
 	//! Indicator に対するコマンド処理
 	public static void indicator_cmd(int index, int cmd) {
 		IndicatorItem indicator = getInstance().m_indicator;
@@ -611,7 +629,7 @@ public class PFInterface {
 			m_movieListCount = max;
 		}
 		// IndicatorView の更新を確認
- 
+
         if( m_indicator!=null )
         {
             if( m_indicator.remove() )
@@ -626,7 +644,7 @@ public class PFInterface {
         }
 
 	}
-	
+
 	//! renderText() で呼び出される、Java側でフォントテクスチャを生成するメソッド。
 	public static void drawText(Paint paint, int [] image, int color, int width, int height, float x, float y, String text) {
 		paint.setAntiAlias(true);
@@ -639,11 +657,11 @@ public class PFInterface {
 		//bitmap.getPixels(image, width * (height - 1), -width, 0, 0, width, height);
 		bitmap.getPixels(image, 0, width, 0, 0, width, height);
 	}
-	
+
 	public static long nanotime() {
 		return System.nanoTime();
 	}
-	
+
 	public boolean callInit(int width, int height, String path) {
 		m_width = width;
 		m_height = height;
@@ -658,7 +676,7 @@ public class PFInterface {
 		m_bexec = true;
 		return result;
 	}
-	
+
 	public void screenRotation(int origin) {
 		if(!m_bexec) return;
 		int width, height;
@@ -678,7 +696,7 @@ public class PFInterface {
 	public static String generateDeviceIdent() {
 		return Build.MANUFACTURER + "`" + Build.MODEL + "`" + ((int)(Math.random() * 16777216));
 	}
-	
+
 	public static void	billingInit()
 	{
 		BillingManager.init(getInstance().m_context);
@@ -688,7 +706,7 @@ public class PFInterface {
 	{
 		BillingManager.requestTerminate();
 	}
-	
+
 	public static void	billingConsume(String receipt)
 	{
 		BillingManager.getInstance(getInstance().m_context).requestConsume(receipt);
@@ -698,11 +716,11 @@ public class PFInterface {
 	{
 		Log.d("PFInterface", "json = " + jsonStr);
 		List<String> skuList = new ArrayList<String>();
-		
+
 		try {
 			JSONArray json = new JSONArray(jsonStr);
 			int len = json.length();
-			
+
 	        for(int i = 0; i < len; ++i) {
 	        	skuList.add(json.getString(i));
 	        	Log.d("PFInterface", "item = " + json.getString(i));
@@ -711,7 +729,7 @@ public class PFInterface {
 			Log.e("PFInterface", "illegal json string: " + jsonStr);
 			return;
 		}
-		
+
 		BillingManager.getInstance(getInstance().m_context).requestGetProducts(skuList);
 	}
 
@@ -720,7 +738,7 @@ public class PFInterface {
  	{
 		BillingManager.getInstance(getInstance().m_context).requestBuy(sku);
  	}
-    
+
     public boolean IsInstallEnd() {
 		GameEngineActivity context = getInstance().m_context;
 		return context.IsInstallEnd();
@@ -746,7 +764,7 @@ public class PFInterface {
     	GameEngineActivity context = getInstance().m_context;
     	context.startBrowser( url );
     }
-    
+
     public static int getVersionCode(){
         GameEngineActivity context = getInstance().m_context;
         PackageManager pm = context.getPackageManager();
@@ -774,13 +792,110 @@ public class PFInterface {
         }
         return versionName;
     }
-    
+
     public static void forbidSleep(boolean isForbidden) {
     	GameEngineActivity engineActivity = getInstance().m_context;
     	if (engineActivity != null) {
     		engineActivity.forbidSleep(isForbidden);
     	}
     }
+
+	public static RSAPublicKey getRsaPublicKey(byte[] bArr) {
+		try {
+			try {
+				try {
+					return (RSAPublicKey) KeyFactory.getInstance("RSA").generatePublic(
+							new X509EncodedKeySpec(
+									Base64.decode(
+											new String(bArr, "UTF-8")
+													.replace("-----BEGIN PUBLIC KEY-----\n", "")
+													.replace("-----END PUBLIC KEY-----", "")
+											, 0)
+							)
+					);
+				} catch (InvalidKeySpecException unused) {
+					return null;
+				}
+			} catch (UnsupportedEncodingException unused2) {
+				return null;
+			}
+		} catch (NoSuchAlgorithmException unused3) {
+			return null;
+		}
+	}
+
+
+	public static int publicKeyEncrypt(byte[] src, byte[] key, byte[] out) {
+		RSAPublicKey rsaPublicKey = getRsaPublicKey(key);
+		if (rsaPublicKey == null) {
+			return -1;
+		}
+		if (rnd == null) {
+			rnd = new SecureRandom();
+		}
+		if (cipher == null) {
+			try {
+				cipher = Cipher.getInstance("RSA/None/PKCS1Padding");
+			} catch (NoSuchAlgorithmException unused) {
+				return -1;
+			} catch (NoSuchPaddingException unused3) {
+				return -1;
+			}
+		}
+		try {
+			cipher.init(1, rsaPublicKey, rnd);
+			try {
+				byte[] doFinal = cipher.doFinal(src);
+				System.arraycopy(doFinal, 0, out, 0, doFinal.length);
+				return doFinal.length;
+			} catch (IllegalBlockSizeException unused4) {
+				return -1;
+			} catch (BadPaddingException unused5) {
+				return -1;
+			}
+		} catch (InvalidKeyException unused6) {
+			return -1;
+		}
+	}
+
+
+	public static int encryptAES128CBC(byte[] src, byte[] key, byte[] out) {
+		try {
+			SecretKeySpec secretKeySpec = new SecretKeySpec(key, 0, 16, "AES");
+			try {
+				Cipher cipherAES = Cipher.getInstance("AES/CBC/PKCS5Padding");
+				try {
+					cipherAES.init(1, secretKeySpec);
+					try {
+						byte[] doFinal = cipherAES.doFinal(src);
+						byte[] iv = cipherAES.getIV();
+						System.arraycopy(iv, 0, out, 0, iv.length);
+						System.arraycopy(doFinal, 0, out, iv.length, doFinal.length);
+						return iv.length + doFinal.length;
+					} catch (IllegalBlockSizeException unused) {
+						return -6;
+					} catch (BadPaddingException unused2) {
+						return -7;
+					} catch (IndexOutOfBoundsException unused3) {
+						return -8;
+					} catch (NullPointerException unused4) {
+						return -9;
+					}
+				} catch (InvalidKeyException unused5) {
+					return -5;
+				}
+			} catch (NoSuchAlgorithmException unused6) {
+				return -3;
+			} catch (NoSuchPaddingException unused7) {
+				return -4;
+			}
+		} catch (IllegalArgumentException unused8) {
+			return -1;
+		} catch (ArrayIndexOutOfBoundsException unused9) {
+			return -2;
+		}
+	}
+
 
 	public native boolean initSequence(int width, int height, String path,
 										String model, String brand, String board, String version, String tz);
