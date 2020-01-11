@@ -102,12 +102,14 @@ public:
 		E_STORE_PURCHASHING,        // 購入処理中
 		E_STORE_PURCHASHED,         // 購入処理終了
 		E_STORE_FAILED,             // 購入処理失敗
+		E_STORE_CANCELED,
 
 		E_STORE_RESTORE,            // リストア終了
 		E_STORE_RESTORE_FAILED,     // リストア失敗
 		E_STORE_RESTORE_COMPLETED,  // 全リストア終了
 
 		E_STORE_GET_PRODUCTS, // ProductListの取得.
+		E_STORE_GET_PRODUCTS_FAILED,
 
 		// サウンドステータス
 		E_SOUND_STATE_PLAY,             // サウンド再生中

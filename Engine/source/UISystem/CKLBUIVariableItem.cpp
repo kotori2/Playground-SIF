@@ -413,7 +413,9 @@ CKLBUIVariableItem::commandUI(CLuaState& lua, int argc, int cmd)
 	case UI_VARITEM_CHANGE_ASSET:
 		{
 			bool bResult = false;
-			if(argc == 3) {
+			if(argc == 4) {
+				// arg 4 is boolean
+				// TODO: understand what it do
 				const char * asset = (lua.isNil(3)) ? NULL : lua.getString(3);
 				bResult = changeAsset(asset);
 			}
