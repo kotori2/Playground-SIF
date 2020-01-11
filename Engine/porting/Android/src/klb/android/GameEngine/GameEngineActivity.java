@@ -15,6 +15,7 @@
 */
 package klb.android.GameEngine;
 
+import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -67,6 +68,7 @@ public class GameEngineActivity extends Activity {
 	private String c_path_install; 
 	private String c_path_external;
     private String c_path_base;
+	private String c_verLine;
 	private boolean m_initialized = false;
 	private int	m_prev_orientation;
 	private FrameLayout m_layout = null;
@@ -74,7 +76,6 @@ public class GameEngineActivity extends Activity {
 	public FrameLayout m_IndicatorLayout = null;
 	private ApplicationInfo m_appliInfo = null;
 	final private String VERSION_KEY = "[assets]version";
-	private View m_InstallProgressView = null;
 	private boolean m_installEnd = false;
 	private boolean m_UsePause = false;
 	private boolean headsetEquipped = false;
@@ -83,6 +84,8 @@ public class GameEngineActivity extends Activity {
 	private Thread installThread = null;
 	private long activityCreatedAt = 0;
     final int DEFAULT_VOLUME = 5;
+	private ProgressDialog m_progressDialog = null;
+
 
 	// AlertDialog用
 	private String m_alertTitle = null;
@@ -270,15 +273,73 @@ public class GameEngineActivity extends Activity {
         	mOrientationListener.enable();
         	m_initialized = true;
         	
-        	// インストール用インジケータ（円のプログレスバー使用)  2013/04/22  
-        	m_InstallProgressView = this.getLayoutInflater().inflate(R.layout.install, null);
-        	m_layout.addView(m_InstallProgressView);
-        	installThread = new Thread(new CInstall());
-        	installThread.start();
+        	// インストール用インジケータ（円のプログレスバー使用)  2013/04/22
+			// changed to progress bar 2020/1/11
+			if (!isVersionUpdated()) {
+				this.m_progressDialog = new ProgressDialog(this);
+				this.m_progressDialog.setTitle(getString(R.string.install_dialog_title));
+				this.m_progressDialog.setMessage(getString(R.string.install_dialog_message));
+				this.m_progressDialog.setProgressStyle(1);
+				this.m_progressDialog.setCancelable(false);
+				this.m_progressDialog.show();
+				this.installThread = new Thread(new CInstall());
+				this.installThread.start();
+			} else {
+				setInstallStatus(true);
+			}
         }
     }
 
-    @Override
+    // true: not updated
+	// false: updated
+	private boolean isVersionUpdated() {
+		try {
+			InputStream open = getResources().getAssets().open("version");
+			InputStreamReader inputStreamReader = new InputStreamReader(open);
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+			this.c_verLine = bufferedReader.readLine();
+			bufferedReader.close();
+			inputStreamReader.close();
+			open.close();
+			if (getSharedPreferences("GameEngineActivity", Context.MODE_PRIVATE).getString(VERSION_KEY, "").equals(this.c_verLine)) {
+				return true;
+			}
+			return false;
+		} catch (IOException unused) {
+			return false;
+		}
+	}
+
+	public void setInstallStatus(boolean z) {
+		Log.d("Cpp", Log.getStackTraceString(new Exception()));
+		if(z){
+			Log.d("Cpp", "setInstallStatus: true");
+		}else{
+			Log.d("Cpp", "setInstallStatus: false");
+		}
+
+		this.m_installEnd = z;
+	}
+
+	public void eraseFiles(File file) {
+		if (file.exists()) {
+			if (file.isFile()) {
+				file.delete();
+			} else if (file.isDirectory()) {
+				File[] listFiles = file.listFiles();
+				for (File eraseFiles : listFiles) {
+					eraseFiles(eraseFiles);
+				}
+				file.delete();
+			}
+		}
+	}
+
+	public ProgressDialog getProgressDialog(){
+		return m_progressDialog;
+	}
+
+	@Override
     protected void onRestart() {
         super.onRestart();
         mView.onRestart();
@@ -398,33 +459,10 @@ public class GameEngineActivity extends Activity {
     private boolean unzipAssets(String targetPath, String externalPath, String zipfile) {
     	try {
     		AssetManager assetManager = getResources().getAssets();
-    		// 現在 assets に置かれている .zip が、展開済みのバージョンと同じものであるかを確認する。
-    		
-    		// assets フォルダにあるversionファイルを読み込む
-    		InputStream verStream = assetManager.open("version");
-    		Reader r = new InputStreamReader(verStream);
-    		BufferedReader br = new BufferedReader(r);
-    		String verLine = br.readLine();
-    		br.close();
-    		r.close();
-    		verStream.close();
-    		
-    		// SharedPreferences に登録されているキー "[assets]version" の値が、現在展開済みのバージョン
-    		SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
-    		String ret = pref.getString(VERSION_KEY, "");
-    		
-    		// 展開済みバージョンと、versionファイルの内容を比較して、同じであれば展開済みとする。
-    		if(ret.equals(verLine)) return true;
     		
     		// 展開済みのものと異なる場合は再展開する。
     		// 一旦ディレクトリ内容を削除する。
-    		Runtime localRuntime = Runtime.getRuntime();
-    		String cmd = "rm -R " + targetPath + "/*";
-    		try {
-    			localRuntime.exec(cmd);
-    		} catch(IOException ex) {
-    			return false;
-    		}
+    		eraseFiles(new File(targetPath));
     		
     		// externalフォルダが無ければ生成
         	File externaldir = new File(externalPath);
@@ -434,13 +472,30 @@ public class GameEngineActivity extends Activity {
     		File dir = new File(targetPath);
     		if(!dir.exists()) dir.mkdir();	// ディレクトリが無ければ生成
 
+			// calculate total size
+			int size = 0;
     		InputStream inputStream = assetManager.open(zipfile);
     		ZipInputStream zipInputStream = new ZipInputStream(inputStream);
     		ZipEntry zipEntry = zipInputStream.getNextEntry();
+			while(zipEntry != null) {
+				size += zipEntry.getSize();
+				zipInputStream.closeEntry();
+				zipEntry = zipInputStream.getNextEntry();
+			}
+			Log.d("Cpp", "Total size: " + size);
+			zipInputStream.close();
+			inputStream.close();
+
+			inputStream = assetManager.open(zipfile);
+			zipInputStream = new ZipInputStream(inputStream);
+			zipEntry = zipInputStream.getNextEntry();
+
+			int decompressedSize = 0;
     		while(zipEntry != null) {
     			String entryName = zipEntry.getName();
     			int n;
     			String outpath = targetPath + entryName;
+				Log.d("Cpp", "Decompress: " + entryName);
     		//	Log.d("Cpp", "OutPath:" + outpath);
     			// ディレクトリであれば、そのディレクトリを作成して次へ
     			if(zipEntry.isDirectory()) {
@@ -463,19 +518,28 @@ public class GameEngineActivity extends Activity {
 				while((n = zipInputStream.read(buf, 0, DEFAULT_BUFSIZ)) > -1) {
 					fileOutputStream.write(buf, 0, n);
 				}
+				decompressedSize += zipEntry.getSize();
 				fileOutputStream.close();
 				zipInputStream.closeEntry();
 				zipEntry = zipInputStream.getNextEntry();
+
+				Message msg = new Message();
+				msg.what = 1;
+				msg.arg2 = size / 1024;
+				msg.arg1 = decompressedSize / 1024;
+				handler.sendMessage(msg);
     		}
     		zipInputStream.close();
     		
     		// 展開が完了したので、現在のversionの内容をSharedPreferencesに記録する。
+			SharedPreferences pref = getSharedPreferences("GameEngineActivity", Context.MODE_PRIVATE);
     		SharedPreferences.Editor e = pref.edit();
-    		e.putString(VERSION_KEY, verLine);
+    		e.putString(VERSION_KEY, c_verLine);
     		e.commit();
 
     		return true;
     	} catch(IOException ex) {
+    		Log.e("Cpp", ex.toString());
     		return false;
     	}
     }
@@ -526,11 +590,12 @@ public class GameEngineActivity extends Activity {
 		public void run()
     	{
     		unzipAssets(c_path_install, c_path_external, "AppAssets.zip");
-    		handler.sendEmptyMessage(0);
+    		handler.sendEmptyMessage(2);
     	}
     }
-    
-    // インストール終了時処理
+
+
+	// インストール終了時処理
     private static class InstallationPostProcessHandler extends Handler {
         private final WeakReference<GameEngineActivity> mActivity;
         public InstallationPostProcessHandler(GameEngineActivity activity) {
@@ -543,10 +608,19 @@ public class GameEngineActivity extends Activity {
             if (self == null) {
                 return;
             }
-            self.m_layout.removeView(self.m_InstallProgressView);
-            self.m_InstallProgressView = null;
-            self.m_installEnd = true;
-            Log.v("Cpp", "InstallEnd");
+			ProgressDialog progressDialog = self.getProgressDialog();
+            Log.d("Cpp", msg.toString());
+			if (msg.what == 1) {
+				if (msg.arg1 >= 0 && msg.arg2 >= msg.arg1) {
+					progressDialog.setIndeterminate(false);
+					progressDialog.setProgress(msg.arg1);
+					progressDialog.setMax(msg.arg2);
+				}
+			} else if (msg.what == 2) {
+				progressDialog.dismiss();
+				self.setInstallStatus(true);
+				Log.v("Cpp", "InstallEnd");
+			}
         }
     }
 
