@@ -19,6 +19,7 @@
 #include "CKLBJsonItem.h"
 #include "CPFInterface.h"
 #include "CKLBNetAPIKeyChain.h"
+#include "base64.h"
 
 #include <time.h>
 #include <ctype.h>
@@ -85,7 +86,6 @@ CKLBNetAPI::CKLBNetAPI()
 , m_http_header_array	(NULL)
 , m_http_header_length	(0)
 , m_nonce				(1)
-, m_failTimes			(0)
 {
 }
 
@@ -133,8 +133,9 @@ CKLBNetAPI::execute(u32 deltaT)
 		m_nonce++; // increment after every request
 
 		if (m_http->isMaintenance()) {
-
-
+			// server under maintenance
+			NetworkManager::releaseConnection(m_http);
+			m_http = NULL;
 			CKLBLuaEnv::getInstance().intoMaintenance();
 			return;
 		}
@@ -149,7 +150,6 @@ CKLBNetAPI::execute(u32 deltaT)
 		if (bodyLen > 0) m_pRoot = getJsonTree((const char*)body, bodyLen);
 		if (m_pRoot == NULL) {
 			lua_callback(NETAPIMSG_SERVER_ERROR, state, NULL);
-
 			return;
 		}
 
@@ -158,8 +158,6 @@ CKLBNetAPI::execute(u32 deltaT)
 				return startUp(state);
 			else if (m_lastCommand == NETAPI_LOGIN)
 				return login(state);
-
-			m_failTimes = 0;
 		}
 
 		lua_callback(msg, state, m_pRoot);
@@ -267,12 +265,29 @@ void
 CKLBNetAPI::authKey()
 {
 	CKLBNetAPIKeyChain& kc = CKLBNetAPIKeyChain::getInstance();
+	IPlatformRequest& platform = CPFInterface::getInstance().platform();
 	m_http = NetworkManager::createConnection();
 	m_http->reuse();
 
-	char requestData[512];
+	char requestData[1024];
 	const char* form[2];
-	sprintf(requestData, "request_data={\"dummy_token\":\"%s\", \"auth_data\": \"%s\"}", "1234", "1234");
+
+	// dummy token part
+	const char* clientKey = kc.getClientKey();
+	unsigned char clientKeyEncrypted[512];
+	int clientKeyEncryptedLen = platform.publicKeyEncrypt((unsigned char* )clientKey, strlen(clientKey), clientKeyEncrypted);
+	int dummyTokenLen = 0;
+	char* dummyToken = base64(clientKeyEncrypted, clientKeyEncryptedLen, &dummyTokenLen);
+
+	// auth data part
+	char devData[512];
+	sprintf(devData, "{ \"1\":\"%s\",\"2\": \"%s\", \"3\": \"eyJSYXRpbmciOiIwIiwiRGV0YWlsIiA6ICJUaGlzIGlzIGEgaU9TIGRldmljZSJ9\"}", kc.getLoginKey(), kc.getLoginPwd());
+	unsigned char devDataEnc[512];
+	int devDataEncLen = platform.encryptAES128CBC(devData, clientKey, clientKey + 16, devDataEnc);
+	int authDataLen = 0;
+	char* authData = base64(devDataEnc, devDataEncLen, &authDataLen);
+	sprintf(requestData, "request_data={\"dummy_token\":\"%s\", \"auth_data\":\"%s\"}", dummyToken, authData);
+
 	form[0] = requestData;
 	form[1] = NULL;
 	setHeaders(requestData);
@@ -281,6 +296,9 @@ CKLBNetAPI::authKey()
 	char url[MAX_PATH];
 	sprintf(url, "%s/login/authkey", kc.getUrl());
 	m_http->httpPOST(url, false);
+
+	free(dummyToken);
+	free(authData);
 }
 
 void
@@ -420,21 +438,24 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 		{
 			// 3. login_key
 			// 4. login_passwd
-			// 5. nil
+			// 5. nil?
 			// 6. timeout
-			// 7. sign key
+			// 7. session key
+			// 8. client key
 			if (argc < 6) {
 				lua.retBool(false);
 			}
 			const char* login = lua.getString(3);
 			const char* pass  = lua.getString(4);
-			const char* key	  = lua.getString(7);
- 
+			const char* sKey  = lua.getString(7);
+			const char* cKey  = lua.getString(8);
+
 			// save cred
 			CKLBNetAPIKeyChain& kc = CKLBNetAPIKeyChain::getInstance();
 			kc.setLoginKey(login);
 			kc.setLoginPwd(pass);
-			kc.setSessionKey(key);
+			kc.setSessionKey(sKey);
+			kc.setClientKey(cKey);
 
 			m_timeout = lua.getInt(6);
 			m_timestart = 0;

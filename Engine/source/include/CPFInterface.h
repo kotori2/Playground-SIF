@@ -639,6 +639,8 @@ public:
 	virtual void	forbidSleep		(bool is_forbidden) = 0;
 
 	virtual int		HMAC_SHA1		(const char* string, const char* key, char* retbuf) = 0;
+	virtual int		encryptAES128CBC(const char* plaintext, const char* key, const char* iv, unsigned char* out) = 0;
+	virtual int		publicKeyEncrypt(unsigned char* plaintext, int plantextLen, unsigned char* out) = 0;
 };
 
 #ifdef DEBUG

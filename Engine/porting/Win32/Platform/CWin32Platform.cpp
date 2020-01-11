@@ -20,13 +20,11 @@
 #include <windows.h>
 #include <WinSock.h>
 #include <Rpc.h>
-#include "openssl/sha.h"
-#include "openssl/hmac.h"
-#include "CWin32KeyChain.h"
 
 #include "assert.h"
 #include "RenderingFramework.h"
 
+#include "CWin32KeyChain.h"
 #include "CWin32Platform.h"
 #include "CWin32ReadFileStream.h"
 #include "CSockReadStream.h"
@@ -34,6 +32,12 @@
 #include "CWin32Audio.h"
 #include "CWin32PathConv.h"
 #include "CWin32TmpFile.h"
+
+#include "openssl/sha.h"
+#include "openssl/hmac.h"
+#include "openssl/rsa.h"
+#include "openssl/pem.h"
+#include "openssl/applink.c"
 
 #pragma comment(lib, "Rpcrt4.lib")
 #pragma comment(lib, "libeay32.lib")
@@ -296,9 +300,6 @@ void removeTmpFileNative(const char* filePath) {
 			if (!res) {
 				klb_assertAlways("COULD NOT DELETE THE FILE %s !!!",filePath);
 			}
-		}
-		if (code == ERROR_FILE_NOT_FOUND) {
-			klb_assertAlways("FILE DOES NOT EXIST %s !!!",filePath);
 		}
 	}
 }
@@ -973,6 +974,50 @@ CWin32Platform::HMAC_SHA1(const char* content, const char* key, char* retbuf)
 		ptr += strlen(ptr);
 	}
 	return strlen(retbuf);
+}
+
+int
+CWin32Platform::encryptAES128CBC(const char* plaintext, const char* key, const char* iv, unsigned char* out)
+{
+	EVP_CIPHER_CTX* ctx;
+	if (!(ctx = EVP_CIPHER_CTX_new()))
+		return false;
+
+	if (false)
+	{
+	fail:
+		EVP_CIPHER_CTX_free(ctx);
+		return false;
+	}
+	
+	// set iv at beggining
+	memcpy(out, iv, 16);
+	int ciphertextLenght = 0;
+	int tmp = 0;
+	// encrypt the plaintext
+	if (EVP_EncryptInit_ex(ctx, EVP_aes_128_cbc(), NULL, (u8*)key, (u8*)iv) == 0)
+		goto fail;
+	if (EVP_EncryptUpdate(ctx, out + 16, &ciphertextLenght, (u8*)plaintext, strlen(plaintext)) == 0)
+		goto fail;
+	// add iv len
+	ciphertextLenght += 16; 
+	if (EVP_EncryptFinal_ex(ctx, out + ciphertextLenght, &tmp) == 0)
+		goto fail;
+
+	// and free CTX after using
+	EVP_CIPHER_CTX_free(ctx); 
+	return ciphertextLenght += tmp;
+}
+
+int
+CWin32Platform::publicKeyEncrypt(unsigned char* plaintext, int plantextLen, unsigned char* out)
+{
+	FILE* publicKey = fopen("public.pem", "rb");
+	klb_assert(publicKey, "public.pem not exist");
+	RSA* rsa = RSA_new();
+	rsa = PEM_read_RSA_PUBKEY(publicKey, &rsa, NULL, NULL);
+	fclose(publicKey);
+	return RSA_public_encrypt(plantextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
 }
 
 bool

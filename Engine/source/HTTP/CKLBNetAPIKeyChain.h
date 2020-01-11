@@ -142,6 +142,17 @@ public:
 		}
 		return m_sessionKey;
 	}
+
+	inline const char* setClientKey(const char* clientKey) {
+		KLBDELETEA(m_clientKey);
+		if (clientKey) {
+			m_clientKey = CKLBUtility::copyString(clientKey);
+		}
+		else {
+			m_clientKey = NULL;
+		}
+		return m_clientKey;
+	}
     
 	inline const char * getUrl			() const { return m_url;		}
     inline const char * getToken		() const { return m_token;		}
@@ -153,6 +164,7 @@ public:
 	inline const char * getLoginKey		() const { return m_loginKey;	}
 	inline const char * getLoginPwd		() const { return m_loginPwd;	}
 	inline const char * getSessionKey	() const { return m_sessionKey; }
+	inline const char * getClientKey	() const { return m_clientKey;	}
 
 	inline int genCmdNumID(char * retBuf, const char * body, time_t timeStamp, int serial) {
 		sprintf(retBuf, "%s-%s.%d.%d",
@@ -171,16 +183,17 @@ public:
 		return authorize;
 	}
 private:
-	const char		*	m_url;		// server API url
-    const char      *   m_token;    // Authorized Token
-    const char      *   m_region;   // region
-    const char      *   m_client;   // client version
-    const char      *   m_cKey;     // consumerKey
-    const char      *   m_appID;    // Application ID
-	const char		*	m_userID;	// User-ID
-	const char		*	m_loginKey; // login_key
-	const char		*	m_loginPwd;	// login_passwd
-	const char		*	m_sessionKey; // bla bla bla
+	const char		*	m_url;			// server API url
+    const char      *   m_token;		// Authorized Token
+    const char      *   m_region;		// region
+    const char      *   m_client;		// client version
+    const char      *   m_cKey;			// consumerKey
+    const char      *   m_appID;		// Application ID
+	const char		*	m_userID;		// User-ID
+	const char		*	m_loginKey;		// login_key
+	const char		*	m_loginPwd;		// login_passwd
+	const char		*	m_sessionKey;	
+	const char		*	m_clientKey;	
 };
 
 #endif
