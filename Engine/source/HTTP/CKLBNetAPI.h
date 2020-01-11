@@ -37,20 +37,27 @@ enum {
 	// メッセージ値定義
 	NETAPIMSG_CONNECTION_CANCELED = -999,	// セッションはキャンセルされた
 	NETAPIMSG_CONNECTION_FAILED = -500,	// 接続に失敗した
-	NETAPIMSG_INVITE_FAILED = -300,
-	NETAPIMSG_STARTUP_FAILED = -200,
-	NETAPIMSG_LOGIN_FAILED = -100,
-	NETAPIMSG_SERVER_TIMEOUT = -3,	// サーバとの通信がタイムアウトした
-	NETAPIMSG_REQUEST_FAILED = -2,
+	NETAPIMSG_INVITE_FAILED = -200,
+	NETAPIMSG_STARTUP_FAILED = -100,
+	NETAPIMSG_SERVER_TIMEOUT = -4,	// サーバとの通信がタイムアウトした
+	NETAPIMSG_REQUEST_FAILED = -3,
+	NETAPIMSG_LOGIN_FAILED = -2,
 	NETAPIMSG_SERVER_ERROR = -1,
 	NETAPIMSG_UNKNOWN = 0,
-	NETAPIMSG_REQUEST_SUCCESS = 2,	// リクエスト成功ステータス
-	NETAPIMSG_LOGIN_SUCCESS = 100,
-	NETAPIMSG_STARTUP_SUCCESS = 200,
-	NETAPIMSG_INVITE_SUCCESS = 300,
-
+	NETAPIMSG_LOGIN_SUCCESS = 2,
+	NETAPIMSG_REQUEST_SUCCESS = 3,	// リクエスト成功ステータス
+	NETAPIMSG_STARTUP_SUCCESS = 100,
+	NETAPIMSG_INVITE_SUCCESS = 200,
 };
 
+enum {
+	NETAPIHDL_AUTHKEY_REQUEST = 1,
+	NETAPIHDL_AUTHKEY_RESPONSE,
+	NETAPIHDL_LOGIN_REQUEST,
+	NETAPIHDL_LOGIN_RESPONSE,
+	NETAPIHDL_STARTUP_REQUEST,
+	NETAPIHDL_STARTUP_RESPONSE
+};
 // Native側からAPIタスクにコマンドを発行するためのsingleton.
 // 
 class CKLBNetAPI;
@@ -86,28 +93,32 @@ private:
 	u32						m_http_header_length;
 	u32						m_nonce;
 	u32						m_lastCommand;
+	u32						m_handle;
+	bool					m_skipVersionCheck;
 	bool					m_canceled;	// セッションがキャンセルされると true になる
+	bool					m_downloading;
 	CKLBJsonItem*			m_pRoot;
 
 	// スクリプトコールバック用
 	const char			*	m_callback;	// Lua callback function
+	const char			*	m_verup_callback;
 
 	// HTTP通信で追加するヘッダの配列
 	const char			**	m_http_header_array;
 
 private:
+	void releaseConnection();
 	void freeHeader();
 	void freeJSonResult();
 	void setHeaders(const char* data);
 
-	bool lua_callback(int msg, int status, CKLBJsonItem * pRoot);
+	bool lua_callback(int msg, int status, CKLBJsonItem* pRoot, int nonce);
 
 	CKLBJsonItem * getJsonTree(const char * json_string, u32 dataLen);
-	bool get_token(CKLBJsonItem * pRoot);
 
 	void authKey();
-	void login(int state);
-	void startUp(int state);
+	void login(int status);
+	void startUp(int status);
 
 public:
 	bool cancel		();

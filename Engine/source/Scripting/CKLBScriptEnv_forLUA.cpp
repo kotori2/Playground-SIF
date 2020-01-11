@@ -385,17 +385,18 @@ void CKLBScriptEnv::call_eventUpdateError(const char* funcName, CKLBObjectScript
 	lua.callback(funcName, "P", obj);
 }
 
-bool CKLBScriptEnv::call_netAPI_callback(const char* funcName, CKLBObjectScriptable* /*obj*/, int uniq, int msg, int status, CKLBJsonItem * pRoot) {
-	if(!funcName) return false;
+bool CKLBScriptEnv::call_netAPI_callback(const char* funcName, CKLBObjectScriptable* /*obj*/, int uniq, int msg, int status, CKLBJsonItem* pRoot) {
+	if (!funcName) return false;
 
 	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
 	lua.getGlobal(funcName);
 	lua.retInt(uniq);
 	lua.retInt(msg);
 	lua.retInt(status);
-	if(pRoot) {
+	if (pRoot) {
 		CKLBUtility::jsonItem2lua(lua, pRoot);
-	} else {
+	}
+	else {
 		lua.retNil();
 	}
 	return lua.call(4, funcName);

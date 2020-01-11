@@ -682,7 +682,7 @@
       <Filter>Source Files\Core\HonokaMiku</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\base64.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

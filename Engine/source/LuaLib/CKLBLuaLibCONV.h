@@ -32,6 +32,7 @@ private:
 	static int lua2json		(lua_State * L);
 	static int json2lua		(lua_State * L);
 	static int jsonfile2lua	(lua_State * L);
+	static int base64Decode	(lua_State * L);
 };
 
 

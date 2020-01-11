@@ -15,6 +15,7 @@
 */
 #include "CKLBLuaLibCONV.h"
 #include "CKLBUtility.h"
+#include "base64.h"
 
 static CKLBLuaLibCONV libdef(0);
 
@@ -28,6 +29,7 @@ CKLBLuaLibCONV::addLibrary()
 	addFunction("CONV_Lua2Json",     CKLBLuaLibCONV::lua2json);
 	addFunction("CONV_Json2Lua",     CKLBLuaLibCONV::json2lua);
 	addFunction("CONV_JsonFile2Lua", CKLBLuaLibCONV::jsonfile2lua);
+	addFunction("CONV_base64_decode",CKLBLuaLibCONV::base64Decode);
 }
 
 
@@ -85,5 +87,16 @@ CKLBLuaLibCONV::jsonfile2lua(lua_State * L)
 	CKLBUtility::json2lua(lua, json, size);
 	KLBDELETEA(buf);
 
+	return 1;
+}
+
+int
+CKLBLuaLibCONV::base64Decode(lua_State* L)
+{
+	CLuaState lua(L);
+	const char* str = lua.getString(1);
+	int resLen = 0;
+	unsigned char* result = unbase64(str, strlen(str), &resLen);
+	lua_pushlstring(L, (char*)result, resLen);
 	return 1;
 }
