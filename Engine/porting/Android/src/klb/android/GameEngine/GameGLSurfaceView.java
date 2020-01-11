@@ -57,6 +57,7 @@ public class GameGLSurfaceView extends GLSurfaceView {
     	pfif.onActivityPause();
     	
     	mRenderer.resetPreTime();
+    	setRenderMode(0);
     }
     
     @Override
@@ -67,6 +68,7 @@ public class GameGLSurfaceView extends GLSurfaceView {
     	pfif.onActivityResume();
     	
     	mRenderer.resetPreTime();
+		setRenderMode(1);
     }
     
     @Override

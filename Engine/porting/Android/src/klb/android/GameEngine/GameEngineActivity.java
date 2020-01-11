@@ -158,7 +158,7 @@ public class GameEngineActivity extends Activity {
     	instanciateEarphoneChecker(); // イヤホンの接続状態の監視を設定
 		
         // SenderIDをマニフェストから取得する
-        String SenderID = null;
+        /*String SenderID = null;
         try {
         	m_appliInfo = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
             SenderID = m_appliInfo.metaData.getString("GCM_SENDER_ID");
@@ -166,7 +166,7 @@ public class GameEngineActivity extends Activity {
         } catch(PackageManager.NameNotFoundException e) {
         	Log.v("GE", "GCM SenderID Not Found.");
         	SenderID = null;
-        }
+        }*/
         
         if(!m_initialized) {
         	boolean install_sd = false;
@@ -215,7 +215,7 @@ public class GameEngineActivity extends Activity {
 
         	// install / external に相当するディレクトリ文字列を PFInterface に渡しておく　
         	PFInterface.getInstance().setBasePath(c_path_install, c_path_external);
-        	PFInterface.getInstance().setSenderID(SenderID);
+        	//PFInterface.getInstance().setSenderID(SenderID);
         	PFInterface.getInstance().setContext(this);
         	
         	// instalフォルダが無ければ生成
@@ -232,7 +232,7 @@ public class GameEngineActivity extends Activity {
 	    	// copyAssets(c_path_install);	// assets の内容を、ローカルにコピーする
         	
         	// GCMの RegistrationId を取得
-        	queryRegID(SenderID);
+        	//queryRegID(SenderID);
         	
         	m_MovieLayout = new FrameLayout(this);	// BackgroundMovieはここに組み込む
         	m_IndicatorLayout = new FrameLayout(this);

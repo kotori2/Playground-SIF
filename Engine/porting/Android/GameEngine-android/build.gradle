@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 buildscript {
     repositories {
         jcenter()
@@ -5,18 +7,25 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.google.gms:google-services:4.3.3'
     }
 }
 
 apply plugin: 'com.android.application'
 
+repositories {
+    jcenter()
+    google()
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.billingclient:billing:2.0.3' //DO NOT UPGRADE OR com.android.vending MISSING
+    implementation 'com.google.firebase:firebase-core:17.2.1'
 }
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.0"
+    buildToolsVersion "29.0.2"
 
     sourceSets {
         main {
@@ -57,16 +66,27 @@ android {
         }
     }
 
+    ext.getNdkCommand = {
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            return "ndk-build.cmd"
+        }
+        return "ndk-build"
+    }
+
     task ndkBuild(type:Exec) {
-        commandLine 'ndk-build', '-j'
+        commandLine getNdkCommand(), '-j'
     }
 
     task ndkClean(type:Exec) {
-        commandLine 'ndk-build', 'clean'
+        commandLine getNdkCommand(), 'clean'
     }
 
     task libsClean(type:Exec) {
         commandLine 'rm', '-rf', 'libs/armeabi', 'libs/armeabi-v7a', 'libs/x86', 'libs/mips'
+    }
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
     }
 
     if(new File(projectDir, "jni").exists()){
@@ -91,3 +111,4 @@ if (project.hasProperty('keyAlias')) {
 if (project.hasProperty('keyPassword')) {
     android.signingConfigs.release.keyPassword = keyPassword
 }
+apply plugin: 'com.google.gms.google-services'

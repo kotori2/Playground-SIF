@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "611340192578",
+    "firebase_url": "https://playground-sif.firebaseio.com",
+    "project_id": "playground-sif",
+    "storage_bucket": "playground-sif.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611340192578:android:8cb31a8ec9ff59898196db",
+        "android_client_info": {
+          "package_name": "klb.android.GameEngine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "611340192578-dvguu7190elvp29mkn6o31ld983mb8n7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTrl569zIvHH4MG84Hyvl5XeRUlpbDCHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611340192578-dvguu7190elvp29mkn6o31ld983mb8n7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
