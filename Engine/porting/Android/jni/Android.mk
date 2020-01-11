@@ -100,21 +100,20 @@ LOCAL_DISABLE_FATAL_LINKER_WARNINGS := true
 
 ifeq ($(TARGET_ARCH),arm)
 # notice: these assembly files (*.s) generate compile-time warnings under Clang but they are harmless.
-  LOCAL_SRC_FILES += \
+  #LOCAL_SRC_FILES += \
 	./libs/Tremolo/bitwiseARM.s \
 	./libs/Tremolo/dpen.s \
 	./libs/Tremolo/floor1ARM.s \
 	./libs/Tremolo/mdctARM.s
-  LOCAL_CFLAGS += -D_ARM_ASSEM_
+  #LOCAL_CFLAGS += -D_ARM_ASSEM_
 
   LOCAL_ARM_MODE  := arm
   LOCAL_ARM_NEON  := true
   TARGET_ARCH_ABI := armeabi-v7a
-  LOCAL_CFLAGS    += -O3 -mcpu=cortex-a8 -mfloat-abi=softfp -fPIC -march=armv7-a -ffunction-sections -funwind-tables -fstack-protector -fno-short-enums
+  LOCAL_CFLAGS    += -DONLY_C -O3 -mcpu=cortex-a8 -mfloat-abi=softfp -fPIC -march=armv7-a -ffunction-sections -funwind-tables -fstack-protector -fno-short-enums
 else
   LOCAL_CFLAGS += -DONLY_C
 endif
-					
 
 include $(BUILD_SHARED_LIBRARY)
 # ---------------------
