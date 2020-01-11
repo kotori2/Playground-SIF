@@ -67,13 +67,10 @@ const static unsigned char unb64[] = {
 }; // This array has 256 elements
 
 // Converts binary data of length=len to base64 characters.
-// Length of the resultant string is stored in flen
-// (you must pass pointer flen).
-char* base64(const void* binaryData, int len, int* flen)
+inline char* base64(const void* binaryData, int len, int* flen)
 {
 	const unsigned char* bin = (const unsigned char*)binaryData;
 	char* res;
-
 	int rc = 0; // result counter
 	int byteNo; // I need this after the loop
 
@@ -82,12 +79,7 @@ char* base64(const void* binaryData, int len, int* flen)
 
 	*flen = 4 * (len + pad) / 3;
 	res = (char*)malloc(*flen + 1); // and one for the null
-	if (!res)
-	{
-		puts("ERROR: base64 could not allocate enough memory.");
-		puts("I must stop because I could not get enough");
-		return 0;
-	}
+	klb_assert(res, "base64 could not allocate enough memory");
 
 	for (byteNo = 0; byteNo <= len - 3; byteNo += 3)
 	{
@@ -119,7 +111,7 @@ char* base64(const void* binaryData, int len, int* flen)
 	return res;
 }
 
-unsigned char* unbase64(const char* ascii, int len, int* flen)
+inline unsigned char* unbase64(const char* ascii, int len, int* flen)
 {
 	const unsigned char* safeAsciiPtr = (const unsigned char*)ascii;
 	unsigned char* bin;
@@ -127,23 +119,13 @@ unsigned char* unbase64(const char* ascii, int len, int* flen)
 	int charNo;
 	int pad = 0;
 
-	if (len < 2) { // 2 accesses below would be OOB.
-	  // catch empty string, return NULL as result.
-		puts("ERROR: You passed an invalid base64 string (too short). You get NULL back.");
-		*flen = 0;
-		return 0;
-	}
+	klb_assert(len > 2, "You passed an invalid base64 string (too short).");
 	if (safeAsciiPtr[len - 1] == '=')  ++pad;
 	if (safeAsciiPtr[len - 2] == '=')  ++pad;
 
 	*flen = 3 * len / 4 - pad;
 	bin = (unsigned char*)malloc(*flen);
-	if (!bin)
-	{
-		puts("ERROR: unbase64 could not allocate enough memory.");
-		puts("I must stop because I could not get enough");
-		return 0;
-	}
+	klb_assert(bin, "unbase64 could not allocate enough memory");
 
 	for (charNo = 0; charNo <= len - 4 - pad; charNo += 4)
 	{

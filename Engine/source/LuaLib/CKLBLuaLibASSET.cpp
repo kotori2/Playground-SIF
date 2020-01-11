@@ -33,8 +33,9 @@ CKLBLuaLibASSET::addLibrary()
 	addFunction("ASSET_getImageSize",		CKLBLuaLibASSET::luaGetImageSize);
 	addFunction("ASSET_getBoundSize",		CKLBLuaLibASSET::luaGetBoundSize);
 	addFunction("ASSET_getAssetInfo",		CKLBLuaLibASSET::luaGetAssetInfo);
-	addFunction("ASSET_delExternal",		CKLBLuaLibASSET::luaDelExternal);
 	addFunction("ASSET_getExternalFree",	CKLBLuaLibASSET::luaGetExternalFree);
+	addFunction("ASSET_getFileList",		CKLBLuaLibASSET::luaGetFileList);
+	addFunction("ASSET_delExternal",		CKLBLuaLibASSET::luaDelExternal);
 	addFunction("ASSET_registerNotFound",	CKLBLuaLibASSET::luaRegisterNotFound);
 	addFunction("ASSET_setPlaceHolder",		CKLBLuaLibASSET::luaSetPlaceHolder);
 
@@ -235,11 +236,19 @@ CKLBLuaLibASSET::luaRegisterNotFound(lua_State * L)
 s32
 CKLBLuaLibASSET::luaSetPlaceHolder(lua_State * L)
 {
-	
 	CLuaState lua(L);
 	CKLBAssetManager& mgr = CKLBAssetManager::getInstance();
 	const char* asset = lua.getString(1);
 	mgr.setPlaceholder(asset);
+	return 1;
+}
+
+s32
+CKLBLuaLibASSET::luaGetFileList(lua_State* L)
+{
+	CLuaState lua(L);
+	klb_assertAlways("Not implemented");
+	
 	return 1;
 }
 
