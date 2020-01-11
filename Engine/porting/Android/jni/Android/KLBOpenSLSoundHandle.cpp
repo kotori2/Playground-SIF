@@ -330,7 +330,7 @@ void KLBOpenSLSoundHandle::setSoundAsset(KLBOpenSLSoundAsset *asset) {
 	SLresult result;
 	SLDataLocator_AndroidSimpleBufferQueue loc_bufq = {SL_DATALOCATOR_ANDROIDSIMPLEBUFFERQUEUE, 2};
 	SLDataFormat_PCM format_pcm = {
-			SL_DATAFORMAT_PCM, this->getPcmChannels(), this->getSlSamplingRate(),
+			SL_DATAFORMAT_PCM, static_cast<SLuint32>(this->getPcmChannels()), this->getSlSamplingRate(),
 			this->getSlSampleFormat(), this->getSlSampleFormat(),
 			this->getSlChannelMask(), SL_BYTEORDER_LITTLEENDIAN};
 	SLDataSource audioSrc = {&loc_bufq, &format_pcm};
