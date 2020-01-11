@@ -4,6 +4,7 @@ from __future__ import print_function
 from decimal import *
 from os import makedirs, path, remove, chdir
 from shutil import copy2, copytree, rmtree
+from hashlib import md5
 import argparse
 import subprocess
 import locale
@@ -89,7 +90,7 @@ class PlaygroundBuilder:
             success_marker='package:', fail_marker='ERROR:')
         return is_apk_sane is True
 
-    def build(self, project, use_luajit=False, gles_ver=Decimal('1.1'), perform_rebuild=False, is_release=False, perform_assemble=False):
+    def build(self, project, use_luajit=False, gles_ver=Decimal('1.1'), perform_rebuild=False, is_release=False, perform_assemble=False, include_assets=False):
         chdir(path.dirname(sys.argv[0]) or '.')
 
         if perform_rebuild:
@@ -157,6 +158,16 @@ class PlaygroundBuilder:
         self.rmtree('./jni/libs/libfreetype2/src/')
         self.rmtree('./jni/libs/libfreetype2/jni/')
 
+        # AppAssets.zip
+        self.rmtree("./assets/")
+        self.makedirs("./assets/")
+        if include_assets:
+            self.copyfile("../AppAssets.zip", "./assets")
+            with open("./assets/AppAssets.zip", "rb") as f:
+                h = md5(f.read()).hexdigest()
+            with open("./assets/version", "w") as f:
+                f.write("MD5 (AppAssets.zip) = " + h)
+
         cmdline = ['ndk-build']
         cmdline.append('-j')
         if use_luajit:
@@ -223,6 +234,7 @@ if __name__ == "__main__":
     parser.add_argument('-m', '--mode', help='choose build binary mode', choices=['debug', 'release'], default='debug')
     parser.add_argument('-r', '--rebuild', help='perform whole rebuild', action='store_true')
     parser.add_argument('-a', '--assemble', help='assemble APK with gradle', action='store_true')
+    parser.add_argument('-s', '--assets', help='include AppAssets.zip in the aip', action='store_true')
 
     args = parser.parse_args()
     builder = PlaygroundBuilder()
@@ -232,4 +244,5 @@ if __name__ == "__main__":
             gles_ver=Decimal(args.gles),
             perform_rebuild=args.rebuild,
             is_release=(True if args.mode == 'release' else False),
-            perform_assemble=args.assemble))
+            perform_assemble=args.assemble,
+            include_assets=args.assets))

@@ -19,6 +19,7 @@ __MACOSX/
 /Engine/porting/Android/.project
 /Engine/porting/Android/.settings/
 /Engine/porting/Android/gen/
+/Engine/porting/Android/AppAssets.zip
 
 # Android concrete project things
 /Engine/porting/Android/GameEngine-android/bin/
@@ -28,6 +29,8 @@ __MACOSX/
 /Engine/porting/Android/GameEngine-android/libs/
 /Engine/porting/Android/GameEngine-android/obj/
 /Engine/porting/Android/GameEngine-android/src/
+/Engine/porting/Android/GameEngine-android/assets/AppAssets.zip
+/Engine/porting/Android/GameEngine-android/assets/version
 
 # iOS 
 /Engine/porting/iOS/Project/
