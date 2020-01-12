@@ -66,8 +66,11 @@ u32 CDecryptBaseClass::decryptSetup(const u8* ptr, const u8* hdr) {
 		if (ptr)
 			m_header_size = 16;
 		m_dctx->final_setup((const char*)ptr, hdr + 4);
+
+		// DEBUG_PRINT("%s: SIF v3+ encryption", ptr);
 	}
 	else {
+		// DEBUG_PRINT("%s: SIF v2 encryption", ptr);
 		m_header_size = 4;
 	}
 

@@ -31,7 +31,6 @@ size_t KLBOpenSLSoundAsset::read_func(void *ptr, size_t size, size_t nmemb, void
 	bytes_read = fread(ptr, 1, requested_size, me->fp);
 	me->decryptor.decryptBlck(ptr, bytes_read);
 	me->src_location += bytes_read;
-	// DEBUG_PRINT("AUDIO; read_func(requested=%d, actually read=%d, loc=%d)", requested_size, bytes_read, me->src_location);
 	return bytes_read;
 }
 
@@ -50,7 +49,7 @@ int KLBOpenSLSoundAsset::seek_func(void *datasource, ogg_int64_t offset, int whe
 	// DEBUG_PRINT("AUDIO; seek_func(current=%d, offset=%d, whence=%d, new=%d)", me->src_location, (unsigned int)offset, whence, new_pos);
 	me->src_location = new_pos;
 	
-	fseek(me->fp, me->src_location + (me->decryptor.m_useNew ? 4 : 0), SEEK_SET);
+	fseek(me->fp, me->src_location + me->decryptor.m_header_size, SEEK_SET);
 	me->decryptor.gotoOffset(me->src_location);
 	// TODO: update PCM buffer offset(pcm_total_read_pos)
 
@@ -95,12 +94,9 @@ pcm_total_read_pos(0)
 	fgetpos(fp, (fpos_t*)&src_file_size);
 	fseek(fp, 0, SEEK_SET);
 
-	u8 hdr[4];
-	hdr[0] = 0;
-	hdr[1] = 0;
-	hdr[2] = 0;
-	hdr[3] = 0;
-	fread(hdr, 1, 4, fp);
+	u8 hdr[16];
+	memset(hdr, 0, 16);
+	fread(hdr, 1, 16, fp);
 
 	if (is_se)
 	{
@@ -109,14 +105,14 @@ pcm_total_read_pos(0)
 
 	decryptor.decryptSetup((const u8*)src_full_path, hdr);
 	if (decryptor.m_useNew) {
-		src_file_size -= 4;
+		src_file_size -= decryptor.m_header_size;
 	}
 	else {
 		fseek(fp, 0, SEEK_SET);
 	}
 
     DEBUG_PRINT("AUDIO; src_file=%s, src_file_size=%d", src_full_path, src_file_size);
-    DEBUG_PRINT("AUDIO; allocating Vorbis-file object");
+    // DEBUG_PRINT("AUDIO; allocating Vorbis-file object");
 	vf = (OggVorbis_File*)calloc(1, sizeof(OggVorbis_File));
     // DEBUG_PRINT("AUDIO; setting callbacks");
     ov_callbacks callbacks;
