@@ -15,6 +15,7 @@
 */
 #include "CKLBLuaLibASSET.h"
 #include "CKLBUtility.h"
+#include <dirent.h>
 
 static ILuaFuncLib::DEFCONST luaConst[] = {
 //	{ "DBG_M_SWITCH",	DBG_MENU::M_SWITCH },
@@ -35,6 +36,7 @@ CKLBLuaLibASSET::addLibrary()
 	addFunction("ASSET_getAssetInfo",		CKLBLuaLibASSET::luaGetAssetInfo);
 	addFunction("ASSET_getExternalFree",	CKLBLuaLibASSET::luaGetExternalFree);
 	addFunction("ASSET_getFileList",		CKLBLuaLibASSET::luaGetFileList);
+	addFunction("ASSET_getAssetPathIfNotExist", CKLBLuaLibASSET::luaGetAssetPathIfNotExist);
 	addFunction("ASSET_delExternal",		CKLBLuaLibASSET::luaDelExternal);
 	addFunction("ASSET_registerNotFound",	CKLBLuaLibASSET::luaRegisterNotFound);
 	addFunction("ASSET_setPlaceHolder",		CKLBLuaLibASSET::luaSetPlaceHolder);
@@ -247,8 +249,77 @@ s32
 CKLBLuaLibASSET::luaGetFileList(lua_State* L)
 {
 	CLuaState lua(L);
-	klb_assertAlways("Not implemented");
+	IPlatformRequest& platform = CPFInterface::getInstance().platform();
+	const char* path = platform.getFullPath(lua.getString(1));
+
+	DIR* dir;
+	struct dirent* ent;
+	int i = 0;
+	// create parent table
+	lua.tableNew();
+
+	if (dir = opendir(path)) {
+		while (ent = readdir(dir)) {
+			if (strcmp(ent->d_name, ".") && strcmp(ent->d_name, "..")) {
+				// store index in table
+				lua.retInt(i++);
+
+				// create sub table
+				lua.tableNew();
+				lua.retString("name");
+				lua.retString(ent->d_name);
+				// set sub table
+				lua.tableSet();
+				// set parent table
+				lua.tableSet();
+			}
+		}
+		closedir(dir);
+	}
 	
+	delete[] path;
+	return 1;
+}
+
+s32
+CKLBLuaLibASSET::luaGetAssetPathIfNotExist(lua_State* L)
+{
+	CLuaState lua(L);
+	IPlatformRequest& platform = CPFInterface::getInstance().platform();
+	const char* assetPath = lua.getString(1);
+	char* newAssetPath = new char[strlen(assetPath) + 14];
+
+	klb_assert(!strstr(assetPath, ".mp3") || !strstr(assetPath, ".ogg"), "Never use a .ogg or .mp3 extension. Audio Asset have none, automatically detected inside");
+	sprintf(newAssetPath, "asset://%s", assetPath);
+
+	// check path
+	if (platform.getFullPath(newAssetPath)) {
+		// return nil if file exists
+		lua.retNil();
+		delete[] newAssetPath;
+		return 1;
+	}
+
+	if (!strstr(newAssetPath, ".texb") && !strstr(newAssetPath, ".imag")) {
+		// check path with .mp3 audio extension
+		sprintf(newAssetPath + strlen(newAssetPath), ".mp3");
+		if (platform.getFullPath(newAssetPath)) {
+			lua.retNil();
+			delete[] newAssetPath;
+			return 1;
+		}
+
+		// check path with .ogg audio extension
+		sprintf(newAssetPath + strlen(newAssetPath) - 4, ".ogg");
+		if (platform.getFullPath(newAssetPath)) {
+			lua.retNil();
+			delete[] newAssetPath;
+			return 1;
+		}
+	}
+
+	lua.retString(newAssetPath);
+	delete[] newAssetPath;
 	return 1;
 }
 

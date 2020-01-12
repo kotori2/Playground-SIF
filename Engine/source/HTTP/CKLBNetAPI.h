@@ -107,10 +107,11 @@ private:
 	const char			**	m_http_header_array;
 
 private:
+	int mapFail();
 	void releaseConnection();
 	void freeHeader();
 	void freeJSonResult();
-	void setHeaders(const char* data);
+	void setHeaders(const char* data, const char* specialKey = NULL);
 
 	bool lua_callback(int msg, int status, CKLBJsonItem* pRoot, int nonce);
 

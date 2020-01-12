@@ -185,6 +185,7 @@ CKLBLuaEnv::setupLuaEnv()
 	lua_register(m_L, "setGhostPlayerActivity", CKLBLuaEnv::ghostPlayerActivity);
 	lua_register(m_L, "getGhostPlayerActivity", CKLBLuaEnv::ghostPlayerActivity);
 	lua_register(m_L, "addExtMsg",				CKLBLuaEnv::addExtMsg);
+	lua_register(m_L, "requestExtensionEvent",  CKLBLuaEnv::requestExtensionEvent);
 
 
 	// ***********************
@@ -205,6 +206,12 @@ CKLBLuaEnv::setupLuaEnv()
 #endif
 
     return true;
+}
+
+int
+CKLBLuaEnv::requestExtensionEvent(lua_State* L)
+{
+	return 0;
 }
 
 int
@@ -717,13 +724,15 @@ CKLBLuaEnv::sysLoad(const char * scriptUrl)
 
 // メンテナンスモードに突入
 bool
-CKLBLuaEnv::intoMaintenance()
+CKLBLuaEnv::intoMaintenance(bool clientUpdate)
 {
 	// 既にメンテナンスモードであれば何もしない
     if(!m_sysLoadEnable) { return true; }
 
-	// 必ずこのpathのスクリプトになる
-	sysLoad("asset://Maintenance.lua");
+	if (clientUpdate) 
+		sysLoad("asset://Update.lua");
+	else 
+		sysLoad("asset://Maintenance.lua");
 	// ロード予約ができた。以降、sysLoad()の呼び出しによる再設定を禁止
 	m_sysLoadEnable = false;
 	return true;
