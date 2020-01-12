@@ -506,31 +506,6 @@ void CAndroidRequest::setPauseOnInterruption(bool _bPauseOnInterruption)
     // TODO:2013/06/10 現在はiOSのみ対応が必要なのでAndroid側は特に対応なし
 }
 
-#define ANDROID_ALARM_ELAPSED_REALTIME (3)
-inline void CAndroidRequest::getElapsedTimeSpec(struct timespec * ts)
-{
-	// ref: AOSP source code; frameworks/native/libs/utils/SystemClock.cpp
-	int fd = open("/dev/alarm", O_RDONLY);
-	if (fd == -1) {
-		klb_assertAlways("failed to claim alarm counter.");
-	}
-
-	int result = ioctl(fd, _IOW('a', 4 | (ANDROID_ALARM_ELAPSED_REALTIME << 4), struct timespec), ts);
-
-	close(fd);
-
-	if (result == -1) {
-		klb_assertAlways("failed to fetch alarm clock via ioctl");
-	}
-}
-
-inline s64 CAndroidRequest::getElapsedNanoTime(void)
-{
-	struct timespec ts;
-	getElapsedTimeSpec(&ts);
-	return ((s64)ts.tv_sec * 1000000000) + ts.tv_nsec;
-}
-
 /*!
     @brief  経過時間を取得(sec)
     @param[in]  void
@@ -538,9 +513,13 @@ inline s64 CAndroidRequest::getElapsedNanoTime(void)
  */
 s64 CAndroidRequest::getElapsedTime(void)
 {
-	struct timespec ts;
-	getElapsedTimeSpec(&ts);
-	return (s64)ts.tv_sec;
+	JNIEnv* env = CJNI::getJNIEnv();
+	jclass cls = env->FindClass("android/os/SystemClock");
+	jmethodID mid = env->GetStaticMethodID(cls, "elapsedRealtimeNanos", "()J");
+	jlong sec;
+	sec = env->CallStaticLongMethod(cls, mid);
+	env->DeleteLocalRef(cls);
+	return sec / 1000000000LL;
 }
 
 void
