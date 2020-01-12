@@ -226,6 +226,12 @@ CKLBLuaLibSOUND::luaSoundOpen(lua_State * L)
 
 	SOUND * pSnd = createSound(snd_asset, !f_bgm);
 
+    //open failed
+    if (pSnd == NULL) {
+        lua.retNil();
+        return 1;
+    }
+
 	if( !f_bgm && pSnd ) pForm.preLoad(pSnd->hSND);	// SEモードの場合はオンメモリ状態にしておく
 
 	lua.retPointer(pSnd);
