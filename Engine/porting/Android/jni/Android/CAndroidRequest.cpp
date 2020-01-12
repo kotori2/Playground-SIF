@@ -768,7 +768,8 @@ bool
 CAndroidRequest::watchThread(void * hThread, s32 * status)
 {
 	PF_THREAD * pThread = (PF_THREAD *)hThread;
-	if(pthread_kill(pThread->id, 0) != ESRCH) {
+	int result = pthread_kill(pThread->id, 0);
+	if(result != ESRCH && result != EINVAL) {
 		return true;
 	}
 	*status = pThread->result;
