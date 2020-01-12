@@ -84,7 +84,10 @@ CAndroidRequest::~CAndroidRequest() {
 	delete [] m_homePath;
 	delete [] m_platform;
   delete [] m_regId;
-  KLBDELETEA(m_bundleVersion);
+  if (m_bundleVersion != NULL) {
+    delete[] m_bundleVersion;
+    m_bundleVersion = NULL;
+  }
 }
 
 CAndroidRequest *
@@ -120,7 +123,7 @@ void CAndroidRequest::initBundleVersion()
   callJavaMethod(value, "getVersionName", 'S', "");
   jstring jstr = (jstring)value.l;
   const char *str = CJNI::getJNIEnv()->GetStringUTFChars(jstr, NULL);
-  char *buf = KLBNEWA(char, strlen(str) + 1);
+  char *buf = new char[strlen(str) + 1];
   sprintf(buf, "%s", str);
   m_bundleVersion = (const char *)buf;
   CJNI::getJNIEnv()->ReleaseStringUTFChars(jstr, str);
