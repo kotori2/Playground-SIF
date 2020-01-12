@@ -95,7 +95,7 @@ int fEncryptRead					(sqlite3_file* file, void* buff, int iAmt, sqlite3_int64 iO
 			return SQLITE_IOERR_SHORT_READ;
 		}
 
-		// printf("fEncryptRead Amount[%i] Offset[%i] \n", iAmt, iOfst);
+		//DEBUG_PRINT("fEncryptRead Amount[%i] Offset[%i]", iAmt, iOfst);
 	} else {
 		// No op for read.
 		return SQLITE_IOERR;
@@ -376,12 +376,10 @@ int fEncryptOpen					(sqlite3_vfs* vfs, const char *zName, sqlite3_file* file, i
 	
 	if (f) {
 		fileDecrypt->m_file	= f;
-		u8 header[4];
-		header[0] = 0;
-		header[1] = 0;
-		header[2] = 0;
-		header[3] = 0;
-		pltf.ifread(header,1,4,f);
+		u8 header[16];
+		memset(header, 0, 16);
+		pltf.ifread(header,1,16,f);
+		//DEBUG_PRINT("fEncryptOpen: file %s", zName);
 		fileDecrypt->m_hasHeader = fileDecrypt->m_decrypt.decryptSetup((const u8*)zName, header);
 
 		pltf.ifseek(f, 0, SEEK_END);

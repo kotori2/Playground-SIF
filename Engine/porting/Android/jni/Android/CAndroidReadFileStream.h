@@ -76,20 +76,16 @@ private:
 
 public:
 	inline u32 decryptSetup(const u8* ptr) {
-		u8 hdr[4];
-		hdr[0] = 0;
-		hdr[1] = 0;
-		hdr[2] = 0;
-		hdr[3] = 0;
+		u8 hdr[16];
 
 		if (m_fp) {
-			fread(hdr, 1, 4, m_fp); 
+			fread(hdr, 1, 16, m_fp); 
 		}
 
 		u32 res = m_decrypter.decryptSetup(ptr, hdr);
 		if (res == 0) {
 			if (m_fp) {
-				fseek(m_fp, 0, SEEK_SET);
+				fseek(m_fp, m_decrypter.m_header_size, SEEK_SET);
 			}
 		}
 		return res;

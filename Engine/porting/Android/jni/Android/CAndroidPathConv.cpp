@@ -44,7 +44,7 @@ CAndroidPathConv::makePath(const char * path, const char * suffix, const char * 
     //strcat(buf, "/");
     strcat(buf, path);
     if(suffix) strcat(buf, suffix);
-    //DEBUG_PRINT("fullpath: %s", buf);
+    DEBUG_PRINT("fullpath: %s", buf);
     return (const char *)buf;
 }
 

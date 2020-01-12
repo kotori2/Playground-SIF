@@ -110,13 +110,13 @@ CAndroidReadFileStream::getSize()
         return -1;
     }
 
-    return file_stats.st_size - (m_decrypter.m_useNew ? 4 : 0);
+    return file_stats.st_size - m_decrypter.m_header_size;
 }
 
 s32
 CAndroidReadFileStream::getPosition()
 {
-    return (s32)(ftell(m_fp) - (m_decrypter.m_useNew ? 4 : 0));
+    return (s32)(ftell(m_fp) - m_decrypter.m_header_size);
 }
 
 u8       

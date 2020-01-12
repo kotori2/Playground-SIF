@@ -330,7 +330,7 @@ CAndroidRequest::nanotime()
 IReadStream *
 CAndroidRequest::openReadStream(const char *pathname, bool decrypt)
 {
-	// DEBUG_PRINT("opening file: pathname=%s, decrypt=%d", pathname, decrypt);
+	//DEBUG_PRINT("opening file: pathname=%s, decrypt=%d", pathname, decrypt);
     // ファイル名の scheme で、どのファイルを開くべきかが決まる。
     if(!strncmp(pathname, "file://", 7)) {
         // ファクトリには scheme を除いたパスが渡される。
