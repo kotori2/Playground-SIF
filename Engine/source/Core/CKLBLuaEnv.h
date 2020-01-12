@@ -68,6 +68,7 @@ public:
 	// other
 	static int ghostPlayerActivity	(lua_State * L);
 	static int addExtMsg			(lua_State * L);
+	static int requestExtensionEvent(lua_State * L);
 
     inline const char * nowFile	() const { return m_nowFile; }
 

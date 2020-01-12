@@ -14,8 +14,8 @@
    limitations under the License.
 */
 #include "CKLBLuaLibAPP.h"
+#include <ctime>
 
-;
 static ILuaFuncLib::DEFCONST luaConst[] = {
 	{ "APP_MAIL",		IPlatformRequest::APP_MAIL },		// 各環境のメールアプリ
 	{ "APP_BROWSER",	IPlatformRequest::APP_BROWSER },	// 各環境のブラウザアプリ
@@ -125,6 +125,6 @@ int
 CKLBLuaLibAPP::luaDateTimeNow(lua_State * L)
 {
 	CLuaState lua(L);
-	lua.retInt(0);
+	lua.retInt(std::time(0));
 	return 1;
 }

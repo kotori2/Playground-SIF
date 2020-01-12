@@ -36,6 +36,7 @@ CKLBLuaLibASSET::addLibrary()
 	addFunction("ASSET_getAssetInfo",		CKLBLuaLibASSET::luaGetAssetInfo);
 	addFunction("ASSET_getExternalFree",	CKLBLuaLibASSET::luaGetExternalFree);
 	addFunction("ASSET_getFileList",		CKLBLuaLibASSET::luaGetFileList);
+	addFunction("ASSET_getAssetPathIfNotExist", CKLBLuaLibASSET::luaGetAssetPathIfNotExist);
 	addFunction("ASSET_delExternal",		CKLBLuaLibASSET::luaDelExternal);
 	addFunction("ASSET_registerNotFound",	CKLBLuaLibASSET::luaRegisterNotFound);
 	addFunction("ASSET_setPlaceHolder",		CKLBLuaLibASSET::luaSetPlaceHolder);
@@ -277,6 +278,48 @@ CKLBLuaLibASSET::luaGetFileList(lua_State* L)
 	}
 	
 	delete[] path;
+	return 1;
+}
+
+s32
+CKLBLuaLibASSET::luaGetAssetPathIfNotExist(lua_State* L)
+{
+	CLuaState lua(L);
+	IPlatformRequest& platform = CPFInterface::getInstance().platform();
+	const char* assetPath = lua.getString(1);
+	char* newAssetPath = new char[strlen(assetPath) + 14];
+
+	klb_assert(!strstr(assetPath, ".mp3") || !strstr(assetPath, ".ogg"), "Never use a .ogg or .mp3 extension. Audio Asset have none, automatically detected inside");
+	sprintf(newAssetPath, "asset://%s", assetPath);
+
+	// check path
+	if (platform.getFullPath(newAssetPath)) {
+		// return nil if file exists
+		lua.retNil();
+		delete[] newAssetPath;
+		return 1;
+	}
+
+	if (!strstr(newAssetPath, ".texb") && !strstr(newAssetPath, ".imag")) {
+		// check path with .mp3 audio extension
+		sprintf(newAssetPath + strlen(newAssetPath), ".mp3");
+		if (platform.getFullPath(newAssetPath)) {
+			lua.retNil();
+			delete[] newAssetPath;
+			return 1;
+		}
+
+		// check path with .ogg audio extension
+		sprintf(newAssetPath + strlen(newAssetPath) - 4, ".ogg");
+		if (platform.getFullPath(newAssetPath)) {
+			lua.retNil();
+			delete[] newAssetPath;
+			return 1;
+		}
+	}
+
+	lua.retString(newAssetPath);
+	delete[] newAssetPath;
 	return 1;
 }
 

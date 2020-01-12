@@ -185,6 +185,7 @@ CKLBLuaEnv::setupLuaEnv()
 	lua_register(m_L, "setGhostPlayerActivity", CKLBLuaEnv::ghostPlayerActivity);
 	lua_register(m_L, "getGhostPlayerActivity", CKLBLuaEnv::ghostPlayerActivity);
 	lua_register(m_L, "addExtMsg",				CKLBLuaEnv::addExtMsg);
+	lua_register(m_L, "requestExtensionEvent",  CKLBLuaEnv::requestExtensionEvent);
 
 
 	// ***********************
@@ -205,6 +206,12 @@ CKLBLuaEnv::setupLuaEnv()
 #endif
 
     return true;
+}
+
+int
+CKLBLuaEnv::requestExtensionEvent(lua_State* L)
+{
+	return 0;
 }
 
 int
