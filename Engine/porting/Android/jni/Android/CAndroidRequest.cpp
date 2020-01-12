@@ -65,7 +65,7 @@ struct JNIBytesArray {
 CAndroidRequest * CAndroidRequest::ms_instance = 0;
 
 CAndroidRequest::CAndroidRequest(const char* model, const char * brand, const char * board, const char * version, const char * tz)
-: m_homePath(0), m_master_BGM(1.0f), m_master_SE(1.0f), m_regId(0)
+: m_homePath(0), m_master_BGM(1.0f), m_master_SE(1.0f), m_regId(0), m_bundleVersion(NULL)
 {
 	int len = strlen(model);
 	len += strlen(brand);
@@ -83,7 +83,8 @@ CAndroidRequest::CAndroidRequest(const char* model, const char * brand, const ch
 CAndroidRequest::~CAndroidRequest() {
 	delete [] m_homePath;
 	delete [] m_platform;
-        delete [] m_regId;
+  delete [] m_regId;
+  KLBDELETEA(m_bundleVersion);
 }
 
 CAndroidRequest *
@@ -113,9 +114,22 @@ CAndroidRequest::nativeSignal(int cmd, int param)
 	}
 }
 
+void CAndroidRequest::initBundleVersion()
+{
+  jvalue value;
+  callJavaMethod(value, "getVersionName", 'S', "");
+  jstring jstr = (jstring)value.l;
+  const char *str = CJNI::getJNIEnv()->GetStringUTFChars(jstr, NULL);
+  char *buf = KLBNEWA(char, strlen(str) + 1);
+  sprintf(buf, "%s", str);
+  m_bundleVersion = (const char *)buf;
+  CJNI::getJNIEnv()->ReleaseStringUTFChars(jstr, str);
+}
+
 void
 CAndroidRequest::init()
 {
+  initBundleVersion();
 }
 void
 CAndroidRequest::detailedLogging(const char * basefile, const char * functionName, int lineNo, const char * format, ...)
@@ -163,13 +177,7 @@ CAndroidRequest::logging(const char * format, ...)
 
 const char*
 CAndroidRequest::getBundleVersion() {
-    jvalue value;
-    CAndroidRequest::getInstance()->callJavaMethod(value, "getVersionName", 'S', "");
-    jstring jstr = (jstring)value.l;
-    const char * str = CJNI::getJNIEnv()->GetStringUTFChars(jstr, NULL);
-    CJNI::getJNIEnv()->ReleaseStringUTFChars(jstr, str);
-    // FIXME ReleaseStringUTFChars 後のポインタを返してしまっている
-    return str;
+    return m_bundleVersion;
 }
 
 ITmpFile *
