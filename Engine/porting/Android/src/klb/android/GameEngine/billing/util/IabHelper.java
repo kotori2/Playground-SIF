@@ -96,6 +96,7 @@ public class IabHelper {
     // Is an asynchronous operation in progress?
     // (only one at a time can be in progress)
     volatile boolean mAsyncInProgress = false;
+    volatile boolean mImmediateAsyncExists = false;
 
     // (for logging/debugging)
     // if mAsyncInProgress == true, what asynchronous operation is in progress?
@@ -162,7 +163,7 @@ public class IabHelper {
 
         logDebug("IAB helper created.");
     }
-    
+
     /**
      * Enables or disable debug logging through LogCat.
      */
@@ -170,7 +171,7 @@ public class IabHelper {
         mDebugLog = enable;
         mDebugTag = tag;
     }
-    
+
     public void enableDebugLogging(boolean enable) {
         mDebugLog = enable;
     }
@@ -192,6 +193,111 @@ public class IabHelper {
     {
     	return mSetupDone;
     }
+
+    public void delay(int i) {
+        if (i > 0) {
+            logDebug("delaying consuming");
+            try {
+                Thread.sleep((long) i);
+            } catch (InterruptedException unused) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    public void setupFinished(final OnIabSetupFinishedListener listener, final int response, final String msg) {
+        if (listener != null) {
+            mActivity.runOnUiThread(new Runnable() {
+                public void run() {
+                    listener.onIabSetupFinished(new IabResult(response, msg));
+                }
+            });
+        }
+    }
+
+    public void restartSetup(){
+        if (this.mService == null) {
+            throw new IllegalStateException("Restarting but IAB helper is not set up.");
+        }
+        logDebug("Restarting in-app billing setup.");
+        new Thread(new Runnable() {
+            public void run() {
+                flagStartAsync("startSetup", true);
+                delay(1000);
+                bindService(null);
+            }
+        }).start();
+
+    }
+
+    public void flagStartAsync(String operation, boolean z) {
+        if (z) {
+            this.mImmediateAsyncExists = true;
+        }
+        boolean loop = true;
+        while (loop) {
+            synchronized (this) {
+                if (this.mAsyncInProgress) {
+                    logDebug(operation + " is waiting " + this.mAsyncOperation + " running in another thread");
+                } else if (!this.mImmediateAsyncExists || z) {
+                    this.mAsyncInProgress = true;
+                    loop = false;
+                } else {
+                    logDebug("yield immediate task");
+                }
+            }
+            if (loop) {
+                delay(1000);
+            }
+        }
+        if (z) {
+            this.mImmediateAsyncExists = true;
+        }
+        this.mAsyncOperation = operation;
+        logDebug("Starting async operation: " + operation);
+    }
+
+    public void bindService(final OnIabSetupFinishedListener listener){
+        mServiceConn = new ServiceConnection() {
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                logDebug("Billing service disconnected.");
+                restartSetup();
+            }
+
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                logDebug("Billing service connected.");
+                mService = IInAppBillingService.Stub.asInterface(service);
+                String packageName = mActivity.getPackageName();
+
+                int response;
+                String msg;
+
+                try {
+                    logDebug("Checking for in-app billing 3 support.");
+                    response = mService.isBillingSupported(3, packageName, ITEM_TYPE_INAPP);
+                    msg = response == 0 ? "Setup successful." : "Error checking for billing v3 support.";
+                    logDebug("In-app billing version 3 supported for " + packageName);
+                }
+                catch (RemoteException e) {
+                    e.printStackTrace();
+                    response = -1001;
+                    msg = "RemoteException while setting up in-app billing.";
+                }
+
+                flagEndAsync();
+                setupFinished(listener, response, msg);
+            }
+        };
+        Intent intent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
+        intent.setPackage("com.android.vending");
+        if (!mActivity.bindService(intent, mServiceConn, Context.BIND_AUTO_CREATE)) {
+            logError("Failed to bind service");
+        }
+    }
+
+
     /**
      * Starts the setup process. This will start up the setup process asynchronously.
      * You will be notified through the listener when the setup process is complete.
@@ -201,93 +307,17 @@ public class IabHelper {
      */
     public void startSetup(final OnIabSetupFinishedListener listener) {
         // If already set up, can't do it again.
-        if (mSetupDone) throw new IllegalStateException("IAB helper is already set up.");
+        if (mService != null) throw new IllegalStateException("IAB helper is already set up.");
 
-        
+
         //final Handler handler = new Handler();
         // Connection to IAB service
         logDebug("Starting in-app billing setup.");
         (new Thread(new Runnable() {
             public void run() {
             	// wait for other threads
-            	flagStartAsync("startSetup");
-            	if (isSetupDone()) {
-            		/*
-            		 *  直前に待っていた処理がsetupだった場合は再度投げ直さない
-            		 */
-                    if (listener != null) {
-                    	mActivity.runOnUiThread(new Runnable() {
-                            public void run() {
-                            	listener.onIabSetupFinished(
-                            			new IabResult(
-                            					IabHelper.BILLING_RESPONSE_RESULT_OK , "Already Initialized"));
-                            }
-                        });		                        
-                    }            		
-            	}
-		            
-		        mServiceConn = new ServiceConnection() {
-		            @Override
-		            public void onServiceDisconnected(ComponentName name) {
-		                logDebug("Billing service disconnected.");
-		                mService = null;
-		            }
-		
-		            @Override
-		            public void onServiceConnected(ComponentName name, IBinder service) {
-		                logDebug("Billing service connected.");
-		                mService = IInAppBillingService.Stub.asInterface(service);
-		                String packageName = mActivity.getPackageName();
-		                
-		                flagEndAsync();
-		                
-		                try {
-		                    logDebug("Checking for in-app billing 3 support.");
-		                    final int response = mService.isBillingSupported(3, packageName, ITEM_TYPE_INAPP);
-		                    if (response != BILLING_RESPONSE_RESULT_OK) {
-		                        if (listener != null) {
-		                        	mActivity.runOnUiThread(new Runnable() {
-		                                public void run() {
-		                                	listener.onIabSetupFinished(
-		                                			new IabResult(response, "Error checking for billing v3 support."));
-		                                	PFInterface.startAlertDialog("課金制限", "お使いの端末はサポートされていません [IABv3]");
-		                                }
-		                            });		                        
-		                        }
-
-		                        return;
-		                    }
-		                    logDebug("In-app billing version 3 supported for " + packageName);
-		                    mSetupDone = true;
-		                }
-		                catch (RemoteException e) {
-		                    if (listener != null) {
-		                    	mActivity.runOnUiThread(new Runnable() {
-	                                public void run() {
-				                        listener.onIabSetupFinished(new IabResult(IABHELPER_REMOTE_EXCEPTION,
-				                                                    "RemoteException while setting up in-app billing."));
-		                    
-	                                }
-	                            });
-	                        }
-		                    e.printStackTrace();
-		                }
-		
-		                if (listener != null) {
-                            mActivity.runOnUiThread(new Runnable() {
-                                public void run() {
-                                	listener.onIabSetupFinished(
-                                			new IabResult(BILLING_RESPONSE_RESULT_OK, "Setup successful."));
-                                }
-                            });
-		                }
-		            }
-		        };
-		        boolean ret = mActivity.bindService(new Intent("com.android.vending.billing.InAppBillingService.BIND"),
-		                             mServiceConn, Context.BIND_AUTO_CREATE);
-		        if(!ret) {
-		        	logError("Failed to bind service");
-		        }
+            	flagStartAsync("startSetup", false);
+                bindService(listener);
             }})).start();
     }
 
