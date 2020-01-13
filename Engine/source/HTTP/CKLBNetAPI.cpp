@@ -313,7 +313,7 @@ CKLBNetAPI::authKey()
 		int clientKeyEncryptedLen = 0;
 		int status = 0;
 		status = platform.publicKeyEncrypt((unsigned char*)clientKey, strlen(clientKey), clientKeyEncrypted, &clientKeyEncryptedLen);
-        klb_assert(status == 0, "platform.publicKeyEncrypt failed");
+        klb_assert(status == 1, "platform.publicKeyEncrypt failed");
 		int dummyTokenLen = 0;
 		char* dummyToken = base64(clientKeyEncrypted, clientKeyEncryptedLen, &dummyTokenLen);
 
@@ -323,7 +323,7 @@ CKLBNetAPI::authKey()
 		unsigned char devDataEnc[512];
 		int devDataEncLen;
 		status = platform.encryptAES128CBC(devData, strlen(devData), clientKey, devDataEnc, &devDataEncLen);
-		klb_assert(status == 0, "platform.encryptAES128CBC failed");
+		klb_assert(status == 1, "platform.encryptAES128CBC failed");
 		int authDataLen = 0;
 		char* authData = base64(devDataEnc, devDataEncLen, &authDataLen);
 		sprintf(requestData, "request_data={\"dummy_token\":\"%s\", \"auth_data\":\"%s\"}", dummyToken, authData);
@@ -385,9 +385,9 @@ CKLBNetAPI::login(int status)
         int loginKeyEncLen = 0;
 		int status = 0;
 		status = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, &loginPwdEncLen);
-		klb_assert(status == 0, "platform.encryptAES128CBC failed");
+		klb_assert(status == 1, "platform.encryptAES128CBC failed");
 		status = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, &loginKeyEncLen);
-		klb_assert(status == 0, "platform.encryptAES128CBC failed");
+		klb_assert(status == 1, "platform.encryptAES128CBC failed");
 
 		// and do base64
 		int loginKeyBLen = 0;
@@ -447,9 +447,9 @@ CKLBNetAPI::startUp(int status)
 		int loginPwdEncLen = 0;
 		int loginKeyEncLen = 0;
 		status = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, &loginPwdEncLen);
-        klb_assert(status == 0, "platform.encryptAES128CBC failed");
+        klb_assert(status == 1, "platform.encryptAES128CBC failed");
         status = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, &loginKeyEncLen);
-        klb_assert(status == 0, "platform.encryptAES128CBC failed");
+        klb_assert(status == 1, "platform.encryptAES128CBC failed");
 
 		// and do base64
 		int loginKeyBLen = 0;
