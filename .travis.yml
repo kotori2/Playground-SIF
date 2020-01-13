@@ -3,6 +3,11 @@ os: linux
 dist: xenial
 group: edge
 
+addons:
+  apt:
+    packages:
+      - "python3"
+      - "python3-pip"
 env:
   global:
   # for updates check developer.android.com/studio#downloads (current 26.1.1)
@@ -19,7 +24,7 @@ before_install:
   - export ANDROID_HOME=$HOME/sdk
   # create empty cfg file to prevent sdkmanager warning message
   - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
-  - sudo apt install -y python3 python3-pip
+  - export PATH=$PATH:$HOME/.local/bin
   - sudo pip3 install colorama
 install:
   # accept licenses for all available packages that have not already been accepted

@@ -45,11 +45,13 @@ build:
 
   # MSBuild verbosity level
   verbosity: normal
-
+  
+after_build:
+  - 7z a Win32_Debug.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\Output\Debug\*.dll
+  - 7z a Win32_Debug.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\Output\Debug\SampleProject.exe
 #---------------------------------#
 #      artifacts configuration    #
 #---------------------------------#
 
 artifacts:
-  - path: Engine/porting/Win32/Output/Debug/*.dll
-  - path: Engine/porting/Win32/Output/Debug/SampleProject.exe
+  - path: Win32_Debug.zip
