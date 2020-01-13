@@ -2,7 +2,6 @@ language: minimal
 os: linux
 dist: xenial
 group: edge
-python: "3.7"
 
 env:
   global:
@@ -20,6 +19,7 @@ before_install:
   - export ANDROID_HOME=$HOME/sdk
   # create empty cfg file to prevent sdkmanager warning message
   - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
+  - apt install -y python3 python3-pip
 install:
   # accept licenses for all available packages that have not already been accepted
   - yes | sdkmanager --licenses >/dev/null
