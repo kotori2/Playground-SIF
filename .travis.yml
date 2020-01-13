@@ -23,7 +23,7 @@ install:
   # accept licenses for all available packages that have not already been accepted
   - yes | sdkmanager --licenses >/dev/null
   - echo y | sdkmanager 'ndk-bundle' >/dev/null
-  - pip install colorama
+  - pip3 install colorama
   
 before_script:
   # set executable flag for gradle wrapper
