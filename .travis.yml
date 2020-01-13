@@ -26,7 +26,7 @@ install:
   
 before_script:
   # set executable flag for gradle wrapper
-  - chmod +x gradlew
+  - chmod +x ./Engine/porting/Android/GameEngine-android/gradlew
   # create dir for gradle settings
   - mkdir -p $HOME/.gradle
   # disable gradle daemon for current user
