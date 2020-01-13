@@ -968,12 +968,13 @@ bool
 CAndroidRequest::callJavaMethod(jvalue& ret, const char * method, const char rettype, const char * form, ...)
 {
 	using namespace std;
-	//引数の数を数える
+	// count the number of arguments
 	int count = 0;
 	for(const char * ptr = form; *ptr; ptr++) {
 		if(*ptr != ' ') count++;
 	}
-	//DEBUG_PRINT("args count: %d", count);
+	// DO NOT UNCOMMENT THIS LINE OR CLIENT CRASH
+	// DEBUG_PRINT("args count: %d", count);
 	JNIEnv* env = CJNI::getJNIEnv();
 
 	vector<jstring> jstrs;
@@ -1043,23 +1044,6 @@ CAndroidRequest::callJavaMethod(jvalue& ret, const char * method, const char ret
 				jstrs.push_back(jstr);
 				break;
 			}
-			case '[': //array
-				switch(*(++ptr)){
-					case 'B':
-						/*JNIBytesArray data = va_arg(ap, const char *);
-						jbyte *bytesArray = (jbyte*)data.buf;
-						jbyteArray param = (*env)->NewByteArray(env, data.len);
-						(*env)->SetByteArrayRegin(env, param, 0, data.len, bytesArray);
-						env->SetByteArrayRegin(param, 0, nOutSize, by);*/
-						DEBUG_PRINT("Type of Bytes array called. Ignore.");
-						break;
-					default:{
-						klb_assertAlways("wrong JNI signature. unknown type: [%c", *ptr);
-						break;
-					}
-				}
-				
-
 			default:
 			{
 				klb_assertAlways("wrong JNI signature. unknown type: %c", *ptr);
@@ -1702,26 +1686,66 @@ CAndroidRequest::HMAC_SHA1(const char* string, const char* key, char* retbuf)
 }
 
 int
-CAndroidRequest::encryptAES128CBC(const char* plaintext, const char* key, const char* iv, unsigned char* out) 
+CAndroidRequest::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int* outLen)
 {
-	jvalue ret;
-    CAndroidRequest::getInstance()->callJavaMethod(ret, "encryptAES128CBC", 'I', "[B[B[B", plaintext, key, out); //TODO: IV
-	return (int)ret.i;
+    //TODO: Ignoring IV
+    JNIEnv* env = CJNI::getJNIEnv();
+    jclass cls_pfif = env->FindClass(JNI_LOAD_PATH);
+    jmethodID mid = env->GetStaticMethodID(cls_pfif, "encryptAES128CBC", "([B[B[B)I");
+
+    jbyte *by = (jbyte *) plaintext;
+    jbyteArray jPlaintext = env->NewByteArray(plaintextLen);
+    env->SetByteArrayRegion(jPlaintext, 0, plaintextLen, by);
+
+    by = (jbyte *) key;
+    jbyteArray jKey = env->NewByteArray(16);
+    env->SetByteArrayRegion(jKey, 0, 16, by);
+
+    by = (jbyte *) out;
+    jbyteArray jOut = env->NewByteArray(0);
+    env->SetByteArrayRegion(jOut, 0, 0, by);
+
+    jint ret = env->CallStaticIntMethod(cls_pfif, mid, jPlaintext, jKey, jOut);
+    env->DeleteLocalRef(cls_pfif);
+    env->DeleteLocalRef(jPlaintext);
+    env->DeleteLocalRef(jKey);
+    *outLen = env->GetArrayLength(jOut);
+    return (int)ret;
 }
 
-const char* RSAPublicKey = "-----BEGIN PUBLIC KEY-----"
-"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBpUMUVjHWNI5q3ZRjF1vPnh+m"
-"aEGdbZkeosVvzLytBy9eYJ9qLYyFXxOY1LiggWyOLS+xEVMpV3A6frI3VewkVuCw"
-"na52ssCZcQSBA03Ykeb/cfHk5ChsDUP1vmAbloMb9f++Dow6Z4yubFWmBVMCHA6l"
-"fiUDPHjI8JqG56XJKQIDAQAB"
+const char* RSAPublicKey = "-----BEGIN PUBLIC KEY-----\n"
+"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBpUMUVjHWNI5q3ZRjF1vPnh+m\n"
+"aEGdbZkeosVvzLytBy9eYJ9qLYyFXxOY1LiggWyOLS+xEVMpV3A6frI3VewkVuCw\n"
+"na52ssCZcQSBA03Ykeb/cfHk5ChsDUP1vmAbloMb9f++Dow6Z4yubFWmBVMCHA6l\n"
+"fiUDPHjI8JqG56XJKQIDAQAB\n"
 "-----END PUBLIC KEY-----";
 
 int
-CAndroidRequest::publicKeyEncrypt(unsigned char* plaintext, int plantextLen, unsigned char* out) 
+CAndroidRequest::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int* outLen)
 {
-	jvalue ret;
-    CAndroidRequest::getInstance()->callJavaMethod(ret, "publicKeyEncrypt", 'I', "[B[B[B", plaintext, RSAPublicKey, out);
-	return (int)ret.i;
+	JNIEnv* env = CJNI::getJNIEnv();
+    jclass cls_pfif = env->FindClass(JNI_LOAD_PATH);
+    jmethodID mid = env->GetStaticMethodID(cls_pfif, "publicKeyEncrypt", "([B[B[B)I");
+
+    jbyte *by = (jbyte *) plaintext;
+    jbyteArray jPlaintext = env->NewByteArray(plaintextLen);
+    env->SetByteArrayRegion(jPlaintext, 0, plaintextLen, by);
+
+    by = (jbyte *) RSAPublicKey;
+    jbyteArray jRSAPublicKey = env->NewByteArray(strlen(RSAPublicKey));
+    env->SetByteArrayRegion(jRSAPublicKey, 0, strlen(RSAPublicKey), by);
+
+    by = (jbyte *) out;
+    jbyteArray jOut = env->NewByteArray(0);
+    env->SetByteArrayRegion(jOut, 0, 0, by);
+
+    jint ret = env->CallStaticIntMethod(cls_pfif, mid, jPlaintext, jRSAPublicKey, jOut);
+    env->DeleteLocalRef(cls_pfif);
+    env->DeleteLocalRef(jPlaintext);
+    env->DeleteLocalRef(jRSAPublicKey);
+    *outLen = env->GetArrayLength(jOut);
+    DEBUG_PRINT("publicKeyEncrypt return: %d", ret);
+    return (int)ret;
 }
 
 };
