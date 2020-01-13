@@ -14,7 +14,7 @@ To get started, please read the /Doc/Project.md
 The dev team.
 
 ## Build Status
-[![Build Status](https://travis-ci.org/KLab/PlaygroundOSS.png?branch=master)](https://travis-ci.org/KLab/PlaygroundOSS)
+[![Build Status](https://api.travis-ci.org/kotori2/Playground-SIF.svg?branch=master)](https://travis-ci.org/kotori2/Playground-SIF)
 
 
 ## LICENSE

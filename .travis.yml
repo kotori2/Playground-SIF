@@ -9,13 +9,14 @@ env:
    # android-17 is always included
    ## note: we're using android-17 for building, so android-16 env is disabled here.
    # - ANDROID_SDKS=sysimg-16           ANDROID_TARGET=android-16  ANDROID_ABI=armeabi-v7a
-   - ANDROID_SDKS=android-17,sysimg-17 ANDROID_TARGET=android-17  ANDROID_ABI=armeabi-v7a
-   - ANDROID_SDKS=android-18,sysimg-18 ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a
+   - ANDROID_SDKS=android-29,sysimg-29 ANDROID_TARGET=android-29  ANDROID_ABI=armeabi-v7a
+   # - ANDROID_SDKS=android-18,sysimg-18 ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a
 
 before_install:
   # Install base Android SDK
   - sudo apt-get update -qq
   - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
+  # TODO: Update SDK version
   - wget http://dl.google.com/android/android-sdk_r22.2.1-linux.tgz
   - tar xzf android-sdk_r22.2.1-linux.tgz
   - export ANDROID_HOME=$PWD/android-sdk-linux
@@ -27,10 +28,10 @@ before_install:
   # Other relevant API's:
   #  addon-google_apis-google-16
   # yes, we do agree SDK EULA
-  - echo 'y' | android update sdk --filter platform-tools,android-17,extra-android-support,$ANDROID_SDKS --no-ui --force
-  - BUILD_TOOLS_ID=`android list sdk --extended -a | grep "build-tools-18.1.0" |cut -d ' ' -f 2`
+  - echo 'y' | android update sdk --filter platform-tools,android-29,extra-android-support,$ANDROID_SDKS --no-ui --force
+  - BUILD_TOOLS_ID=`android list sdk --extended -a | grep "build-tools-29.0.2" |cut -d ' ' -f 2`
   - echo 'y' | android update sdk -a --filter $BUILD_TOOLS_ID --no-ui --force
-  - export PATH=${PATH}:${ANDROID_HOME}/build-tools/18.1.0
+  - export PATH=${PATH}:${ANDROID_HOME}/build-tools/29.0.2
 
 ## disable emulator related things for now
 #   # Create and start emulator
@@ -43,9 +44,9 @@ before_install:
 #   - ./wait_for_emulator
 
   # NDK
-  - wget http://dl.google.com/android/ndk/android-ndk-r9-linux-x86_64.tar.bz2
-  - tar jxf android-ndk-r9-linux-x86_64.tar.bz2
-  - export ANDROID_NDK_ROOT=$PWD/android-ndk-r9
+  - wget https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip
+  - unzip android-ndk-r20b-linux-x86_64.zip
+  - export ANDROID_NDK_ROOT=$PWD/android-ndk-r20b
   - export PATH=$ANDROID_NDK_ROOT:$PATH
 
 # Android NDK & SDK build
