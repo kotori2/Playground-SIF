@@ -9,6 +9,13 @@
 #import <sys/xattr.h>
 #import <sys/types.h>
 #import <sys/sysctl.h>
+// *** start including openssl ***
+#include <openssl/sha.h>
+#include <openssl/hmac.h>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
+//#include "applink.c"
+// *** end including openssl ***
 #include "RenderingFramework.h"
 #include "CiOSPlatform.h"
 #include "CiOSReadFileStream.h"
@@ -926,4 +933,59 @@ bool CiOSPlatform::icreateEmptyFile(const char *name) {
 		return true;
 	}
 	return false;
+}
+
+int CiOSPlatform::HMAC_SHA1(const char* content, const char* key, char* retbuf)
+{
+    u8* hash = HMAC(EVP_sha1(), key, strlen(key), (const unsigned char*)content, strlen(content), NULL, NULL);
+    char* ptr = retbuf;
+    for (int i = 0; i < 20; i++)
+    {
+        sprintf(ptr, "%02x", hash[i]);
+        ptr += strlen(ptr);
+    }
+    return strlen(retbuf);
+}
+
+int CiOSPlatform::encryptAES128CBC(const char* plaintext, const char* key, const char* iv, unsigned char* out)
+{
+    
+    EVP_CIPHER_CTX* ctx;
+    if (!(ctx = EVP_CIPHER_CTX_new()))
+        return false;
+
+    if (false)
+    {
+    fail:
+        EVP_CIPHER_CTX_free(ctx);
+        return false;
+    }
+    
+    // set iv at beggining
+    memcpy(out, iv, 16);
+    int ciphertextLenght = 0;
+    int tmp = 0;
+    // encrypt the plaintext
+    if (EVP_EncryptInit_ex(ctx, EVP_aes_128_cbc(), NULL, (u8*)key, (u8*)iv) == 0)
+        goto fail;
+    if (EVP_EncryptUpdate(ctx, out + 16, &ciphertextLenght, (u8*)plaintext, strlen(plaintext)) == 0)
+        goto fail;
+    // add iv len
+    ciphertextLenght += 16;
+    if (EVP_EncryptFinal_ex(ctx, out + ciphertextLenght, &tmp) == 0)
+        goto fail;
+
+    // and free CTX after using
+    EVP_CIPHER_CTX_free(ctx);
+    return ciphertextLenght += tmp;
+}
+
+int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plantextLen, unsigned char* out)
+{
+    FILE* publicKey = fopen("public.pem", "rb");
+    klb_assert(publicKey, "public.pem not exist");
+    RSA* rsa = RSA_new();
+    rsa = PEM_read_RSA_PUBKEY(publicKey, &rsa, NULL, NULL);
+    fclose(publicKey);
+    return RSA_public_encrypt(plantextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
 }
