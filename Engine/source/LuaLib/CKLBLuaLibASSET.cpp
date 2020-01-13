@@ -40,6 +40,7 @@ CKLBLuaLibASSET::addLibrary()
 	addFunction("ASSET_delExternal",		CKLBLuaLibASSET::luaDelExternal);
 	addFunction("ASSET_registerNotFound",	CKLBLuaLibASSET::luaRegisterNotFound);
 	addFunction("ASSET_setPlaceHolder",		CKLBLuaLibASSET::luaSetPlaceHolder);
+	addFunction("ASSET_killDownload",		CKLBLuaLibASSET::luaKillDownload);
 
 	addFunction("Asset_getNMAssetSize",		CKLBLuaLibASSET::luaGetNMAssetSize);
 	addFunction("Asset_getNMAsset",			CKLBLuaLibASSET::luaGetNMAsset);
@@ -320,6 +321,16 @@ CKLBLuaLibASSET::luaGetAssetPathIfNotExist(lua_State* L)
 
 	lua.retString(newAssetPath);
 	delete[] newAssetPath;
+	return 1;
+}
+
+s32
+CKLBLuaLibASSET::luaKillDownload(lua_State* L)
+{
+	CLuaState lua(L);
+	// part of Micro Download
+	// TODO
+	lua.printStack();
 	return 1;
 }
 
