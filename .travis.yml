@@ -22,7 +22,7 @@ before_install:
 install:
   # accept licenses for all available packages that have not already been accepted
   - yes | sdkmanager --licenses >/dev/null
-  - echo y | sdkmanager 'ndk-bundle'
+  - echo y | sdkmanager 'ndk-bundle' >/dev/null
   
 before_script:
   # set executable flag for gradle wrapper
