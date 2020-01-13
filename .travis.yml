@@ -23,10 +23,12 @@ install:
   # accept licenses for all available packages that have not already been accepted
   - yes | sdkmanager --licenses >/dev/null
   - echo y | sdkmanager 'ndk-bundle' >/dev/null
+  - pip install colorama
   
 before_script:
   # set executable flag for gradle wrapper
   - chmod +x ./Engine/porting/Android/GameEngine-android/gradlew
+  - chmod +x ./Engine/porting/Android/GameEngine-android/build.py
   # create dir for gradle settings
   - mkdir -p $HOME/.gradle
   # disable gradle daemon for current user
