@@ -206,8 +206,9 @@ private:
 	const char		*	m_regId;
 
 	static CAndroidRequest * ms_instance;
-	static void getElapsedTimeSpec(struct timespec * ts);
-	static s64 getElapsedNanoTime(void);
+  
+  const char* m_bundleVersion;
+  void initBundleVersion();
 };
 
 #endif // cppinterface_h

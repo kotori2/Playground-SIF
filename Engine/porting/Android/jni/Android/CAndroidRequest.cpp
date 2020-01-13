@@ -65,7 +65,7 @@ struct JNIBytesArray {
 CAndroidRequest * CAndroidRequest::ms_instance = 0;
 
 CAndroidRequest::CAndroidRequest(const char* model, const char * brand, const char * board, const char * version, const char * tz)
-: m_homePath(0), m_master_BGM(1.0f), m_master_SE(1.0f), m_regId(0)
+: m_homePath(0), m_master_BGM(1.0f), m_master_SE(1.0f), m_regId(0), m_bundleVersion(NULL)
 {
 	int len = strlen(model);
 	len += strlen(brand);
@@ -83,7 +83,11 @@ CAndroidRequest::CAndroidRequest(const char* model, const char * brand, const ch
 CAndroidRequest::~CAndroidRequest() {
 	delete [] m_homePath;
 	delete [] m_platform;
-        delete [] m_regId;
+  delete [] m_regId;
+  if (m_bundleVersion != NULL) {
+    delete[] m_bundleVersion;
+    m_bundleVersion = NULL;
+  }
 }
 
 CAndroidRequest *
@@ -113,9 +117,22 @@ CAndroidRequest::nativeSignal(int cmd, int param)
 	}
 }
 
+void CAndroidRequest::initBundleVersion()
+{
+  jvalue value;
+  callJavaMethod(value, "getVersionName", 'S', "");
+  jstring jstr = (jstring)value.l;
+  const char *str = CJNI::getJNIEnv()->GetStringUTFChars(jstr, NULL);
+  char *buf = new char[strlen(str) + 1];
+  sprintf(buf, "%s", str);
+  m_bundleVersion = (const char *)buf;
+  CJNI::getJNIEnv()->ReleaseStringUTFChars(jstr, str);
+}
+
 void
 CAndroidRequest::init()
 {
+  initBundleVersion();
 }
 void
 CAndroidRequest::detailedLogging(const char * basefile, const char * functionName, int lineNo, const char * format, ...)
@@ -163,13 +180,7 @@ CAndroidRequest::logging(const char * format, ...)
 
 const char*
 CAndroidRequest::getBundleVersion() {
-    jvalue value;
-    CAndroidRequest::getInstance()->callJavaMethod(value, "getVersionName", 'S', "");
-    jstring jstr = (jstring)value.l;
-    const char * str = CJNI::getJNIEnv()->GetStringUTFChars(jstr, NULL);
-    CJNI::getJNIEnv()->ReleaseStringUTFChars(jstr, str);
-    // FIXME ReleaseStringUTFChars 後のポインタを返してしまっている
-    return str;
+    return m_bundleVersion;
 }
 
 ITmpFile *
@@ -498,31 +509,6 @@ void CAndroidRequest::setPauseOnInterruption(bool _bPauseOnInterruption)
     // TODO:2013/06/10 現在はiOSのみ対応が必要なのでAndroid側は特に対応なし
 }
 
-#define ANDROID_ALARM_ELAPSED_REALTIME (3)
-inline void CAndroidRequest::getElapsedTimeSpec(struct timespec * ts)
-{
-	// ref: AOSP source code; frameworks/native/libs/utils/SystemClock.cpp
-	int fd = open("/dev/alarm", O_RDONLY);
-	if (fd == -1) {
-		klb_assertAlways("failed to claim alarm counter.");
-	}
-
-	int result = ioctl(fd, _IOW('a', 4 | (ANDROID_ALARM_ELAPSED_REALTIME << 4), struct timespec), ts);
-
-	close(fd);
-
-	if (result == -1) {
-		klb_assertAlways("failed to fetch alarm clock via ioctl");
-	}
-}
-
-inline s64 CAndroidRequest::getElapsedNanoTime(void)
-{
-	struct timespec ts;
-	getElapsedTimeSpec(&ts);
-	return ((s64)ts.tv_sec * 1000000000) + ts.tv_nsec;
-}
-
 /*!
     @brief  経過時間を取得(sec)
     @param[in]  void
@@ -530,9 +516,13 @@ inline s64 CAndroidRequest::getElapsedNanoTime(void)
  */
 s64 CAndroidRequest::getElapsedTime(void)
 {
-	struct timespec ts;
-	getElapsedTimeSpec(&ts);
-	return (s64)ts.tv_sec;
+	JNIEnv* env = CJNI::getJNIEnv();
+	jclass cls = env->FindClass("android/os/SystemClock");
+	jmethodID mid = env->GetStaticMethodID(cls, "elapsedRealtimeNanos", "()J");
+	jlong sec;
+	sec = env->CallStaticLongMethod(cls, mid);
+	env->DeleteLocalRef(cls);
+	return sec / 1000000000LL;
 }
 
 void
@@ -781,7 +771,8 @@ bool
 CAndroidRequest::watchThread(void * hThread, s32 * status)
 {
 	PF_THREAD * pThread = (PF_THREAD *)hThread;
-	if(pthread_kill(pThread->id, 0) != ESRCH) {
+	int result = pthread_kill(pThread->id, 0);
+	if(result != ESRCH && result != EINVAL) {
 		return true;
 	}
 	*status = pThread->result;

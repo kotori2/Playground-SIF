@@ -26,6 +26,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.content.Context;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import java.lang.String;
 import java.lang.System;
@@ -96,6 +97,9 @@ class WebViewItem
 		m_extraHeaders = new HashMap<String, String>();
 		m_extraHeaders.put("API-Model", "straightforward");
 		
+    try {
+      m_extraHeaders.put("Bundle-Version", context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName);
+    } catch (NameNotFoundException e) {}
 		if(client != null) m_extraHeaders.put("Client-Version", client);
 		if(region != null) m_extraHeaders.put("Region",	region);
 		if(applicationId != null) m_extraHeaders.put("Application-ID", applicationId);
