@@ -1,6 +1,8 @@
 #ifndef CiOSReadFileStream_h
 #define CiOSReadFileStream_h
 
+#define HEADER_SIZE 16
+
 #include "BaseType.h"
 #include "FileSystem.h"
 #include "encryptFile.h"
@@ -30,14 +32,11 @@ public:
 	// delete はできる。
 	virtual ~CiOSReadFileStream();
 	inline u32 decryptSetup(const u8 *ptr) {
-		u8 hdr[4];
-		hdr[0] = 0;
-		hdr[1] = 0;
-		hdr[2] = 0;
-		hdr[3] = 0;
+		u8 hdr[16];
+        memset(hdr, 0, sizeof(u8) * 16);
         
 		if (m_fp) {
-			fread(hdr, 1, 4, m_fp);
+			fread(hdr, 1, 16, m_fp);
 		}
         
 		u32 res = m_decrypter.decryptSetup(ptr, hdr);
