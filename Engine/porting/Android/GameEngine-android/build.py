@@ -205,7 +205,7 @@ class PlaygroundBuilder:
                 return 1
             # it will geneeate both debug and release apk at the same time
             # so check any version should work.
-            if self._is_apk_sane(f'./build/outputs/apk/debug/GameEngine-android-debug.apk') is not True:
+            if self._is_apk_sane('./build/outputs/apk/debug/GameEngine-android-debug.apk') is not True:
                 self.print_error('Generated APK file is corrupt.')
                 return 1
 
