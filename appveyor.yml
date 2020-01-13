@@ -44,7 +44,7 @@ build:
   project: Engine/porting/Win32/OSSGameLibraryWin32.sln      # path to Visual Studio solution or project
 
   # MSBuild verbosity level
-  verbosity: quiet|minimal|normal|detailed
+  verbosity: normal
 
 #---------------------------------#
 #      artifacts configuration    #
