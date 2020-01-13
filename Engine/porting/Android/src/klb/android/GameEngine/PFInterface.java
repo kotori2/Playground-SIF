@@ -826,6 +826,7 @@ public class PFInterface {
 
 
 	public static int publicKeyEncrypt(byte[] src, byte[] key, byte[] out) {
+		Log.d("Cpp", "publicKeyEncrypt: " + new String(key));
 		RSAPublicKey rsaPublicKey = getRsaPublicKey(key);
 		if (rsaPublicKey == null) {
 			return -1;
@@ -845,9 +846,9 @@ public class PFInterface {
 		try {
 			cipher.init(1, rsaPublicKey, rnd);
 			try {
-				byte[] doFinal = cipher.doFinal(src);
-				System.arraycopy(doFinal, 0, out, 0, doFinal.length);
-				return doFinal.length;
+				byte[] encrypted = cipher.doFinal(src);
+				System.arraycopy(encrypted, 0, out, 0, encrypted.length);
+				return encrypted.length;
 			} catch (IllegalBlockSizeException unused4) {
 				return -1;
 			} catch (BadPaddingException unused5) {
@@ -865,13 +866,13 @@ public class PFInterface {
 			try {
 				Cipher cipherAES = Cipher.getInstance("AES/CBC/PKCS5Padding");
 				try {
-					cipherAES.init(1, secretKeySpec);
+					cipherAES.init(Cipher.ENCRYPT_MODE, secretKeySpec);
 					try {
-						byte[] doFinal = cipherAES.doFinal(src);
+						byte[] encrypted = cipherAES.doFinal(src);
 						byte[] iv = cipherAES.getIV();
 						System.arraycopy(iv, 0, out, 0, iv.length);
-						System.arraycopy(doFinal, 0, out, iv.length, doFinal.length);
-						return iv.length + doFinal.length;
+						System.arraycopy(encrypted, 0, out, iv.length, encrypted.length);
+						return iv.length + encrypted.length;
 					} catch (IllegalBlockSizeException unused) {
 						return -6;
 					} catch (BadPaddingException unused2) {

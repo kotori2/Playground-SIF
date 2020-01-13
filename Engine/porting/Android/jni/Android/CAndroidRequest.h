@@ -181,8 +181,8 @@ public:
 
 	// Crypto methods
 	int HMAC_SHA1(const char* string, const char* key, char* retbuf);
-	int encryptAES128CBC(const char* plaintext, const char* key, const char* iv, unsigned char* out);
-	int publicKeyEncrypt(unsigned char* plaintext, int plantextLen, unsigned char* out);
+	int encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int* outLen);
+	int publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int* outLen);
 
 private:
 	struct PF_THREAD {
