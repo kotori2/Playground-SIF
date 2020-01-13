@@ -664,7 +664,7 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 			//	3. Request data table
 			//	4. End point. "/api" if nil
 			//	5. Timeout
-			//	7. Skip version check?
+			//	6. Skip version check?
 			lua.printStack();
 			if(argc < 3 || argc > 9) {
 				klb_assertAlways("Too more or not enough args");
@@ -683,7 +683,10 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 				if(!lua.isNil(4)) endPoint = lua.getString(4);
 				sprintf(URL, "%s%s", kc.getUrl(), endPoint);
 
-				m_skipVersionCheck = lua.getBoolean(7);
+				m_skipVersionCheck = false;
+				if (!lua.isNil(6)) {
+					m_skipVersionCheck = true;
+				}
 				const char* specialKey = NULL;
 				if (lua.isString(9)) specialKey = lua.getString(9);
 

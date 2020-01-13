@@ -350,8 +350,10 @@ CWin32Audio::openAudio(const char * path)
     closeAudio();
     
     CWin32PathConv& pathconv = CWin32PathConv::getInstance();
-//    m_soundPath = pathconv.fullpath(path, ".wav");
-    m_soundPath = pathconv.fullpath(path, ".mp3");
+
+	if (!(m_soundPath = pathconv.fullpath(path, ".mp3"))) {
+		m_soundPath = pathconv.fullpath(path, ".ogg");
+	}
 	m_loop_cnt = 0;
 	m_step = STEP_WAIT;
     m_bActive = (m_soundPath) ? true : false;
@@ -738,7 +740,7 @@ CWin32AudioMgr::loadSound(CWin32Audio& audio)
 
 	if(strstr(soundpath, ".wav")) {
 		bResult = loadWAV(audio, &info);
-	} else if(strstr(soundpath, ".mp3")) {
+	} else if(strstr(soundpath, ".mp3") || strstr(soundpath, ".ogg")) {
 		bResult = loadMP3(audio, &info);
 	} else {
 		bResult = false;
@@ -748,16 +750,16 @@ CWin32AudioMgr::loadSound(CWin32Audio& audio)
 	HRESULT result;
 
 	DSBUFFERDESC desc;
-	memset((void *)&desc, 0, sizeof(DSBUFFERDESC));
-	desc.dwSize         = sizeof(DSBUFFERDESC);
-	desc.dwFlags        = DSBCAPS_GETCURRENTPOSITION2 | DSBCAPS_STATIC | DSBCAPS_LOCDEFER | DSBCAPS_CTRLVOLUME | DSBCAPS_GLOBALFOCUS | DSBCAPS_CTRLPOSITIONNOTIFY;
-	desc.dwBufferBytes  = info.size;
-	desc.lpwfxFormat    = &info.format;
+	memset((void*)&desc, 0, sizeof(DSBUFFERDESC));
+	desc.dwSize = sizeof(DSBUFFERDESC);
+	desc.dwFlags = DSBCAPS_GETCURRENTPOSITION2 | DSBCAPS_STATIC | DSBCAPS_LOCDEFER | DSBCAPS_CTRLVOLUME | DSBCAPS_GLOBALFOCUS | DSBCAPS_CTRLPOSITIONNOTIFY;
+	desc.dwBufferBytes = info.size;
+	desc.lpwfxFormat = &info.format;
 	desc.guid3DAlgorithm = DS3DALG_DEFAULT;
 
 	LPDIRECTSOUNDBUFFER dsb;
 	result = m_pDS8->CreateSoundBuffer(&desc, &dsb, 0);
-	if(DS_OK != result) {
+	if (DS_OK != result) {
 		return false;
 	}
 
@@ -857,17 +859,16 @@ CWin32AudioMgr::loadWAV(CWin32Audio& audio, SNDINFO * info)
 	// Decryption
 	u32 hasHeader = 0;
 	if (CWin32Platform::g_useDecryption) {
-		u8 hdr[4];
-		hdr[0] = 0;
-		hdr[1] = 0;
-		hdr[2] = 0;
-		hdr[3] = 0;
-		fread(hdr,1,4,pFile);
-		hasHeader = decryptSetup((const u8*)soundpath, hdr);
+		u8 hdr[16];
+		fread(hdr,1,16,pFile);
+		if (decryptSetup((const u8*)soundpath, hdr) == 0)
+			fseek(pFile, 0, SEEK_SET);
+		else
+			hasHeader = m_decrypter.m_header_size;
 	}
 
 	fseek	(pFile, 0, SEEK_END);
-    dwBufferLength=ftell (pFile) - (hasHeader * 4);
+    dwBufferLength=ftell (pFile) - (hasHeader);
 	if (!dwBufferLength) {
 		goto exit;
 	} else {
@@ -876,7 +877,7 @@ CWin32AudioMgr::loadWAV(CWin32Audio& audio, SNDINFO * info)
 			goto exit;
 		}
 	}
-	fseek	(pFile, hasHeader * 4, SEEK_SET);
+	fseek	(pFile, hasHeader, SEEK_SET);
 	fread	(lpBuffer, 1, dwBufferLength, pFile);
 
 	decrypt(lpBuffer, dwBufferLength);
@@ -952,4 +953,3 @@ CWin32AudioMgr::loadMP3(CWin32Audio& audio, SNDINFO * info)
 	mp3.getFormat(&(info->format));
 	return mp3.readData(info->data, info->size);
 }
-

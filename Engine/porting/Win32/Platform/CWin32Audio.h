@@ -31,7 +31,6 @@
 
 #include "CWin32MP3.h"
 
-
 class CWin32AudioMgr;
 
 // サウンド全体の初期化と終了

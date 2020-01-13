@@ -38,6 +38,7 @@ public:
 
 private:
 	bool loadMP3(const char * name);
+	bool loadOGG(const char * name);
 	bool toRPCM	(short * buf, int frameCount, int stereo, size_t buf_size);
 
 private:
@@ -65,6 +66,10 @@ private:
 	inline u32 decryptSetup(const u8* ptr, const u8* hdr) {
         return m_decrypter.decryptSetup(ptr,hdr);
     }
+
+	// ogg decoder
+	bool					m_is_ogg;
+	char*					m_ogg_buffer;
 private:
 	CDecryptBaseClass   m_decrypter;
 	inline void decrypt(void* ptr, u32 length) {
