@@ -41,7 +41,7 @@ endif
 LOCAL_LDLIBS    += -lfreetype2
 
 # all directories contain .h files is regarded as include dir
-LOCAL_C_INCLUDES :=	$(ANDROID_NDK_ROOT)/sysroot/usr/include/
+LOCAL_C_INCLUDES :=	#$(ANDROID_NDK_ROOT)/sysroot/usr/include/
 #LOCAL_C_INCLUDES +=	$(shell find ./jni -regex '.*\.h$$' | sed "s/\/[^\/]*$$//" | sort | uniq)
 LOCAL_C_INCLUDES +=	./jni/Android
 LOCAL_C_INCLUDES +=	./jni/include

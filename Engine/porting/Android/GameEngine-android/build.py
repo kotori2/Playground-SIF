@@ -9,7 +9,7 @@ import argparse
 import subprocess
 import locale
 import sys
-from colorama import init
+import platform
 
 class PlaygroundBuilder:
     _rootdir = None
@@ -161,6 +161,7 @@ class PlaygroundBuilder:
         # AppAssets.zip
         self.rmtree("./assets/")
         self.makedirs("./assets/")
+        open("./assets/.keep", "w").close()
         if include_assets:
             self.copyfile("../AppAssets.zip", "./assets")
             with open("./assets/AppAssets.zip", "rb") as f:
@@ -226,7 +227,9 @@ class bcolors:
         self.ENDC = ''
 
 if __name__ == "__main__":
-    init()
+    if platform.system() == "Windows":
+        from colorama import init
+        init()
     parser = argparse.ArgumentParser(description='Playground for Android Native Binaries Builder')
     parser.add_argument('-p', '--project', help='specify project name', required=True)
     parser.add_argument('-l', '--luavm', help='choose Lua runtime', choices=['lua', 'luajit'], default='lua')
