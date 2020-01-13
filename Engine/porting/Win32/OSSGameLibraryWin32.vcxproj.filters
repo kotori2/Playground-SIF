@@ -677,6 +677,9 @@
     <ClInclude Include="..\..\include\base64.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\UISystem\CKLBUIShader.h">
+      <Filter>Source Files\UISystem\Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\Animation\CKLBSystem.cpp">
@@ -1887,6 +1890,9 @@
     </ClCompile>
     <ClCompile Include="Vorbis\libvorbis\lib\window.c">
       <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\UISystem\CKLBUIShader.cpp">
+      <Filter>Source Files\UISystem\Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

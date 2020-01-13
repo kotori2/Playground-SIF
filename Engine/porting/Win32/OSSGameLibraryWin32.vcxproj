@@ -304,6 +304,7 @@
     <ClInclude Include="..\..\source\UISystem\CKLBUIPieChart.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUIPolyline.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUIRubberBand.h" />
+    <ClInclude Include="..\..\source\UISystem\CKLBUIShader.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUISimpleItem.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUISystem.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUITextInput.h" />
@@ -1419,6 +1420,7 @@
     <ClCompile Include="..\..\source\UISystem\CKLBUIScale9.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUIScore.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUIScrollBar.cpp" />
+    <ClCompile Include="..\..\source\UISystem\CKLBUIShader.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUISimpleItem.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUISWFPlayer.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUISystem.cpp" />

@@ -37,6 +37,7 @@ public:
 		FORM_NODE_VISIBLE,		// 表示/非表示指定
 		FORM_NODE_ORDER,		// プライオリティ
 		FORM_NODE_GET_ORDER,	// プライオリティ取得
+		FORM_NODE_GET_TRANS,
 		FORM_NODE_TASK,			// 対応するUIタスク取得
 
 
@@ -44,6 +45,7 @@ public:
 		FORM_UIE_SET_ENABLED,	// 有効/無効
 		FORM_UIE_GET_ENABLED,	
 		FORM_UIE_SET_ASSET,		// assetを変更
+		FORM_UIE_GET_ASSET_NAME,
 
 		// CKLBUISelectable 対象コマンド
 		FORM_UIS_SET_CLICK,			// クリック反応領域を再設定
@@ -67,6 +69,8 @@ public:
 		// CKLBLabelNode 対象コマンド
 		FORM_LBL_SET_TEXT,		// ラベルのテキスト変更
 		FORM_LBL_GET_TEXT,		// ラベルのテキスト取得
+		FORM_LBL_SET_COLOR,
+		FORM_LBL_SET_FIT,
 	};
 
 	CKLBFormIF(CKLBTask * pOwner = 0);

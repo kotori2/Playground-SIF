@@ -42,6 +42,7 @@ enum {
 	UI_FORM_ANIM_LEAVE,
 
 	UI_FORM_SET_GROUP,          // フォームをグループに所属させる(フォーム間排他)
+	UI_FORM_GET_DESIGNRECT,
 	UI_FORM_SET_VOLUME,
 };
 
@@ -62,6 +63,8 @@ static IFactory::DEFCMD cmd[] = {
 	{ "UI_FORM_ANIM_LEAVE",		UI_FORM_ANIM_LEAVE      },
 
 	{ "UI_FORM_SET_GROUP",		UI_FORM_SET_GROUP       },
+	{ "UI_FORM_GET_DESIGNRECT",	UI_FORM_GET_DESIGNRECT	}, // TODO
+
 //	{ "UI_FORM_SET_VOLUME",		UI_FORM_SET_VOLUME      }, Private for now.
 	{ "ACTION_UNDEF",	ACTION_UNDEF    },
 	{ "ACTION_PUSH",	ACTION_PUSH     },
@@ -84,11 +87,13 @@ static IFactory::DEFCMD cmd[] = {
 	{ "FORM_NODE_VISIBLE",			CKLBFormIF::FORM_NODE_VISIBLE   },
 	{ "FORM_NODE_ORDER",			CKLBFormIF::FORM_NODE_ORDER     },
 	{ "FORM_NODE_GET_ORDER",		CKLBFormIF::FORM_NODE_GET_ORDER },
+	{ "FORM_NODE_GET_TRANS",		CKLBFormIF::FORM_NODE_GET_TRANS }, // TODO
 	{ "FORM_NODE_TASK",				CKLBFormIF::FORM_NODE_TASK      },
 
 	{ "FORM_UIE_SET_ENABLED",		CKLBFormIF::FORM_UIE_SET_ENABLED    },
 	{ "FORM_UIE_GET_ENABLED",		CKLBFormIF::FORM_UIE_GET_ENABLED    },
 	{ "FORM_UIE_SET_ASSET",			CKLBFormIF::FORM_UIE_SET_ASSET      },
+	{ "FORM_UIE_GET_ASSET_NAME",	CKLBFormIF::FORM_UIE_GET_ASSET_NAME }, // TODO
 
 	{ "FORM_UIS_SET_CLICK",			CKLBFormIF::FORM_UIS_SET_CLICK  },
 	{ "FORM_UIS_SET_STICK",			CKLBFormIF::FORM_UIS_SET_STICK  },
@@ -107,12 +112,13 @@ static IFactory::DEFCMD cmd[] = {
 
 	{ "FORM_LBL_SET_TEXT",			CKLBFormIF::FORM_LBL_SET_TEXT   },
 	{ "FORM_LBL_GET_TEXT",			CKLBFormIF::FORM_LBL_GET_TEXT   },
+	{ "FORM_LBL_SET_COLOR",			CKLBFormIF::FORM_LBL_SET_COLOR	}, // TODO
+	{ "FORM_LBL_SET_FIT",			CKLBFormIF::FORM_LBL_SET_FIT	}, // TODO
 
 	{ "FORM_ASSET_NORMAL",			CKLBUIElement::NORMAL_ASSET     },
 	{ "FORM_ASSET_DISABLED",		CKLBUIElement::DISABLED_ASSET   },
 	{ "FORM_ASSET_FOCUSED",			CKLBUIElement::FOCUSED_ASSET    },
 	{ "FORM_ASSET_PUSHED",			CKLBUIElement::PUSHED_ASSET     },
-
 
 	{0, 0}
 };
@@ -415,7 +421,6 @@ CKLBUIForm::commandUI(CLuaState& lua, int argc, int cmd)
 				ret = 1;
 				break;
 			}
-			// const char * name = lua.getString(3);
 			int subcmd = lua.getInt(4);
 			CKLBNode * pParent = getNode();
 			ret = m_formIF.updateNode(lua, argc, 4, pParent, 3, subcmd);
@@ -546,6 +551,11 @@ CKLBUIForm::commandUI(CLuaState& lua, int argc, int cmd)
 			}
 			lua.retBoolean(result);
 			ret = 1;
+		}
+		break;
+	case UI_FORM_GET_DESIGNRECT:
+		{
+			klb_assertAlways("TODO");
 		}
 		break;
 	case UI_FORM_SET_VOLUME:
