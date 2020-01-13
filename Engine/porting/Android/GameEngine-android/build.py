@@ -203,7 +203,9 @@ class PlaygroundBuilder:
             if build_result is not True:
                 self.print_error('Gradle build failed.')
                 return 1
-            if self._is_apk_sane('./build/apk/GameEngine-android-debug-unaligned.apk') is not True:
+            # it will geneeate both debug and release apk at the same time
+            # so check any version should work.
+            if self._is_apk_sane(f'./build/outputs/apk/debug/GameEngine-android-debug.apk') is not True:
                 self.print_error('Generated APK file is corrupt.')
                 return 1
 
