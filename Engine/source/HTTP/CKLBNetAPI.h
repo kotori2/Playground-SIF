@@ -117,7 +117,7 @@ private:
 
 	CKLBJsonItem * getJsonTree(const char * json_string, u32 dataLen);
 
-	void authKey();
+	void authKey(int status = -1);
 	void login(int status);
 	void startUp(int status);
 

@@ -162,7 +162,7 @@ CKLBNetAPI::execute(u32 deltaT)
 
 		// login/auth stuff
 		if (m_handle == NETAPIHDL_AUTHKEY_RESPONSE) {
-			authKey();
+			authKey(state);
 		}
 		if (m_lastCommand == NETAPI_STARTUP) {
 			return startUp(state);
@@ -303,7 +303,7 @@ CKLBNetAPI::getJsonTree(const char * json_string, u32 dataLen)
 }
 
 void
-CKLBNetAPI::authKey()
+CKLBNetAPI::authKey(int status)
 {
 	CKLBNetAPIKeyChain& kc = CKLBNetAPIKeyChain::getInstance();
 	IPlatformRequest& platform = CPFInterface::getInstance().platform();
@@ -349,20 +349,29 @@ CKLBNetAPI::authKey()
 		break;
 	}
 	case NETAPIHDL_AUTHKEY_RESPONSE: {
-		kc.setToken(m_pRoot->child()->child()->getString());
-		const char* dummyToken = m_pRoot->child()->child()->next()->getString();
-		klb_assert(dummyToken, "Dummy token does not exist!!!");
-		int len = 0;
-		unsigned char* unbasedToken = unbase64(dummyToken, strlen(dummyToken), &len);
+		int jsonStatusCode = getJSONstatusCode(m_pRoot->child());
 
-		const char* clientKey = kc.getClientKey();
-		char sessionKey[32];
-		for (int i = 0; i < 32; i++) {
-			sessionKey[i] = unbasedToken[i] ^ clientKey[i];
+		if (jsonStatusCode == 200) {
+			kc.setToken(m_pRoot->child()->child()->getString());
+			const char* dummyToken = m_pRoot->child()->child()->next()->getString();
+			klb_assert(dummyToken, "Dummy token does not exist!!!");
+			int len = 0;
+			unsigned char* unbasedToken = unbase64(dummyToken, strlen(dummyToken), &len);
+
+			const char* clientKey = kc.getClientKey();
+			char sessionKey[32];
+			for (int i = 0; i < 32; i++) {
+				sessionKey[i] = unbasedToken[i] ^ clientKey[i];
+			}
+			kc.setSessionKey(sessionKey);
+			m_handle = m_lastCommand == NETAPI_LOGIN ? NETAPIHDL_LOGIN_REQUEST : NETAPIHDL_STARTUP_REQUEST;
 		}
-		kc.setSessionKey(sessionKey);
-		m_handle = m_lastCommand == NETAPI_LOGIN ? NETAPIHDL_LOGIN_REQUEST : NETAPIHDL_STARTUP_REQUEST;
-		break;
+		else {
+			m_nonce++; // we increase nonce because it should be unique
+			m_handle = 0; // remove handler
+			int errMsg = m_lastCommand == NETAPI_LOGIN ? NETAPIMSG_LOGIN_FAILED : NETAPIMSG_STARTUP_FAILED;
+			lua_callback(NETAPIMSG_LOGIN_FAILED, errMsg, m_pRoot, m_nonce - 1);
+		}
 	}
 	}
 }
@@ -498,7 +507,6 @@ CKLBNetAPI::startUp(int status)
 			lua_callback(NETAPIMSG_STARTUP_FAILED, status, m_pRoot, m_nonce - 1);
 	}
 	}
-	
 }
 
 void
