@@ -107,7 +107,7 @@ private:
 	const char			**	m_http_header_array;
 
 private:
-	int mapFail();
+	int getJSONstatusCode(CKLBJsonItem* response);
 	void releaseConnection();
 	void freeHeader();
 	void freeJSonResult();

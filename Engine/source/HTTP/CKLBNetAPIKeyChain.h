@@ -135,7 +135,7 @@ public:
 	inline const char* setSessionKey(const char* sessionKey) {
 		KLBDELETEA(m_sessionKey);
 		if (sessionKey) {
-			m_sessionKey = CKLBUtility::copyString(sessionKey);
+			m_sessionKey = CKLBUtility::copyMem(sessionKey, 32);
 		}
 		else {
 			m_sessionKey = NULL;
@@ -146,7 +146,7 @@ public:
 	inline const char* setClientKey(const char* clientKey) {
 		KLBDELETEA(m_clientKey);
 		if (clientKey) {
-			m_clientKey = CKLBUtility::copyString(clientKey);
+			m_clientKey = CKLBUtility::copyMem(clientKey, 32);
 		}
 		else {
 			m_clientKey = NULL;
