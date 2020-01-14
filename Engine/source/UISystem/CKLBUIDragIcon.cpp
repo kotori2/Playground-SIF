@@ -32,19 +32,23 @@ enum {
 enum {
 	DRAGICON_DRAG,
 	DRAGICON_RELEASE,
+	DRAGICON_TAP
 };
 // 動作モード設定フラグ群
 enum {
 	F_DICON_BASEINVISIBLE = 0x00000001,
+	F_DICON_MODAL		  = 0x00000002,
 };
 static IFactory::DEFCMD cmd[] = {
-	{"UI_DRAGICON_ENABLE",		UI_DRAGICON_ENABLE},
-	{"UI_DRAGICON_DRAGAREA",	UI_DRAGICON_DRAGAREA},
+	{"UI_DRAGICON_ENABLE",		UI_DRAGICON_ENABLE	  },
+	{"UI_DRAGICON_DRAGAREA",	UI_DRAGICON_DRAGAREA  },
 
-	{"DRAGICON_DRAG",			DRAGICON_DRAG},
-	{"DRAGICON_RELEASE",		DRAGICON_RELEASE},
+	{"DRAGICON_DRAG",			DRAGICON_DRAG		  },
+	{"DRAGICON_RELEASE",		DRAGICON_RELEASE	  },
+	{"DRAGICON_TAP",			DRAGICON_TAP		  },
 
 	{"F_DICON_BASEINVISIBLE",	F_DICON_BASEINVISIBLE },
+	{"F_DICON_MODAL",			F_DICON_MODAL		  },
 
 	{0, 0}
 };
@@ -178,8 +182,8 @@ CKLBUIDragIcon::initUI(CLuaState& lua)
 	float center_x  = lua.getFloat(ARG_CENTER_X);
 	float center_y  = lua.getFloat(ARG_CENTER_Y);
 
-	const char * callback = (argc >= ARG_CALLBACK) ? lua.getString(ARG_CALLBACK) : NULL;
-	int flags = (argc >= ARG_FLAGS) ? lua.getInt(ARG_FLAGS) : 0;
+	const char * callback = lua.isNil(ARG_CALLBACK) ? NULL : lua.getString(ARG_CALLBACK);
+	int flags = lua.isNil(ARG_FLAGS) ? 0 : lua.getInt(ARG_FLAGS);
 
 	AREA tap_area;
     if(!get_area(lua, ARG_AREA, tap_area)) { return false; }
@@ -296,6 +300,7 @@ CKLBUIDragIcon::execute(u32 /*deltaT*/)
 					CKLBUtility::getNodePosition(pNode, &fx, &fy);
 					m_ofs_x = fx;
 					m_ofs_y = fy;
+					CKLBScriptEnv::getInstance().call_eventDragIcon(m_callBack, this, DRAGICON_TAP, fx, fy);
 				}
 
 				// 自身のアイコンに対する操作ならば、状態をドラッグ中に切り替える。

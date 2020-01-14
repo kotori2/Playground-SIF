@@ -115,9 +115,14 @@
     <Filter Include="Source Files\Core\HonokaMiku">
       <UniqueIdentifier>{71ac4154-9ec9-41da-a978-3b5de0e105b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libs\libogg">
+      <UniqueIdentifier>{5d7b5044-6dca-4eed-ab42-511e00f034ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\libvorbis">
+      <UniqueIdentifier>{4df44d7c-589f-4f37-808a-fa1c7228463c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
     <None Include="..\..\source\Rendering\shaderSource.inl">
       <Filter>Source Files\Rendering\OpenGLWrapper</Filter>
     </None>
@@ -166,9 +171,6 @@
       <Filter>Source Files\SceneGraph\Animation</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\Assets\AudioAsset.h">
-      <Filter>Source Files\Assets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\Assets\MapManagement.h">
       <Filter>Source Files\Assets</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\include\CPFInterface.h">
@@ -255,9 +257,6 @@
     <ClInclude Include="..\..\source\Animation\CKLBScoreNode.h">
       <Filter>Source Files\SceneGraph\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\Core\yasper.h">
-      <Filter>Source Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\source\Core\CKLBDataHandler.h">
       <Filter>Source Files\Core</Filter>
     </ClInclude>
@@ -276,9 +275,6 @@
     <ClInclude Include="..\..\source\Core\DebugAlloc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\UnitSystem\UnitSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Platform\CWin32HttpStream.h">
       <Filter>Platform</Filter>
     </ClInclude>
@@ -292,9 +288,6 @@
       <Filter>Source Files\Database</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\Core\CKLBUtility.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Projects\WorldTest\CWorldTask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\Database\CKLBLuaDB.h">
@@ -683,6 +676,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\base64.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\UISystem\CKLBUIShader.h">
+      <Filter>Source Files\UISystem\Task</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1819,6 +1815,84 @@
     </ClCompile>
     <ClCompile Include="..\..\source\HTTP\CKLBNetAPI.cpp">
       <Filter>Source Files\Network\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\CWin32OGG.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libogg\src\bitwise.c">
+      <Filter>libs\libogg</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libogg\src\framing.c">
+      <Filter>libs\libogg</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\analysis.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\bitrate.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\block.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\codebook.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\envelope.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\floor0.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\floor1.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\info.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\lookup.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\lpc.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\lsp.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\mapping0.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\mdct.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\psy.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\registry.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\res0.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\sharedbook.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\smallft.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\synthesis.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\vorbisenc.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\vorbisfile.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="Vorbis\libvorbis\lib\window.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\UISystem\CKLBUIShader.cpp">
+      <Filter>Source Files\UISystem\Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

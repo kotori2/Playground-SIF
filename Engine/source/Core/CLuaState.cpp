@@ -21,6 +21,10 @@
 #include "CLuaState.h"
 #include "CKLBLuaEnv.h"
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
 namespace
 {
 
@@ -64,9 +68,15 @@ void
 CLuaState::errorMsg(const char *type_name, int argnum)
 {
     char buf[128];
-    sprintf(buf, "invalid argment type (arg:%d is not %s.)", argnum, type_name);
+	sprintf(buf, "invalid argment type (arg:%d is not %s.)", argnum, type_name);
+
+#ifdef _WIN32 && DEBUG
+	printf(buf);
+	DebugBreak();
+#else
     //CKLBLuaEnv::getInstance().errMsg(buf);
     error("%s", buf);
+#endif
 }
 
 bool

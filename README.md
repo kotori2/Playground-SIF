@@ -15,6 +15,7 @@ The dev team.
 
 ## Build Status
 [![Build Status](https://api.travis-ci.org/kotori2/Playground-SIF.svg?branch=master)](https://travis-ci.org/kotori2/Playground-SIF)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/kotori2/Playground-SIF?branch=master&svg=true)](https://ci.appveyor.com/project/lijun0326/Playground-SIF/branch/master)
 
 
 ## LICENSE

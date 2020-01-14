@@ -406,6 +406,13 @@ CKLBFormIF::updateStandardNode(CLuaState& lua, int argc, int base, int subcmd, C
 		}
 		break;
 
+	case FORM_NODE_GET_TRANS:
+		{
+			klb_assertAlways("Not implemented");
+			result = false;
+		}
+		break;
+
 	case FORM_NODE_TASK:
 		{
 			if(argc != base) {
@@ -472,6 +479,13 @@ CKLBFormIF::updateUIElement(CLuaState& lua, int argc, int base, int subcmd, CKLB
 			ret = 1;
 		}
 		break;
+
+	case FORM_UIE_GET_ASSET_NAME:
+	{
+		lua.printStack();
+		ret = 0;
+	}
+	break;
 	}
 	return result;
 }

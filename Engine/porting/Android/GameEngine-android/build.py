@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from __future__ import print_function
 from decimal import *
@@ -9,7 +9,7 @@ import argparse
 import subprocess
 import locale
 import sys
-from colorama import init
+import platform
 
 class PlaygroundBuilder:
     _rootdir = None
@@ -161,6 +161,7 @@ class PlaygroundBuilder:
         # AppAssets.zip
         self.rmtree("./assets/")
         self.makedirs("./assets/")
+        open("./assets/.keep", "w").close()
         if include_assets:
             self.copyfile("../AppAssets.zip", "./assets")
             with open("./assets/AppAssets.zip", "rb") as f:
@@ -202,9 +203,14 @@ class PlaygroundBuilder:
             if build_result is not True:
                 self.print_error('Gradle build failed.')
                 return 1
-            if self._is_apk_sane('./build/apk/GameEngine-android-debug-unaligned.apk') is not True:
-                self.print_error('Generated APK file is corrupt.')
-                return 1
+            # it will geneeate both debug and release apk at the same time
+            # so check any version should work.
+            # 
+            # 2020/1/23 since we don't have and don't want to install aapt on CI
+            # gonna remove this
+            #if self._is_apk_sane('./build/outputs/apk/debug/GameEngine-android-debug.apk') is not True:
+            #    self.print_error('Generated APK file is corrupt.')
+            #    return 1
 
         return 0
 
@@ -226,7 +232,9 @@ class bcolors:
         self.ENDC = ''
 
 if __name__ == "__main__":
-    init()
+    if platform.system() == "Windows":
+        from colorama import init
+        init()
     parser = argparse.ArgumentParser(description='Playground for Android Native Binaries Builder')
     parser.add_argument('-p', '--project', help='specify project name', required=True)
     parser.add_argument('-l', '--luavm', help='choose Lua runtime', choices=['lua', 'luajit'], default='lua')

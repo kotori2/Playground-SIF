@@ -99,7 +99,7 @@
       <AdditionalLibraryDirectories>$(ProjectDir)directx</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(OutDir)..\..\gl*.dll $(OutDir)</Command>
+      <Command>copy "$(OutDir)..\..\gl*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CSharp|Win32'">

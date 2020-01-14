@@ -50,6 +50,13 @@ CKLBLuaLibGL::addLibrary()
 	addFunction("GL_GetPhysicalSize",		CKLBLuaLibGL::luaGLGetPhysicalSize		);
 	addFunction("GL_IsSafeAreaScreen",		CKLBLuaLibGL::luaGLIsSafeAreaScreen		);
 	addFunction("GL_ComputeMatrixFromToRect",CKLBLuaLibGL::luaGLComputeMatrixFromToRect);
+	addFunction("GL_CreateShader",			CKLBLuaLibGL::luaGLCreateShader);
+}
+
+int CKLBLuaLibGL::luaGLCreateShader(lua_State* L) {
+	CLuaState lua(L);
+	lua.retBool(false);
+	return 1;
 }
 
 int CKLBLuaLibGL::luaGLComputeMatrixFromToRect(lua_State* L) {

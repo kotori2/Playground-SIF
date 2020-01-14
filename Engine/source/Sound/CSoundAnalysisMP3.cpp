@@ -151,12 +151,8 @@ bool SoundAnalysis_MP3( const char* _path, sSoundAnalysisData* _analysisData )
 	CDecryptBaseClass decryptor;
 	IPlatformRequest& pltf = CPFInterface::getInstance().platform();
 	if (pltf.useEncryption()) {
-		u8 hdr[4];
-		hdr[0] = 0;
-		hdr[1] = 0;
-		hdr[2] = 0;
-		hdr[3] = 0;
-		fread(hdr, 1,4,fp);
+		u8 hdr[16];
+		fread(hdr, 1,16, fp);
 		decryptor.decryptSetup((const u8*)_path, hdr);
 	}
 
@@ -164,9 +160,9 @@ bool SoundAnalysis_MP3( const char* _path, sSoundAnalysisData* _analysisData )
     fseek( fp, 0, SEEK_END );
     fgetpos( fp, (fpos_t*)&totalFileSize );
 
-	if (decryptor.m_useNew) {
+	if (decryptor.m_header_size) {
 		totalFileSize -= 4;
-	    fseek( fp, 4, SEEK_SET );
+	    fseek( fp, decryptor.m_header_size, SEEK_SET );
 	} else {
 	    fseek( fp, 0, SEEK_SET );
 	}

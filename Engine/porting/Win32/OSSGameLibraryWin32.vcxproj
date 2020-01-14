@@ -62,7 +62,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)pure-Lua\;$(ProjectDir)LuaEdit\x86;$(ProjectDir)directx;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)pure-Lua\;$(ProjectDir)LuaEdit\x86;$(ProjectDir)Vorbis\libogg\include\;$(ProjectDir)Vorbis\libvorbis\include\;$(ProjectDir)directx;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CSharp|Win32'">
@@ -85,7 +85,7 @@
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>CURL_STATICLIB;WIN32;FT_DEBUG_LEVEL_ERROR;FT_DEBUG_LEVEL_TRACE;FT2_BUILD_LIBRARY;_DEBUG;_CONSOLE;DEBUG_MEMORY_OFF;DEBUG_PERFORMANCE_OFF;DEBUG_LUAEDIT_OFF;DEBUG_RT_CHECK;DEBUG_MENU;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../source/UISystem/;../../source/Animation/;../../source/Assets/;../../source/Core/;../../source/LuaLib/;../../source/HTTP/;../../source/SystemTask/;../../source/Rendering/;../../source/SceneGraph/;../../source/UnitSystem/;../../porting/;../../libs/freeType/include/;../../libs/sha1/;../../libs/utf8_converter/;../../include/;../../Source/include/;../../libs/minizip;../../libs/lua;../../porting/Win32/;../../porting/Win32/LuaEdit/include/;../../porting/Win32/Platform;../../porting/Win32/openssl/include/;../../porting/Win32/Lame/;../../libs/SQLite/;../../source/Database/;../../source/AISystem/;../../source/DataSet/;./zlib/include/;../../libs/;../../libs/curl-7.29.0-minimal/include/curl/;../../libs/curl-7.29.0-minimal/lib/;../../libs/curl-7.29.0-minimal/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../source/UISystem/;../../source/Animation/;../../source/Assets/;../../source/Core/;../../source/LuaLib/;../../source/HTTP/;../../source/SystemTask/;../../source/Rendering/;../../source/SceneGraph/;../../source/UnitSystem/;../../porting/;../../libs/freeType/include/;../../libs/sha1/;../../libs/utf8_converter/;../../include/;../../Source/include/;../../libs/minizip;../../libs/lua;../../porting/Win32/;../../porting/Win32/LuaEdit/include/;../../porting/Win32/Platform;../../porting/Win32/openssl/include/;../../porting/Win32/Lame/;../../libs/SQLite/;../../source/Database/;../../source/AISystem/;../../source/DataSet/;./zlib/include/;../../libs/;../../libs/curl-7.29.0-minimal/include/curl/;../../libs/curl-7.29.0-minimal/lib/;../../libs/curl-7.29.0-minimal/include/;./Vorbis/libvorbis/include/;./Vorbis/libogg/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/D "DEBUG" %(AdditionalOptions)</AdditionalOptions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ShowIncludes>false</ShowIncludes>
@@ -147,10 +147,8 @@
   <ItemGroup>
     <None Include="..\..\source\Rendering\shaderSource.inl" />
     <None Include="Playground.ico" />
-    <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Projects\WorldTest\CWorldTask.h" />
     <ClInclude Include="..\..\include\base64.h" />
     <ClInclude Include="..\..\include\BaseType.h" />
     <ClInclude Include="..\..\include\FileSystem.h" />
@@ -207,7 +205,6 @@
     <ClInclude Include="..\..\source\Assets\CKLBAsset.h" />
     <ClInclude Include="..\..\source\Assets\CKLBPropertyBag.h" />
     <ClInclude Include="..\..\source\Assets\CKLBTexturePacker.h" />
-    <ClInclude Include="..\..\source\Assets\MapManagement.h" />
     <ClInclude Include="..\..\source\Assets\NodeAnimationAsset.h" />
     <ClInclude Include="..\..\source\Assets\TextureManagement.h" />
     <ClInclude Include="..\..\source\Core\ArrayAllocator.h" />
@@ -232,7 +229,6 @@
     <ClInclude Include="..\..\source\Core\DebugTracker.h" />
     <ClInclude Include="..\..\source\Core\HonokaMiku\DecrypterContext.h" />
     <ClInclude Include="..\..\source\Core\HonokaMiku\md5.h" />
-    <ClInclude Include="..\..\source\Core\yasper.h" />
     <ClInclude Include="..\..\source\Database\CKLBDatabase.h" />
     <ClInclude Include="..\..\source\Database\CKLBLanguageDatabase.h" />
     <ClInclude Include="..\..\source\Database\CKLBLuaDB.h" />
@@ -308,6 +304,7 @@
     <ClInclude Include="..\..\source\UISystem\CKLBUIPieChart.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUIPolyline.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUIRubberBand.h" />
+    <ClInclude Include="..\..\source\UISystem\CKLBUIShader.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUISimpleItem.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUISystem.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUITextInput.h" />
@@ -315,7 +312,6 @@
     <ClInclude Include="..\..\source\UISystem\CKLBUIWebArea.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBWebViewNode.h" />
     <ClInclude Include="..\..\source\UISystem\IMgrEntry.h" />
-    <ClInclude Include="..\..\source\UnitSystem\UnitSystem.h" />
     <ClInclude Include="EngineStdReference.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Lame\BladeMP3EncDLL.h" />
@@ -1424,6 +1420,7 @@
     <ClCompile Include="..\..\source\UISystem\CKLBUIScale9.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUIScore.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUIScrollBar.cpp" />
+    <ClCompile Include="..\..\source\UISystem\CKLBUIShader.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUISimpleItem.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUISWFPlayer.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUISystem.cpp" />
@@ -1443,6 +1440,30 @@
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsCpp</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CompileAsCpp</CompileAs>
     </ClCompile>
+    <ClCompile Include="Vorbis\libogg\src\bitwise.c" />
+    <ClCompile Include="Vorbis\libogg\src\framing.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\analysis.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\bitrate.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\block.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\codebook.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\envelope.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\floor0.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\floor1.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\info.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\lookup.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\lpc.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\lsp.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\mapping0.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\mdct.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\psy.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\registry.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\res0.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\sharedbook.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\smallft.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\synthesis.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\vorbisenc.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\vorbisfile.c" />
+    <ClCompile Include="Vorbis\libvorbis\lib\window.c" />
     <ClCompile Include="EngineStdReferenceOSS.cpp" />
     <ClCompile Include="GameLibraryWin32.cpp" />
     <ClCompile Include="Platform\CSockReadStream.cpp" />
@@ -1451,6 +1472,7 @@
     <ClCompile Include="Platform\CWin32HttpStream.cpp" />
     <ClCompile Include="Platform\CWin32KeyChain.cpp" />
     <ClCompile Include="Platform\CWin32MP3.cpp" />
+    <ClCompile Include="Platform\CWin32OGG.cpp" />
     <ClCompile Include="Platform\CWin32PathConv.cpp" />
     <ClCompile Include="Platform\CWin32Platform.cpp" />
     <ClCompile Include="Platform\CWin32ReadFileStream.cpp" />

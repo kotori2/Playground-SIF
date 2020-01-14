@@ -1616,6 +1616,7 @@ void CKLBNode::kickAnimation(const char* animName,u32* refCounterPtr, bool doBle
 #include "CKLBUIScrollBar.h"
 #include "CKLBUICanvas.h"
 #include "CKLBUIScale9.h"
+#include <CKLBUILabel.h>
 
 /*static*/char		CKLBCompositeAsset::tmpBuff[TMP_COMPOSITE_ASSET_STR_BUFFSIZE];
 /*static*/char*		CKLBCompositeAsset::ptrBuff;
@@ -2284,27 +2285,24 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 			break;
 		case LABEL_CLASSID:
 			{
-				const char * fontname  = (templateDef->fontName) ? templateDef->fontName->string	: 0; // "default";
-				const char * labelText = (templateDef->text)     ? templateDef->text->string		: "";
-				CKLBLabelNode * pNewNode = KLBNEWC(CKLBLabelNode,(templateDef->fontSize, fontname, filterDB(labelText)));
+				const char* fontname = (templateDef->fontName) ? templateDef->fontName->string : 0; // "default";
+				const char* labelText = (templateDef->text) ? templateDef->text->string : "";
 
-				if (pNewNode) {
-					pNewNode->resetAsInternalNode();
-					parent->addNode(pNewNode);
-
-					pNewNode->setUseTextSize(false);
-					pNewNode->lock(true);
-					pNewNode->setPriority(newPrio);
-					pNewNode->setTextColor(filterDBInt(templateDef->dbField[DB_VAL_COLOR], templateDef->color));
-					pNewNode->setWidth(templateDef->width);
-					pNewNode->setHeight(templateDef->height);
-					pNewNode->setAlign(templateDef->flag[0]);
-
-					pNewNode->setTranslate(templateDef->x,templateDef->y);
-					pNewNode->setScaleRotation(templateDef->xscale, templateDef->yscale,templateDef->rotation);
-					pNewNode->lock(false);
-					pNode = pNewNode;
-				}
+				CKLBUILabel* tsk = CKLBUILabel::create(
+					pParentTask,
+					parent,
+					newPrio,
+					templateDef->x,
+					templateDef->y,
+					0, // alpha
+					filterDBInt(templateDef->dbField[DB_VAL_COLOR], templateDef->color),
+					fontname,
+					templateDef->fontSize,
+					labelText,
+					templateDef->flag[0]
+				);
+				setupTask(templateDef, tsk);
+				res = (tsk != NULL);
 			}
 			break;
 		case BUTTON_CLASSID:

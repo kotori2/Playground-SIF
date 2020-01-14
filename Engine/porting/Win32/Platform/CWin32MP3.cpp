@@ -19,6 +19,8 @@
 
 CWin32MP3::CWin32MP3(const char * mp3name) 
 : m_status  (true)
+, m_is_ogg	(false)
+, m_ogg_buffer (NULL)
 , m_lgf     (NULL)
 , m_hip     (0)
 , m_begin   (NULL)
@@ -84,6 +86,11 @@ CWin32MP3::getFormat(WAVEFORMATEX * format)
 bool
 CWin32MP3::readData(char * buf, size_t max)
 {
+	if (m_is_ogg)
+	{
+		memcpy(buf, m_ogg_buffer, max);
+		return true;
+	}
 	short * ptr     = (short *)buf;
 	size_t maxlen   = max / 2;
 
@@ -97,31 +104,26 @@ CWin32MP3::readData(char * buf, size_t max)
 		maxlen  -= size;
 		block   = block->next;
 	}
-    if(block->next) { return false; }
+    if(block && block->next) { return false; }
 	return true;
 }
 
 bool
 CWin32MP3::loadMP3(const char * name)
 {
+	if (strstr(name, ".ogg"))
+		return loadOGG(name);	// Load OGG instead
 	const char * soundpath = name;
 	char * pBuf = new char [ FILE_BUF_SIZE ];
-	FILE * rfp;
-
-	rfp = fopen(soundpath, "rb");
-	if(!rfp) return false;
+	FILE * rfp = fopen(soundpath, "rb");
+	if (!rfp) 
+		return false;
 	
 	if (CWin32Platform::g_useDecryption) {
-		u8 hdr[4];
-		hdr[0] = 0;
-		hdr[1] = 0;
-		hdr[2] = 0;
-		hdr[3] = 0;
-		fread(hdr,1,4,rfp);
-		u32 hasHeader = decryptSetup((const u8*)name, hdr);
-		if (hasHeader == 0) {
+		u8 hdr[16];
+		fread(hdr,1,16,rfp);
+		if (decryptSetup((const u8*)name, hdr) == 0)
 			fseek(rfp, 0, SEEK_SET);
-		}
 	}
 
 	size_t nSize, nPos;

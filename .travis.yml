@@ -3,6 +3,11 @@ os: linux
 dist: xenial
 group: edge
 
+addons:
+  apt:
+    packages:
+      - "python3"
+      #- "python3-pip"
 env:
   global:
   # for updates check developer.android.com/studio#downloads (current 26.1.1)
@@ -16,14 +21,17 @@ before_install:
   - unzip -q $ANDROID_SDK_TOOLS -d $HOME/sdk
   # set SDK tools path variable and ANDROID_HOME
   - export PATH=$PATH:$HOME/sdk/tools/bin
+  - export PATH=$PATH:$HOME/sdk/ndk-bundle
+  - ls $HOME/sdk
   - export ANDROID_HOME=$HOME/sdk
   # create empty cfg file to prevent sdkmanager warning message
   - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
+  - export PATH=$PATH:$HOME/.local/bin
+  #- sudo pip3 install colorama
 install:
   # accept licenses for all available packages that have not already been accepted
   - yes | sdkmanager --licenses >/dev/null
   - echo y | sdkmanager 'ndk-bundle' >/dev/null
-  - pip install colorama
   
 before_script:
   # set executable flag for gradle wrapper

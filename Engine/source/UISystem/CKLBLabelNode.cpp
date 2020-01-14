@@ -302,7 +302,7 @@ void CKLBLabelNode::updateLabel()
 	*/
 	m_status |= MATRIX_CHANGE;
 	m_pLabel->setViewPortPos(0, 0);
-	m_pLabel->setPriority(m_renderPrio);
+//	m_pLabel->setPriority(m_renderPrio);
 	markUpTree();
 }
 

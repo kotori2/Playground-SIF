@@ -14,6 +14,7 @@
 #include <openssl/hmac.h>
 #include <openssl/rsa.h>
 #include <openssl/pem.h>
+#include <openssl/rand.h>
 //#include "applink.c"
 // *** end including openssl ***
 #include "RenderingFramework.h"
@@ -947,45 +948,50 @@ int CiOSPlatform::HMAC_SHA1(const char* content, const char* key, char* retbuf)
     return strlen(retbuf);
 }
 
-int CiOSPlatform::encryptAES128CBC(const char* plaintext, const char* key, const char* iv, unsigned char* out)
+int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int* outLen)
 {
-    
     EVP_CIPHER_CTX* ctx;
-    if (!(ctx = EVP_CIPHER_CTX_new()))
-        return false;
+	int len;
 
-    if (false)
-    {
-    fail:
-        EVP_CIPHER_CTX_free(ctx);
-        return false;
-    }
-    
-    // set iv at beggining
-    memcpy(out, iv, 16);
-    int ciphertextLenght = 0;
-    int tmp = 0;
-    // encrypt the plaintext
-    if (EVP_EncryptInit_ex(ctx, EVP_aes_128_cbc(), NULL, (u8*)key, (u8*)iv) == 0)
-        goto fail;
-    if (EVP_EncryptUpdate(ctx, out + 16, &ciphertextLenght, (u8*)plaintext, strlen(plaintext)) == 0)
-        goto fail;
-    // add iv len
-    ciphertextLenght += 16;
-    if (EVP_EncryptFinal_ex(ctx, out + ciphertextLenght, &tmp) == 0)
-        goto fail;
+	unsigned char iv[16] = "";
+	RAND_bytes(iv, 16);
 
-    // and free CTX after using
-    EVP_CIPHER_CTX_free(ctx);
-    return ciphertextLenght += tmp;
+	if (false)
+	{
+	fail:
+		if (ctx) EVP_CIPHER_CTX_free(ctx);
+		return 0;
+	}
+
+	// put iv into beginning
+	// we don't need to encrypt it
+	// on client-side we just slice it before decrypting
+	memcpy(out, iv, 16);
+	if (!(ctx = EVP_CIPHER_CTX_new()))
+		goto fail;
+	if (EVP_EncryptInit_ex(ctx, EVP_aes_128_cbc(), NULL, (u8*)key, iv) == 0)
+		goto fail;
+	// + 16 because of IV
+	if (EVP_EncryptUpdate(ctx, out + 16, &len, (u8*)plaintext, plaintextLen) == 0)
+		goto fail;
+
+	*outLen = len + 16; // include IV length
+	if (EVP_EncryptFinal_ex(ctx, out + len + 16, &len) == 0)
+		goto fail;
+	*outLen += len;
+
+	/* Clean up */
+	EVP_CIPHER_CTX_free(ctx);
+	return 1;
 }
 
-int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plantextLen, unsigned char* out)
+int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int* outLen)
 {
-    FILE* publicKey = fopen("public.pem", "rb");
-    klb_assert(publicKey, "public.pem not exist");
-    RSA* rsa = RSA_new();
-    rsa = PEM_read_RSA_PUBKEY(publicKey, &rsa, NULL, NULL);
-    fclose(publicKey);
-    return RSA_public_encrypt(plantextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
+	FILE* publicKey = fopen("public.pem", "rb");
+	klb_assert(publicKey, "public.pem not exist");
+	RSA* rsa = RSA_new();
+	rsa = PEM_read_RSA_PUBKEY(publicKey, &rsa, NULL, NULL);
+	fclose(publicKey);
+	*outLen = RSA_public_encrypt(plaintextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
+	return 1;
 }
