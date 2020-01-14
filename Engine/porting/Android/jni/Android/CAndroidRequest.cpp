@@ -1762,4 +1762,14 @@ CAndroidRequest::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, un
     return (int)ret;
 }
 
+bool 
+CAndroidRequest::publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash) {
+	return false; // TODO
+}
+
+int 
+CAndroidRequest::getRandomBytes(char* out, int len) {
+	return 0;  // TODO
+}
+
 };

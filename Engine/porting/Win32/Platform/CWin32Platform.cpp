@@ -20,6 +20,7 @@
 #include <windows.h>
 #include <WinSock.h>
 #include <Rpc.h>
+#include <ntsecapi.h>
 
 #include "assert.h"
 #include "RenderingFramework.h"
@@ -1025,6 +1026,16 @@ CWin32Platform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, uns
 	fclose(publicKey);
 	outLen = RSA_public_encrypt(plaintextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
 	return outLen;
+}
+
+bool 
+CWin32Platform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash) {
+	return false; // TODO
+}
+
+int 
+CWin32Platform::getRandomBytes(char* out, int len) {
+	return (int)RtlGenRandom(out, len);
 }
 
 bool
