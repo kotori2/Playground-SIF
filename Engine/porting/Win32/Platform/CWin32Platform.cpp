@@ -86,14 +86,14 @@ const char *
 CWin32Platform::create_version_string()
 {
 	char buf[4096];
-	OSVERSIONINFO verInfo;
+	OSVERSIONINFOEX verInfo;
 	TIME_ZONE_INFORMATION tzInfo;
 	char * OSlabel;
 
 	// Win32 API でOSのバージョンを取得する。
-	memset(&verInfo, 0, sizeof(OSVERSIONINFO));
-	verInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-	GetVersionEx(&verInfo);
+	memset(&verInfo, 0, sizeof(OSVERSIONINFOEX));
+	verInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+	GetVersionEx((LPOSVERSIONINFO)&verInfo);
 
 	switch(verInfo.dwPlatformId)
 	{

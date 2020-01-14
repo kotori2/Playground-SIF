@@ -517,6 +517,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	sprintf(bundle_version, "Bundle-Version: %s", pfif.platform().getBundleVersion());
 	sprintf(client_version, "Client-Version: %s", kc.getClient());
 	sprintf(region, "Region: %s", kc.getRegion());
+	sprintf(os_version, "OS-Version: %s", pfif.platform().getPlatform());
 
 	// User-ID
 	const char* uid = kc.getUserID();
@@ -534,7 +535,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	headers[4] = client_version;
 	headers[5] = "Debug: 1";
 	headers[6] = "OS: Android";
-	headers[7] = "OS-Version: Nexus 5 google hammerhead 4.4.4";
+	headers[7] = os_version;
 	headers[8] = "Platform-Type: 2";
 	headers[9] = region;
 	headers[10] = xmc;
@@ -542,6 +543,10 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	headers[12] = NULL;
 
 	m_http->setHeader(headers);
+
+	for (int i = 0; i < 11; i++) {
+		DEBUG_PRINT("[HEADER] %s", headers[i]);
+	}
 
 	delete[] authorize;
 	delete[] alldata;
