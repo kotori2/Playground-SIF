@@ -965,9 +965,9 @@ CWin32Platform::sha512(const char * string, char * buf, int maxlen)
 }
 
 int
-CWin32Platform::HMAC_SHA1(const char* content, const char* key, char* retbuf)
+CWin32Platform::HMAC_SHA1(const char* content, const char* key, int keyLen, char* retbuf)
 {
-	u8* hash = HMAC(EVP_sha1(), key, strlen(key), (const unsigned char*)content, strlen(content), NULL, NULL);
+	u8* hash = HMAC(EVP_sha1(), key, keyLen, (const unsigned char*)content, strlen(content), NULL, NULL);
 	char* ptr = retbuf;
 	for (int i = 0; i < 20; i++)
 	{
@@ -978,7 +978,7 @@ CWin32Platform::HMAC_SHA1(const char* content, const char* key, char* retbuf)
 }
 
 int
-CWin32Platform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int* outLen)
+CWin32Platform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen)
 {
 	EVP_CIPHER_CTX* ctx;
 	int len;
@@ -1005,26 +1005,26 @@ CWin32Platform::encryptAES128CBC(const char* plaintext, int plaintextLen, const 
 	if (EVP_EncryptUpdate(ctx, out + 16, &len, (u8*)plaintext, plaintextLen) == 0)
 		goto fail;
 
-	*outLen = len + 16; // include IV length
+	outLen = len + 16; // include IV length
 	if (EVP_EncryptFinal_ex(ctx, out + len + 16, &len) == 0)
 		goto fail;
-	*outLen += len;
+	outLen += len;
 
 	/* Clean up */
 	EVP_CIPHER_CTX_free(ctx);
-	return 1;
+	return outLen;
 }
 
 int
-CWin32Platform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int* outLen)
+CWin32Platform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen)
 {
 	FILE* publicKey = fopen("public.pem", "rb");
 	klb_assert(publicKey, "public.pem not exist");
 	RSA* rsa = RSA_new();
 	rsa = PEM_read_RSA_PUBKEY(publicKey, &rsa, NULL, NULL);
 	fclose(publicKey);
-	*outLen = RSA_public_encrypt(plaintextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
-	return 1;
+	outLen = RSA_public_encrypt(plaintextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
+	return outLen;
 }
 
 bool

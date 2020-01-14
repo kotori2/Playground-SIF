@@ -310,20 +310,18 @@ CKLBNetAPI::authKey()
 		// dummy token part
 		const char* clientKey = kc.getClientKey();
 		unsigned char clientKeyEncrypted[512];
-		int clientKeyEncryptedLen = 0;
-		int status = 0;
-		status = platform.publicKeyEncrypt((unsigned char*)clientKey, strlen(clientKey), clientKeyEncrypted, &clientKeyEncryptedLen);
-        klb_assert(status == 1, "platform.publicKeyEncrypt failed");
+		int clientKeyEncryptedLen = platform.publicKeyEncrypt((unsigned char*)clientKey, strlen(clientKey), clientKeyEncrypted, 512);
+        klb_assert(clientKeyEncryptedLen > 0, "platform.publicKeyEncrypt failed");
 		int dummyTokenLen = 0;
 		char* dummyToken = base64(clientKeyEncrypted, clientKeyEncryptedLen, &dummyTokenLen);
+		// DEBUG_PRINT("dummyToken: %s", dummyToken);
 
 		// auth data part
 		char devData[512];
 		sprintf(devData, "{ \"1\":\"%s\",\"2\": \"%s\", \"3\": \"eyJSYXRpbmciOiIwIiwiRGV0YWlsIiA6ICJUaGlzIGlzIGEgaU9TIGRldmljZSJ9\"}", kc.getLoginKey(), kc.getLoginPwd());
 		unsigned char devDataEnc[512];
-		int devDataEncLen;
-		status = platform.encryptAES128CBC(devData, strlen(devData), clientKey, devDataEnc, &devDataEncLen);
-		klb_assert(status == 1, "platform.encryptAES128CBC failed");
+		int devDataEncLen = platform.encryptAES128CBC(devData, strlen(devData), clientKey, devDataEnc, 512);
+		klb_assert(devDataEncLen > 0, "platform.encryptAES128CBC failed");
 		int authDataLen = 0;
 		char* authData = base64(devDataEnc, devDataEncLen, &authDataLen);
 		sprintf(requestData, "request_data={\"dummy_token\":\"%s\", \"auth_data\":\"%s\"}", dummyToken, authData);
@@ -381,13 +379,11 @@ CKLBNetAPI::login(int status)
 		// encrypt credentials
 		unsigned char loginKeyEnc[128];
 		unsigned char loginPwdEnc[256];
-		int loginPwdEncLen = 0;
-        int loginKeyEncLen = 0;
-		int status = 0;
-		status = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, &loginPwdEncLen);
-		klb_assert(status == 1, "platform.encryptAES128CBC failed");
-		status = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, &loginKeyEncLen);
-		klb_assert(status == 1, "platform.encryptAES128CBC failed");
+
+		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, 128);
+		klb_assert(loginKeyEncLen > 0, "platform.encryptAES128CBC failed");
+		int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, 256);
+        klb_assert(loginPwdEncLen > 0, "platform.encryptAES128CBC failed");
 
 		// and do base64
 		int loginKeyBLen = 0;
@@ -443,13 +439,11 @@ CKLBNetAPI::startUp(int status)
 		// encrypt credentials
 		unsigned char loginKeyEnc[128];
 		unsigned char loginPwdEnc[256];
-		int status = 0;
-		int loginPwdEncLen = 0;
-		int loginKeyEncLen = 0;
-		status = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, &loginPwdEncLen);
-        klb_assert(status == 1, "platform.encryptAES128CBC failed");
-        status = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, &loginKeyEncLen);
-        klb_assert(status == 1, "platform.encryptAES128CBC failed");
+
+		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, 128);
+        klb_assert(loginKeyEncLen > 0, "platform.encryptAES128CBC failed");
+        int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, 256);
+        klb_assert(loginPwdEncLen > 0, "platform.encryptAES128CBC failed");
 
 		// and do base64
 		int loginKeyBLen = 0;
@@ -513,7 +507,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 		char* signKey = (char*)key;
 		if (signKey == NULL)
 			signKey = (char*)kc.getSessionKey();
-		pfif.platform().HMAC_SHA1(data + 13, signKey, temp);
+		pfif.platform().HMAC_SHA1(data + 13, signKey, 32, temp);
 		sprintf(xmc, "X-Message-Code: %s", temp);
 	}
 
