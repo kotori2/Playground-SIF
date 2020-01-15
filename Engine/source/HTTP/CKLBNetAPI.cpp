@@ -122,6 +122,10 @@ CKLBNetAPI::execute(u32 deltaT)
 		// Get Data
 		u8* body	= m_http->getRecvResource();
 		u32 bodyLen	= body ? m_http->getSize() : 0;
+
+		// TODO: Print response header and body
+		// DO NOT print directly or it cause crash
+		// DEBUG_PRINT("[HTTP RESPONSE] %s", body)
 		
 		// Get Status Code
 		int state = m_http->getHttpState();
@@ -577,8 +581,9 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	m_http->setHeader(headers);
 
 	for (int i = 0; i < 11; i++) {
-		DEBUG_PRINT("[HEADER] %s", headers[i]);
+		DEBUG_PRINT("[HTTP HEADER] %s", headers[i]);
 	}
+	DEBUG_PRINT("[POST BODY] %s", data);
 
 	KLBDELETEA(authorizeString);
 	delete[] authorize;

@@ -206,7 +206,8 @@ CKLBLuaLibASSET::luaSetNMAsset(lua_State * L)
 {
 	CLuaState lua(L);
 	int argc = lua.numArgs();
-	lua.printStack();
+	// MAY cause crash
+	// lua.printStack();
 	if (argc != 2) {
 		lua.retBool(false);
 		return 0;
