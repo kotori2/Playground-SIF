@@ -70,7 +70,7 @@ CLuaState::errorMsg(const char *type_name, int argnum)
     char buf[128];
 	sprintf(buf, "invalid argment type (arg:%d is not %s.)", argnum, type_name);
 
-#ifdef _WIN32 && DEBUG
+#ifdef _WIN32// && DEBUG
 	printf(buf);
 	DebugBreak();
 #else
@@ -249,7 +249,7 @@ void CLuaState::printStack() {
 		{
 			printf("\nLUA TABLE DUMP START STACK %d\n", i);
 			// only one depth level
-			char* str = "for a,b in pairs(({...})[1])do print(a,b)end";
+			const char* str = "for a,b in pairs(({...})[1])do print(a,b)end";
 			klb_assert(luaL_loadstring(m_L, str) == 0, "Syntax error");
 			retValue(i);
 			klb_assert(lua_pcall(m_L, 1, 0, 0) == 0, "Syntax error");
