@@ -88,7 +88,6 @@ CWin32Platform::create_version_string()
 {
 	char buf[4096];
 	OSVERSIONINFOEX verInfo;
-	TIME_ZONE_INFORMATION tzInfo;
 	char * OSlabel;
 
 	// Win32 API でOSのバージョンを取得する。
@@ -103,33 +102,10 @@ CWin32Platform::create_version_string()
 	default:	                        OSlabel = "unknown";	break;
 	}
 
-	// Win32 API で、動作環境のタイムゾーンを取得する。
-	memset(&tzInfo, 0, sizeof(TIME_ZONE_INFORMATION));
-	GetTimeZoneInformation(&tzInfo);
-
-	// Win32 APIは各国語でTimezone名を返すので、そこを何とかせんといかんのですが、
-	// どうするかは後で考えます。とりあえずこの場はJST固定で実装。
-
 	sprintf(buf,
-			"Win32;%s %d.%d.%d/%s;",
+			"Win32 %s %d.%d.%d",
 			OSlabel,
-			verInfo.dwMajorVersion, verInfo.dwMinorVersion, verInfo.dwBuildNumber,
-			verInfo.szCSDVersion);
-
-	// Process the timezone from wchar_t to char
-	{
-		char* temp = KLBNEWA(char, 32);
-		char* converted_name = temp;
-		wchar_t* name = tzInfo.StandardName;
-
-		memset(temp, 0, 32);
-
-		for (; *name != 0; *converted_name++ = *name++) {}
-
-		sprintf(buf, "%s%s", buf, temp);
-
-		KLBDELETEA(temp);
-	}
+			verInfo.dwMajorVersion, verInfo.dwMinorVersion, verInfo.dwBuildNumber);
 
 	int len = strlen(buf);
 
