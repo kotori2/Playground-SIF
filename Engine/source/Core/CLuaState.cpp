@@ -71,8 +71,10 @@ CLuaState::errorMsg(const char *type_name, int argnum)
 	sprintf(buf, "invalid argment type (arg:%d is not %s.)", argnum, type_name);
 
 #ifdef _WIN32// && DEBUG
-	printf(buf);
+#ifdef DEBUG
+	DEBUG_PRINT(buf);
 	DebugBreak();
+#endif
 #else
     //CKLBLuaEnv::getInstance().errMsg(buf);
     error("%s", buf);
