@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
-#import <StoreKit/StoreKit.h>
+//#import <StoreKit/StoreKit.h>
 #import <OpenGLES/EAGL.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -92,7 +92,7 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
     UITextView  * targetTextView;
     
     Boolean bContinue;
-    UIViewController<UIAlertViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>   *   viewCtrl;
+    UIViewController<UIAlertViewDelegate/*,SKProductsRequestDelegate,SKPaymentTransactionObserver*/>   *   viewCtrl;
 }
 
 @property NSTimeInterval animationInterval;
@@ -101,7 +101,7 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
 - (void)stopAnimation;
 - (void)drawView;
 - (void)setTimePrev:(CFTimeInterval)value;
-- (void)setViewController:(UIViewController<SKProductsRequestDelegate> *)viewController;
+- (void)setViewController:(UIViewController/*<SKProductsRequestDelegate>*/ *)viewController;
 - (void)textTouchDown:(id)sender;
 - (void)textTouchUp:(id)sender;
 

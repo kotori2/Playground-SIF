@@ -190,7 +190,9 @@ CiOSPlatform::logging(const char * format, ...)
 }
 
 const char* CiOSPlatform::getBundleVersion() {
-    return [[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"] cStringUsingEncoding:NSUTF8StringEncoding];
+    //set version string here instead of xcode project setting
+    const char* bundle_version = "6.9.1";
+    return /*[[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"] cStringUsingEncoding:NSUTF8StringEncoding]*/ bundle_version;
 }
 
 	ITmpFile *
@@ -1012,71 +1014,71 @@ CiOSPlatform::sha512(const char * string, char * buf, int maxlen)
 	void
 CiOSPlatform::initStoreTransactionObserver(void)
 {
-	[[SKPaymentQueue defaultQueue] addTransactionObserver: m_pViewController];
+	//[[SKPaymentQueue defaultQueue] addTransactionObserver: m_pViewController];
 }
 
 	void
 CiOSPlatform::releaseStoreTransactionObserver(void)
 {
-	[[SKPaymentQueue defaultQueue] removeTransactionObserver: m_pViewController];
+	//[[SKPaymentQueue defaultQueue] removeTransactionObserver: m_pViewController];
 }
 	void
 CiOSPlatform::buyStoreItems(const char *item_id)
 {
-	// item-id が item_id に const char * の配列としてnumで指定された数だけ渡されている。
-	NSSet * set = [NSSet set];
-    
-    const char * utf8_id = item_id;
-
-    NSString * str_id = [NSString stringWithUTF8String:utf8_id];
-    set = [set setByAddingObject:str_id];
-    
-	SKProductsRequest * productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
-	productsRequest.delegate = m_pViewController;
-	[productsRequest start];
-
-	m_storeState.m_mode = STORE_BUY_PRODUCTS;
-	m_storeState.m_count = 1;
-	m_storeState.m_currency = false;
+//	// item-id が item_id に const char * の配列としてnumで指定された数だけ渡されている。
+//	NSSet * set = [NSSet set];
+//
+//    const char * utf8_id = item_id;
+//
+//    NSString * str_id = [NSString stringWithUTF8String:utf8_id];
+//    set = [set setByAddingObject:str_id];
+//
+//	SKProductsRequest * productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
+//	productsRequest.delegate = m_pViewController;
+//	[productsRequest start];
+//
+//	m_storeState.m_mode = STORE_BUY_PRODUCTS;
+//	m_storeState.m_count = 1;
+//	m_storeState.m_currency = false;
 }
 
 	void
 CiOSPlatform::finishStoreTransaction(const char * receipt)
 {
-	[(ViewController *)m_pViewController finishStoreTransaction:[NSString stringWithFormat:@"%s", receipt]];
+	//[(ViewController *)m_pViewController finishStoreTransaction:[NSString stringWithFormat:@"%s", receipt]];
 }
 
 	void
 CiOSPlatform::getStoreProducts(const char* json, bool currency_mode)
 {
-	// item-id が item_id に const char * の配列としてnumで指定された数だけ渡されている。
-	NSSet* set = [NSSet set];
-	CKLBJsonItem* root = CKLBJsonItem::ReadJsonData(json,
-			strlen(json));
-	int product_count = 0;
-	if (root)
-	{
-		CKLBJsonItem* child = root->child();
-		while (child)
-		{
-			const char* utf8_id = child->getString();
-			if (utf8_id)
-			{
-				NSString* str_id = [NSString stringWithUTF8String:utf8_id];
-				set = [set setByAddingObject:str_id];
-				++product_count;
-			}
-			child = child->next();
-		}
-	}
-
-	SKProductsRequest * productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
-	productsRequest.delegate = m_pViewController;
-	[productsRequest start];
-
-	m_storeState.m_mode = STORE_GET_PRODUCTS;
-	m_storeState.m_count = product_count;
-	m_storeState.m_currency = currency_mode;
+//	// item-id が item_id に const char * の配列としてnumで指定された数だけ渡されている。
+//	NSSet* set = [NSSet set];
+//	CKLBJsonItem* root = CKLBJsonItem::ReadJsonData(json,
+//			strlen(json));
+//	int product_count = 0;
+//	if (root)
+//	{
+//		CKLBJsonItem* child = root->child();
+//		while (child)
+//		{
+//			const char* utf8_id = child->getString();
+//			if (utf8_id)
+//			{
+//				NSString* str_id = [NSString stringWithUTF8String:utf8_id];
+//				set = [set setByAddingObject:str_id];
+//				++product_count;
+//			}
+//			child = child->next();
+//		}
+//	}
+//
+//	SKProductsRequest * productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
+//	productsRequest.delegate = m_pViewController;
+//	[productsRequest start];
+//
+//	m_storeState.m_mode = STORE_GET_PRODUCTS;
+//	m_storeState.m_count = product_count;
+//	m_storeState.m_currency = currency_mode;
 }
 
 
@@ -1095,78 +1097,78 @@ float CiOSPlatform::getMasterVolume(bool SEmode) const
 	void
 CiOSPlatform::responseStoreKitProducts(SKProductsResponse* response, ViewController* viewController)
 {
-	// 購入なのか、リストが欲しいだけなのかによって処理分離.
-	// 購入の場合は、トランザクションを貼ってpaymentの処理へ移行.
-	// リスト取得の場合はリストをLuaに渡しcallbackを起動する.
-	if (m_storeState.m_mode == STORE_GET_PRODUCTS)
-	{
-
-		// 平成24年12月4日(火)
-		// 言い訳。時間がない。- ->ちょっと整理 
-		/*
-		   [{"id":"id","title":"title","description:"description","price":"price"},{"id":"id","title":"title","description:"description","price":"price"},...]
-
-		 */
-		// utf8
-		if (m_storeState.m_count <= 0){
-			return;
-		}
-
-
-		//NSMutableArray *contents = [NSMutableArray array];
-		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-		[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-
-		if (m_storeState.m_currency)
-		{
-			[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-		}
-
-		NSMutableString *jsonString = [NSMutableString stringWithString:@"["];
-		int idx = 0;
-		for (SKProduct* product in response.products) {
-			if (idx > 0) {
-				[jsonString appendString:@","];
-			}
-			++idx;
-			[numberFormatter setLocale:product.priceLocale];
-
-			NSString *identifier = product.productIdentifier;
-			NSString *title = product.localizedTitle;
-			NSString *description = product.description;
-			NSString *price = [numberFormatter stringFromNumber:product.price];
-			NSString *entry = [NSString stringWithFormat:@"{\"id\":\"%@\",\"title\":\"%@\",\"description\":\"%@\",\"price\":\"%@\"}", identifier, title, description, price];
-			[jsonString appendString:entry];
-		}
-
-		[numberFormatter release];
-
-		[jsonString appendString:@"]"];
-
-		NSData * json = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-#ifdef DEBUG
-		CPFInterface::getInstance().platform().logging("%@",jsonString);
-#endif
-		IClientRequest& cli = CPFInterface::getInstance().client();
-		cli.controlEvent(IClientRequest::E_STORE_GET_PRODUCTS,
-				0,
-				json.length + 1,
-				(void *)[jsonString cStringUsingEncoding:NSUTF8StringEncoding],
-				0,
-				0);
-
-#ifdef USE_EXTERNAL_SDK_LOVELIVE
-		[SDKWrapper onGetProducts:response];
-#endif
-	}
-	else if (m_storeState.m_mode == STORE_BUY_PRODUCTS)
-	{
-		// 購入処理開始
-		for(SKProduct * product in response.products) {
-			SKPayment * payment = [SKPayment paymentWithProduct:product];
-			[[SKPaymentQueue defaultQueue] addPayment:payment];
-		}
-	}
+//	// 購入なのか、リストが欲しいだけなのかによって処理分離.
+//	// 購入の場合は、トランザクションを貼ってpaymentの処理へ移行.
+//	// リスト取得の場合はリストをLuaに渡しcallbackを起動する.
+//	if (m_storeState.m_mode == STORE_GET_PRODUCTS)
+//	{
+//
+//		// 平成24年12月4日(火)
+//		// 言い訳。時間がない。- ->ちょっと整理
+//		/*
+//		   [{"id":"id","title":"title","description:"description","price":"price"},{"id":"id","title":"title","description:"description","price":"price"},...]
+//
+//		 */
+//		// utf8
+//		if (m_storeState.m_count <= 0){
+//			return;
+//		}
+//
+//
+//		//NSMutableArray *contents = [NSMutableArray array];
+//		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+//		[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+//
+//		if (m_storeState.m_currency)
+//		{
+//			[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+//		}
+//
+//		NSMutableString *jsonString = [NSMutableString stringWithString:@"["];
+//		int idx = 0;
+//		for (SKProduct* product in response.products) {
+//			if (idx > 0) {
+//				[jsonString appendString:@","];
+//			}
+//			++idx;
+//			[numberFormatter setLocale:product.priceLocale];
+//
+//			NSString *identifier = product.productIdentifier;
+//			NSString *title = product.localizedTitle;
+//			NSString *description = product.description;
+//			NSString *price = [numberFormatter stringFromNumber:product.price];
+//			NSString *entry = [NSString stringWithFormat:@"{\"id\":\"%@\",\"title\":\"%@\",\"description\":\"%@\",\"price\":\"%@\"}", identifier, title, description, price];
+//			[jsonString appendString:entry];
+//		}
+//
+//		[numberFormatter release];
+//
+//		[jsonString appendString:@"]"];
+//
+//		NSData * json = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+//#ifdef DEBUG
+//		CPFInterface::getInstance().platform().logging("%@",jsonString);
+//#endif
+//		IClientRequest& cli = CPFInterface::getInstance().client();
+//		cli.controlEvent(IClientRequest::E_STORE_GET_PRODUCTS,
+//				0,
+//				json.length + 1,
+//				(void *)[jsonString cStringUsingEncoding:NSUTF8StringEncoding],
+//				0,
+//				0);
+//
+//#ifdef USE_EXTERNAL_SDK_LOVELIVE
+//		[SDKWrapper onGetProducts:response];
+//#endif
+//	}
+//	else if (m_storeState.m_mode == STORE_BUY_PRODUCTS)
+//	{
+//		// 購入処理開始
+//		for(SKProduct * product in response.products) {
+//			SKPayment * payment = [SKPayment paymentWithProduct:product];
+//			[[SKPaymentQueue defaultQueue] addPayment:payment];
+//		}
+//	}
 }
 
 void*	CiOSPlatform::allocMutex	()
@@ -1318,7 +1320,7 @@ bool CiOSPlatform::icreateEmptyFile(const char* name) {
 }
 
 
-int CiOSPlatform::HMAC_SHA1(const char* string, const char* key, int keyLen, char* retbuf) { 
+int CiOSPlatform::HMAC_SHA1(const char* content, const char* key, int keyLen, char* retbuf) {
     return -1;
 }
 
@@ -1339,5 +1341,5 @@ bool CiOSPlatform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, u
 
 int CiOSPlatform::getRandomBytes(char* out, int len)
 {
-	return -1;
+    return -1;// TODO
 }

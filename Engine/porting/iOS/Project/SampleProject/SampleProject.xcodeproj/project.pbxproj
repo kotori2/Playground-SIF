@@ -248,7 +248,6 @@
 		8ECC289D156B4CD10022D683 /* CKLBLuaLibDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC2896156B4CD10022D683 /* CKLBLuaLibDB.cpp */; };
 		8ECC289E156B4CD10022D683 /* CKLBLuaLibGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC2898156B4CD10022D683 /* CKLBLuaLibGL.cpp */; };
 		8ECC28AD156B59640022D683 /* CKLBUITextInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC28AB156B59640022D683 /* CKLBUITextInput.cpp */; };
-		8ECDE6C615FD916B00CE2A3D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECDE6C515FD916B00CE2A3D /* StoreKit.framework */; };
 		8ECDE6CF15FDCD3000CE2A3D /* CKLBStoreService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ECDE6CE15FDCD3000CE2A3D /* CKLBStoreService.cpp */; };
 		8ED83D3A15B6D26000D90B21 /* CKLBUIMultiImgItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ED83D3815B6D26000D90B21 /* CKLBUIMultiImgItem.cpp */; };
 		8ED83D3E15B6D2E300D90B21 /* CKLBUIPieChart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ED83D3C15B6D2E300D90B21 /* CKLBUIPieChart.cpp */; };
@@ -869,7 +868,6 @@
 		8ECC28A4156B4E070022D683 /* CiOSWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CiOSWidget.h; sourceTree = "<group>"; };
 		8ECC28AB156B59640022D683 /* CKLBUITextInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKLBUITextInput.cpp; sourceTree = "<group>"; };
 		8ECC28AC156B59640022D683 /* CKLBUITextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBUITextInput.h; sourceTree = "<group>"; };
-		8ECDE6C515FD916B00CE2A3D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8ECDE6CC15FDCBEE00CE2A3D /* CKLBStoreService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKLBStoreService.h; path = ../../../../source/HTTP/CKLBStoreService.h; sourceTree = "<group>"; };
 		8ECDE6CE15FDCD3000CE2A3D /* CKLBStoreService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CKLBStoreService.cpp; path = ../../../../source/HTTP/CKLBStoreService.cpp; sourceTree = "<group>"; };
 		8ED83D3815B6D26000D90B21 /* CKLBUIMultiImgItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKLBUIMultiImgItem.cpp; sourceTree = "<group>"; };
@@ -1003,7 +1001,6 @@
 			files = (
 				6F4AD67A17003DF1007699EF /* libcurl.a in Frameworks */,
 				3500F79D164221EC005228DC /* libz.dylib in Frameworks */,
-				8ECDE6C615FD916B00CE2A3D /* StoreKit.framework in Frameworks */,
 				8EE212CB15DDFE5F006694A1 /* CoreMedia.framework in Frameworks */,
 				8E0A2B3814D12C02007E98B3 /* AVFoundation.framework in Frameworks */,
 				8EE212C915DDFDDF006694A1 /* MediaPlayer.framework in Frameworks */,
@@ -1436,7 +1433,6 @@
 			isa = PBXGroup;
 			children = (
 				3500F79C164221EC005228DC /* libz.dylib */,
-				8ECDE6C515FD916B00CE2A3D /* StoreKit.framework */,
 				8EE212CA15DDFE5F006694A1 /* CoreMedia.framework */,
 				8EE212C815DDFDDF006694A1 /* MediaPlayer.framework */,
 				8EC9671E15AD7943008FCDEF /* Security.framework */,
@@ -2595,6 +2591,7 @@
 		80C120D91682F365009C09EC /* Debug Opt */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2623,6 +2620,7 @@
 				);
 				New_Setting = "";
 				PRODUCT_NAME = "Sample Application";
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Debug Opt";
@@ -2687,6 +2685,7 @@
 		8E0A2A1614D12A6E007E98B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2718,6 +2717,7 @@
 				);
 				New_Setting = "";
 				PRODUCT_NAME = "Sample Application";
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2725,6 +2725,7 @@
 		8E0A2A1714D12A6E007E98B3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2747,6 +2748,7 @@
 				);
 				New_Setting = "";
 				PRODUCT_NAME = "Sample Application";
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
