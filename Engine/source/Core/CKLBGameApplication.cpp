@@ -54,15 +54,20 @@
 
 // Global Text rendering buffer.
 #include "CKLBTextTempBuffer.h"
+int CKLBGameApplication::m_decryptedBaseKey[34] = {};
+bool CKLBGameApplication::m_isNMAssetKeyDecrypted = false;
+char* CKLBGameApplication::m_NMAssetKey = NULL;
+int CKLBGameApplication::m_NMAssetKeyLen = NULL;
+const uint16_t CKLBGameApplication::encryptedBaseKey[128] = { 0x366, 0xc6, 0x346, 0x2c6, 0x46, 0x106, 0x1e6, 0xa6, 0x306, 0x226, 0x2a6, 0x26, 0x386, 0x2e6, 0x146, 0x406, 0xe6, 0x3a6, 0x166, 0x1c6, 0x266, 0x186, 0x3e6, 0x246, 0x66, 0x206, 0x286, 0x365, 0xc5, 0x2c5, 0x45, 0x105, 0x1e5, 0x325, 0x305, 0x225, 0x2a5, 0x3c5, 0x25, 0x385, 0x2e5, 0x145, 0x1a5, 0x5, 0x405, 0xe5, 0x165, 0x1c5, 0x85, 0x265, 0x125, 0x3e5, 0x245, 0x65, 0x205, 0x285, 0x344, 0x324, 0x3c4, 0x1a4, 0xe4, 0x3a4, 0x84, 0x124, 0x184, 0x3e4, 0x244, 0x64, 0x284, 0x363, 0xc3, 0x43, 0x103, 0x1e3, 0x303, 0x2a3, 0x3c3, 0x383, 0x403, 0x3a3, 0x163, 0x1c3, 0x263, 0x183, 0x3e3, 0x203, 0x362, 0x322, 0x222, 0x2a2, 0x22, 0x382, 0x2e2, 0x1a2, 0x402, 0x1c2, 0x82, 0x122, 0x422, 0x62, 0x202, 0x282, 0x361, 0x341, 0x2c1, 0x321, 0x2a1, 0x381, 0x401, 0x1c1, 0x360, 0x340, 0x40, 0xa0, 0x300, 0x220, 0x2a0, 0x3c0, 0x20, 0x380, 0x2e0, 0x140, 0x400, 0x160, 0x1c0, 0x420, 0x200, 0x280 };
 
 CKLBGameApplication::CKLBGameApplication()
-: IClientRequest    ()
-, m_bootFile        (NULL)
-, m_reboot          (false)
-, m_frameTime       (16)
-, m_outStream       (NULL)
-, m_useDefaultDB    (false)
-, m_useDefaultFont  (true)
+: IClientRequest			()
+, m_bootFile				(NULL)
+, m_reboot					(false)
+, m_frameTime				(16)
+, m_outStream				(NULL)
+, m_useDefaultDB			(false)
+, m_useDefaultFont			(true)
 {
 }
 
@@ -139,6 +144,7 @@ CKLBGameApplication::initGame()
 	allocSize.maxAssetCount				= 1000;
 	allocSize.formTemplateNodeCount		= 10000;
 
+	initNMAsset();
 	this->setupAllocation(&allocSize);
 
 	srand(3920567);
@@ -159,6 +165,40 @@ CKLBGameApplication::initGame()
 	if (res) {	res &= callInitialTasks(m_width, m_height);	}
     m_updateRotation = false;
 	return res;
+}
+
+
+void
+CKLBGameApplication::initNMAsset() 
+{
+	if (!m_isNMAssetKeyDecrypted) {
+		memset(m_decryptedBaseKey, 0, 34 * sizeof(int));
+		for (int i = 0; i < 128; i++) {
+			m_decryptedBaseKey[encryptedBaseKey[i] >> 5] |= 1 << (encryptedBaseKey[i] & 0x1F);
+		}
+		m_NMAssetKeyLen = m_decryptedBaseKey[0] ;
+	}
+
+	if (m_NMAssetKey) { free(m_NMAssetKey); }
+	m_NMAssetKey = (char*)malloc(sizeof(char) * (m_NMAssetKeyLen + 1));
+	klb_assert(m_NMAssetKey, "Failed to allocate memory");
+
+	memset(m_NMAssetKey, 0, sizeof(char) * (m_NMAssetKeyLen + 1));
+	for (int i = 0; i < m_NMAssetKeyLen; i++) {
+		m_NMAssetKey[i] = (char)m_decryptedBaseKey[i + 1];
+	}
+}
+
+char*
+CKLBGameApplication::getNMAssetKey()
+{
+	return m_NMAssetKey;
+}
+
+int
+CKLBGameApplication::getNMAssetKeyLen()
+{
+	return m_NMAssetKeyLen;
 }
 
 bool

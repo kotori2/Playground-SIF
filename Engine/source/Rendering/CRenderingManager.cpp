@@ -611,16 +611,16 @@ CBuffer*	CKLBOGLWrapper::createVertexBuffer		(s32 vertexCount, const SVertexEntr
 				}
 				
 				if (vboLocal) {
-					KLBDELETE(vboLocal);
+					KLBDELETE(&vboLocal[0]);
 				}
 
 				if (ptrBuff && (!asOutsideBuffer)) {
-					KLBDELETE(ptrBuff);
+					KLBDELETE(&ptrBuff[0]);
 				}
 
 				dglDeleteBuffers(1, &pNewBuffer->vboID);
 			}
-			KLBDELETE(list);
+			KLBDELETE(&list[0]);
 		}
 		KLBDELETE(pNewBuffer);
 		pNewBuffer = null;
@@ -658,7 +658,7 @@ CIndexBuffer* CKLBOGLWrapper::createIndexBuffer(s32 indexCount, bool asVBO, void
 		}
 
 		if (ptrBuff != null && (!asOutsideBuffer)) {
-			KLBDELETE(ptrBuff);
+			KLBDELETE(&ptrBuff[0]);
 		}
 
 		if (pNewBuffer->vboID) {

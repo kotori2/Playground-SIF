@@ -675,6 +675,7 @@ CAndroidRequest::createControl(IWidget::CONTROL type, int id, const char * capti
 		pWidget = pWebWidget;
 		break;
 	}
+	case IWidget::BGMOVIEPLAYER:{break;} //NOT HANDLED
 	case IWidget::MOVIEPLAYER:
 	{
 		CAndroidMovieWidget * pMovieWidget = new CAndroidMovieWidget(this);

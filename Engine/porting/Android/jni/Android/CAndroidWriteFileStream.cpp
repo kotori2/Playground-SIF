@@ -23,9 +23,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
-#include "CAndroidWriteFileStream.h"
+#include "CAndroidPathConv.h"
 #include "CAndroidReadFileStream.h"
-
+#include "CAndroidWriteFileStream.h"
+#include "AndroidFileLocation.h"
+#include "CPFInterface.h"
 
 CAndroidWriteFileStream::CAndroidWriteFileStream(CAndroidReadFileStream& rdStream) : m_fd(-1), m_fp(0), m_eStat(CLOSED)
 {

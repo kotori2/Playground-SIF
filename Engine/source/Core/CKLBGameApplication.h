@@ -23,6 +23,7 @@
 #include "CKLBLuaTask.h"
 #include "CPFInterface.h"
 #include "CKLBObject.h"
+#include <cstdint>
 
 class CKLBAssetManager;
 
@@ -35,6 +36,9 @@ public:
 	void setInitParam	(u32 param, void* complexSetup);
 	bool initGame		();
 	void finishGame		();
+
+	static char* getNMAssetKey	();
+	static int getNMAssetKeyLen();
     
 	bool setScreenInfo	(bool rotate, int width, int height);
 	bool setFilePath	(const char * strPath);
@@ -63,6 +67,7 @@ protected:
 	virtual void pauseGame				(bool pause);
 
 	virtual void setupAllocation		(AllocationSize* pStruct);
+	virtual void initNMAsset			();
 	virtual int  getPhysicalScreenWidth	();
 	virtual int  getPhysicalScreenHeight();
 
@@ -113,6 +118,13 @@ protected:
 	bool					m_reboot;
 	const char			*	m_bootFile;
 	FILE*					m_outStream;
+
+	// NMAsset
+	static const uint16_t	encryptedBaseKey[128];
+	static int				m_decryptedBaseKey[34];
+	static bool				m_isNMAssetKeyDecrypted;
+	static char			*	m_NMAssetKey;
+	static int				m_NMAssetKeyLen;
 };
 
 #endif

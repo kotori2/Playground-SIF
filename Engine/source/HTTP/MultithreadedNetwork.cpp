@@ -91,7 +91,7 @@ NetworkManager::createConnection()
 		pEntry->m_pNext	= s_manager.m_entries;
 		s_manager.m_entries = pEntry;
 		gTotal++;
-		DEBUG_PRINT("ALLOC CONNEXION : %8X(%i)\n", &pEntry->m_oConnection, gTotal);
+		DEBUG_PRINT("ALLOC CONNECTION : %8X(%i)\n", &pEntry->m_oConnection, gTotal);
 		UNLOCK(s_manager.m_lock);
 		return &pEntry->m_oConnection;
 	} else {
@@ -107,7 +107,7 @@ NetworkManager::releaseConnection(CKLBHTTPInterface* connection)
 
 	LOCK(s_manager.m_lock);
 	gTotal--;
-	DEBUG_PRINT("FREE CONNEXION : %8X(%i)\n", connection, gTotal);
+	DEBUG_PRINT("FREE CONNECTION : %8X(%i)\n", connection, gTotal);
 	// 1. Find in link list the entry.
 	ConnectionEntry* pEntry = s_manager.m_entries;
 	ConnectionEntry* pPrev	= NULL;
@@ -122,7 +122,7 @@ NetworkManager::releaseConnection(CKLBHTTPInterface* connection)
 
 			s_manager.m_killEntries[s_manager.m_killCount++] = pEntry;
 			if (s_manager.m_killCount > 10) {
-				DEBUG_PRINT("ASSERT : more than 10 FREE CONNEXION WAIT FOR KILL !!! \n");
+				DEBUG_PRINT("ASSERT : more than 10 FREE CONNECTION WAIT FOR KILL !!! \n");
 			}
 			break;
 		}
@@ -161,7 +161,7 @@ NetworkManager::workThread()
 			UNLOCK(m_lock);
 
 			if (pList) {
-				DEBUG_PRINT("REAL KILL CONNEXION : %8X\n", &pList->m_oConnection);
+				DEBUG_PRINT("REAL KILL CONNECTION : %8X\n", &pList->m_oConnection);
 				// Consume code
 				KLBDELETE(pList);
 			}

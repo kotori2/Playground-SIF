@@ -16,6 +16,7 @@
 #include "CKLBLuaLibASSET.h"
 #include "CKLBUtility.h"
 #include <dirent.h>
+#include "CKLBGameApplication.h"
 
 static ILuaFuncLib::DEFCONST luaConst[] = {
 //	{ "DBG_M_SWITCH",	DBG_MENU::M_SWITCH },
@@ -200,7 +201,9 @@ s32
 CKLBLuaLibASSET::luaGetNMAsset(lua_State * L) 
 {
 	CLuaState lua(L);
-	lua.retString("12345678901234567890123456789012");
+	char* ptr = CKLBGameApplication::getNMAssetKey();
+	int len = CKLBGameApplication::getNMAssetKeyLen();
+	lua_pushlstring(L, ptr, len);
 	return 1;
 }
 
@@ -263,8 +266,8 @@ CKLBLuaLibASSET::luaGetFileList(lua_State* L)
 	// create parent table
 	lua.tableNew();
 
-	if (dir = opendir(path)) {
-		while (ent = readdir(dir)) {
+	if ( (dir = opendir(path)) ) {
+		while ( (ent = readdir(dir)) ) {
 			if (strcmp(ent->d_name, ".") && strcmp(ent->d_name, "..")) {
 				// store index in table
 				lua.retInt(i++);
