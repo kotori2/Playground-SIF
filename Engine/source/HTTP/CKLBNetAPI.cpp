@@ -370,7 +370,7 @@ CKLBNetAPI::authKey(int status)
 			m_nonce++; // we increase nonce because it should be unique
 			m_handle = 0; // remove handler
 			int errMsg = m_lastCommand == NETAPI_LOGIN ? NETAPIMSG_LOGIN_FAILED : NETAPIMSG_STARTUP_FAILED;
-			lua_callback(NETAPIMSG_LOGIN_FAILED, errMsg, m_pRoot, m_nonce - 1);
+			lua_callback(errMsg, status, m_pRoot, m_nonce - 1);
 		}
 	}
 	}
