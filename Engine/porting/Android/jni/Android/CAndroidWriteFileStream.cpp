@@ -23,11 +23,15 @@
 #include <unistd.h>
 #include <stdio.h>
 
-#include "CAndroidPathConv.h"
-#include "CAndroidReadFileStream.h"
 #include "CAndroidWriteFileStream.h"
-#include "AndroidFileLocation.h"
-#include "CPFInterface.h"
+#include "CAndroidReadFileStream.h"
+
+#define XSTR(x) STR(x)
+#define STR(x) #x
+
+#pragma message "fdMask=" XSTR(O_CREAT|O_RDWR)
+#pragma message "O_CREAT=" XSTR(O_CREAT)
+#pragma message "O_RDWR=" XSTR(O_RDWR)
 
 CAndroidWriteFileStream::CAndroidWriteFileStream(CAndroidReadFileStream& rdStream) : m_fd(-1), m_fp(0), m_eStat(CLOSED)
 {
