@@ -185,13 +185,7 @@ CKLBLuaLibASSET::luaGetNMAssetSize(lua_State * L)
 	IPlatformRequest& platform = CPFInterface::getInstance().platform();
 	assetSize = lua.getInt(1);
 	char* result = (char*)malloc(assetSize);
-#ifdef _WIN32
-	// not implemented for all platforms yet
 	platform.getRandomBytes(result, assetSize);
-#else
-	for (int i = 0; i < assetSize; i++)
-		result[i] = rand() % 60 + 'A';
-#endif
 	lua_pushlstring(L, result, assetSize);
 	free(result);
 	return 1;

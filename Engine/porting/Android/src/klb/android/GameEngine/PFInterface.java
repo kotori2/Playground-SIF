@@ -898,6 +898,13 @@ public class PFInterface {
 		}
 	}
 
+	public static boolean getRandomBytes(byte[] out) {
+		if (rnd == null) {
+			rnd = new SecureRandom();
+		}
+		rnd.nextBytes(out);
+		return true;
+	}
 
 	public native boolean initSequence(int width, int height, String path,
 										String model, String brand, String board, String version, String tz);

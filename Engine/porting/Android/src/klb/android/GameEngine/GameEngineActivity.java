@@ -311,13 +311,6 @@ public class GameEngineActivity extends Activity {
 	}
 
 	public void setInstallStatus(boolean z) {
-		Log.d("Cpp", Log.getStackTraceString(new Exception()));
-		if(z){
-			Log.d("Cpp", "setInstallStatus: true");
-		}else{
-			Log.d("Cpp", "setInstallStatus: false");
-		}
-
 		this.m_installEnd = z;
 	}
 
