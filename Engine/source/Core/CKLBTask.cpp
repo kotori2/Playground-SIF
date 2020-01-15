@@ -444,10 +444,10 @@ CKLBTaskMgr::dump() {
 	int count = 0;
     for(int i = 0; i < CKLBTask::P_MAX; i++) {
         for(CKLBTask* pTask = m_lstTask[i].begin; pTask; pTask = pTask->m_pExeNext) {
-			fprintf(pFile,"[T%4i] Phase : %i Task : %8lX [%s] Type:%s\n",
+			fprintf(pFile,"[T%4i] Phase : %i Task : %p [%s] Type:%s\n",
 				count++,
 				i,
-				reinterpret_cast<uintptr_t>(pTask),
+				pTask,
 				(pTask->m_activeStatus > 0) ? "ACTIVE" : "SLEEP ",
 				IFactory::getClassName(pTask->getClassID())
 			);

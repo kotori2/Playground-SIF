@@ -450,7 +450,7 @@ CKLBUIElement::switchTo(UI_STATE newState)
 		// Select Graphical state : asset and create cached node tree if not present.
 		//
 		switch (newState) {
-		case CKLBUIElement::NORMAL_ASSET:
+		case UI_STATE::NORMAL:
 			pCurrAsset = m_pNormal;
 			if (m_pNormal && (m_pNormalTree == NULL)) {
 				m_pNormalTree	= m_pNormal->createSubTree(m_renderPrio);
@@ -458,7 +458,7 @@ CKLBUIElement::switchTo(UI_STATE newState)
 			}
 			pCurrNode		= m_pNormalTree;
 			break;
-		case CKLBUIElement::DISABLED_ASSET:
+		case UI_STATE::DISABLED:
 			pCurrAsset = m_pDisabled;
 			if (m_pDisabled && (m_pDisabledTree == NULL)) {
 				m_pDisabledTree = m_pDisabled->createSubTree(m_renderPrio);
@@ -466,7 +466,7 @@ CKLBUIElement::switchTo(UI_STATE newState)
 			}
 			pCurrNode		= m_pDisabledTree;
 			break;
-		case CKLBUIElement::FOCUSED_ASSET:
+		case UI_STATE::FOCUSED:
 			if (isSelectable()) {
 				CKLBUISelectable* pSelect = (CKLBUISelectable*)this;
 				pCurrAsset = pSelect->m_pFocus;
@@ -477,7 +477,7 @@ CKLBUIElement::switchTo(UI_STATE newState)
 				create = true;
 			}
 			break;
-		case CKLBUIElement::PUSHED_ASSET:
+		case UI_STATE::DOWN:
 			if (isSelectable()) {
 				CKLBUISelectable* pSelect = (CKLBUISelectable*)this;
 				pCurrAsset = pSelect->m_pPushed;
@@ -488,7 +488,7 @@ CKLBUIElement::switchTo(UI_STATE newState)
 				create = true;
 			}
 			break;
-        case CKLBUIElement::NOT_ON_SCREEN:
+		case UI_STATE::NOT_ON_SCREEN:
             /* not handled */
             break;
 		}

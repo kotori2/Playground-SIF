@@ -263,8 +263,8 @@ CKLBLuaLibASSET::luaGetFileList(lua_State* L)
 	// create parent table
 	lua.tableNew();
 
-	if (dir = opendir(path)) {
-		while (ent = readdir(dir)) {
+	if ( (dir = opendir(path)) ) {
+		while ( (ent = readdir(dir)) ) {
 			if (strcmp(ent->d_name, ".") && strcmp(ent->d_name, "..")) {
 				// store index in table
 				lua.retInt(i++);
