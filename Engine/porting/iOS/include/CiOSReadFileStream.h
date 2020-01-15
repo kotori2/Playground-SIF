@@ -1,25 +1,7 @@
-﻿/* 
-   Copyright 2013 KLab Inc.
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
-//
-//  CiOSReadFileStream.h
-//
-//
-
 #ifndef CiOSReadFileStream_h
 #define CiOSReadFileStream_h
+
+#define HEADER_SIZE 16
 
 #include "BaseType.h"
 #include "FileSystem.h"
@@ -30,80 +12,78 @@ class CiOSWriteFileStream;
 // ファイルアクセスクラス実装
 class CiOSReadFileStream : public IReadStream
 {
-    friend class CiOSWriteFileStream;
+	friend class CiOSWriteFileStream;
 private:
-    typedef struct {
-        const char * top;
-        int          loc;       // 0 で　install, 1 で external
-        bool         readonly;  // true の場合、その領域には書き込めない
-    } LOCLIST;
-    static const LOCLIST m_toplevel[];
+	typedef struct {
+		const char *top;
+		int loc;                // 0 で　install, 1 で external
+		bool readonly;          // true の場合、その領域には書き込めない
+	} LOCLIST;
+	static const LOCLIST m_toplevel[];
     
-    // ファクトリとなるクラスメソッド以外で勝手に new はできない
-    CiOSReadFileStream();
+	// ファクトリとなるクラスメソッド以外で勝手に new はできない
+	CiOSReadFileStream();
     
-	inline void decrypt(void* ptr, u32 length) {
-        m_decrypter.decryptBlck(ptr, length);
-    }
+	inline void decrypt(void *ptr, u32 length) {
+		m_decrypter.decryptBlck(ptr, length);
+	}
+    
 public:
-    // delete はできる。
-    virtual ~CiOSReadFileStream();
-	inline u32 decryptSetup(const u8* ptr) {
-        u8 hdr[4];
-        hdr[0] = 0;
-        hdr[1] = 0;
-        hdr[2] = 0;
-        hdr[3] = 0;
-
+	// delete はできる。
+	virtual ~CiOSReadFileStream();
+	inline u32 decryptSetup(const u8 *ptr) {
+		u8 hdr[16];
+        memset(hdr, 0, sizeof(u8) * 16);
+        
 		if (m_fp) {
-			fread(hdr, 1, 4, m_fp); 
+			fread(hdr, 1, 16, m_fp);
 		}
-
-        u32 res = m_decrypter.decryptSetup(ptr, hdr);
-        if (res == 0) {
+        
+		u32 res = m_decrypter.decryptSetup(ptr, hdr);
+		if (res == 0) {
 			if (m_fp) {
-				fseek(m_fp, 0, SEEK_SET);
+				fseek(m_fp, m_decrypter.m_header_size, SEEK_SET);
 			}
-        }
-        return res;
-    }
+		}
+		return res;
+	}
     
-    // 指定されたパスで CiOSReadStream インスタンスを作り、そのポインタを返す。
-    static CiOSReadFileStream * openStream(const char * path, const char * home);
+	// 指定されたパスで CiOSReadStream インスタンスを作り、そのポインタを返す。
+	static CiOSReadFileStream *openStream(const char *path, const char *home);
     
-    // 指定されたパス名称を EXTERN -> INSTALL の順に検索し、先に見つかった方でCiOSReadStreamインスタンスを作る。
-    static CiOSReadFileStream * openAssets(const char * path, const char * home);
+	// 指定されたパス名称を EXTERN -> INSTALL の順に検索し、先に見つかった方でCiOSReadStreamインスタンスを作る。
+	static CiOSReadFileStream *openAssets(const char *path, const char *home);
     
-    s32     getSize();
-    s32     getPosition();
-    u8      readU8();
-    u16     readU16();
-    u32     readU32();
-    float   readFloat();
-    bool    readBlock(void * buffer, u32 byteSize);
-    ESTATUS getStatus();
+	s32 getSize();
+	s32 getPosition();
+	u8 readU8();
+	u16 readU16();
+	u32 readU32();
+	float readFloat();
+	bool readBlock(void *buffer, u32 byteSize);
+	ESTATUS getStatus();
     
-    int     readU16arr(u16 * pBufferU16, int items);
-    int     readU32arr(u32 * PBufferU32, int items);
+	int readU16arr(u16 *pBufferU16, int items);
+	int readU32arr(u32 *PBufferU32, int items);
     
-    IWriteStream * getWriteStream();
-
+	IWriteStream *getWriteStream();
+    
 private:
-    CDecryptBaseClass   m_decrypter;
+	CDecryptBaseClass m_decrypter;
     
-    const char* m_fullpath; //!< オープン後は基本不要だが、ファイルの物理的フルパス文字列
-    ESTATUS     m_eStat;
-    FILE      * m_fp;
-    int         m_fd;
-    bool        m_bReadOnly;    // true のときは read only なので、CiOSWriteStreamを返さない。
-    CiOSWriteFileStream * m_writeStream;
+	const char *m_fullpath; //!< オープン後は基本不要だが、ファイルの物理的フルパス文字列
+	ESTATUS m_eStat;
+	FILE *m_fp;
+	int m_fd;
+	bool m_bReadOnly;           // true のときは read only なので、CiOSWriteStreamを返さない。
+	CiOSWriteFileStream *m_writeStream;
     
 #ifdef DEBUG_MEMORY
-    CiOSReadFileStream  *   m_pPrev;
-    CiOSReadFileStream  *   m_pNext;
+	CiOSReadFileStream *m_pPrev;
+	CiOSReadFileStream *m_pNext;
     
-    static CiOSReadFileStream * ms_pBegin;
-    static CiOSReadFileStream * ms_pEnd;
+	static CiOSReadFileStream *ms_pBegin;
+	static CiOSReadFileStream *ms_pEnd;
 #endif
 };
 

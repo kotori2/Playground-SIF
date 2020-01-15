@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@
 #import <UIKit/UIKit.h>
 #import <UIKit/UIApplication.h>
 #import <SystemConfiguration/SCNetworkReachability.h>
-#include <iostream>
+//#include <iostream>
 #include "CiOSSysResource.h"
 #define PUSH_NOTIFICATION_TIMEOUT (10.0f)
 

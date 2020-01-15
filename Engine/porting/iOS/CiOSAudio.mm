@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -953,15 +953,21 @@ bool AudioFileMemory::loadFile(const char* url) {
 	m_decryptBuffer	= NULL;
 	FILE* pFile = fopen(url,"rb");
 	if (pFile) {
-		u8 hdr[4];
-		fread(hdr, 1,4,pFile);
+		u8 hdr[16];
+		fread(hdr, 1,16,pFile);
 		
 		u32 hasHeader = decryptSetup( (u8*)url , hdr );
+        
+        if (hasHeader != 0)
+            hasHeader = m_decrypter.m_header_size;
+        else
+            fseek(pFile, 0, SEEK_SET);
+        
 
 		// get Size
 		fseek(pFile, 0, SEEK_END);
-		m_dataLength = ftell(pFile) - (hasHeader*4);
-		fseek(pFile, (hasHeader*4), SEEK_SET);
+		m_dataLength = ftell(pFile) - (hasHeader);
+		fseek(pFile, (hasHeader), SEEK_SET);
 		
 		// Alloc buffer
 		m_decryptBuffer = new u8[m_dataLength];
@@ -1253,7 +1259,7 @@ CiOSAudio::sendQueue(AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
     // NSLog(@"sendQueue(%d)", (int)m_startPackNum);
     UInt32 numBytes = 0;
     UInt32 numPackets = m_numPacketPerTime;
-    err = AudioFileReadPackets(m_audioID, NO, &numBytes, m_ASPD, m_startPackNum, &numPackets, inBuffer->mAudioData);
+    err = AudioFileReadPacketData(m_audioID, NO, &numBytes, m_ASPD, m_startPackNum, &numPackets, inBuffer->mAudioData);
     // klb_assert(numBytes > 0, "no audio data.");
 
     if(numPackets <= 0) {
@@ -1262,7 +1268,7 @@ CiOSAudio::sendQueue(AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
         numPackets = m_numPacketPerTime;
         m_startPackNum = 0;
 
-        err = AudioFileReadPackets(m_audioID, NO, &numBytes, m_ASPD, m_startPackNum, &numPackets, inBuffer->mAudioData);
+        err = AudioFileReadPacketData(m_audioID, NO, &numBytes, m_ASPD, m_startPackNum, &numPackets, inBuffer->mAudioData);
     }
     inBuffer->mAudioDataByteSize = numBytes;
     err = AudioQueueEnqueueBuffer(inAQ, inBuffer, numPackets, m_ASPD);

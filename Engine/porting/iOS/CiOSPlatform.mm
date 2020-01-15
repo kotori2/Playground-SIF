@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -1317,3 +1317,27 @@ bool CiOSPlatform::icreateEmptyFile(const char* name) {
 	return false;
 }
 
+
+int CiOSPlatform::HMAC_SHA1(const char* string, const char* key, int keyLen, char* retbuf) { 
+    return -1;
+}
+
+int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen)
+{
+    return -1;
+}
+
+int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen)
+{
+    return -1;
+}
+
+bool CiOSPlatform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash)
+{
+	return false;
+}
+
+int CiOSPlatform::getRandomBytes(char* out, int len)
+{
+	return -1;
+}
