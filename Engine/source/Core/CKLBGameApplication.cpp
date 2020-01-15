@@ -192,13 +192,13 @@ CKLBGameApplication::initNMAsset()
 char*
 CKLBGameApplication::getNMAssetKey()
 {
-	return CKLBGameApplication::m_NMAssetKey;
+	return m_NMAssetKey;
 }
 
 int
 CKLBGameApplication::getNMAssetKeyLen()
 {
-	return CKLBGameApplication::m_NMAssetKeyLen;
+	return m_NMAssetKeyLen;
 }
 
 bool

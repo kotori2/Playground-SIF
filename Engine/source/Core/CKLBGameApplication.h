@@ -120,7 +120,7 @@ protected:
 	FILE*					m_outStream;
 
 	// NMAsset
-	static const uint16_t	CKLBGameApplication::encryptedBaseKey[128];
+	static const uint16_t	encryptedBaseKey[128];
 	static int				m_decryptedBaseKey[34];
 	static bool				m_isNMAssetKeyDecrypted;
 	static char			*	m_NMAssetKey;
