@@ -30,4 +30,4 @@ private:
 	static	PROP_V2		ms_propItems[];
 };
 
-#endif UIShader_h
+#endif //UIShader_h

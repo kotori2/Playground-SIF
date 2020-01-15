@@ -744,7 +744,7 @@ CKLBAbstractAsset::setNameDirect(const char* name)
 		this->m_pNameBuff	= buf;
 		this->m_pName		= buf;
 	}
-	return NULL;
+	return false;
 }
 
 // --------------------------------------------------------------

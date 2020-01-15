@@ -182,8 +182,8 @@ CKLBUIDragIcon::initUI(CLuaState& lua)
 	float center_x  = lua.getFloat(ARG_CENTER_X);
 	float center_y  = lua.getFloat(ARG_CENTER_Y);
 
-	const char * callback = lua.isNil(ARG_CALLBACK) ? NULL : lua.getString(ARG_CALLBACK);
-	int flags = lua.isNil(ARG_FLAGS) ? 0 : lua.getInt(ARG_FLAGS);
+	const char * callback = (argc < ARG_CALLBACK) || lua.isNil(ARG_CALLBACK) ? NULL : lua.getString(ARG_CALLBACK);
+	int flags = (argc < ARG_FLAGS) || lua.isNil(ARG_FLAGS) ? 0 : lua.getInt(ARG_FLAGS);
 
 	AREA tap_area;
     if(!get_area(lua, ARG_AREA, tap_area)) { return false; }

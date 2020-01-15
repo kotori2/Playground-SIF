@@ -126,7 +126,7 @@ CKLBNetAPI::execute(u32 deltaT)
 		// Get Status Code
 		int state = m_http->getHttpState();
 		bool invalid = ((state >= 400) && (state <= 599)) || (state == 204);
-		int msg = invalid == false ? NETAPIMSG_REQUEST_SUCCESS : mapFail();
+		int msg = invalid == false ? NETAPIMSG_REQUEST_SUCCESS : NETAPIMSG_REQUEST_FAILED;
 		if (m_skipVersionCheck == false && invalid == false && m_lastCommand == NETAPI_SEND) {
 			const char* server_ver[2];
 			if (m_http->hasHeader("Server-Version", server_ver))
@@ -160,19 +160,21 @@ CKLBNetAPI::execute(u32 deltaT)
 			return;
 		}
 
+		// login/auth stuff
+		if (m_handle == NETAPIHDL_AUTHKEY_RESPONSE) {
+			authKey(state);
+		}
+		if (m_lastCommand == NETAPI_STARTUP) {
+			return startUp(state);
+		}
+		if (m_lastCommand == NETAPI_LOGIN) {
+			return login(state);
+		}
+
 		if (invalid == false) {
-			m_nonce++; // increase nonce if request success
-			if (m_handle == NETAPIHDL_AUTHKEY_RESPONSE) {
-				authKey();
-			}
-			if (m_lastCommand == NETAPI_STARTUP) {
-				return startUp(state);
-			}
-				
-			if (m_lastCommand == NETAPI_LOGIN) {
-				return login(state);
-			}
-				
+			// increase nonce if request was successful
+			// BEFORE calling callback
+			m_nonce++;
 			lua_callback(msg, state, m_pRoot, m_nonce - 1);
 			return;
 		}
@@ -226,18 +228,24 @@ CKLBNetAPI::freeHeader() {
 		m_http_header_array = NULL;
 	}
 }
+
 int
-CKLBNetAPI::mapFail() {
-	switch (m_lastCommand) {
-	case NETAPI_STARTUP:
-		return NETAPIMSG_STARTUP_FAILED;
-	case NETAPI_LOGIN:
-		return NETAPIMSG_LOGIN_FAILED;
-	case NETAPI_SEND:
-		return NETAPIMSG_REQUEST_FAILED;
-	default:
-		return NETAPIMSG_SERVER_ERROR;
+CKLBNetAPI::getJSONstatusCode(CKLBJsonItem* response) {
+	int statusCode = 0;
+	klb_assert(response, "JSON tree is NULL")
+
+	while (statusCode == 0 && response != NULL)
+	{
+		if (response->key() && strcmp(response->key(), "status_code") == 0)
+		{
+			statusCode = response->getInt();
+			break;
+		}
+
+		response = response->next();
 	}
+
+	return statusCode;
 }
 
 CKLBNetAPI* 
@@ -295,7 +303,7 @@ CKLBNetAPI::getJsonTree(const char * json_string, u32 dataLen)
 }
 
 void
-CKLBNetAPI::authKey()
+CKLBNetAPI::authKey(int status)
 {
 	CKLBNetAPIKeyChain& kc = CKLBNetAPIKeyChain::getInstance();
 	IPlatformRequest& platform = CPFInterface::getInstance().platform();
@@ -307,13 +315,12 @@ CKLBNetAPI::authKey()
 	case NETAPIHDL_AUTHKEY_REQUEST: {
 		m_http = NetworkManager::createConnection();
 		m_http->reuse();
+
 		// dummy token part
 		const char* clientKey = kc.getClientKey();
 		unsigned char clientKeyEncrypted[512];
-		int clientKeyEncryptedLen = 0;
-		int status = 0;
-		status = platform.publicKeyEncrypt((unsigned char*)clientKey, strlen(clientKey), clientKeyEncrypted, &clientKeyEncryptedLen);
-        klb_assert(status == 1, "platform.publicKeyEncrypt failed");
+		int clientKeyEncryptedLen = platform.publicKeyEncrypt((unsigned char*)clientKey, 32, clientKeyEncrypted, 512);
+        klb_assert(clientKeyEncryptedLen > 0, "platform.publicKeyEncrypt failed");
 		int dummyTokenLen = 0;
 		char* dummyToken = base64(clientKeyEncrypted, clientKeyEncryptedLen, &dummyTokenLen);
 
@@ -321,9 +328,8 @@ CKLBNetAPI::authKey()
 		char devData[512];
 		sprintf(devData, "{ \"1\":\"%s\",\"2\": \"%s\", \"3\": \"eyJSYXRpbmciOiIwIiwiRGV0YWlsIiA6ICJUaGlzIGlzIGEgaU9TIGRldmljZSJ9\"}", kc.getLoginKey(), kc.getLoginPwd());
 		unsigned char devDataEnc[512];
-		int devDataEncLen;
-		status = platform.encryptAES128CBC(devData, strlen(devData), clientKey, devDataEnc, &devDataEncLen);
-		klb_assert(status == 1, "platform.encryptAES128CBC failed");
+		int devDataEncLen = platform.encryptAES128CBC(devData, strlen(devData), clientKey, devDataEnc, 512);
+		klb_assert(devDataEncLen > 0, "platform.encryptAES128CBC failed");
 		int authDataLen = 0;
 		char* authData = base64(devDataEnc, devDataEncLen, &authDataLen);
 		sprintf(requestData, "request_data={\"dummy_token\":\"%s\", \"auth_data\":\"%s\"}", dummyToken, authData);
@@ -343,20 +349,29 @@ CKLBNetAPI::authKey()
 		break;
 	}
 	case NETAPIHDL_AUTHKEY_RESPONSE: {
-		kc.setToken(m_pRoot->child()->child()->getString());
-		const char* dummyToken = m_pRoot->child()->child()->next()->getString();
-		klb_assert(dummyToken, "Dummy token does not exist!!!");
-		int len = 0;
-		unsigned char* unbasedToken = unbase64(dummyToken, strlen(dummyToken), &len);
+		int jsonStatusCode = getJSONstatusCode(m_pRoot->child());
 
-		const char* clientKey = kc.getClientKey();
-		char sessionKey[33] = ""; // + 1 because of null terminator
-		for (int i = 0; i < 32; i++) {
-			sessionKey[i] = unbasedToken[i] ^ clientKey[i];
+		if (jsonStatusCode == 200) {
+			kc.setToken(m_pRoot->child()->child()->getString());
+			const char* dummyToken = m_pRoot->child()->child()->next()->getString();
+			klb_assert(dummyToken, "Dummy token does not exist!!!");
+			int len = 0;
+			unsigned char* unbasedToken = unbase64(dummyToken, strlen(dummyToken), &len);
+
+			const char* clientKey = kc.getClientKey();
+			char sessionKey[32];
+			for (int i = 0; i < 32; i++) {
+				sessionKey[i] = unbasedToken[i] ^ clientKey[i];
+			}
+			kc.setSessionKey(sessionKey);
+			m_handle = m_lastCommand == NETAPI_LOGIN ? NETAPIHDL_LOGIN_REQUEST : NETAPIHDL_STARTUP_REQUEST;
 		}
-		kc.setSessionKey(sessionKey);
-		m_handle = m_lastCommand == NETAPI_LOGIN ? NETAPIHDL_LOGIN_REQUEST : NETAPIHDL_STARTUP_REQUEST;
-		break;
+		else {
+			m_nonce++; // we increase nonce because it should be unique
+			m_handle = 0; // remove handler
+			int errMsg = m_lastCommand == NETAPI_LOGIN ? NETAPIMSG_LOGIN_FAILED : NETAPIMSG_STARTUP_FAILED;
+			lua_callback(NETAPIMSG_LOGIN_FAILED, errMsg, m_pRoot, m_nonce - 1);
+		}
 	}
 	}
 }
@@ -381,13 +396,11 @@ CKLBNetAPI::login(int status)
 		// encrypt credentials
 		unsigned char loginKeyEnc[128];
 		unsigned char loginPwdEnc[256];
-		int loginPwdEncLen = 0;
-        int loginKeyEncLen = 0;
-		int status = 0;
-		status = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, &loginPwdEncLen);
-		klb_assert(status == 1, "platform.encryptAES128CBC failed");
-		status = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, &loginKeyEncLen);
-		klb_assert(status == 1, "platform.encryptAES128CBC failed");
+
+		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, 128);
+		klb_assert(loginKeyEncLen > 0, "platform.encryptAES128CBC failed");
+		int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, 256);
+        klb_assert(loginPwdEncLen > 0, "platform.encryptAES128CBC failed");
 
 		// and do base64
 		int loginKeyBLen = 0;
@@ -413,11 +426,23 @@ CKLBNetAPI::login(int status)
 	}
 	case NETAPIHDL_LOGIN_RESPONSE: {
 		char userID[16];
-		sprintf(userID, "%d", m_pRoot->child()->child()->next()->getInt());
-		kc.setToken(m_pRoot->child()->child()->getString());
-		kc.setUserID(userID);
-		m_handle = -1;
-		lua_callback(NETAPIMSG_LOGIN_SUCCESS, status, m_pRoot, 1);
+		int jsonStatusCode = getJSONstatusCode(m_pRoot->child());
+		m_handle = 0;
+		m_nonce++;
+		if (jsonStatusCode == 200) {
+			// login ok
+			sprintf(userID, "%d", m_pRoot->child()->child()->next()->getInt());
+			kc.setToken(m_pRoot->child()->child()->getString());
+			kc.setUserID(userID);
+			lua_callback(NETAPIMSG_LOGIN_SUCCESS, status, m_pRoot, m_nonce - 1);
+		}
+		else {
+			// something went wrong or account has been transfered
+			// client would try to make request again to login/authKey
+			// that's why we remove token
+			kc.setToken(NULL); 
+			lua_callback(NETAPIMSG_LOGIN_FAILED, status, m_pRoot, m_nonce - 1);
+		}
 	}
 	}
 }
@@ -443,13 +468,11 @@ CKLBNetAPI::startUp(int status)
 		// encrypt credentials
 		unsigned char loginKeyEnc[128];
 		unsigned char loginPwdEnc[256];
-		int status = 0;
-		int loginPwdEncLen = 0;
-		int loginKeyEncLen = 0;
-		status = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, &loginPwdEncLen);
-        klb_assert(status == 1, "platform.encryptAES128CBC failed");
-        status = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, &loginKeyEncLen);
-        klb_assert(status == 1, "platform.encryptAES128CBC failed");
+
+		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, 128);
+        klb_assert(loginKeyEncLen > 0, "platform.encryptAES128CBC failed");
+        int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, 256);
+        klb_assert(loginPwdEncLen > 0, "platform.encryptAES128CBC failed");
 
 		// and do base64
 		int loginKeyBLen = 0;
@@ -475,12 +498,15 @@ CKLBNetAPI::startUp(int status)
 	}
 	case NETAPIHDL_STARTUP_RESPONSE: {
 		kc.setToken(NULL);
-		m_nonce = 1;
 		m_handle = 0;
-		lua_callback(NETAPIMSG_STARTUP_SUCCESS, status, m_pRoot, 0);
+		m_nonce++;
+		int jsonStatusCode = getJSONstatusCode(m_pRoot->child());
+		if (jsonStatusCode == 200)
+			lua_callback(NETAPIMSG_STARTUP_SUCCESS, status, m_pRoot, m_nonce - 1);
+		else
+			lua_callback(NETAPIMSG_STARTUP_FAILED, status, m_pRoot, m_nonce - 1);
 	}
 	}
-	
 }
 
 void
@@ -513,16 +539,17 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 		char* signKey = (char*)key;
 		if (signKey == NULL)
 			signKey = (char*)kc.getSessionKey();
-		pfif.platform().HMAC_SHA1(data + 13, signKey, temp);
+		pfif.platform().HMAC_SHA1(data + 13, signKey, 32, temp);
 		sprintf(xmc, "X-Message-Code: %s", temp);
 	}
 
-
-	sprintf(authorize, "Authorize: %s", kc.getAuthorizeString(m_nonce));
+	char* authorizeString = kc.getAuthorizeString(m_nonce);
+	sprintf(authorize, "Authorize: %s", authorizeString);
 	sprintf(application_id, "Application-ID: %s", kc.getAppID());
 	sprintf(bundle_version, "Bundle-Version: %s", pfif.platform().getBundleVersion());
 	sprintf(client_version, "Client-Version: %s", kc.getClient());
 	sprintf(region, "Region: %s", kc.getRegion());
+	sprintf(os_version, "OS-Version: %s", pfif.platform().getPlatform());
 
 	// User-ID
 	const char* uid = kc.getUserID();
@@ -540,7 +567,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	headers[4] = client_version;
 	headers[5] = "Debug: 1";
 	headers[6] = "OS: Android";
-	headers[7] = "OS-Version: Nexus 5 google hammerhead 4.4.4";
+	headers[7] = os_version;
 	headers[8] = "Platform-Type: 2";
 	headers[9] = region;
 	headers[10] = xmc;
@@ -549,6 +576,11 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 
 	m_http->setHeader(headers);
 
+	for (int i = 0; i < 11; i++) {
+		DEBUG_PRINT("[HEADER] %s", headers[i]);
+	}
+
+	KLBDELETEA(authorizeString);
 	delete[] authorize;
 	delete[] alldata;
 }
@@ -600,7 +632,7 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 			m_timestart = 0;
 			m_handle = NETAPIHDL_AUTHKEY_REQUEST;
 			authKey();
-			lua.retBoolean(true);
+			lua.retBoolean(m_nonce);
 		}
 		break;
 	case NETAPI_LOGIN:

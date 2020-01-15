@@ -82,6 +82,7 @@ enum {
 	UI_LIST_GET_ITEMCOUNT,	// Get Count List Item.
 	UI_LIST_GET_ITEMFORM,	// Return a form object if exist for a given item.
 	UI_LIST_SET_DRAGMINDISTANCE, //
+	UI_LIST_SET_DYNAMICMARGIN,
 };
 // コントロール用値
 enum {
@@ -161,6 +162,7 @@ static IFactory::DEFCMD cmd[] = {
 	{ "UI_LIST_GET_ITEMFORM",			UI_LIST_GET_ITEMFORM },
 
 	{ "UI_LIST_SET_DRAGMINDISTANCE",	UI_LIST_SET_DRAGMINDISTANCE },
+	{ "UI_LIST_SET_DYNAMICMARGIN",		UI_LIST_SET_DYNAMICMARGIN   },
 
 	{ "LIST_VIEW_TOP",					LIST_VIEW_TOP },
 	{ "LIST_VIEW_CENTER",				LIST_VIEW_CENTER },

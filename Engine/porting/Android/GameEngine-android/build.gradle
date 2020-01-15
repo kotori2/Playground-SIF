@@ -95,7 +95,7 @@ android {
             compileTask -> compileTask.dependsOn ndkBuild
         }
 
-        clean.dependsOn 'ndkClean'
+        //clean.dependsOn 'ndkClean'
         clean.dependsOn 'libsClean'
     }
 }

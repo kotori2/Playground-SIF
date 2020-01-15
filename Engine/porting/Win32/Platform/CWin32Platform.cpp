@@ -20,6 +20,7 @@
 #include <windows.h>
 #include <WinSock.h>
 #include <Rpc.h>
+#include <ntsecapi.h>
 
 #include "assert.h"
 #include "RenderingFramework.h"
@@ -86,14 +87,14 @@ const char *
 CWin32Platform::create_version_string()
 {
 	char buf[4096];
-	OSVERSIONINFO verInfo;
+	OSVERSIONINFOEX verInfo;
 	TIME_ZONE_INFORMATION tzInfo;
 	char * OSlabel;
 
 	// Win32 API でOSのバージョンを取得する。
-	memset(&verInfo, 0, sizeof(OSVERSIONINFO));
-	verInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-	GetVersionEx(&verInfo);
+	memset(&verInfo, 0, sizeof(OSVERSIONINFOEX));
+	verInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+	GetVersionEx((LPOSVERSIONINFO)&verInfo);
 
 	switch(verInfo.dwPlatformId)
 	{
@@ -965,9 +966,9 @@ CWin32Platform::sha512(const char * string, char * buf, int maxlen)
 }
 
 int
-CWin32Platform::HMAC_SHA1(const char* content, const char* key, char* retbuf)
+CWin32Platform::HMAC_SHA1(const char* content, const char* key, int keyLen, char* retbuf)
 {
-	u8* hash = HMAC(EVP_sha1(), key, strlen(key), (const unsigned char*)content, strlen(content), NULL, NULL);
+	u8* hash = HMAC(EVP_sha1(), key, keyLen, (const unsigned char*)content, strlen(content), NULL, NULL);
 	char* ptr = retbuf;
 	for (int i = 0; i < 20; i++)
 	{
@@ -978,7 +979,7 @@ CWin32Platform::HMAC_SHA1(const char* content, const char* key, char* retbuf)
 }
 
 int
-CWin32Platform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int* outLen)
+CWin32Platform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen)
 {
 	EVP_CIPHER_CTX* ctx;
 	int len;
@@ -1005,26 +1006,36 @@ CWin32Platform::encryptAES128CBC(const char* plaintext, int plaintextLen, const 
 	if (EVP_EncryptUpdate(ctx, out + 16, &len, (u8*)plaintext, plaintextLen) == 0)
 		goto fail;
 
-	*outLen = len + 16; // include IV length
+	outLen = len + 16; // include IV length
 	if (EVP_EncryptFinal_ex(ctx, out + len + 16, &len) == 0)
 		goto fail;
-	*outLen += len;
+	outLen += len;
 
 	/* Clean up */
 	EVP_CIPHER_CTX_free(ctx);
-	return 1;
+	return outLen;
 }
 
 int
-CWin32Platform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int* outLen)
+CWin32Platform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen)
 {
 	FILE* publicKey = fopen("public.pem", "rb");
 	klb_assert(publicKey, "public.pem not exist");
 	RSA* rsa = RSA_new();
 	rsa = PEM_read_RSA_PUBKEY(publicKey, &rsa, NULL, NULL);
 	fclose(publicKey);
-	*outLen = RSA_public_encrypt(plaintextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
-	return 1;
+	outLen = RSA_public_encrypt(plaintextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
+	return outLen;
+}
+
+bool 
+CWin32Platform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash) {
+	return false; // TODO
+}
+
+int 
+CWin32Platform::getRandomBytes(char* out, int len) {
+	return (int)RtlGenRandom(out, len);
 }
 
 bool

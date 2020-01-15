@@ -826,7 +826,6 @@ public class PFInterface {
 
 
 	public static int publicKeyEncrypt(byte[] src, byte[] key, byte[] out) {
-		Log.d("Cpp", "publicKeyEncrypt: " + new String(key));
 		RSAPublicKey rsaPublicKey = getRsaPublicKey(key);
 		if (rsaPublicKey == null) {
 			return -1;
@@ -844,10 +843,11 @@ public class PFInterface {
 			}
 		}
 		try {
-			cipher.init(1, rsaPublicKey, rnd);
+			cipher.init(Cipher.ENCRYPT_MODE, rsaPublicKey, rnd);
 			try {
 				byte[] encrypted = cipher.doFinal(src);
 				System.arraycopy(encrypted, 0, out, 0, encrypted.length);
+				// Log.d("PFInterface", "publicKeyEncrypt: " + Base64.encodeToString(encrypted, Base64.DEFAULT));
 				return encrypted.length;
 			} catch (IllegalBlockSizeException unused4) {
 				return -1;
@@ -872,6 +872,7 @@ public class PFInterface {
 						byte[] iv = cipherAES.getIV();
 						System.arraycopy(iv, 0, out, 0, iv.length);
 						System.arraycopy(encrypted, 0, out, iv.length, encrypted.length);
+						// Log.d("PFInterface", "encryptAES128CBC: " + Base64.encodeToString(encrypted, Base64.DEFAULT));
 						return iv.length + encrypted.length;
 					} catch (IllegalBlockSizeException unused) {
 						return -6;

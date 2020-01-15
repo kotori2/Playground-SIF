@@ -206,9 +206,11 @@ public:
 
 	inline void forbidSleep(bool is_forbidden) {}
 
-	int			HMAC_SHA1			(const char* string, const char* key, char* retbuf);
-	int			encryptAES128CBC	(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int* outLen);
-	int			publicKeyEncrypt	(unsigned char* plaintext, int plaintextLen, unsigned char* out, int* outLen);
+	int			HMAC_SHA1			(const char* string, const char* key, int keyLen, char* retbuf);
+	int			encryptAES128CBC	(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen);
+	int			publicKeyEncrypt	(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen);
+	bool        publicKeyVerify		(unsigned char* plaintext, int plaintextLen, unsigned char* hash);
+	int         getRandomBytes		(char* out, int len);
 private:
 	bool m_bNoDefaultFont;
 

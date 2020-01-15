@@ -107,7 +107,7 @@ private:
 	const char			**	m_http_header_array;
 
 private:
-	int mapFail();
+	int getJSONstatusCode(CKLBJsonItem* response);
 	void releaseConnection();
 	void freeHeader();
 	void freeJSonResult();
@@ -117,7 +117,7 @@ private:
 
 	CKLBJsonItem * getJsonTree(const char * json_string, u32 dataLen);
 
-	void authKey();
+	void authKey(int status = -1);
 	void login(int status);
 	void startUp(int status);
 

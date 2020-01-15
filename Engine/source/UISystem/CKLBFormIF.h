@@ -71,6 +71,7 @@ public:
 		FORM_LBL_GET_TEXT,		// ラベルのテキスト取得
 		FORM_LBL_SET_COLOR,
 		FORM_LBL_SET_FIT,
+		FORM_LBL_SET_TEXTELLIPSIS
 	};
 
 	CKLBFormIF(CKLBTask * pOwner = 0);

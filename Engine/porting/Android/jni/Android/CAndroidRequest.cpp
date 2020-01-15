@@ -38,6 +38,8 @@
 #include "PackageDefine.h"
 #include "KLBPlatformMetrics.h"
 #include "FontRendering.h"
+#include "crypto/HMAC_SHA1.h"
+#include "crypto/bin2hex.h"
 
 #include <vector>
 // #include "klb_android_GameEngine_PFInterface.h"
@@ -1678,17 +1680,25 @@ CAndroidRequest::icreateEmptyFile(const char* name)
 }
 
 int
-CAndroidRequest::HMAC_SHA1(const char* string, const char* key, char* retbuf) 
+CAndroidRequest::HMAC_SHA1(const char* input, const char* key, int keyLen, char* retbuf)
 {
-	retbuf[0] = 'a';
-	retbuf[1] = 'a';
+
+    unsigned char rawHash[21];
+    CHMAC_SHA1 *ctx = new CHMAC_SHA1;
+    ctx->HMAC_SHA1( reinterpret_cast<unsigned char*>(const_cast<char*>(input)), strlen(input),
+                    reinterpret_cast<unsigned char*>(const_cast<char*>(key)), keyLen,
+                    rawHash);
+    const char* tmp = bin2hex(rawHash, 20);
+    memcpy(retbuf, tmp, 40);
+    retbuf[40] = 0;
+    delete[] tmp;
+    delete ctx;
 	return 0;
 }
 
 int
-CAndroidRequest::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int* outLen)
+CAndroidRequest::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen)
 {
-    //TODO: Ignoring IV
     JNIEnv* env = CJNI::getJNIEnv();
     jclass cls_pfif = env->FindClass(JNI_LOAD_PATH);
     jmethodID mid = env->GetStaticMethodID(cls_pfif, "encryptAES128CBC", "([B[B[B)I");
@@ -1702,14 +1712,18 @@ CAndroidRequest::encryptAES128CBC(const char* plaintext, int plaintextLen, const
     env->SetByteArrayRegion(jKey, 0, 16, by);
 
     by = (jbyte *) out;
-    jbyteArray jOut = env->NewByteArray(0);
-    env->SetByteArrayRegion(jOut, 0, 0, by);
+    jbyteArray jOut = env->NewByteArray(outLen);
+    env->SetByteArrayRegion(jOut, 0, outLen, by);
 
     jint ret = env->CallStaticIntMethod(cls_pfif, mid, jPlaintext, jKey, jOut);
     env->DeleteLocalRef(cls_pfif);
     env->DeleteLocalRef(jPlaintext);
     env->DeleteLocalRef(jKey);
-    *outLen = env->GetArrayLength(jOut);
+
+    int outNewLen = env->GetArrayLength(jOut);
+    env->GetByteArrayRegion(jOut, 0, outNewLen, reinterpret_cast<jbyte*>(out));
+
+    DEBUG_PRINT("encryptAES128CBC return: %d", ret);
     return (int)ret;
 }
 
@@ -1721,31 +1735,41 @@ const char* RSAPublicKey = "-----BEGIN PUBLIC KEY-----\n"
 "-----END PUBLIC KEY-----";
 
 int
-CAndroidRequest::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int* outLen)
+CAndroidRequest::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen)
 {
 	JNIEnv* env = CJNI::getJNIEnv();
     jclass cls_pfif = env->FindClass(JNI_LOAD_PATH);
     jmethodID mid = env->GetStaticMethodID(cls_pfif, "publicKeyEncrypt", "([B[B[B)I");
 
-    jbyte *by = (jbyte *) plaintext;
     jbyteArray jPlaintext = env->NewByteArray(plaintextLen);
-    env->SetByteArrayRegion(jPlaintext, 0, plaintextLen, by);
+    env->SetByteArrayRegion(jPlaintext, 0, plaintextLen, reinterpret_cast<jbyte*>(plaintext));
 
-    by = (jbyte *) RSAPublicKey;
     jbyteArray jRSAPublicKey = env->NewByteArray(strlen(RSAPublicKey));
-    env->SetByteArrayRegion(jRSAPublicKey, 0, strlen(RSAPublicKey), by);
+    env->SetByteArrayRegion(jRSAPublicKey, 0, strlen(RSAPublicKey), reinterpret_cast<jbyte*>(const_cast<char*>(RSAPublicKey)));
 
-    by = (jbyte *) out;
-    jbyteArray jOut = env->NewByteArray(0);
-    env->SetByteArrayRegion(jOut, 0, 0, by);
+    jbyteArray jOut = env->NewByteArray(outLen);
+    env->SetByteArrayRegion(jOut, 0, outLen, reinterpret_cast<jbyte*>(out));
 
     jint ret = env->CallStaticIntMethod(cls_pfif, mid, jPlaintext, jRSAPublicKey, jOut);
     env->DeleteLocalRef(cls_pfif);
     env->DeleteLocalRef(jPlaintext);
     env->DeleteLocalRef(jRSAPublicKey);
-    *outLen = env->GetArrayLength(jOut);
+
+    int outNewLen = env->GetArrayLength(jOut);
+    env->GetByteArrayRegion(jOut, 0, outNewLen, reinterpret_cast<jbyte*>(out));
+
     DEBUG_PRINT("publicKeyEncrypt return: %d", ret);
     return (int)ret;
+}
+
+bool 
+CAndroidRequest::publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash) {
+	return false; // TODO
+}
+
+int 
+CAndroidRequest::getRandomBytes(char* out, int len) {
+	return 0;  // TODO
 }
 
 };
