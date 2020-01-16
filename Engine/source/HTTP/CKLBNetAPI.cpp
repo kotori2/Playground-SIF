@@ -286,7 +286,9 @@ CKLBNetAPI::initScript(CLuaState& lua)
 		lua.retBoolean(false);
 		return false; 
 	}
+#ifdef _WIN32
 	lua.printStack();
+#endif
 	CKLBNetAPIKeyChain& kc = CKLBNetAPIKeyChain::getInstance();
 	kc.setUrl(lua.getString(1));
 	kc.setConsumernKey(lua.getString(2));

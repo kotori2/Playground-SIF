@@ -73,11 +73,10 @@ CAndroidRequest::CAndroidRequest(const char* model, const char * brand, const ch
 	len += strlen(brand);
 	len += strlen(board);
 	len += strlen(version);
-	len += strlen(tz);
-	len += 15;	// "Android;%s %s %s;%s"
+	len += 3;	// "%s %s %s %s"
 
 	char * buf = new char [ len ];
-	sprintf(buf, "Android;%s %s %s %s;%s", model, brand, board, version, tz);
+	sprintf(buf, "%s %s %s %s", model, brand, board, version);
 	m_platform = (const char *)buf;
 	ms_instance = this;
 }
