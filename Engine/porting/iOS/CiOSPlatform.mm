@@ -117,13 +117,11 @@ CiOSPlatform::CiOSPlatform(UIViewController<UIAlertViewDelegate/*,SKProductsRequ
 	NSArray * aOsVersions = [[[UIDevice currentDevice]systemVersion] componentsSeparatedByString:@"."];
 	NSInteger iOsVersionMajor = [[aOsVersions objectAtIndex:0] intValue];
 	NSInteger iOsVersionMinor = [[aOsVersions objectAtIndex:1] intValue];
-	NSString * tzname = [[NSTimeZone systemTimeZone] abbreviation];
-	sprintf(m_platform, "iOS;%s %s %d.%d;%s",
+	sprintf(m_platform, "iOS %s %s %d.%d",
             [platform UTF8String],
 			[modelname UTF8String],
 			(int)iOsVersionMajor,
-			(int)iOsVersionMinor,
-			[tzname UTF8String]);
+			(int)iOsVersionMinor);
 	m_instance = this;
 }
 CiOSPlatform::~CiOSPlatform() {

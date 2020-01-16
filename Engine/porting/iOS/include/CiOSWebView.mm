@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ static int nonceSeed = 0;
 @implementation CiOSWebView
 
 
-- (void)setCustomHeaders:(const char *)token :(const char *)region :(const char *)client :(const char *)consumerKey :(const char *)applicationId :(const char *)userId :(const char *)env
+- (void)setCustomHeaders:(const char *)token :(const char *)region :(const char *)client :(const char *)consumerKey :(const char *)applicationId :(const char *)userId :(const char *)env :(const char *)bundle_version
 {
     [m_token release];
     [m_region release];
@@ -37,6 +37,7 @@ static int nonceSeed = 0;
     [m_os release];
     [m_version release];
     [m_timezone release];
+    [m_bundle release];
 
     if(token) m_token = [[NSString stringWithUTF8String:token] retain];
     if(region) m_region = [[NSString stringWithUTF8String:region] retain];
@@ -44,12 +45,13 @@ static int nonceSeed = 0;
     if(consumerKey) m_cKey = [[NSString stringWithUTF8String:consumerKey] retain];
     if(applicationId) m_appID = [[NSString stringWithUTF8String:applicationId] retain];
     if(userId) m_userID = [[NSString stringWithUTF8String:userId] retain];
+    if(bundle_version) m_bundle = [[NSString stringWithUTF8String:bundle_version] retain];
     
     NSString * nsenv = [NSString stringWithUTF8String:env];
-    NSArray * arr = [nsenv componentsSeparatedByString:@";"];
+    NSArray * arr = [nsenv componentsSeparatedByString:@" "];
     m_os = [[arr objectAtIndex:0] retain];
-    m_version = [[arr objectAtIndex:1] retain];
-    m_timezone = [[arr objectAtIndex:2] retain];
+    m_version = [[arr objectAtIndex:3] retain];
+    m_timezone = [[NSTimeZone systemTimeZone] abbreviation];
 }
 
 - (BOOL)hasCustomHeaders:(NSURLRequest *)request
@@ -69,6 +71,7 @@ static int nonceSeed = 0;
 {
     NSMutableURLRequest * mutableRequest = (NSMutableURLRequest *)[request mutableCopy];
 
+    if(m_bundle) [mutableRequest setValue:m_bundle forHTTPHeaderField:@"Bundle-Version"];
     if(m_client) [mutableRequest setValue:m_client forHTTPHeaderField:@"Client-Version"];
     if(m_version) [mutableRequest setValue:m_version forHTTPHeaderField:@"OS-Version"];
     if(m_os) [mutableRequest setValue:m_os forHTTPHeaderField:@"OS"];
@@ -98,6 +101,7 @@ static int nonceSeed = 0;
     [m_os release];
     [m_version release];
     [m_timezone release];
+    [m_bundle release];
     
     [super dealloc];
 }
