@@ -29,6 +29,9 @@
 #include <errno.h>
 #include <iostream>
 
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include "CPFInterface.h"
 #include "CSockReadStream.h"
 #include "CSockWriteStream.h"
@@ -40,7 +43,7 @@ CSockReadStream::~CSockReadStream()
     // 生成時に作成した書き込み用ストリームオブジェクトを破棄
     if(m_writeStream) delete m_writeStream;
     // 破棄時にソケットをクローズする
-    //if(m_fd) close(m_fd);
+    if(m_fd) close(m_fd);
 }
 
 /*!
@@ -79,7 +82,7 @@ CSockReadStream::sock_connect(const char *hostname, int port)
     
     // 接続
     if(0 > connect(dstSocket, (struct sockaddr *)&dstAddr, sizeof(dstAddr))) {
-        //close(dstSocket);
+        close(dstSocket);
         return -1;
     }
     // 取得したディスクリプタは、ノンブロックモードにて運用する。
@@ -97,7 +100,7 @@ CSockReadStream::setStatus()
         default:
             m_eStat = CLOSED;
             if(m_fd > 0) {
-                //close(m_fd);
+                close(m_fd);
                 m_fd = 0;
             }
             CPFInterface::getInstance().platform().logging("errno = %d", errno);
@@ -109,7 +112,7 @@ CSockReadStream::setStatus()
         case ETIMEDOUT:
             m_eStat = CLOSED;
             if(m_fd > 0) {
-                //close(m_fd);
+                close(m_fd);
                 m_fd = 0;
             }
             CPFInterface::getInstance().platform().logging("errno = ETIMEDOUT");
@@ -117,7 +120,7 @@ CSockReadStream::setStatus()
         case ENOTCONN:
             m_eStat = NOT_CONNECT;
             if(m_fd > 0) {
-                //close(m_fd);
+                close(m_fd);
                 m_fd = 0;
             }
             CPFInterface::getInstance().platform().logging("errno = ENOTCONN");
@@ -133,25 +136,25 @@ CSockReadStream::setStatus()
 bool
 CSockReadStream::readRingBuf()
 {
-//    if((m_lastPos > m_getPos) && (m_lastPos < READ_BUFSIZ)) {
-//        int result = read(m_fd, m_readBuf + m_lastPos, READ_BUFSIZ - m_lastPos);
-//        if(result < 0) return false;
-//        m_lastPos += result;
-//    }
-//    if((m_lastPos == READ_BUFSIZ) && (m_getPos > 0)) {
-//        int result = read(m_fd, m_readBuf, m_getPos);
-//        if(result < 0) return false;
-//        if(result > 0) m_lastPos = result;
-//    } else if(m_lastPos < m_getPos) {
-//        int result = read(m_fd, m_readBuf + m_lastPos, m_getPos - m_lastPos);
-//        if(result < 0) return false;
-//        m_lastPos += result;
-//    } else if(m_getPos == 0 && m_lastPos == 0) {
-//        // バッファが完全に空の状態
-//        int result = read(m_fd, m_readBuf, READ_BUFSIZ);
-//        if(result < 0) return false;
-//        m_lastPos += result;
-//    }
+    if((m_lastPos > m_getPos) && (m_lastPos < READ_BUFSIZ)) {
+        int result = read(m_fd, m_readBuf + m_lastPos, READ_BUFSIZ - m_lastPos);
+        if(result < 0) return false;
+        m_lastPos += result;
+    }
+    if((m_lastPos == READ_BUFSIZ) && (m_getPos > 0)) {
+        int result = read(m_fd, m_readBuf, m_getPos);
+        if(result < 0) return false;
+        if(result > 0) m_lastPos = result;
+    } else if(m_lastPos < m_getPos) {
+        int result = read(m_fd, m_readBuf + m_lastPos, m_getPos - m_lastPos);
+        if(result < 0) return false;
+        m_lastPos += result;
+    } else if(m_getPos == 0 && m_lastPos == 0) {
+        // バッファが完全に空の状態
+        int result = read(m_fd, m_readBuf, READ_BUFSIZ);
+        if(result < 0) return false;
+        m_lastPos += result;
+    }
     // m_lastPos == m_getPos && m_lastPos > 0 はバッファがいっぱい
     // m_lastPos == READ_BUFSIZE && m_getPos == 0 も同様
     return true;

@@ -87,7 +87,7 @@ CiOSFont::~CiOSFont() {}
 
 
 CiOSPlatform::CiOSPlatform(UIViewController<UIAlertViewDelegate/*,SKProductsRequestDelegate,SKPaymentTransactionObserver*/> * pViewController, EAGLView * pView, float scale)
-//: m_pViewController(pViewController), m_pView(pView), m_scale(scale)
+: m_pViewController(pViewController), m_pView(pView), m_scale(scale)
 {
     //-----機種取得
     size_t size;

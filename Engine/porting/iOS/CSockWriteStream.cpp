@@ -18,6 +18,9 @@
 //
 //
 
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include <iostream>
 #include "CSockWriteStream.h"
 #include "CSockReadStream.h"
@@ -34,12 +37,12 @@ CSockWriteStream::sendData(unsigned char *buffer, size_t sndSize)
 {
     // ひとまず、送出についてはその場で与えられたブロック全てを送出し終わるまで続ける形で実装する。
     // ゲームで使う上で問題が生じたら、それはそれで考える。
-//    size_t pos = 0;
-//    do {
-//        int result = write(m_fd, buffer + pos, sndSize - pos);
-//        if(result < 0) return false;
-//        pos += result;
-//    } while(pos < sndSize);
+    size_t pos = 0;
+    do {
+        int result = write(m_fd, buffer + pos, sndSize - pos);
+        if(result < 0) return false;
+        pos += result;
+    } while(pos < sndSize);
     return true;
 }
 
