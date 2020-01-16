@@ -37,9 +37,6 @@ __MACOSX/
 xcuserdata/
 project.xcworkspace/
 
-Engine/porting/OSX/sif/
-
-
 # Windows stuffs
 /Engine/porting/Win32/Output/Debug/OSSGameLibraryWin32.*
 /Engine/porting/Win32/Output/Debug/SampleProject.*
