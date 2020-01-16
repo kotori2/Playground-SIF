@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,6 +29,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioToolbox/ExtendedAudioFile.h>
 #import <AudioToolbox/AudioFile.h>
+#import <AVFoundation/AVAudioSession.h>
 
 #import "CiOSPlatform.h"
 #import "CiOSAudio.h"
@@ -140,6 +141,8 @@ private:
     bool        m_bInit;            //!< 初期化フラグ
     
     bool        m_bPauseOnInterruption; //!< サウンドのPauseをエンジン側で制御するかどうか
+    
+    AVAudioSession *session; //AVAudioSession object
 };
 
 #endif // CiOSAudioManager_h

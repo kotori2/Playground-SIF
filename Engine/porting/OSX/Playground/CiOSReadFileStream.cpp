@@ -186,11 +186,11 @@ s32 CiOSReadFileStream::getSize() {
 		return -1;
 	}
     
-	return file_stats.st_size - (m_decrypter.m_useNew ? 4 : 0);
+	return file_stats.st_size - (m_decrypter.m_useNew ? HEADER_SIZE : 0);
 }
 
 s32 CiOSReadFileStream::getPosition() {
-	return (s32)(ftell(m_fp) - (m_decrypter.m_useNew ? 4 : 0));
+	return (s32)(ftell(m_fp) - (m_decrypter.m_useNew ? HEADER_SIZE : 0));
 }
 
 u8 CiOSReadFileStream::readU8() {

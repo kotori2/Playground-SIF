@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +17,9 @@
 //  CSockWriteStream.cpp
 //
 //
+
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include <iostream>
 #include "CSockWriteStream.h"

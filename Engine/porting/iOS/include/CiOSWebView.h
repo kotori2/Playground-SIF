@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,9 +37,10 @@
     NSString * m_os;
     NSString * m_version;
     NSString * m_timezone;
+    NSString * m_bundle;
 }
 
-- (void)setCustomHeaders:(const char *)token :(const char *)region :(const char *)client :(const char *)consumerKey :(const char *)applicationId :(const char *)userId :(const char *)env;
+- (void)setCustomHeaders:(const char *)token :(const char *)region :(const char *)client :(const char *)consumerKey :(const char *)applicationId :(const char *)userId :(const char *)env :(const char *)bundle_version;
 - (BOOL)hasCustomHeaders:(NSURLRequest *)request;
 
 @end

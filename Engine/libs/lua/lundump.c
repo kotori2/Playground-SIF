@@ -71,7 +71,7 @@ static lua_Number LoadNumber(LoadState* S)
 
 static TString* LoadString(LoadState* S)
 {
- size_t size;
+ int size;
  LoadVar(S,size);
  if (size==0)
   return NULL;
@@ -236,7 +236,7 @@ void luaU_header (lu_byte* h)
  *h++=cast_byte(FORMAT);
  *h++=cast_byte(*(char*)&x);			/* endianness */
  *h++=cast_byte(sizeof(int));
- *h++=cast_byte(sizeof(size_t));
+ *h++=cast_byte(sizeof(int));
  *h++=cast_byte(sizeof(Instruction));
  *h++=cast_byte(sizeof(lua_Number));
  *h++=cast_byte(((lua_Number)0.5)==0);		/* is lua_Number integral? */

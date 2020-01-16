@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -86,14 +86,17 @@ bool CiOSAudioManager::Initialize( void )
     
     // IOバッファサイズの設定
     Float64 sampleRate;
-    UInt32 size = sizeof(sampleRate);
-    OSStatus err;
-    err = AudioSessionGetProperty(kAudioSessionProperty_CurrentHardwareSampleRate, &size, &sampleRate);
-    klb_assert(!err, "can not get Hardware SampleRate.");
+    NSError *err = nil;
+    sampleRate = session.sampleRate;
     
     Float32 duration = (Float32)IOS_HARDWARE_IO_BUFFER_SIZE / sampleRate; // iOSシステムデフォルトは(1024/sampleRate)
-    err = AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareIOBufferDuration, sizeof(duration), &duration);
-    klb_assert(!err, "can not set Hardware SampleRate.");
+    [session setPreferredIOBufferDuration:duration error:&err];
+    if (err!=nil)
+    {
+        klb_assert(err!=nil, "can not set Hardware Duration.");
+        m_bInit = false;
+        return false;
+    }
     
     m_bInit = true;
     return true;
@@ -140,16 +143,14 @@ void* CiOSAudioManager::CreateAudioHandle( const char* _url, CiOSPlatform* _plat
  */
 bool CiOSAudioManager::AudioSessionInit( void )
 {
-    OSStatus err = errSecSuccess;
-    err = AudioSessionInitialize( NULL, NULL, AudioInterruptionCallBack, this );
-    if( err != kAudioSessionNoError ) {
-        //return false;
-    }
- 
-    // AudioSessionSetProprety
-    AudioSessionPropertySetting();
+    session = [AVAudioSession sharedInstance];
     
-    AudioSessionSetActive( true );
+    BOOL resState = [session setActive:YES error:nil];
+    if (resState == NO)
+    {
+        klb_assert(!resState, "can not init audio session");
+        return false;
+    }
     
     return true;
 }
@@ -157,36 +158,36 @@ bool CiOSAudioManager::AudioSessionInit( void )
 //! AudioSessionプロパティの設定
 bool CiOSAudioManager::AudioSessionPropertySetting( void )
 {
-    // サウンドとミュージックの並行処理の設定
-    UInt32 category = kAudioSessionCategory_AmbientSound;
-    // IPlatformRequest *pform = CiOSPlatform::getInstance();
-    switch( m_multiProcessType )
-    {
-        case IClientRequest::E_SOUND_MULTIPROCESS_MUSIC_CUT:
-            category = kAudioSessionCategory_SoloAmbientSound;
-			#ifdef DEBUG_AUDIO
-			if( pform ) pform->logging("[AudioManager] multi process:music_cut");
-			#endif
-            break;
-        case IClientRequest::E_SOUND_MULTIPROCESS_SOUND_CUT:
-            category = kAudioSessionCategory_AmbientSound;
-			#ifdef DEBUG_AUDIO
-            if( pform ) pform->logging("[AudioManager] multi process:sound_cut");
-			#endif
-            break;
-        case IClientRequest::E_SOUND_MULTIPROCESS_SOUND_BGM_CUT:
-            category = kAudioSessionCategory_AmbientSound;
-			#ifdef DEBUG_AUDIO
-            if( pform ) pform->logging("[AudioManager] multi process:sound_bgm_cut");
-			#endif
-            break;
-    }
-    AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(category), &category);
-
-    // マスターボリュームON/OFF設定
-    chackAudioMasterVolume();
-    
-    AudioSessionSetActive( true );
+//    // サウンドとミュージックの並行処理の設定
+//    UInt32 category = kAudioSessionCategory_AmbientSound;
+//    // IPlatformRequest *pform = CiOSPlatform::getInstance();
+//    switch( m_multiProcessType )
+//    {
+//        case IClientRequest::E_SOUND_MULTIPROCESS_MUSIC_CUT:
+//            category = kAudioSessionCategory_SoloAmbientSound;
+//			#ifdef DEBUG_AUDIO
+//			if( pform ) pform->logging("[AudioManager] multi process:music_cut");
+//			#endif
+//            break;
+//        case IClientRequest::E_SOUND_MULTIPROCESS_SOUND_CUT:
+//            category = kAudioSessionCategory_AmbientSound;
+//			#ifdef DEBUG_AUDIO
+//            if( pform ) pform->logging("[AudioManager] multi process:sound_cut");
+//			#endif
+//            break;
+//        case IClientRequest::E_SOUND_MULTIPROCESS_SOUND_BGM_CUT:
+//            category = kAudioSessionCategory_AmbientSound;
+//			#ifdef DEBUG_AUDIO
+//            if( pform ) pform->logging("[AudioManager] multi process:sound_bgm_cut");
+//			#endif
+//            break;
+//    }
+//    AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(category), &category);
+//
+//    // マスターボリュームON/OFF設定
+//    chackAudioMasterVolume();
+//
+//    AudioSessionSetActive( true );
     
     return true;
 }
@@ -276,7 +277,7 @@ void CiOSAudioManager::AudioDidResignActive( void )
  */
 void CiOSAudioManager::AudioDidBecomeActive( void )
 {
-    AudioSessionSetActive( true );
+    //AudioSessionSetActive( true );
     
     // マスターボリュームON/OFF設定
     chackAudioMasterVolume();

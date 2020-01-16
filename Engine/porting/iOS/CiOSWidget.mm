@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -583,7 +583,8 @@ CiOSWebWidget::create(CONTROL type, int id,
     
     const char * pform = CPFInterface::getInstance().platform().getPlatform();
     
-    [m_pWebView setCustomHeaders:token:region:client:consumerKey:applicationId:userID:pform];
+    const char * bundle_version = getPlatform().getBundleVersion();
+    [m_pWebView setCustomHeaders:token:region:client:consumerKey:applicationId:userID:pform:bundle_version];
     
 //    setText(caption);	// 2012.12.11  下でもやっているんのでコメントアウト
     set_bgcolor();

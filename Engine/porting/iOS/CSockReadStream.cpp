@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,6 +29,9 @@
 #include <errno.h>
 #include <iostream>
 
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include "CPFInterface.h"
 #include "CSockReadStream.h"
 #include "CSockWriteStream.h"
@@ -40,7 +43,7 @@ CSockReadStream::~CSockReadStream()
     // 生成時に作成した書き込み用ストリームオブジェクトを破棄
     if(m_writeStream) delete m_writeStream;
     // 破棄時にソケットをクローズする
-    if(m_fd) close(m_fd);    
+    if(m_fd) close(m_fd);
 }
 
 /*!

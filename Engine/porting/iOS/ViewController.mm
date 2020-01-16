@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,15 +63,15 @@ NSMutableDictionary* transactionDict =[NSMutableDictionary dictionary];
 {
     [super viewDidLoad];
     
-    if(![SKPaymentQueue canMakePayments]) {
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"課金制限"
-                                                         message:@"設定によりアプリ内課金が制限されています。"
-                                                        delegate:nil
-                                               cancelButtonTitle:nil
-                                               otherButtonTitles:@"OK", nil];
-        [alert show];
-        [alert release];
-    }
+//    if(![SKPaymentQueue canMakePayments]) {
+//        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"課金制限"
+//                                                         message:@"設定によりアプリ内課金が制限されています。"
+//                                                        delegate:nil
+//                                               cancelButtonTitle:nil
+//                                               otherButtonTitles:@"OK", nil];
+//        [alert show];
+//        [alert release];
+//    }
         
     [UIApplication sharedApplication].statusBarHidden = YES;
     [self.view setFrame:[[UIScreen mainScreen] bounds]];
@@ -196,18 +196,18 @@ NSMutableDictionary* transactionDict =[NSMutableDictionary dictionary];
 
 - (void)finishStoreTransaction:(NSString *)receipt
 {
-	SKPaymentTransaction * transaction = [transactionDict objectForKey:receipt];
-    if (transaction) {
-        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-    
-        [transactionDict removeObjectForKey:receipt];
-    
-#ifdef USE_EXTERNAL_SDK_LOVELIVE
-        [SDKWrapper onPayment:transaction];
-#endif
-    } else {
-      /* oh hell.. we are doomed */
-    }
+//	SKPaymentTransaction * transaction = [transactionDict objectForKey:receipt];
+//    if (transaction) {
+//        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+//
+//        [transactionDict removeObjectForKey:receipt];
+//
+//#ifdef USE_EXTERNAL_SDK_LOVELIVE
+//        [SDKWrapper onPayment:transaction];
+//#endif
+//    } else {
+//      /* oh hell.. we are doomed */
+//    }
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions: (NSArray *)transactions {
@@ -218,99 +218,99 @@ NSMutableDictionary* transactionDict =[NSMutableDictionary dictionary];
   }
 }
 
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
-    
-    IClientRequest& cli = CPFInterface::getInstance().client();
-    
-    for(SKPaymentTransaction * transaction in transactions) {
-        NSString * productId = transaction.payment.productIdentifier;
-        const char * utf8_id = [productId UTF8String];
-        size_t len = strlen(utf8_id) + 1;
+//- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
+//
+//    IClientRequest& cli = CPFInterface::getInstance().client();
+//
+//    for(SKPaymentTransaction * transaction in transactions) {
+//        NSString * productId = transaction.payment.productIdentifier;
+//        const char * utf8_id = [productId UTF8String];
+//        size_t len = strlen(utf8_id) + 1;
+//
+//        switch (transaction.transactionState) {
+//            case SKPaymentTransactionStatePurchasing: {
+//              // 購入処理中
+//              @synchronized(self){
+//                [[NSUserDefaults standardUserDefaults] setBool:YES
+//                                                        forKey:@"PaymentTransactionBool"];
+//                [[NSUserDefaults standardUserDefaults] synchronize];
+//              }
+//                cli.controlEvent(IClientRequest::E_STORE_PURCHASHING, 0, len, (void *)utf8_id, 0, 0);
+//                break;
+//            }
+//            case SKPaymentTransactionStatePurchased: {
+//                // 購入処理成功
+//
+//                // レシート情報を取得する
+//                NSString * receipt = [transaction.transactionReceipt base64EncodedString];
+//                const char * utf8_receipt = [receipt UTF8String];
+//                size_t len_receipt = strlen(utf8_receipt) + 1;
+//
+//                cli.controlEvent(IClientRequest::E_STORE_PURCHASHED, 0,
+//                                 len, (void *)utf8_id, len_receipt, (void *)utf8_receipt);
+//
+//                [transactionDict setObject:transaction forKey:[NSString stringWithFormat:@"%s", utf8_receipt]];
+//                break;
+//            }
+//            case SKPaymentTransactionStateFailed: {
+//              // 購入処理エラーもしくはキャンセル
+//              switch ([transaction.error code])
+//                {
+//                case SKErrorUnknown:
+//                  {
+//                  }
+//                  break;
+//                case SKErrorClientInvalid:
+//                  {
+//                  }
+//                  break;
+//                case SKErrorPaymentCancelled:
+//                  {
+//                  }
+//                  break;
+//                case SKErrorPaymentInvalid:
+//                  {
+//                  }
+//                  break;
+//                case SKErrorPaymentNotAllowed:
+//                  {
+//                  }
+//                  break;
+//                case SKErrorStoreProductNotAvailable:
+//                  {
+//                  }
+//                  break;
+//                default:
+//                  {
+//                  }
+//                  break;
+//                }
+//                cli.controlEvent(IClientRequest::E_STORE_FAILED, 0, len, (void *)utf8_id, 0, 0);
+//                [queue finishTransaction:transaction];
+//                break;
+//            }
+//            case SKPaymentTransactionStateRestored: {
+//                // アイテムのリストア(購入済みアイテムの再付与(再インストール等で最6初から持っている状態にすべき、など)完了
+//                cli.controlEvent(IClientRequest::E_STORE_RESTORE, 0, len, (void *)utf8_id, 0, 0);
+//                [queue finishTransaction:transaction];
+//                break;
+//            }
+//            default: break; // unreachable
+//        }
+//    }
+//}
 
-        switch (transaction.transactionState) {
-            case SKPaymentTransactionStatePurchasing: {
-              // 購入処理中
-              @synchronized(self){
-                [[NSUserDefaults standardUserDefaults] setBool:YES
-                                                        forKey:@"PaymentTransactionBool"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-              }
-                cli.controlEvent(IClientRequest::E_STORE_PURCHASHING, 0, len, (void *)utf8_id, 0, 0);
-                break;
-            }
-            case SKPaymentTransactionStatePurchased: {
-                // 購入処理成功
-                
-                // レシート情報を取得する
-                NSString * receipt = [transaction.transactionReceipt base64EncodedString];
-                const char * utf8_receipt = [receipt UTF8String];
-                size_t len_receipt = strlen(utf8_receipt) + 1;
-                
-                cli.controlEvent(IClientRequest::E_STORE_PURCHASHED, 0,
-                                 len, (void *)utf8_id, len_receipt, (void *)utf8_receipt);
-
-                [transactionDict setObject:transaction forKey:[NSString stringWithFormat:@"%s", utf8_receipt]];
-                break;
-            }
-            case SKPaymentTransactionStateFailed: {
-              // 購入処理エラーもしくはキャンセル
-              switch ([transaction.error code])
-                {
-                case SKErrorUnknown:
-                  {
-                  }
-                  break;
-                case SKErrorClientInvalid:
-                  {
-                  }
-                  break;
-                case SKErrorPaymentCancelled:
-                  {
-                  }
-                  break;
-                case SKErrorPaymentInvalid:
-                  {
-                  }
-                  break;
-                case SKErrorPaymentNotAllowed:
-                  {
-                  }
-                  break;
-                case SKErrorStoreProductNotAvailable:
-                  {
-                  }
-                  break;
-                default:
-                  {
-                  }
-                  break;
-                }
-                cli.controlEvent(IClientRequest::E_STORE_FAILED, 0, len, (void *)utf8_id, 0, 0);
-                [queue finishTransaction:transaction];
-                break;
-            }
-            case SKPaymentTransactionStateRestored: {
-                // アイテムのリストア(購入済みアイテムの再付与(再インストール等で最6初から持っている状態にすべき、など)完了
-                cli.controlEvent(IClientRequest::E_STORE_RESTORE, 0, len, (void *)utf8_id, 0, 0);
-                [queue finishTransaction:transaction];
-                break;
-            }
-            default: break; // unreachable
-        }
-    }
-}
-
-- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
-    // リストア失敗
-    IClientRequest& cli = CPFInterface::getInstance().client();
-    cli.controlEvent(IClientRequest::E_STORE_RESTORE_FAILED, 0, 0, 0, 0, 0);
-}
-
-- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
-    // 全リストア終了
-    IClientRequest& cli = CPFInterface::getInstance().client();
-    cli.controlEvent(IClientRequest::E_STORE_RESTORE_COMPLETED, 0, 0, 0, 0, 0);
-}
+//- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
+//    // リストア失敗
+//    IClientRequest& cli = CPFInterface::getInstance().client();
+//    cli.controlEvent(IClientRequest::E_STORE_RESTORE_FAILED, 0, 0, 0, 0, 0);
+//}
+//
+//- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
+//    // 全リストア終了
+//    IClientRequest& cli = CPFInterface::getInstance().client();
+//    cli.controlEvent(IClientRequest::E_STORE_RESTORE_COMPLETED, 0, 0, 0, 0, 0);
+//}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     abort();

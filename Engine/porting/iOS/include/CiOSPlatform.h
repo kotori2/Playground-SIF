@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,7 +57,7 @@ class CiOSPlatform : public IPlatformRequest
 	friend void assertFunction(int line, const char* file, const char* msg,...);
 
 public:
-	CiOSPlatform(UIViewController<UIAlertViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver> * pViewController, EAGLView * pView, float scale);
+	CiOSPlatform(UIViewController<UIAlertViewDelegate/*,SKProductsRequestDelegate,SKPaymentTransactionObserver*/> * pViewController, EAGLView * pView, float scale);
     virtual ~CiOSPlatform();
 
     void detailedLogging(const char * basefile, const char * functionName, int lineNo, const char * format, ...);
@@ -197,6 +197,12 @@ public:
 	void	startAlertDialog( const char* title , const char* message ){};
 
 	void	forbidSleep		(bool is_forbidden);
+    
+    int HMAC_SHA1	(const char* string, const char* key, int keyLen, char* retbuf);
+    int encryptAES128CBC	(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen);
+    int publicKeyEncrypt	(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen);
+	bool publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash);
+	int getRandomBytes(char* out, int len);
 
 private:
 	struct PF_THREAD {
@@ -214,7 +220,7 @@ private:
 
 	int sha512(const char * string, char * buf, int maxlen);
 
-	UIViewController<SKProductsRequestDelegate,SKPaymentTransactionObserver>    *   m_pViewController;
+	UIViewController/*<SKProductsRequestDelegate,SKPaymentTransactionObserver>*/    *   m_pViewController;
 	EAGLView            *   m_pView;
 	float                   m_scale;
 
@@ -234,6 +240,18 @@ private:
 	char                    m_platform[256];
 
 	static CiOSPlatform *   m_instance;
+    
+    
+    /* replace publicKey below if necessary */
+    NSString *publicKey = [[NSString alloc] initWithString:@
+    "-----BEGIN PUBLIC KEY-----\n"
+    "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBpUMUVjHWNI5q3ZRjF1vPnh+m\n"
+    "aEGdbZkeosVvzLytBy9eYJ9qLYyFXxOY1LiggWyOLS+xEVMpV3A6frI3VewkVuCw\n"
+    "na52ssCZcQSBA03Ykeb/cfHk5ChsDUP1vmAbloMb9f++Dow6Z4yubFWmBVMCHA6l\n"
+    "fiUDPHjI8JqG56XJKQIDAQAB\n"
+    "-----END PUBLIC KEY-----"
+    ];
+    
 };
 
 
