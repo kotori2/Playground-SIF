@@ -57,7 +57,7 @@ class CiOSPlatform : public IPlatformRequest
 	friend void assertFunction(int line, const char* file, const char* msg,...);
 
 public:
-	CiOSPlatform(UIViewController<UIAlertViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver> * pViewController, EAGLView * pView, float scale);
+	CiOSPlatform(UIViewController<UIAlertViewDelegate/*,SKProductsRequestDelegate,SKPaymentTransactionObserver*/> * pViewController, EAGLView * pView, float scale);
     virtual ~CiOSPlatform();
 
     void detailedLogging(const char * basefile, const char * functionName, int lineNo, const char * format, ...);
@@ -220,7 +220,7 @@ private:
 
 	int sha512(const char * string, char * buf, int maxlen);
 
-	UIViewController<SKProductsRequestDelegate,SKPaymentTransactionObserver>    *   m_pViewController;
+	UIViewController/*<SKProductsRequestDelegate,SKPaymentTransactionObserver>*/    *   m_pViewController;
 	EAGLView            *   m_pView;
 	float                   m_scale;
 

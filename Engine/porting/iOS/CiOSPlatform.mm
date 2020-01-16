@@ -86,8 +86,8 @@ CiOSFont::~CiOSFont() {}
 
 
 
-CiOSPlatform::CiOSPlatform(UIViewController<UIAlertViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver> * pViewController, EAGLView * pView, float scale)
-: m_pViewController(pViewController), m_pView(pView), m_scale(scale)
+CiOSPlatform::CiOSPlatform(UIViewController<UIAlertViewDelegate/*,SKProductsRequestDelegate,SKPaymentTransactionObserver*/> * pViewController, EAGLView * pView, float scale)
+//: m_pViewController(pViewController), m_pView(pView), m_scale(scale)
 {
     //-----機種取得
     size_t size;
@@ -1349,10 +1349,10 @@ int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, cons
     NSData *data = [encryptStr dataUsingEncoding:NSUTF8StringEncoding];
     out = (unsigned char*)[data bytes];
     int ret = (int)[data length];
-    [data release];
-    [content release];
-    [key release];
-    [encryptStr release];
+//    [data release];
+//    [content release];
+//    [key release];
+//    [encryptStr release];
     
     return ret;
 }
@@ -1362,9 +1362,9 @@ int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, u
     NSData *data = [[NSData alloc] initWithBytes:plaintext length:plaintextLen];
     NSData *encryptData = [RSA encryptData:data publicKey:publicKey];
     out = (unsigned char* )[encryptData bytes];
-    [data release];
+//    [data release];
     int ret = (int)[encryptData length];
-    [encryptData release];
+//    [encryptData release];
     
     return ret;
 }
