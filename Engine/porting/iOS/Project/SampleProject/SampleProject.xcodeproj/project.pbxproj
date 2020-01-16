@@ -91,7 +91,6 @@
 		8E0A29FA14D12A6E007E98B3 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E0A29F814D12A6E007E98B3 /* ViewController_iPhone.xib */; };
 		8E0A29FD14D12A6E007E98B3 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E0A29FB14D12A6E007E98B3 /* ViewController_iPad.xib */; };
 		8E0A2B3714D12C02007E98B3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0A2B3314D12C02007E98B3 /* AudioToolbox.framework */; };
-		8E0A2B3814D12C02007E98B3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0A2B3414D12C02007E98B3 /* AVFoundation.framework */; };
 		8E0A2B3914D12C02007E98B3 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0A2B3514D12C02007E98B3 /* OpenGLES.framework */; };
 		8E0A2B3A14D12C02007E98B3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0A2B3614D12C02007E98B3 /* QuartzCore.framework */; };
 		8E1BEB9F1574A87800BF7F59 /* CKLBLuaLibENG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E1BEB9B1574A87800BF7F59 /* CKLBLuaLibENG.cpp */; };
@@ -334,10 +333,11 @@
 		F58D7EC323CEBB87006FE311 /* TW_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EBB23CEBB86006FE311 /* TW_Decrypter.cc */; };
 		F58D7EC423CEBB87006FE311 /* EN_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EBC23CEBB86006FE311 /* EN_Decrypter.cc */; };
 		F58D7EC523CEBB87006FE311 /* V3_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EBD23CEBB87006FE311 /* V3_Decrypter.cc */; };
-		F5AD7DD923CFF51400297BFB /* HMAC_SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DD523CFF51400297BFB /* HMAC_SHA1.cpp */; };
-		F5AD7DDA23CFF51400297BFB /* SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DD723CFF51400297BFB /* SHA1.cpp */; };
 		F5AD7DE123D003AF00297BFB /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DDF23D003AF00297BFB /* RSA.m */; };
 		F5AD7DE723D0077000297BFB /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DE623D0077000297BFB /* AESCipher.m */; };
+		F5FA4D3C23D02FF500EBEE24 /* SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5FA4D3823D02FF400EBEE24 /* SHA1.cpp */; };
+		F5FA4D3D23D02FF500EBEE24 /* HMAC_SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5FA4D3B23D02FF500EBEE24 /* HMAC_SHA1.cpp */; };
+		F5FA4D3E23D0323C00EBEE24 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0A2B3414D12C02007E98B3 /* AVFoundation.framework */; };
 		FC6CF6F116DEF37B0098802F /* encryptFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FC6CF6F016DEF37B0098802F /* encryptFile.cpp */; };
 		FCCFA67816A933F1001FAE7B /* glWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCCFA67616A933F1001FAE7B /* glWrapper.cpp */; };
 		FCD31D7516AFC6CA00BBDC8F /* CiOSWidget.mm in Sources */ = {isa = PBXBuildFile; fileRef = FCD31D7416AFC6CA00BBDC8F /* CiOSWidget.mm */; };
@@ -982,15 +982,15 @@
 		F58D7EBC23CEBB86006FE311 /* EN_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EN_Decrypter.cc; path = ../../source/Core/HonokaMiku/EN_Decrypter.cc; sourceTree = "<group>"; };
 		F58D7EBD23CEBB87006FE311 /* V3_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = V3_Decrypter.cc; path = ../../source/Core/HonokaMiku/V3_Decrypter.cc; sourceTree = "<group>"; };
 		F5AD7DD023CF7B2100297BFB /* Sample Application.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Sample Application.entitlements"; sourceTree = "<group>"; };
-		F5AD7DD423CFF51400297BFB /* bin2hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bin2hex.h; path = "../../../../../../../Downloads/Playground-SIF-master/Engine/porting/iOS/crypto/bin2hex.h"; sourceTree = "<group>"; };
-		F5AD7DD523CFF51400297BFB /* HMAC_SHA1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HMAC_SHA1.cpp; path = "../../../../../../../Downloads/Playground-SIF-master/Engine/porting/iOS/crypto/HMAC_SHA1.cpp"; sourceTree = "<group>"; };
-		F5AD7DD623CFF51400297BFB /* HMAC_SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMAC_SHA1.h; path = "../../../../../../../Downloads/Playground-SIF-master/Engine/porting/iOS/crypto/HMAC_SHA1.h"; sourceTree = "<group>"; };
-		F5AD7DD723CFF51400297BFB /* SHA1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SHA1.cpp; path = "../../../../../../../Downloads/Playground-SIF-master/Engine/porting/iOS/crypto/SHA1.cpp"; sourceTree = "<group>"; };
-		F5AD7DD823CFF51400297BFB /* SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHA1.h; path = "../../../../../../../Downloads/Playground-SIF-master/Engine/porting/iOS/crypto/SHA1.h"; sourceTree = "<group>"; };
 		F5AD7DDF23D003AF00297BFB /* RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSA.m; path = ../../RSA/RSA.m; sourceTree = "<group>"; };
 		F5AD7DE023D003AF00297BFB /* RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSA.h; path = ../../RSA/RSA.h; sourceTree = "<group>"; };
 		F5AD7DE323D003DB00297BFB /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AESCipher.h; path = ../../AESCipher/AESCipher.h; sourceTree = "<group>"; };
 		F5AD7DE623D0077000297BFB /* AESCipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AESCipher.m; path = ../../AESCipher/AESCipher.m; sourceTree = "<group>"; };
+		F5FA4D3723D02FF400EBEE24 /* SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHA1.h; path = ../../crypto/SHA1.h; sourceTree = "<group>"; };
+		F5FA4D3823D02FF400EBEE24 /* SHA1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SHA1.cpp; path = ../../crypto/SHA1.cpp; sourceTree = "<group>"; };
+		F5FA4D3923D02FF400EBEE24 /* bin2hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bin2hex.h; path = ../../crypto/bin2hex.h; sourceTree = "<group>"; };
+		F5FA4D3A23D02FF500EBEE24 /* HMAC_SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMAC_SHA1.h; path = ../../crypto/HMAC_SHA1.h; sourceTree = "<group>"; };
+		F5FA4D3B23D02FF500EBEE24 /* HMAC_SHA1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HMAC_SHA1.cpp; path = ../../crypto/HMAC_SHA1.cpp; sourceTree = "<group>"; };
 		FC6CF6F016DEF37B0098802F /* encryptFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encryptFile.cpp; sourceTree = "<group>"; };
 		FC6CF6F416DEF3890098802F /* encryptFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = encryptFile.h; path = ../source/include/encryptFile.h; sourceTree = "<group>"; };
 		FCCFA67616A933F1001FAE7B /* glWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glWrapper.cpp; sourceTree = "<group>"; };
@@ -1016,7 +1016,6 @@
 				6F4AD67A17003DF1007699EF /* libcurl.a in Frameworks */,
 				3500F79D164221EC005228DC /* libz.dylib in Frameworks */,
 				8EE212CB15DDFE5F006694A1 /* CoreMedia.framework in Frameworks */,
-				8E0A2B3814D12C02007E98B3 /* AVFoundation.framework in Frameworks */,
 				8EE212C915DDFDDF006694A1 /* MediaPlayer.framework in Frameworks */,
 				8EC9671F15AD7943008FCDEF /* Security.framework in Frameworks */,
 				8E0A29E614D12A6E007E98B3 /* Foundation.framework in Frameworks */,
@@ -1026,6 +1025,7 @@
 				8E0A2B3914D12C02007E98B3 /* OpenGLES.framework in Frameworks */,
 				8E0A2B3A14D12C02007E98B3 /* QuartzCore.framework in Frameworks */,
 				8E0A29E414D12A6E007E98B3 /* UIKit.framework in Frameworks */,
+				F5FA4D3E23D0323C00EBEE24 /* AVFoundation.framework in Frameworks */,
 				8E0A29E814D12A6E007E98B3 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2154,11 +2154,11 @@
 		F5AD7DD323CFF50700297BFB /* crypto */ = {
 			isa = PBXGroup;
 			children = (
-				F5AD7DD423CFF51400297BFB /* bin2hex.h */,
-				F5AD7DD523CFF51400297BFB /* HMAC_SHA1.cpp */,
-				F5AD7DD623CFF51400297BFB /* HMAC_SHA1.h */,
-				F5AD7DD723CFF51400297BFB /* SHA1.cpp */,
-				F5AD7DD823CFF51400297BFB /* SHA1.h */,
+				F5FA4D3923D02FF400EBEE24 /* bin2hex.h */,
+				F5FA4D3B23D02FF500EBEE24 /* HMAC_SHA1.cpp */,
+				F5FA4D3A23D02FF500EBEE24 /* HMAC_SHA1.h */,
+				F5FA4D3823D02FF400EBEE24 /* SHA1.cpp */,
+				F5FA4D3723D02FF400EBEE24 /* SHA1.h */,
 			);
 			name = crypto;
 			sourceTree = "<group>";
@@ -2369,7 +2369,6 @@
 				8E8760EC152018EC00B36A2C /* CKLBDrawTask.cpp in Sources */,
 				8E8760ED152018F000B36A2C /* CKLBLuaScript.cpp in Sources */,
 				8E8760EE152018F400B36A2C /* CKLBTouchEventUI.cpp in Sources */,
-				F5AD7DDA23CFF51400297BFB /* SHA1.cpp in Sources */,
 				8E8760EF152018F800B36A2C /* CKLBTouchPad.cpp in Sources */,
 				8E8760F01520190A00B36A2C /* lapi.c in Sources */,
 				8E8760F11520190D00B36A2C /* lauxlib.c in Sources */,
@@ -2405,6 +2404,7 @@
 				8E87610D1520194A00B36A2C /* lundump.c in Sources */,
 				8E87610E1520194A00B36A2C /* lvm.c in Sources */,
 				8E87610F1520194A00B36A2C /* lzio.c in Sources */,
+				F5FA4D3D23D02FF500EBEE24 /* HMAC_SHA1.cpp in Sources */,
 				8E8761101520196200B36A2C /* yajl.c in Sources */,
 				8E8761111520196200B36A2C /* yajl_alloc.c in Sources */,
 				8E8761121520196200B36A2C /* yajl_buf.c in Sources */,
@@ -2451,12 +2451,12 @@
 				8EB1302E156F36C50025C24E /* CKLBWebViewNode.cpp in Sources */,
 				8EB13032156F383D0025C24E /* CKLBUIWebArea.cpp in Sources */,
 				8EAA3AE91573932A00F1D331 /* CKLBUIDebugItem.cpp in Sources */,
+				F5FA4D3C23D02FF500EBEE24 /* SHA1.cpp in Sources */,
 				8E1BEB9F1574A87800BF7F59 /* CKLBLuaLibENG.cpp in Sources */,
 				8E1BEBA01574A87800BF7F59 /* CKLBLuaLibTASK.cpp in Sources */,
 				8E74679C1575ED8900B1DFC1 /* CKLBNodeAnimPack.cpp in Sources */,
 				8EAB185B15777A310030D0BE /* CKLBLuaLibDEBUG.cpp in Sources */,
 				8EAB185E15777A4D0030D0BE /* CKLBDebugMenu.cpp in Sources */,
-				F5AD7DD923CFF51400297BFB /* HMAC_SHA1.cpp in Sources */,
 				8EBD97AF157F1DB9008CEE75 /* CKLBLuaLibUI.cpp in Sources */,
 				8EBD97B3157F33B5008CEE75 /* CKLBOSCtrlEvent.cpp in Sources */,
 				8EC6A42B1581C1C000D325DD /* CiOSWebView.mm in Sources */,
@@ -2669,6 +2669,10 @@
 				"HEADER_SEARCH_PATHS[arch=*]" = "\"$(SRCROOT)/../../../../libs/freeType/include\"";
 				INFOPLIST_FILE = "SampleProject/SampleProject-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../curl/ios-dev/lib\"",
 					"\"$(SRCROOT)/../..\"",
@@ -2770,6 +2774,10 @@
 				"HEADER_SEARCH_PATHS[arch=*]" = "\"$(SRCROOT)/../../../../libs/freeType/include\"";
 				INFOPLIST_FILE = "SampleProject/SampleProject-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../curl/ios-dev/lib\"",
 					"\"$(SRCROOT)/../..\"",
@@ -2805,6 +2813,10 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../libs/freeType/include\"";
 				INFOPLIST_FILE = "SampleProject/SampleProject-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../curl/ios-appstore/lib\"",
 					"\"$(SRCROOT)/../..\"",
