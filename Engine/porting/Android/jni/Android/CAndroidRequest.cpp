@@ -1770,7 +1770,21 @@ CAndroidRequest::publicKeyVerify(unsigned char* plaintext, int plaintextLen, uns
 
 int 
 CAndroidRequest::getRandomBytes(char* out, int len) {
-	return 0;  // TODO
+    JNIEnv* env = CJNI::getJNIEnv();
+    jclass cls_pfif = env->FindClass(JNI_LOAD_PATH);
+    jmethodID mid = env->GetStaticMethodID(cls_pfif, "getRandomBytes", "([B)Z");
+
+    jbyteArray jOut = env->NewByteArray(len);
+    env->SetByteArrayRegion(jOut, 0, len, reinterpret_cast<jbyte*>(out));
+
+    jboolean ret = env->CallStaticBooleanMethod(cls_pfif, mid, jOut);
+    env->DeleteLocalRef(cls_pfif);
+
+    int outNewLen = env->GetArrayLength(jOut);
+    env->GetByteArrayRegion(jOut, 0, outNewLen, reinterpret_cast<jbyte*>(out));
+
+    DEBUG_PRINT("getRandomBytes return: %d", ret);
+	return 1;
 }
 
 };
