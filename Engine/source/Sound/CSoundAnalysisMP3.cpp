@@ -387,7 +387,7 @@ bool AverageFrameHeader(CDecryptBaseClass& decryptor, FILE* _fp, s32 _skip, sFra
     {
         // 読み飛ばし位置に移動してから４byte読み込み
 		decryptor.gotoOffset(ofs);
-        fseek( _fp, ofs + (decryptor.m_useNew ? 4 : 0), SEEK_SET );
+        fseek( _fp, ofs + (decryptor.m_useNew ? 16 : 0), SEEK_SET );
         nSize = fread( &frameHeader, 1, sizeof(frameHeader), _fp );
         decryptor.decryptBlck(&frameHeader, nSize);
 
