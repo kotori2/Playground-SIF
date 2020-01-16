@@ -33,11 +33,9 @@ __MACOSX/
 /Engine/porting/Android/GameEngine-android/assets/version
 
 # iOS 
-/Engine/porting/iOS/Project/
-xcuserdata/
-project.xcworkspace/
+/Engine/porting/iOS/Project/SampleProject/SampleProject.xcodeproj/xcuserdata/
 
-Engine/porting/OSX/sif/
+/Engine/porting/OSX/sif/
 
 
 # Windows stuffs
@@ -55,3 +53,4 @@ Engine/porting/OSX/sif/
 !libcurl.a
 *.so
 *.dll
+*.xcsettings

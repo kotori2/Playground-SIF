@@ -200,7 +200,7 @@ bool SoundAnalysis_MP3( const char* _path, sSoundAnalysisData* _analysisData )
         }
         
 		decryptor.gotoOffset(skipOffset);
-        fseek( fp, skipOffset + (decryptor.m_useNew ? 4 : 0), SEEK_SET );
+        fseek( fp, skipOffset + (decryptor.m_useNew ? decryptor.m_header_size : 0), SEEK_SET );
         nSize = fread( &frameHeader, 1, sizeof(frameHeader), fp );
 
 		decryptor.decryptBlck(&frameHeader, nSize);
@@ -225,7 +225,7 @@ bool SoundAnalysis_MP3( const char* _path, sSoundAnalysisData* _analysisData )
         
         // フレームヘッダ読み込み
 		decryptor.gotoOffset(skipOffset);
-        fseek( fp, skipOffset + (decryptor.m_useNew ? 16 : 0), SEEK_SET );
+        fseek( fp, skipOffset + (decryptor.m_useNew ? decryptor.m_header_size : 0), SEEK_SET );
         nSize = fread( &frameHeader, 1, sizeof(frameHeader), fp );
         if( nSize < sizeof(frameHeader) )
         {
@@ -387,7 +387,7 @@ bool AverageFrameHeader(CDecryptBaseClass& decryptor, FILE* _fp, s32 _skip, sFra
     {
         // 読み飛ばし位置に移動してから４byte読み込み
 		decryptor.gotoOffset(ofs);
-        fseek( _fp, ofs + (decryptor.m_useNew ? 16 : 0), SEEK_SET );
+        fseek( _fp, ofs + (decryptor.m_useNew ? decryptor.m_header_size : 0), SEEK_SET );
         nSize = fread( &frameHeader, 1, sizeof(frameHeader), _fp );
         decryptor.decryptBlck(&frameHeader, nSize);
 
