@@ -45,6 +45,12 @@
 #include "CiOSAudioManager.h"
 #include "FontRendering.h"
 
+#include "HMAC_SHA1.h"
+#include "bin2hex.h"
+#import "RSA.h"
+#import "AESCipher.h"
+
+
 #define IDENTIFIER 
 
 CiOSPlatform * CiOSPlatform::m_instance = 0;
@@ -1320,18 +1326,47 @@ bool CiOSPlatform::icreateEmptyFile(const char* name) {
 }
 
 
-int CiOSPlatform::HMAC_SHA1(const char* content, const char* key, int keyLen, char* retbuf) {
-    return -1;
+int CiOSPlatform::HMAC_SHA1(const char* input, const char* key, int keyLen, char* retbuf) {
+    unsigned char rawHash[21];
+    CHMAC_SHA1 *ctx = new CHMAC_SHA1;
+    ctx->HMAC_SHA1( reinterpret_cast<unsigned char*>(const_cast<char*>(input)), strlen(input),
+                    reinterpret_cast<unsigned char*>(const_cast<char*>(key)), keyLen,
+                    rawHash);
+    const char* tmp = bin2hex(rawHash, 20);
+    memcpy(retbuf, tmp, 40);
+    retbuf[40] = 0;
+    //delete [] tmp;
+    delete ctx;
+    return 0;
 }
 
-int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen)
+int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* _key, unsigned char* out, int outLen)
 {
-    return -1;
+    NSString *content = [[NSString alloc] initWithUTF8String:plaintext];
+    NSString *key = [[NSString alloc] initWithUTF8String:_key];
+    NSString *encryptStr = [AESCipher encryptAES:content key:key];
+    
+    NSData *data = [encryptStr dataUsingEncoding:NSUTF8StringEncoding];
+    out = (unsigned char*)[data bytes];
+    int ret = (int)[data length];
+    [data release];
+    [content release];
+    [key release];
+    [encryptStr release];
+    
+    return ret;
 }
 
 int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen)
 {
-    return -1;
+    NSData *data = [[NSData alloc] initWithBytes:plaintext length:plaintextLen];
+    NSData *encryptData = [RSA encryptData:data publicKey:publicKey];
+    out = (unsigned char* )[encryptData bytes];
+    [data release];
+    int ret = (int)[encryptData length];
+    [encryptData release];
+    
+    return ret;
 }
 
 bool CiOSPlatform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash)

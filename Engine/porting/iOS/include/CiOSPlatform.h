@@ -240,6 +240,18 @@ private:
 	char                    m_platform[256];
 
 	static CiOSPlatform *   m_instance;
+    
+    
+    /* replace publicKey below if necessary */
+    NSString *publicKey = [[NSString alloc] initWithString:@
+    "-----BEGIN PUBLIC KEY-----\n"
+    "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBpUMUVjHWNI5q3ZRjF1vPnh+m\n"
+    "aEGdbZkeosVvzLytBy9eYJ9qLYyFXxOY1LiggWyOLS+xEVMpV3A6frI3VewkVuCw\n"
+    "na52ssCZcQSBA03Ykeb/cfHk5ChsDUP1vmAbloMb9f++Dow6Z4yubFWmBVMCHA6l\n"
+    "fiUDPHjI8JqG56XJKQIDAQAB\n"
+    "-----END PUBLIC KEY-----"
+    ];
+    
 };
 
 

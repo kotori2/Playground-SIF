@@ -334,6 +334,10 @@
 		F58D7EC323CEBB87006FE311 /* TW_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EBB23CEBB86006FE311 /* TW_Decrypter.cc */; };
 		F58D7EC423CEBB87006FE311 /* EN_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EBC23CEBB86006FE311 /* EN_Decrypter.cc */; };
 		F58D7EC523CEBB87006FE311 /* V3_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EBD23CEBB87006FE311 /* V3_Decrypter.cc */; };
+		F5AD7DD923CFF51400297BFB /* HMAC_SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DD523CFF51400297BFB /* HMAC_SHA1.cpp */; };
+		F5AD7DDA23CFF51400297BFB /* SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DD723CFF51400297BFB /* SHA1.cpp */; };
+		F5AD7DE123D003AF00297BFB /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DDF23D003AF00297BFB /* RSA.m */; };
+		F5AD7DE723D0077000297BFB /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DE623D0077000297BFB /* AESCipher.m */; };
 		FC6CF6F116DEF37B0098802F /* encryptFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FC6CF6F016DEF37B0098802F /* encryptFile.cpp */; };
 		FCCFA67816A933F1001FAE7B /* glWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCCFA67616A933F1001FAE7B /* glWrapper.cpp */; };
 		FCD31D7516AFC6CA00BBDC8F /* CiOSWidget.mm in Sources */ = {isa = PBXBuildFile; fileRef = FCD31D7416AFC6CA00BBDC8F /* CiOSWidget.mm */; };
@@ -977,6 +981,16 @@
 		F58D7EBB23CEBB86006FE311 /* TW_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TW_Decrypter.cc; path = ../../source/Core/HonokaMiku/TW_Decrypter.cc; sourceTree = "<group>"; };
 		F58D7EBC23CEBB86006FE311 /* EN_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EN_Decrypter.cc; path = ../../source/Core/HonokaMiku/EN_Decrypter.cc; sourceTree = "<group>"; };
 		F58D7EBD23CEBB87006FE311 /* V3_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = V3_Decrypter.cc; path = ../../source/Core/HonokaMiku/V3_Decrypter.cc; sourceTree = "<group>"; };
+		F5AD7DD023CF7B2100297BFB /* Sample Application.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Sample Application.entitlements"; sourceTree = "<group>"; };
+		F5AD7DD423CFF51400297BFB /* bin2hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bin2hex.h; path = "../../../../../../../Downloads/Playground-SIF-master/Engine/porting/iOS/crypto/bin2hex.h"; sourceTree = "<group>"; };
+		F5AD7DD523CFF51400297BFB /* HMAC_SHA1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HMAC_SHA1.cpp; path = "../../../../../../../Downloads/Playground-SIF-master/Engine/porting/iOS/crypto/HMAC_SHA1.cpp"; sourceTree = "<group>"; };
+		F5AD7DD623CFF51400297BFB /* HMAC_SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMAC_SHA1.h; path = "../../../../../../../Downloads/Playground-SIF-master/Engine/porting/iOS/crypto/HMAC_SHA1.h"; sourceTree = "<group>"; };
+		F5AD7DD723CFF51400297BFB /* SHA1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SHA1.cpp; path = "../../../../../../../Downloads/Playground-SIF-master/Engine/porting/iOS/crypto/SHA1.cpp"; sourceTree = "<group>"; };
+		F5AD7DD823CFF51400297BFB /* SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHA1.h; path = "../../../../../../../Downloads/Playground-SIF-master/Engine/porting/iOS/crypto/SHA1.h"; sourceTree = "<group>"; };
+		F5AD7DDF23D003AF00297BFB /* RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSA.m; path = ../../RSA/RSA.m; sourceTree = "<group>"; };
+		F5AD7DE023D003AF00297BFB /* RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSA.h; path = ../../RSA/RSA.h; sourceTree = "<group>"; };
+		F5AD7DE323D003DB00297BFB /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AESCipher.h; path = ../../AESCipher/AESCipher.h; sourceTree = "<group>"; };
+		F5AD7DE623D0077000297BFB /* AESCipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AESCipher.m; path = ../../AESCipher/AESCipher.m; sourceTree = "<group>"; };
 		FC6CF6F016DEF37B0098802F /* encryptFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encryptFile.cpp; sourceTree = "<group>"; };
 		FC6CF6F416DEF3890098802F /* encryptFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = encryptFile.h; path = ../source/include/encryptFile.h; sourceTree = "<group>"; };
 		FCCFA67616A933F1001FAE7B /* glWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glWrapper.cpp; sourceTree = "<group>"; };
@@ -1453,6 +1467,7 @@
 		8E0A29E914D12A6E007E98B3 /* SampleProject */ = {
 			isa = PBXGroup;
 			children = (
+				F5AD7DD023CF7B2100297BFB /* Sample Application.entitlements */,
 				8E0A29F814D12A6E007E98B3 /* ViewController_iPhone.xib */,
 				8E0A29FB14D12A6E007E98B3 /* ViewController_iPad.xib */,
 				8E0A29EA14D12A6E007E98B3 /* Supporting Files */,
@@ -1623,6 +1638,9 @@
 		8E875F87152014D300B36A2C /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				F5AD7DE223D003D000297BFB /* AESCipher */,
+				F5AD7DDB23CFF98F00297BFB /* rsa */,
+				F5AD7DD323CFF50700297BFB /* crypto */,
 				6FFE230F176B064B003B3F9F /* sha1 */,
 				3287AA04174C75F500DF0E35 /* freeType */,
 				6F4AD66B170037DA007699EF /* libCurl */,
@@ -2133,6 +2151,36 @@
 			path = HonokaMiku;
 			sourceTree = "<group>";
 		};
+		F5AD7DD323CFF50700297BFB /* crypto */ = {
+			isa = PBXGroup;
+			children = (
+				F5AD7DD423CFF51400297BFB /* bin2hex.h */,
+				F5AD7DD523CFF51400297BFB /* HMAC_SHA1.cpp */,
+				F5AD7DD623CFF51400297BFB /* HMAC_SHA1.h */,
+				F5AD7DD723CFF51400297BFB /* SHA1.cpp */,
+				F5AD7DD823CFF51400297BFB /* SHA1.h */,
+			);
+			name = crypto;
+			sourceTree = "<group>";
+		};
+		F5AD7DDB23CFF98F00297BFB /* rsa */ = {
+			isa = PBXGroup;
+			children = (
+				F5AD7DE023D003AF00297BFB /* RSA.h */,
+				F5AD7DDF23D003AF00297BFB /* RSA.m */,
+			);
+			name = rsa;
+			sourceTree = "<group>";
+		};
+		F5AD7DE223D003D000297BFB /* AESCipher */ = {
+			isa = PBXGroup;
+			children = (
+				F5AD7DE623D0077000297BFB /* AESCipher.m */,
+				F5AD7DE323D003DB00297BFB /* AESCipher.h */,
+			);
+			name = AESCipher;
+			sourceTree = "<group>";
+		};
 		FCFB03D316AEAAFE00E81C9C /* Sound */ = {
 			isa = PBXGroup;
 			children = (
@@ -2321,6 +2369,7 @@
 				8E8760EC152018EC00B36A2C /* CKLBDrawTask.cpp in Sources */,
 				8E8760ED152018F000B36A2C /* CKLBLuaScript.cpp in Sources */,
 				8E8760EE152018F400B36A2C /* CKLBTouchEventUI.cpp in Sources */,
+				F5AD7DDA23CFF51400297BFB /* SHA1.cpp in Sources */,
 				8E8760EF152018F800B36A2C /* CKLBTouchPad.cpp in Sources */,
 				8E8760F01520190A00B36A2C /* lapi.c in Sources */,
 				8E8760F11520190D00B36A2C /* lauxlib.c in Sources */,
@@ -2394,6 +2443,7 @@
 				8EA65E1E155D10490066E306 /* CKLBTextInputNode.cpp in Sources */,
 				8ECC289A156B4CD10022D683 /* CKLBLuaLibBIN.cpp in Sources */,
 				8ECC289B156B4CD10022D683 /* CKLBLuaLibCONV.cpp in Sources */,
+				F5AD7DE723D0077000297BFB /* AESCipher.m in Sources */,
 				8ECC289C156B4CD10022D683 /* CKLBLuaLibDATA.cpp in Sources */,
 				8ECC289D156B4CD10022D683 /* CKLBLuaLibDB.cpp in Sources */,
 				8ECC289E156B4CD10022D683 /* CKLBLuaLibGL.cpp in Sources */,
@@ -2406,6 +2456,7 @@
 				8E74679C1575ED8900B1DFC1 /* CKLBNodeAnimPack.cpp in Sources */,
 				8EAB185B15777A310030D0BE /* CKLBLuaLibDEBUG.cpp in Sources */,
 				8EAB185E15777A4D0030D0BE /* CKLBDebugMenu.cpp in Sources */,
+				F5AD7DD923CFF51400297BFB /* HMAC_SHA1.cpp in Sources */,
 				8EBD97AF157F1DB9008CEE75 /* CKLBLuaLibUI.cpp in Sources */,
 				8EBD97B3157F33B5008CEE75 /* CKLBOSCtrlEvent.cpp in Sources */,
 				8EC6A42B1581C1C000D325DD /* CiOSWebView.mm in Sources */,
@@ -2433,6 +2484,7 @@
 				5178CDB815D4ADBB00FC40B1 /* CKLBCanvasSprite.cpp in Sources */,
 				8EEE445415DCA3C10099B487 /* CKLBMovieNode.cpp in Sources */,
 				8EEE445815DCA3D10099B487 /* CKLBUIMoviePlayer.cpp in Sources */,
+				F5AD7DE123D003AF00297BFB /* RSA.m in Sources */,
 				8EE212C615DDFD6D006694A1 /* CiOSMovieView.mm in Sources */,
 				8E9C394D15E328B200A9F8C9 /* CKLBUIScale9.cpp in Sources */,
 				8EE0FE9E15EDDF6600DFA4FE /* CiOSSysResource.mm in Sources */,
@@ -2593,9 +2645,12 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_ENTITLEMENTS = "SampleProject/Sample Application.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "../../../OSX/sif/m_history ../../../OSX/sif/m_unit ../../../OSX/sif/assets ../../../OSX/sif/m_sns ../../../OSX/sif/m_scenario_menu ../../../OSX/sif/common ../../../OSX/sif/m_hint ../../../OSX/sif/m_online ../../../OSX/sif/Maintenance.lua ../../../OSX/sif/m_festival ../../../OSX/sif/m_idol_skill ../../../OSX/sif/m_tutorial ../../../OSX/sif/m_sandbox ../../../OSX/sif/m_event ../../../OSX/sif/m_top ../../../OSX/sif/lib ../../../OSX/sif/m_challenge ../../../OSX/sif/m_battle_event ../../../OSX/sif/m_class ../../../OSX/sif/m_shop ../../../OSX/sif/m_notice ../../../OSX/sif/m_reward ../../../OSX/sif/start.lua ../../../OSX/sif/Update.lua ../../../OSX/sif/m_team ../../../OSX/sif/m_download ../../../OSX/sif/m_player_profile ../../../OSX/sif/m_live ../../../OSX/sif/m_item ../../../OSX/sif/m_quest ../../../OSX/sif/formula ../../../OSX/sif/m_duel ../../../OSX/sif/config ../../../OSX/sif/m_live_custom ../../../OSX/sif/m_friends ../../../OSX/sif/m_collab ../../../OSX/sif/m_ranking ../../../OSX/sif/m_debug ../../../OSX/sif/m_album ../../../OSX/sif/m_favorite_ranking ../../../OSX/sif/m_location ../../../OSX/sif/m_scenario ../../../OSX/sif/m_stamp ../../../OSX/sif/MTLmr3m.ttf ../../../OSX/sif/m_background ../../../OSX/sif/m_login ../../../OSX/sif/m_basicsettings ../../../OSX/sif/m_award ../../../OSX/sif/m_arcade ../../../OSX/sif/m_exchange ../../../OSX/sif/m_boot ../../../OSX/sif/m_achievement ../../../OSX/sif/db ../../../OSX/sif/m_menu ../../../OSX/sif/m_secretbox ../../../OSX/sif/m_live_menu ../../../OSX/sif/m_live_adjust";
+				DEVELOPMENT_TEAM = "";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SampleProject/SampleProject-Prefix.pch";
@@ -2618,8 +2673,9 @@
 					"\"$(SRCROOT)/../../curl/ios-dev/lib\"",
 					"\"$(SRCROOT)/../..\"",
 				);
-				New_Setting = "";
+				PRODUCT_BUNDLE_IDENTIFIER = misaki.LLSIF;
 				PRODUCT_NAME = "Sample Application";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SYSTEM_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2687,9 +2743,12 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_ENTITLEMENTS = "SampleProject/Sample Application.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "../../../OSX/sif/m_history ../../../OSX/sif/m_unit ../../../OSX/sif/assets ../../../OSX/sif/m_sns ../../../OSX/sif/m_scenario_menu ../../../OSX/sif/common ../../../OSX/sif/m_hint ../../../OSX/sif/m_online ../../../OSX/sif/Maintenance.lua ../../../OSX/sif/m_festival ../../../OSX/sif/m_idol_skill ../../../OSX/sif/m_tutorial ../../../OSX/sif/m_sandbox ../../../OSX/sif/m_event ../../../OSX/sif/m_top ../../../OSX/sif/lib ../../../OSX/sif/m_challenge ../../../OSX/sif/m_battle_event ../../../OSX/sif/m_class ../../../OSX/sif/m_shop ../../../OSX/sif/m_notice ../../../OSX/sif/m_reward ../../../OSX/sif/start.lua ../../../OSX/sif/Update.lua ../../../OSX/sif/m_team ../../../OSX/sif/m_download ../../../OSX/sif/m_player_profile ../../../OSX/sif/m_live ../../../OSX/sif/m_item ../../../OSX/sif/m_quest ../../../OSX/sif/formula ../../../OSX/sif/m_duel ../../../OSX/sif/config ../../../OSX/sif/m_live_custom ../../../OSX/sif/m_friends ../../../OSX/sif/m_collab ../../../OSX/sif/m_ranking ../../../OSX/sif/m_debug ../../../OSX/sif/m_album ../../../OSX/sif/m_favorite_ranking ../../../OSX/sif/m_location ../../../OSX/sif/m_scenario ../../../OSX/sif/m_stamp ../../../OSX/sif/MTLmr3m.ttf ../../../OSX/sif/m_background ../../../OSX/sif/m_login ../../../OSX/sif/m_basicsettings ../../../OSX/sif/m_award ../../../OSX/sif/m_arcade ../../../OSX/sif/m_exchange ../../../OSX/sif/m_boot ../../../OSX/sif/m_achievement ../../../OSX/sif/db ../../../OSX/sif/m_menu ../../../OSX/sif/m_secretbox ../../../OSX/sif/m_live_menu ../../../OSX/sif/m_live_adjust";
+				DEVELOPMENT_TEAM = "";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SampleProject/SampleProject-Prefix.pch";
@@ -2715,8 +2774,9 @@
 					"\"$(SRCROOT)/../../curl/ios-dev/lib\"",
 					"\"$(SRCROOT)/../..\"",
 				);
-				New_Setting = "";
+				PRODUCT_BUNDLE_IDENTIFIER = misaki.LLSIF;
 				PRODUCT_NAME = "Sample Application";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SYSTEM_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2727,9 +2787,12 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_ENTITLEMENTS = "SampleProject/Sample Application.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "../../../OSX/sif/m_history ../../../OSX/sif/m_unit ../../../OSX/sif/assets ../../../OSX/sif/m_sns ../../../OSX/sif/m_scenario_menu ../../../OSX/sif/common ../../../OSX/sif/m_hint ../../../OSX/sif/m_online ../../../OSX/sif/Maintenance.lua ../../../OSX/sif/m_festival ../../../OSX/sif/m_idol_skill ../../../OSX/sif/m_tutorial ../../../OSX/sif/m_sandbox ../../../OSX/sif/m_event ../../../OSX/sif/m_top ../../../OSX/sif/lib ../../../OSX/sif/m_challenge ../../../OSX/sif/m_battle_event ../../../OSX/sif/m_class ../../../OSX/sif/m_shop ../../../OSX/sif/m_notice ../../../OSX/sif/m_reward ../../../OSX/sif/start.lua ../../../OSX/sif/Update.lua ../../../OSX/sif/m_team ../../../OSX/sif/m_download ../../../OSX/sif/m_player_profile ../../../OSX/sif/m_live ../../../OSX/sif/m_item ../../../OSX/sif/m_quest ../../../OSX/sif/formula ../../../OSX/sif/m_duel ../../../OSX/sif/config ../../../OSX/sif/m_live_custom ../../../OSX/sif/m_friends ../../../OSX/sif/m_collab ../../../OSX/sif/m_ranking ../../../OSX/sif/m_debug ../../../OSX/sif/m_album ../../../OSX/sif/m_favorite_ranking ../../../OSX/sif/m_location ../../../OSX/sif/m_scenario ../../../OSX/sif/m_stamp ../../../OSX/sif/MTLmr3m.ttf ../../../OSX/sif/m_background ../../../OSX/sif/m_login ../../../OSX/sif/m_basicsettings ../../../OSX/sif/m_award ../../../OSX/sif/m_arcade ../../../OSX/sif/m_exchange ../../../OSX/sif/m_boot ../../../OSX/sif/m_achievement ../../../OSX/sif/db ../../../OSX/sif/m_menu ../../../OSX/sif/m_secretbox ../../../OSX/sif/m_live_menu ../../../OSX/sif/m_live_adjust";
+				DEVELOPMENT_TEAM = "";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2746,8 +2809,9 @@
 					"\"$(SRCROOT)/../../curl/ios-appstore/lib\"",
 					"\"$(SRCROOT)/../..\"",
 				);
-				New_Setting = "";
+				PRODUCT_BUNDLE_IDENTIFIER = misaki.LLSIF;
 				PRODUCT_NAME = "Sample Application";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SYSTEM_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
