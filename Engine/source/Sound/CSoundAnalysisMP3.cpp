@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -161,7 +161,7 @@ bool SoundAnalysis_MP3( const char* _path, sSoundAnalysisData* _analysisData )
     fgetpos( fp, (fpos_t*)&totalFileSize );
 
 	if (decryptor.m_header_size) {
-		totalFileSize -= 4;
+		totalFileSize -= decryptor.m_header_size;
 	    fseek( fp, decryptor.m_header_size, SEEK_SET );
 	} else {
 	    fseek( fp, 0, SEEK_SET );
@@ -225,7 +225,7 @@ bool SoundAnalysis_MP3( const char* _path, sSoundAnalysisData* _analysisData )
         
         // フレームヘッダ読み込み
 		decryptor.gotoOffset(skipOffset);
-        fseek( fp, skipOffset + (decryptor.m_useNew ? 4 : 0), SEEK_SET );
+        fseek( fp, skipOffset + (decryptor.m_useNew ? 16 : 0), SEEK_SET );
         nSize = fread( &frameHeader, 1, sizeof(frameHeader), fp );
         if( nSize < sizeof(frameHeader) )
         {
