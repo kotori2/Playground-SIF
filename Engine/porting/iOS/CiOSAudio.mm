@@ -402,6 +402,7 @@ CiOSAudio::CiOSAudio()
 , m_ASPD(NULL)
 , m_interruptionType(CiOSAudioManager::eINTERRUPTION_TYPE_NONE)
 {
+    this->m_volume = 1.0f;
 }
 
 CiOSAudio::~CiOSAudio()
@@ -1259,7 +1260,7 @@ CiOSAudio::sendQueue(AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
     // NSLog(@"sendQueue(%d)", (int)m_startPackNum);
     UInt32 numBytes = 0;
     UInt32 numPackets = m_numPacketPerTime;
-    err = AudioFileReadPacketData(m_audioID, NO, &numBytes, m_ASPD, m_startPackNum, &numPackets, inBuffer->mAudioData);
+    err = AudioFileReadPackets(m_audioID, NO, &numBytes, m_ASPD, m_startPackNum, &numPackets, inBuffer->mAudioData);
     // klb_assert(numBytes > 0, "no audio data.");
 
     if(numPackets <= 0) {
@@ -1272,7 +1273,7 @@ CiOSAudio::sendQueue(AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
     }
     inBuffer->mAudioDataByteSize = numBytes;
     err = AudioQueueEnqueueBuffer(inAQ, inBuffer, numPackets, m_ASPD);
-    // klb_assert(err != noErr, "error: AudioQueueDataByteSize");
+    //klb_assert(err != noErr, "error: AudioQueueDataByteSize");
  
     // 現在時刻を算出し、保管しておく。
 
