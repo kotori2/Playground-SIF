@@ -122,10 +122,12 @@ CKLBNetAPI::execute(u32 deltaT)
 		// Get Data
 		u8* body	= m_http->getRecvResource();
 		u32 bodyLen	= body ? m_http->getSize() : 0;
-
-		// TODO: Print response header and body
-		// DO NOT print directly or it cause crash
-		// DEBUG_PRINT("[HTTP RESPONSE] %s", body)
+		
+		char* tmpBuf = KLBNEWA(char, bodyLen + 1);
+		memcpy(tmpBuf, body, bodyLen);
+		tmpBuf[bodyLen] = 0;
+		DEBUG_PRINT("[HTTP RESPONSE] %s", tmpBuf);
+		KLBDELETEA(tmpBuf);
 		
 		// Get Status Code
 		int state = m_http->getHttpState();
@@ -332,7 +334,11 @@ CKLBNetAPI::authKey(int status)
 
 		// auth data part
 		char devData[512];
-		sprintf(devData, "{ \"1\":\"%s\",\"2\": \"%s\", \"3\": \"eyJSYXRpbmciOiIwIiwiRGV0YWlsIiA6ICJUaGlzIGlzIGEgaU9TIGRldmljZSJ9\"}", kc.getLoginKey(), kc.getLoginPwd());
+		char authSecret[512];
+		int authSecretB64Len = 0;
+		int authSecretLen = platform.getAuthSecret(authSecret, 512);
+		char* authSecretB64 = base64(authSecret, authSecretLen, &authSecretB64Len);
+		sprintf(devData, "{ \"1\":\"%s\",\"2\": \"%s\", \"3\": \"%s\"}", kc.getLoginKey(), kc.getLoginPwd(), authSecretB64);
 		unsigned char devDataEnc[512];
 		int devDataEncLen = platform.encryptAES128CBC(devData, strlen(devData), clientKey, devDataEnc, 512);
 		klb_assert(devDataEncLen > 0, "platform.encryptAES128CBC failed");
