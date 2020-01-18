@@ -563,6 +563,7 @@ pause状態にあるタスクは、毎フレームの execute() 呼び出しが�
    &lt;BGM-mode&gt;をfalseにすると、SEとしてサウンドデータをロードし、オンメモリでの待機状態になる(プラットフォームによって異なることがある)。
 
    &lt;BGM-mode&gt;のデフォルトは false
+   return nil if failed to open sound
 </pre></li></ul></dd></dl>
 <dl><dt>SND_setBufSize</dt><dd>
 サウンドデータをBGM再生する際のバッファサイズを三段階(大中小)から選択する。具体的にどのような値が再生系に与えられるかは、
