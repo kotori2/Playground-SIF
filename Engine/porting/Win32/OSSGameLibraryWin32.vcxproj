@@ -62,21 +62,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)pure-Lua\;$(ProjectDir)LuaEdit\x86;$(ProjectDir)Vorbis\libogg\include\;$(ProjectDir)Vorbis\libvorbis\include\;$(ProjectDir)directx;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)LuaEdit\x86;$(ProjectDir)Vorbis\libogg\include\;$(ProjectDir)Vorbis\libvorbis\include\;$(ProjectDir)directx;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CSharp|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)pure-Lua\;$(ProjectDir)LuaEdit\x86;$(ProjectDir)directx;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)LuaEdit\x86;$(ProjectDir)directx;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
-    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)pure-Lua\;$(ProjectDir)LuaEdit\x86;$(ProjectDir)Vorbis\libogg\include\;$(ProjectDir)Vorbis\libvorbis\include\;$(ProjectDir)directx;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)LuaEdit\x86;$(ProjectDir)Vorbis\libogg\include\;$(ProjectDir)Vorbis\libvorbis\include\;$(ProjectDir)directx;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Cpp|Win32'">
-    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)pure-Lua\;$(ProjectDir)LuaEdit\x86;$(ProjectDir)directx;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)LuaEdit\x86;$(ProjectDir)directx;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -1269,6 +1269,38 @@
     <ClCompile Include="..\..\libs\JSonParser\yajl_parser.c" />
     <ClCompile Include="..\..\libs\JSonParser\yajl_tree.c" />
     <ClCompile Include="..\..\libs\JSonParser\yajl_version.c" />
+    <ClCompile Include="..\..\libs\lua\lapi.c" />
+    <ClCompile Include="..\..\libs\lua\lauxlib.c" />
+    <ClCompile Include="..\..\libs\lua\lbaselib.c" />
+    <ClCompile Include="..\..\libs\lua\lbitlib.c" />
+    <ClCompile Include="..\..\libs\lua\lcode.c" />
+    <ClCompile Include="..\..\libs\lua\lcorolib.c" />
+    <ClCompile Include="..\..\libs\lua\lctype.c" />
+    <ClCompile Include="..\..\libs\lua\ldblib.c" />
+    <ClCompile Include="..\..\libs\lua\ldebug.c" />
+    <ClCompile Include="..\..\libs\lua\ldo.c" />
+    <ClCompile Include="..\..\libs\lua\ldump.c" />
+    <ClCompile Include="..\..\libs\lua\lfunc.c" />
+    <ClCompile Include="..\..\libs\lua\lgc.c" />
+    <ClCompile Include="..\..\libs\lua\linit.c" />
+    <ClCompile Include="..\..\libs\lua\liolib.c" />
+    <ClCompile Include="..\..\libs\lua\llex.c" />
+    <ClCompile Include="..\..\libs\lua\lmathlib.c" />
+    <ClCompile Include="..\..\libs\lua\lmem.c" />
+    <ClCompile Include="..\..\libs\lua\loadlib.c" />
+    <ClCompile Include="..\..\libs\lua\lobject.c" />
+    <ClCompile Include="..\..\libs\lua\lopcodes.c" />
+    <ClCompile Include="..\..\libs\lua\loslib.c" />
+    <ClCompile Include="..\..\libs\lua\lparser.c" />
+    <ClCompile Include="..\..\libs\lua\lstate.c" />
+    <ClCompile Include="..\..\libs\lua\lstring.c" />
+    <ClCompile Include="..\..\libs\lua\lstrlib.c" />
+    <ClCompile Include="..\..\libs\lua\ltable.c" />
+    <ClCompile Include="..\..\libs\lua\ltablib.c" />
+    <ClCompile Include="..\..\libs\lua\ltm.c" />
+    <ClCompile Include="..\..\libs\lua\lundump.c" />
+    <ClCompile Include="..\..\libs\lua\lvm.c" />
+    <ClCompile Include="..\..\libs\lua\lzio.c" />
     <ClCompile Include="..\..\libs\minizip\ioapi.c" />
     <ClCompile Include="..\..\libs\minizip\mztools.c" />
     <ClCompile Include="..\..\libs\minizip\unzip.c" />
