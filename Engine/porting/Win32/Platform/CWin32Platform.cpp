@@ -1014,6 +1014,14 @@ CWin32Platform::getRandomBytes(char* out, int len) {
 	return (int)RtlGenRandom(out, len);
 }
 
+int
+CWin32Platform::getAuthSecret(char* out, int len) {
+	const char* ret = "{\n\t\"db_sha1\":\"\",\n\t\"Hardware\":\"Win32\"\n}";
+	int rlen = strlen(ret);
+	memcpy(out, ret, rlen);
+	return rlen;
+}
+
 bool
 CWin32Platform::setKeyChain(const char * service_name, const char * key, const char * value)
 {

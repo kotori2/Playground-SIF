@@ -645,6 +645,7 @@ public:
 	virtual int		publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen) = 0;
 	virtual bool    publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash) = 0;
 	virtual int     getRandomBytes(char* out, int len) = 0;
+	virtual int     getAuthSecret(char* out, int len) = 0;
 };
 
 #ifdef DEBUG
