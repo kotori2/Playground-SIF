@@ -8,6 +8,7 @@
 #include <stdarg.h>
 #include <stddef.h>
 #include <string.h>
+#include <stdio.h>
 
 
 #define ldebug_c
@@ -549,7 +550,14 @@ static void addinfo (lua_State *L, const char *msg) {
     else {  /* no source available; use "?" instead */
       buff[0] = '?'; buff[1] = '\0';
     }
-    luaO_pushfstring(L, "%s:%d: %s", buff, line, msg);
+    if (line != 0) {
+        luaO_pushfstring(L, "%s:%d: %s", buff, line, msg); 
+    } else {
+        char pcstr[11];
+        sprintf(pcstr, "0x%08x", currentpc(ci));
+        luaO_pushfstring(L, "%s:0 (PC: %s): %s", buff, pcstr, msg);
+    }
+    
   }
 }
 
