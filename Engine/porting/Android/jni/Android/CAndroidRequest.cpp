@@ -1786,4 +1786,10 @@ CAndroidRequest::getRandomBytes(char* out, int len) {
 	return 1;
 }
 
+int 
+CAndroidRequest::getAuthSecret(char* out, int len) {
+	
+	return 0;
+}
+
 };
