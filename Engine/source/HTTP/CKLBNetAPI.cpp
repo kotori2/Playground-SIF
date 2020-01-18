@@ -357,6 +357,7 @@ CKLBNetAPI::authKey(int status)
 
 		free(dummyToken);
 		free(authData);
+		m_nonce++;
 		m_handle = NETAPIHDL_AUTHKEY_RESPONSE;
 		break;
 	}
@@ -398,6 +399,7 @@ CKLBNetAPI::login(int status)
 	case NETAPIHDL_LOGIN_REQUEST: {
 		m_http = NetworkManager::createConnection();
 		m_http->reuse();
+
 		char requestData[512];
 		const char* form[2];
 
@@ -430,6 +432,7 @@ CKLBNetAPI::login(int status)
 		sprintf(URL, "%s/login/login", kc.getUrl());
 		m_http->httpPOST(URL, false);
 		m_timestart = 0;
+		m_nonce++;
 		m_handle = NETAPIHDL_LOGIN_RESPONSE;
 
 		free(loginKeyB);
@@ -502,6 +505,7 @@ CKLBNetAPI::startUp(int status)
 		sprintf(URL, "%s/login/startUp", kc.getUrl());
 		m_http->httpPOST(URL, false);
 		m_timestart = 0;
+		m_nonce++;
 		m_handle = NETAPIHDL_STARTUP_RESPONSE;
 
 		free(loginKeyB);
