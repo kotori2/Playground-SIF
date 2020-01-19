@@ -319,9 +319,11 @@ CKLBLuaEnv::command(lua_State *L)
 #ifdef INTERNAL_BENCH
 	s64 startCommand = CPFInterface::getInstance().platform().nanotime();
 #endif
+	lua.luaLock();
 	CKLBTaskMgr::getInstance().setCurrentTask(pTask);
 	int res = pTask->commandScript(lua);
 	CKLBTaskMgr::getInstance().setCurrentTask(NULL);
+	lua.luaUnlock();
 #ifdef INTERNAL_BENCH
 	logTime('F', CPFInterface::getInstance().platform().nanotime() - startCommand, pTask->getClassID());
 #endif

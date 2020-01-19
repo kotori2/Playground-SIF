@@ -109,16 +109,17 @@ int
 DownloadClient::commandScript(CLuaState& lua)
 {
 	int cmd = lua.getInt(2);
-	lua.printStack();
 	switch (cmd) {
 	case START_DL: {
 		startDownload(lua);
 		break;
 	}
 	case RETRY_DL: {
+		retryDownload(lua);
 		break;
 	}
 	case REUNZIP: {
+		reUnzip(lua);
 		break;
 	}
 	default: {
@@ -164,7 +165,7 @@ DownloadClient::startDownload(CLuaState& lua)
 	// clear download temp folder
 	platform.removeFileOrFolder("file://external/tmpDL/");
 
-	// TODO: create temp folder
+	// TODO: create temp folder if not exists
 
 	// start download
 	for (int i = 0; i < m_pipeLine; i++) {
@@ -173,6 +174,22 @@ DownloadClient::startDownload(CLuaState& lua)
 	}
 
 	return 1;
+}
+
+int
+DownloadClient::retryDownload(CLuaState& lua)
+{
+	lua.printStack();
+	klb_assertAlways("Not implemented yet");
+	return 0;
+}
+
+int
+DownloadClient::reUnzip(CLuaState& lua)
+{
+	lua.printStack();
+	klb_assertAlways("Not implemented yet");
+	return 0;
 }
 
 /*static*/
@@ -205,13 +222,12 @@ DownloadClient::workThread(void* pThread)
 	if (mgr->isSuccess()) {
 		m_status.downloaded++;
 		DEBUG_PRINT("Download %d of %d success", m_status.downloaded, m_queue.total);
-		// for some reason calling the callback throws memory violation error
 		sEnv.call_eventUpdateDownload(m_callbackDownloadFinish, this, num + 1);
 
 	}
 	else {
-		DEBUG_PRINT("Download %d of %d failed", num + 1, m_queue.total);
-		//sEnv.call_eventUpdateError(m_callbackError, this, mgr->getErrorCode(), mgr->getStatusCode(), 0);
+		DEBUG_PRINT("Download queue id %d failed", num + 1);
+		sEnv.call_eventUpdateError(m_callbackError, this, mgr->getErrorCode(), mgr->getStatusCode(), 0);
 	}
 	KLBDELETE(mgr);
 

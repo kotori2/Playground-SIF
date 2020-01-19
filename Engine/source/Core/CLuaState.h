@@ -41,8 +41,8 @@ public:
 	inline bool isString(int pos) { return lua_isstring(m_L, pos)	? true : false; }
 	inline bool isTable	(int pos) { return lua_istable(m_L, pos)	? true : false; }
     inline bool isBool  (int pos) { return lua_isboolean(m_L, pos)  ? true : false; }
-    inline void luaLock()   { lock(m_L); }
-    inline void luaUnlock() { unlock(m_L); }
+    void luaLock();
+    void luaUnlock();
 	void printStack();
 
     inline bool getBool(int pos) {

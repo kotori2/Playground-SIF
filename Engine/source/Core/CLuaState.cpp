@@ -275,26 +275,26 @@ void CLuaState::printStack() {
 	}
 }
 
-void CLuaState::lock(lua_State* L)
+void CLuaState::luaLock()
 {
     IPlatformRequest& platform = CPFInterface::getInstance().platform();
-    void* lock = LockList[L];
+    void* lock = LockList[m_L];
 
     if (lock == NULL)
     {
         lock = platform.allocMutex();
-        klb_assert(lock, "Failed to alloc mutex for lua state %p", L);
-        LockList[L] = lock;
+        klb_assert(lock, "Failed to alloc mutex for lua state %p", m_L);
+        LockList[m_L] = lock;
     }
 
     platform.mutexLock(lock);
 }
 
-void CLuaState::unlock(lua_State* L)
+void CLuaState::luaUnlock()
 {
-    void* lock = LockList[L];
+    void* lock = LockList[m_L];
 
-    klb_assert(lock, "Mutex for lua state %p does not exist", L);
+    klb_assert(lock, "Mutex for lua state %p does not exist", m_L);
 
     CPFInterface::getInstance().platform().mutexUnlock(lock);
 }
