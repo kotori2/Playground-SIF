@@ -63,6 +63,7 @@ private:
 
 	s32					workThread(void* pThread);
 	static s32			threadFunc(void* pThread, void* data);
+	int					threadId;
 
 	// lua callbacks
 	const char*		m_callbackDownloadFinish;

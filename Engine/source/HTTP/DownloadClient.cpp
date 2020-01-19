@@ -5,6 +5,7 @@
 #include "CKLBLuaEnv.h"
 #include "CKLBUtility.h"
 #include "CKLBUpdate.h"
+#include "map"
 
 // command constants
 enum {
@@ -21,6 +22,8 @@ static IFactory::DEFCMD cmd[] = {
 };
 
 static CKLBTaskFactory<DownloadClient> factory("DownloadClient", CLS_DOWNLOADCLIENT, cmd);
+
+static std::map<void*, int> ThreadList;
 
 DownloadClient::DownloadClient() 
 : CKLBLuaTask()
@@ -149,6 +152,7 @@ DownloadClient::startDownload(CLuaState& lua)
 
 	CKLBJsonItem* item = pRoot->child();
 	do {
+		// TODO: check status
 		strcpy(m_queue.urls[m_queue.total], item->searchChild("url")->getString());
 		m_queue.size[m_queue.total] = item->searchChild("size")->getInt();
 		m_queue.total++;
@@ -164,8 +168,8 @@ DownloadClient::startDownload(CLuaState& lua)
 
 	// start download
 	for (int i = 0; i < m_pipeLine; i++) {
-		// WARNING: UNSAFE
-		platform.createThread(threadFunc, this);
+		void* thread = platform.createThread(threadFunc, this);
+		ThreadList[thread] = i;
 	}
 
 	return 1;
@@ -191,7 +195,6 @@ DownloadClient::workThread(void* pThread)
 	m_status.dlStarted++;
 	int num = m_status.dlStarted - 1;
 
-
 	char filePath[256];
 	sprintf(filePath, "file://external/tmpDL/%d.zip", num + 1);
 
@@ -203,7 +206,7 @@ DownloadClient::workThread(void* pThread)
 		m_status.downloaded++;
 		DEBUG_PRINT("Download %d of %d success", m_status.downloaded, m_queue.total);
 		// for some reason calling the callback throws memory violation error
-		// sEnv.call_eventUpdateDownload(m_callbackDownloadFinish, this, num + 1);
+		sEnv.call_eventUpdateDownload(m_callbackDownloadFinish, this, num + 1);
 
 	}
 	else {

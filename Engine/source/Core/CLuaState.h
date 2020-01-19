@@ -40,6 +40,9 @@ public:
 	inline bool isNum	(int pos) { return lua_isnumber(m_L, pos)	? true : false; }
 	inline bool isString(int pos) { return lua_isstring(m_L, pos)	? true : false; }
 	inline bool isTable	(int pos) { return lua_istable(m_L, pos)	? true : false; }
+    inline bool isBool  (int pos) { return lua_isboolean(m_L, pos)  ? true : false; }
+    inline void luaLock()   { lock(m_L); }
+    inline void luaUnlock() { unlock(m_L); }
 	void printStack();
 
     inline bool getBool(int pos) {
@@ -164,6 +167,8 @@ protected:
 private:
 	int error		(const char * fmt, ...); // Only from CKLBScriptEnv
     void errorMsg	(const char * type_name, int argnum);
+    void lock       (lua_State* L);
+    void unlock     (lua_State* L);
     
     lua_State       *   m_L;
 };
