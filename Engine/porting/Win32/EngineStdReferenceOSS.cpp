@@ -130,6 +130,7 @@ bool EngineTaskReference()
 #include "CKLBLuaLibENG.h"
 #include "CKLBLuaLibFONT.h"
 #include "CKLBLuaLibGL.h"
+#include "CKLBLuaLibHASH.h"
 #include "CKLBLuaLibKEY.h"
 #include "CKLBLuaLibLANG.h"
 #include "CKLBLuaLibMatrix.h"
@@ -159,6 +160,7 @@ bool EngineLuaFuncReference()
 	bResult = bResult && getFuncRegister<CKLBLuaLibENG>();
 	bResult = bResult && getFuncRegister<CKLBLuaLibFONT>();
 	bResult = bResult && getFuncRegister<CKLBLuaLibGL>();
+	bResult = bResult && getFuncRegister<CKLBLuaLibHASH>();
 	bResult = bResult && getFuncRegister<CKLBLuaLibKEY>();
 	bResult = bResult && getFuncRegister<CKLBLuaLibLANG>();
 	bResult = bResult && getFuncRegister<CKLBLuaLibMatrix>();
