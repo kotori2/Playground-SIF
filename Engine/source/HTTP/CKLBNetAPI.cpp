@@ -81,7 +81,7 @@ CKLBNetAPI::CKLBNetAPI()
 , m_http_header_array	(NULL)
 , m_http_header_length	(0)
 , m_nonce				(1)
-, m_handle				(0)
+, m_handle				(NETAPIHDL_NOTHING)
 , m_skipVersionCheck	(false)
 {
 }
@@ -103,6 +103,7 @@ CKLBNetAPI::execute(u32 deltaT)
 	if (!m_http) {
 		return; // Do nothing if no active connection
 	}
+	bool isLogin = m_handle != NETAPIHDL_NOTHING;
 
 	m_timestart += deltaT;
 
@@ -111,7 +112,7 @@ CKLBNetAPI::execute(u32 deltaT)
 		// release connection first
 		releaseConnection();
 		// and after that call callback
-		lua_callback(NETAPIMSG_CONNECTION_CANCELED, -1, NULL, m_nonce);
+		lua_callback(NETAPIMSG_CONNECTION_CANCELED, -1, NULL, isLogin ? 1 : m_nonce);
 		m_canceled = false;
 		return;
 	}
@@ -163,42 +164,42 @@ CKLBNetAPI::execute(u32 deltaT)
 		// Release connection
 		releaseConnection();
 		if (m_pRoot == NULL) {
-			lua_callback(msg, state, NULL, m_nonce);
+			lua_callback(msg, state, NULL, isLogin ? 1 : m_nonce);
 			return;
+		}
+
+		// login/auth stuff
+		if (m_handle == NETAPIHDL_AUTHKEY_RESPONSE) {
+			authKey(state);
+		}
+		if (m_lastCommand == NETAPI_STARTUP) {
+			return startUp(state);
+		}
+		if (m_lastCommand == NETAPI_LOGIN) {
+			return login(state);
 		}
 
 		if (invalid == false) {
 			// increase nonce if request was successful
 			// BEFORE calling callback
 			m_nonce++;
-
-			// login/auth stuff
-			if (m_handle == NETAPIHDL_AUTHKEY_RESPONSE) {
-				authKey(state);
-			}
-			if (m_lastCommand == NETAPI_STARTUP) {
-				return startUp(state);
-			}
-			if (m_lastCommand == NETAPI_LOGIN) {
-				return login(state);
-			}
 			lua_callback(msg, state, m_pRoot, m_nonce - 1);
 			return;
 		}
-		lua_callback(msg, state, m_pRoot, m_nonce);
+		lua_callback(msg, state, m_pRoot, isLogin ? 1 : m_nonce);
 		return;
 	}
 
 	if ((m_http->m_threadStop == 1) && (m_http->getHttpState() == -1)) {
 		releaseConnection();
-		lua_callback(NETAPIMSG_CONNECTION_FAILED, -1, NULL, m_nonce);
+		lua_callback(NETAPIMSG_CONNECTION_FAILED, -1, NULL, isLogin ? 1 : m_nonce);
 		return;
 	}
 
 	// Time out third (after check that valid has arrived)
 	if (m_timestart >= m_timeout) {
 		releaseConnection();
-		lua_callback(NETAPIMSG_SERVER_TIMEOUT, -1, NULL, m_nonce);
+		lua_callback(NETAPIMSG_SERVER_TIMEOUT, -1, NULL, isLogin ? 1 : m_nonce);
 		return;
 	}
 }
@@ -363,6 +364,7 @@ CKLBNetAPI::authKey(int status)
 	}
 	case NETAPIHDL_AUTHKEY_RESPONSE: {
 		int jsonStatusCode = getJSONstatusCode(m_pRoot->child());
+		m_nonce = 2;
 
 		if (jsonStatusCode == 200) {
 			kc.setToken(m_pRoot->child()->child()->getString());
@@ -380,9 +382,9 @@ CKLBNetAPI::authKey(int status)
 			m_handle = m_lastCommand == NETAPI_LOGIN ? NETAPIHDL_LOGIN_REQUEST : NETAPIHDL_STARTUP_REQUEST;
 		}
 		else {
-			m_handle = 0; // remove handler
+			m_handle = NETAPIHDL_NOTHING; // remove handler
 			int errMsg = m_lastCommand == NETAPI_LOGIN ? NETAPIMSG_LOGIN_FAILED : NETAPIMSG_STARTUP_FAILED;
-			lua_callback(errMsg, status, m_pRoot, m_nonce + 1);
+			lua_callback(errMsg, status, m_pRoot, 1);
 		}
 	}
 	}
@@ -440,21 +442,21 @@ CKLBNetAPI::login(int status)
 	case NETAPIHDL_LOGIN_RESPONSE: {
 		char userID[16];
 		int jsonStatusCode = getJSONstatusCode(m_pRoot->child());
-		m_handle = 0;
-		m_nonce++;
+		m_handle = NETAPIHDL_NOTHING;
+		m_nonce = 3;
 		if (jsonStatusCode == 200) {
 			// login ok
 			sprintf(userID, "%d", m_pRoot->child()->child()->next()->getInt());
 			kc.setToken(m_pRoot->child()->child()->getString());
 			kc.setUserID(userID);
-			lua_callback(NETAPIMSG_LOGIN_SUCCESS, status, m_pRoot, m_nonce - 1);
+			lua_callback(NETAPIMSG_LOGIN_SUCCESS, status, m_pRoot, 1);
 		}
 		else {
 			// something went wrong or account has been transfered
 			// client would try to make request again to login/authKey
 			// that's why we remove token
 			kc.setToken(NULL); 
-			lua_callback(NETAPIMSG_LOGIN_FAILED, status, m_pRoot, m_nonce - 1);
+			lua_callback(NETAPIMSG_LOGIN_FAILED, status, m_pRoot, 1);
 		}
 	}
 	}
@@ -511,13 +513,13 @@ CKLBNetAPI::startUp(int status)
 	}
 	case NETAPIHDL_STARTUP_RESPONSE: {
 		kc.setToken(NULL);
-		m_handle = 0;
-		m_nonce++;
+		m_handle = NETAPIHDL_NOTHING;
+		m_nonce = 3;
 		int jsonStatusCode = getJSONstatusCode(m_pRoot->child());
 		if (jsonStatusCode == 200)
-			lua_callback(NETAPIMSG_STARTUP_SUCCESS, status, m_pRoot, m_nonce - 1);
+			lua_callback(NETAPIMSG_STARTUP_SUCCESS, status, m_pRoot, 1);
 		else
-			lua_callback(NETAPIMSG_STARTUP_FAILED, status, m_pRoot, m_nonce - 1);
+			lua_callback(NETAPIMSG_STARTUP_FAILED, status, m_pRoot, 1);
 	}
 	}
 }
@@ -644,9 +646,10 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 
 			m_timeout = lua.getInt(6);
 			m_timestart = 0;
+			m_nonce = 1;
 			m_handle = NETAPIHDL_AUTHKEY_REQUEST;
 			authKey();
-			lua.retInt(m_nonce + 2); // includes authkey and startup requests
+			lua.retInt(1);
 		}
 		break;
 	case NETAPI_LOGIN:
@@ -669,9 +672,10 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 
 			m_timeout = lua.getInt(5);
 			m_timestart = 0;
+			m_nonce = 1;
 			m_handle = NETAPIHDL_AUTHKEY_REQUEST;
 			authKey();
-			lua.retInt(m_nonce + 2); // includes authkey and login requests
+			lua.retInt(1);
 		}
 		break;
 	case NETAPI_WATCH_MAINTENANCE: 
