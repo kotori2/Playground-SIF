@@ -128,10 +128,12 @@ public:
 	// World Task
 	void call_eventWorld			(const char* funcName, CKLBObjectScriptable* obj, s32 serial, s32 msg, s32 status);
 
-	void call_eventUpdateDownload	(const char* funcName, CKLBObjectScriptable* obj, double progress, const char* progressStr);
+	void call_eventUpdateDownload	(const char* funcName, CKLBObjectScriptable* obj, int queueId);
+	void call_eventUpdateProgress	(const char* funcName, CKLBObjectScriptable* obj, int downloadedCount, int unzippedCount);
+
 	void call_eventUpdateZIP		(const char* funcName, CKLBObjectScriptable* obj, int progress, int total);
 	void call_eventUpdateComplete	(const char* funcName, CKLBObjectScriptable* obj);
-	void call_eventUpdateError		(const char* funcName, CKLBObjectScriptable* obj);
+	void call_eventUpdateError		(const char* funcName, CKLBObjectScriptable* obj, int errorCode, int statusCode, int curlStatus);
 
 	// NetAPI
 	bool call_netAPI_callback		(const char* funcName, CKLBObjectScriptable* obj, int uniq, int msg, int status, CKLBJsonItem * pRoot);
