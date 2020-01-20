@@ -30,8 +30,6 @@
 #ifdef DEBUG_LUAEDIT
 #include "RemoteDebugger.hpp"
 #pragma comment(lib, "rdbglua52dll.lib")
-#else
-#pragma comment(lib, "lua52.lib")
 #endif
 
 #endif

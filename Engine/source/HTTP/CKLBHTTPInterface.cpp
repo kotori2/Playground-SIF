@@ -169,6 +169,13 @@ int strncmpi(const char* str1, const char* str2, int len) {
 size_t CKLBHTTPInterface::headerReceive_func( void *ptr, size_t size, size_t nmemb, void *userdata) {
 	u32 totalSize = size * nmemb;
 	const char* data = (const char*)ptr;
+	char* tmpBuf = KLBNEWA(char, totalSize);
+	memset(tmpBuf, 0, totalSize);
+	for (int i = 0; (data[i] != '\r') && (data[i] != '\n'); i++) {
+		tmpBuf[i] = data[i];
+	}
+	DEBUG_PRINT("[HTTP RESPONSE HEADER] %s", tmpBuf);
+	KLBDELETEA(tmpBuf);
 	if (strncmpi("Maintenance:", data, 12/*Maintenance: 1*/) == 0) {
 		data+=12; // Skip Maintenance
 		while ((*data != '\r') && (*data != '\n') && (*data != 0)) {

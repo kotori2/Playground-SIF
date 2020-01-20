@@ -1894,6 +1894,102 @@
     <ClCompile Include="..\..\source\UISystem\CKLBUIShader.cpp">
       <Filter>Source Files\UISystem\Task</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lapi.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lauxlib.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lbaselib.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lbitlib.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lcode.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lcorolib.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lctype.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\ldblib.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\ldebug.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\ldo.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\ldump.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lfunc.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lgc.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\linit.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\liolib.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\llex.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lmathlib.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lmem.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\loadlib.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lobject.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lopcodes.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\loslib.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lparser.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lstate.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lstring.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lstrlib.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\ltable.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\ltablib.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\ltm.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lundump.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lvm.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\lua\lzio.c">
+      <Filter>libs\Lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res.rc">

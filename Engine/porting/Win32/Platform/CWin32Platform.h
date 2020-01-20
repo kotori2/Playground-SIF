@@ -21,7 +21,6 @@
 #include "CWin32Widget.h"
 #include <setjmp.h>
 
-
 #define W32_KEYCHAIN_FILENAME  "GE_keychain.key"
 
 
@@ -211,6 +210,7 @@ public:
 	int			publicKeyEncrypt	(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen);
 	bool        publicKeyVerify		(unsigned char* plaintext, int plaintextLen, unsigned char* hash);
 	int         getRandomBytes		(char* out, int len);
+	int         getAuthSecret		(char* out, int len);
 private:
 	bool m_bNoDefaultFont;
 
