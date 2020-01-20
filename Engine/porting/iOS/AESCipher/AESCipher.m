@@ -17,14 +17,14 @@ size_t const kKeySize = kCCKeySizeAES128;
 
 @implementation AESCipher
 
-+ (NSString *)encryptAES:(NSString *)content key:(NSString *)key {
++ (NSString *)encryptAES:(NSString *)content key:(const char *)key {
     
     NSData *contentData = [content dataUsingEncoding:NSUTF8StringEncoding];
     NSUInteger dataLength = contentData.length;
     
     char keyPtr[512];
     memset(keyPtr, '\0', sizeof(keyPtr));
-    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+//    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
     
     size_t encryptSize = dataLength + kCCBlockSizeAES128;
     void *encryptedBytes = malloc(encryptSize);
@@ -35,7 +35,8 @@ size_t const kKeySize = kCCKeySizeAES128;
     CCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt,
                                           kCCAlgorithmAES,
                                           kCCOptionPKCS7Padding,
-                                          keyPtr,
+                                          //keyPtr,
+                                          key,
                                           kKeySize,
                                           initVector.bytes,
                                           contentData.bytes,

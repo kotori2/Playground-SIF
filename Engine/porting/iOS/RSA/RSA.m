@@ -413,6 +413,32 @@ static NSData *base64_decode(NSString *str){
 	return [RSA decryptData:data withKeyRef:keyRef];
 }
 
++ (BOOL)verifyPubKey:(NSData* )plainData encryptData:(NSData *)data publicKey:(NSString *)pubKey{
+    OSStatus ret;
+    SecKeyRef keyRef = [RSA addPublicKey:pubKey];
+    if (keyRef == nil)
+    {
+        NSLog(@"The publicKey is nil");
+        return NO;
+    }
+    
+    const char* plainText = [plainData bytes];
+    uint8_t plainTextLen = strlen(plainText);
+    const char* encryptText = [data bytes];
+    size_t encryptTextLen = strlen(encryptText);
+    ret = SecKeyEncrypt(
+                        keyRef,
+                        kSecPaddingPKCS1,
+                        (const uint8_t*)plainText,
+                        plainTextLen,
+                        (uint8_t*)encryptText,
+                        &encryptTextLen
+                        );
+    if (ret == errSecSuccess)
+        return NO;
+    return YES;
+}
+
 /* END: Encryption & Decryption with RSA public key */
 
 @end

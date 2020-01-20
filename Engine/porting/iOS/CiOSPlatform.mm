@@ -1345,8 +1345,7 @@ int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, cons
 {
     NSString *content = [[NSString alloc] initWithUTF8String:plaintext];
     NSString *key = [[NSString alloc] initWithUTF8String:_key];
-    klb_assert(key!=nil, "key is nil");
-    NSString *encryptStr = [AESCipher encryptAES:content key:key];
+    NSString *encryptStr = [AESCipher encryptAES:content key:_key];
     
     NSData *data = [encryptStr dataUsingEncoding:NSUTF8StringEncoding];
     out = (unsigned char*)[data bytes];
@@ -1367,12 +1366,24 @@ int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, u
 
 bool CiOSPlatform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash)
 {
-	return false;
+    NSData *plainData = [[NSData alloc] initWithBytes:plaintext length:plaintextLen];
+    size_t hashLen = strlen((const char*)hash);
+    NSData *encryptData = [[NSData alloc] initWithBytes:hash length:hashLen];
+    BOOL ret = [RSA verifyPubKey:plainData encryptData:encryptData publicKey:publicKey];
+	return (bool)ret;
 }
 
 int CiOSPlatform::getRandomBytes(char* out, int len)
 {
-    return -1;// TODO
+    NSString *table = [[NSString alloc] initWithFormat:@"%@", @"01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+    NSString *result = [NSMutableString stringWithCapacity:len];
+    [result appendFormat:@"%C", [table characterAtIndex:(arc4random() % ([table length]-1))+1]];
+    for (int i = 1; i < len; i++)
+    {
+        [result appendFormat:@"%C", [table characterAtIndex:arc4random() % [table length]]];
+    }
+    out = (char*)[result UTF8String];
+    return (int)YES;
 }
 
 int CiOSPlatform::getAuthSecret(char* out, int len)

@@ -22,4 +22,7 @@
 + (NSString *)decryptString:(NSString *)str privateKey:(NSString *)privKey;
 + (NSData *)decryptData:(NSData *)data privateKey:(NSString *)privKey;
 
+// verify publickey, return YES when the key is valid.
++ (BOOL)verifyPubKey:(NSData* )plainData encryptData:(NSData *)data publicKey:(NSString *)pubKey;
+
 @end

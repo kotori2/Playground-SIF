@@ -12,7 +12,7 @@
 
 @interface AESCipher : NSObject
 
-+ (NSString *)encryptAES:(NSString *)content key:(NSString *)key;
++ (NSString *)encryptAES:(NSString *)content key:(const char *)key;
 
 + (NSString *)decryptAES:(NSString *)content key:(NSString *)key;
 
