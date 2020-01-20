@@ -593,7 +593,7 @@
 		8E251D1C15247CEF00D4A56E /* CKLBUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBUtility.h; sourceTree = "<group>"; };
 		8E2C4106153699F10093FAB0 /* CKLBJsonItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CKLBJsonItem.cpp; path = ../../../../source/HTTP/CKLBJsonItem.cpp; sourceTree = SOURCE_ROOT; };
 		8E2C4107153699F10093FAB0 /* CKLBJsonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKLBJsonItem.h; path = ../../../../source/HTTP/CKLBJsonItem.h; sourceTree = SOURCE_ROOT; };
-		8E2C4108153699F10093FAB0 /* CKLBNetAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CKLBNetAPI.cpp; path = ../../../../source/HTTP/CKLBNetAPI.cpp; sourceTree = SOURCE_ROOT; };
+		8E2C4108153699F10093FAB0 /* CKLBNetAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CKLBNetAPI.cpp; path = ../../../../source/HTTP/CKLBNetAPI.cpp; sourceTree = SOURCE_ROOT; usesTabs = 1; };
 		8E2C4109153699F10093FAB0 /* CKLBNetAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKLBNetAPI.h; path = ../../../../source/HTTP/CKLBNetAPI.h; sourceTree = SOURCE_ROOT; };
 		8E2EBBE715908EB30007C449 /* CKLBUIRubberBand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKLBUIRubberBand.cpp; sourceTree = "<group>"; };
 		8E2EBBE815908EB30007C449 /* CKLBUIRubberBand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBUIRubberBand.h; sourceTree = "<group>"; };

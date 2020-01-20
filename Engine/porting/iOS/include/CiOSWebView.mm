@@ -48,9 +48,8 @@ static int nonceSeed = 0;
     if(bundle_version) m_bundle = [[NSString stringWithUTF8String:bundle_version] retain];
     
     NSString * nsenv = [NSString stringWithUTF8String:env];
-    NSArray * arr = [nsenv componentsSeparatedByString:@" "];
-    m_os = [[arr objectAtIndex:0] retain];
-    m_version = [[arr objectAtIndex:3] retain];
+    m_os = [[NSString alloc] initWithFormat:@"%@", @"iOS"];
+    m_version = [[NSString alloc] initWithFormat:@"%@", nsenv];
     m_timezone = [[NSTimeZone systemTimeZone] abbreviation];
 }
 
