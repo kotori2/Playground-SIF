@@ -531,7 +531,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	CKLBNetAPIKeyChain& kc = CKLBNetAPIKeyChain::getInstance();
 
 	// TODO
-	const char* headers[13];
+	const char* headers[14];
 
 	// For values above
 	char* alldata = new char[1280];
@@ -570,8 +570,8 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	const char* uid = kc.getUserID();
     
     //OS Type
-    char* os_name;
-    char* platform_type;
+	char* os_name;
+	char* platform_type;
     
     
 #if defined _WIN32 || defined (__ANDROID__)
@@ -594,18 +594,20 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	headers[3] = bundle_version;
 	headers[4] = client_version;
 	headers[5] = "Debug: 1";
-    headers[6] = os_name;
+	headers[6] = os_name;
 	headers[7] = os_version;
-	headers[8] = platform_type;
-	headers[9] = region;
-	headers[10] = xmc;
-	headers[11] = user_id;
-	headers[12] = NULL;
+	headers[8] = "X-BUNDLE-ID: jp.klab.lovelive";
+	headers[9] = platform_type;
+	headers[10] = region;
+	headers[11] = xmc;
+	headers[12] = user_id;
+	headers[13] = NULL;
 
 	m_http->setHeader(headers);
 
-	for (int i = 0; i < 11; i++) {
-		DEBUG_PRINT("[HTTP HEADER] %s", headers[i]);
+	for (int i = 0; i < 14; i++) {
+		if (headers[i] != NULL)
+			DEBUG_PRINT("[HTTP HEADER] %s", headers[i]);
 	}
 	DEBUG_PRINT("[POST BODY] %s", data);
 

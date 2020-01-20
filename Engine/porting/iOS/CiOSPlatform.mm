@@ -1345,6 +1345,7 @@ int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, cons
 {
     NSString *content = [[NSString alloc] initWithUTF8String:plaintext];
     NSString *key = [[NSString alloc] initWithUTF8String:_key];
+    klb_assert(key!=nil, "key is nil");
     NSString *encryptStr = [AESCipher encryptAES:content key:key];
     
     NSData *data = [encryptStr dataUsingEncoding:NSUTF8StringEncoding];

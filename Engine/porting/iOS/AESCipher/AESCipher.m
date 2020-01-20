@@ -22,8 +22,8 @@ size_t const kKeySize = kCCKeySizeAES128;
     NSData *contentData = [content dataUsingEncoding:NSUTF8StringEncoding];
     NSUInteger dataLength = contentData.length;
     
-    char keyPtr[kKeySize + 1];
-    memset(keyPtr, 0, sizeof(keyPtr));
+    char keyPtr[512];
+    memset(keyPtr, '\0', sizeof(keyPtr));
     [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
     
     size_t encryptSize = dataLength + kCCBlockSizeAES128;
@@ -56,8 +56,8 @@ size_t const kKeySize = kCCKeySizeAES128;
     NSData *contentData = [[NSData alloc] initWithBase64EncodedString:content options:NSDataBase64DecodingIgnoreUnknownCharacters];
     NSUInteger dataLength = contentData.length;
     
-    char keyPtr[kKeySize + 1];
-    memset(keyPtr, 0, sizeof(keyPtr));
+    char keyPtr[512];
+    memset(keyPtr, '\0', sizeof(keyPtr));
     [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
     
     size_t decryptSize = dataLength + kCCBlockSizeAES128;
