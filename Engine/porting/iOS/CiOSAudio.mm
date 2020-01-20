@@ -1269,7 +1269,7 @@ CiOSAudio::sendQueue(AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
         numPackets = m_numPacketPerTime;
         m_startPackNum = 0;
 
-        err = AudioFileReadPacketData(m_audioID, NO, &numBytes, m_ASPD, m_startPackNum, &numPackets, inBuffer->mAudioData);
+        err = AudioFileReadPackets(m_audioID, NO, &numBytes, m_ASPD, m_startPackNum, &numPackets, inBuffer->mAudioData);
     }
     inBuffer->mAudioDataByteSize = numBytes;
     err = AudioQueueEnqueueBuffer(inAQ, inBuffer, numPackets, m_ASPD);

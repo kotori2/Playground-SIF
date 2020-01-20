@@ -203,6 +203,7 @@ public:
     int publicKeyEncrypt	(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen);
 	bool publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash);
 	int getRandomBytes(char* out, int len);
+    int getAuthSecret(char* out, int len);
 
 private:
 	struct PF_THREAD {

@@ -110,6 +110,9 @@ CiOSPlatform::CiOSPlatform(UIViewController<UIAlertViewDelegate/*,SKProductsRequ
     // ,->_ に整形
     NSString *tmpPlatform = [NSString stringWithCString: machine encoding:NSUTF8StringEncoding];
     NSString *platform = [tmpPlatform stringByReplacingOccurrencesOfString:@"," withString:@"_"];
+    if ([platform isEqualToString:@"x86_64"])
+        platform = [[NSString alloc] initWithFormat:@"%@", @"iPhone11_8"];
+    
     free(machine);
     //-----
     
@@ -117,7 +120,7 @@ CiOSPlatform::CiOSPlatform(UIViewController<UIAlertViewDelegate/*,SKProductsRequ
 	NSArray * aOsVersions = [[[UIDevice currentDevice]systemVersion] componentsSeparatedByString:@"."];
 	NSInteger iOsVersionMajor = [[aOsVersions objectAtIndex:0] intValue];
 	NSInteger iOsVersionMinor = [[aOsVersions objectAtIndex:1] intValue];
-	sprintf(m_platform, "iOS %s %s %d.%d",
+	sprintf(m_platform, "%s %s %d.%d",
             [platform UTF8String],
 			[modelname UTF8String],
 			(int)iOsVersionMajor,
@@ -1347,10 +1350,6 @@ int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, cons
     NSData *data = [encryptStr dataUsingEncoding:NSUTF8StringEncoding];
     out = (unsigned char*)[data bytes];
     int ret = (int)[data length];
-//    [data release];
-//    [content release];
-//    [key release];
-//    [encryptStr release];
     
     return ret;
 }
@@ -1360,9 +1359,7 @@ int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, u
     NSData *data = [[NSData alloc] initWithBytes:plaintext length:plaintextLen];
     NSData *encryptData = [RSA encryptData:data publicKey:publicKey];
     out = (unsigned char* )[encryptData bytes];
-//    [data release];
     int ret = (int)[encryptData length];
-//    [encryptData release];
     
     return ret;
 }
@@ -1375,4 +1372,9 @@ bool CiOSPlatform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, u
 int CiOSPlatform::getRandomBytes(char* out, int len)
 {
     return -1;// TODO
+}
+
+int CiOSPlatform::getAuthSecret(char* out, int len)
+{
+    return 0;
 }

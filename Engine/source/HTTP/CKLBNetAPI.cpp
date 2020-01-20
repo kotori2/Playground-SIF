@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -568,6 +568,19 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 
 	// User-ID
 	const char* uid = kc.getUserID();
+    
+    //OS Type
+    char* os_name;
+    char* platform_type;
+    
+    
+#if defined _WIN32 || defined (__ANDROID__)
+    os_name = "OS: Android";
+    platform_type = "Platform-Type: 2";
+#else
+    os_name = "OS: iOS";
+    platform_type = "Platform-Type: 1";
+#endif
 
 	if (uid == NULL)
 		user_id = NULL;
@@ -581,9 +594,9 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	headers[3] = bundle_version;
 	headers[4] = client_version;
 	headers[5] = "Debug: 1";
-	headers[6] = "OS: Android";
+    headers[6] = os_name;
 	headers[7] = os_version;
-	headers[8] = "Platform-Type: 2";
+	headers[8] = platform_type;
 	headers[9] = region;
 	headers[10] = xmc;
 	headers[11] = user_id;
