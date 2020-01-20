@@ -1,12 +1,10 @@
-import org.apache.tools.ant.taskdefs.condition.Os
-
 buildscript {
     repositories {
         jcenter()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath 'com.google.gms:google-services:4.3.3'
     }
 }
@@ -17,86 +15,58 @@ repositories {
     jcenter()
     google()
 }
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.billingclient:billing:2.0.3' //DO NOT UPGRADE OR com.android.vending MISSING
-    implementation 'com.google.firebase:firebase-core:17.2.1'
+    implementation 'com.google.firebase:firebase-core:17.2.2'
 }
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
-    sourceSets {
-        main {
+    sourceSets{
+        main{
             manifest.srcFile 'AndroidManifest.xml'
             java.srcDirs = ['src']
             resources.srcDirs = ['src']
-            aidl.srcDirs = ['src']
-            renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
-            jniLibs.srcDir 'libs'
-            jni.srcDirs = []
         }
+    }
 
-        // Move the tests to tests/java, tests/res, etc...
-        androidTest.setRoot('tests')
-
-        // Move the build types to build-types/<type>
-        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
-        // This moves them out of them default location under src/<type>/... which would
-        // conflict with src/ being used by the main source set.
-        // Adding new build types or product flavors should be accompanied
-        // by a similar customization.
-        debug.setRoot('build-types/debug')
-        release.setRoot('build-types/release')
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "6.9.1"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+        ndk {
+            abiFilters 'armeabi-v7a', 'x86'
+        }
     }
 
     buildTypes {
         release {
-            if (file("proguard-project.txt").exists()) {
-                runProguard true
-                proguardFile getDefaultProguardFile('proguard-android.txt')
-                proguardFile file('proguard-project.txt')
-            }
-
-            if (project.hasProperty('storeFile')) {
-                signingConfig signingConfigs.release
-            }
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
-    ext.getNdkCommand = {
-        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-            return "ndk-build.cmd"
+    externalNativeBuild {
+        cmake {
+            path "jni/CMakeLists.txt"
+            version "3.10.2"
         }
-        return "ndk-build"
     }
-
-    task ndkBuild(type:Exec) {
-        commandLine getNdkCommand(), '-j'
-    }
-
-    task ndkClean(type:Exec) {
-        commandLine getNdkCommand(), 'clean'
-    }
-
-    task libsClean(type:Exec) {
-        commandLine 'rm', '-rf', 'libs/armeabi', 'libs/armeabi-v7a', 'libs/x86', 'libs/mips'
-    }
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
-    }
-
-    if(new File(projectDir, "jni").exists()){
-        tasks.withType(JavaCompile) {
-            compileTask -> compileTask.dependsOn ndkBuild
-        }
-
-        //clean.dependsOn 'ndkClean'
-        clean.dependsOn 'libsClean'
+    compileOptions {
+        sourceCompatibility = 1.7
+        targetCompatibility = 1.7
     }
 }
 

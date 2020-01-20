@@ -22,6 +22,7 @@ before_install:
   # set SDK tools path variable and ANDROID_HOME
   - export PATH=$PATH:$HOME/sdk/tools/bin
   - export PATH=$PATH:$HOME/sdk/ndk-bundle
+  - export PATH=$PATH:$HOME/sdk/cmake/3.10.2.4988404/bin
   - ls $HOME/sdk
   - export ANDROID_HOME=$HOME/sdk
   # create empty cfg file to prevent sdkmanager warning message
@@ -32,6 +33,7 @@ install:
   # accept licenses for all available packages that have not already been accepted
   - yes | sdkmanager --licenses >/dev/null
   - echo y | sdkmanager 'ndk-bundle' >/dev/null
+  - echo y | sdkmanager 'cmake;3.10.2.4988404' >/dev/null
   
 before_script:
   # set executable flag for gradle wrapper

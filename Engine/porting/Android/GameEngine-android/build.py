@@ -20,6 +20,12 @@ class PlaygroundBuilder:
     def getAbsPath(self, relpath):
         return path.normpath(path.join(self._rootdir, relpath))
 
+    def getGradle(self):
+        if platform.system() == "Windows":
+            return "gradlew"
+        else:
+            return "./gradlew"
+    
     def decor_print(self, header, content, color):
         print('%s%s%s: %s' % (color, header, bcolors.ENDC, content))
 
@@ -103,8 +109,7 @@ class PlaygroundBuilder:
 
         self.makedirs('./jni')
         self.copytree('../jni/Android', './jni/')
-        self.copyfile('../jni/Android.mk', './jni/')
-        self.copyfile('../jni/Application.mk', './jni/')
+        self.copyfile('../jni/CMakeLists.txt', './jni/')
         self.copytree('../jni/proxy', './jni/')
         self.copytree('../src', '.')
         self.copytree('../../../custom', './jni/')
@@ -190,15 +195,15 @@ class PlaygroundBuilder:
         cmdline_s = ' '.join(cmdline)
 
         # if performing assemble, we should perform clean prior to main build to make sure latest binary is assembled.
-        if perform_assemble:
-            self._output_log(subprocess.Popen('./gradlew clean', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT))
+        #if perform_assemble:
+        #    self._output_log(subprocess.Popen(self.getGradle() + ' clean', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT))
 
-        print('performing: %s' % (cmdline_s))
-        self._output_log(subprocess.Popen(cmdline_s, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT))
+        #print('performing: %s' % (cmdline_s))
+        #self._output_log(subprocess.Popen(cmdline_s, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT))
 
         if perform_assemble:
             build_result = self._output_log(
-                subprocess.Popen('./gradlew build', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT),
+                subprocess.Popen(self.getGradle() + ' build', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT),
                 success_marker='BUILD SUCCESSFUL', fail_marker='BUILD FAILED')
             if build_result is not True:
                 self.print_error('Gradle build failed.')

@@ -22,6 +22,8 @@ __MACOSX/
 /Engine/porting/Android/AppAssets.zip
 
 # Android concrete project things
+/Engine/porting/Android/GameEngine-android/.cxx/
+/Engine/porting/Android/GameEngine-android/.externalNativeBuild/
 /Engine/porting/Android/GameEngine-android/bin/
 /Engine/porting/Android/GameEngine-android/build/
 /Engine/porting/Android/GameEngine-android/gen/
@@ -34,9 +36,7 @@ __MACOSX/
 
 # iOS 
 /Engine/porting/iOS/Project/SampleProject/SampleProject.xcodeproj/xcuserdata/
-
 /Engine/porting/OSX/sif/
-
 
 # Windows stuffs
 /Engine/porting/Win32/Output/Debug/OSSGameLibraryWin32.*
