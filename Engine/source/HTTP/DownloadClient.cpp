@@ -1,13 +1,6 @@
 
 #include "DownloadClient.h"
-#include "DownloadManager.h"
-#include "CUnZip.h"
-#include "CKLBLuaEnv.h"
-#include "CKLBUtility.h"
-#include "CKLBUpdate.h"
-#include "map"
 
-// command constants
 enum {
 	START_DL,
 	RETRY_DL,
@@ -15,19 +8,24 @@ enum {
 };
 
 static IFactory::DEFCMD cmd[] = {
-	{"START_DL",	START_DL},
-	{"RETRY_DL",	RETRY_DL},
-	{"REUNZIP",		REUNZIP},
+	// command constants
+	{"START_DL",	START_DL	},
+	{"RETRY_DL",	RETRY_DL	},
+	{"REUNZIP",		REUNZIP		},
+
+	// error contants
+	{"CKLBUPDATE_DOWNLOAD_FORBIDDEN",		CKLBUPDATE_DOWNLOAD_FORBIDDEN		},
+	{"CKLBUPDATE_DOWNLOAD_INVALID_SIZE",	CKLBUPDATE_DOWNLOAD_INVALID_SIZE	},
+	{"CKLBUPDATE_DOWNLOAD_NODATA",			CKLBUPDATE_DOWNLOAD_NODATA			},
+	{"CKLBUPDATE_DOWNLOAD_ERROR",			CKLBUPDATE_DOWNLOAD_ERROR			},
+	{"CKLBUPDATE_UNZIP_ERROR",				CKLBUPDATE_UNZIP_ERROR				},
 	{0, 0}
 };
 
 static CKLBTaskFactory<DownloadClient> factory("DownloadClient", CLS_DOWNLOADCLIENT, cmd);
 
-static std::map<void*, int> ThreadList;
-
 DownloadClient::DownloadClient() 
 : CKLBLuaTask()
-, m_pipeLine (0)
 , m_callbackDownloadFinish(NULL)
 , m_callbackUnzipStart(NULL)
 , m_callbackUnzipFinish(NULL)
@@ -35,7 +33,6 @@ DownloadClient::DownloadClient()
 , m_callbackFinish(NULL)
 , m_callbackError(NULL)
 , m_callbackKbps(NULL)
-, m_status()
 , m_queue()
 {
 
@@ -55,12 +52,8 @@ DownloadClient::getClassID()
 void
 DownloadClient::execute(u32 deltaT)
 {
-	CKLBScriptEnv& sEnv = CKLBScriptEnv::getInstance();
-	if (m_status.downloaded == m_status.unzipped && m_status.unzipped == m_queue.total) {
-		sEnv.call_eventUpdateComplete(m_callbackFinish, this);
-		return;
-	} 
-	sEnv.call_eventUpdateProgress(m_callbackProgress, this, m_status.downloaded, m_status.unzipped);
+	// TODO: call progress callback
+	// also call finish callback if unzip of last file is done
 }
 
 void
@@ -108,9 +101,17 @@ DownloadClient::initScript(CLuaState& lua)
 int
 DownloadClient::commandScript(CLuaState& lua)
 {
+	int argc = lua.numArgs();
 	int cmd = lua.getInt(2);
+
 	switch (cmd) {
 	case START_DL: {
+		//
+		// 3. pipeline count
+		// 4. table { status, queue_id, url, size }
+		// 5. timeout
+		//
+		klb_assert(argc == 5, "Arguments count should be 5!")
 		startDownload(lua);
 		break;
 	}
@@ -122,10 +123,9 @@ DownloadClient::commandScript(CLuaState& lua)
 		reUnzip(lua);
 		break;
 	}
-	default: {
+	default:
 		klb_assertAlways("DownloadClient: unknown command passed, %d", cmd);
 		lua.retBoolean(false);
-	}
 	}
 	return 1;
 }
@@ -133,47 +133,8 @@ DownloadClient::commandScript(CLuaState& lua)
 int
 DownloadClient::startDownload(CLuaState& lua)
 {
-	// 3. pipeline
-	// 4. table { status, queue_id, url, size }
-	// 5. timeout
-	IPlatformRequest& platform = CPFInterface::getInstance().platform();
-	int argc = lua.numArgs();
-	if (argc != 5) return 0;
-
-	m_pipeLine = lua.getInt(3);
-	int timeout = lua.getInt(5);
-	klb_assert(m_pipeLine >= 1, "DownloadClient: need at least 1 pipe for download");
-
-	u32 json_size = 0;
-	const char* json = NULL;
-	lua.retValue(4);
-	json = CKLBUtility::lua2json(lua, json_size);
-	lua.pop(1);
-	CKLBJsonItem* pRoot = CKLBJsonItem::ReadJsonData(json, json_size);
-
-	CKLBJsonItem* item = pRoot->child();
-	do {
-		// TODO: check status
-		strcpy(m_queue.urls[m_queue.total], item->searchChild("url")->getString());
-		m_queue.size[m_queue.total] = item->searchChild("size")->getInt();
-		m_queue.total++;
-	} while (item = item->next());
-	
-	KLBDELETE(pRoot);
-	KLBDELETE(item);
-
-	// clear download temp folder
-	platform.removeFileOrFolder("file://external/tmpDL/");
-
-	// TODO: create temp folder if not exists
-
-	// start download
-	for (int i = 0; i < m_pipeLine; i++) {
-		void* thread = platform.createThread(threadFunc, this);
-		ThreadList[thread] = i;
-	}
-
-	return 1;
+	klb_assertAlways("Not implemented yet");
+	return 0;
 }
 
 int
@@ -190,47 +151,4 @@ DownloadClient::reUnzip(CLuaState& lua)
 	lua.printStack();
 	klb_assertAlways("Not implemented yet");
 	return 0;
-}
-
-/*static*/
-s32
-DownloadClient::threadFunc(void* pThread, void* data)
-{
-	return ((DownloadClient*)data)->workThread(pThread);
-}
-
-s32
-DownloadClient::workThread(void* pThread)
-{
-
-	IPlatformRequest& platform = CPFInterface::getInstance().platform();
-	CKLBScriptEnv& sEnv = CKLBScriptEnv::getInstance();
-	if (m_status.dlStarted == m_queue.total) {
-		platform.deleteThread(pThread);
-		return 1;
-	}
-	m_status.dlStarted++;
-	int num = m_status.dlStarted - 1;
-
-	char filePath[256];
-	sprintf(filePath, "file://external/tmpDL/%d.zip", num + 1);
-
-	DownloadManager* mgr = KLBNEWC(DownloadManager, (m_queue.urls[num], filePath, m_queue.size[num]));
-	while (!mgr->isFailed() && !mgr->isSuccess()) {
-		mgr->execute();
-	}
-	if (mgr->isSuccess()) {
-		m_status.downloaded++;
-		DEBUG_PRINT("Download %d of %d success", m_status.downloaded, m_queue.total);
-		sEnv.call_eventUpdateDownload(m_callbackDownloadFinish, this, num + 1);
-
-	}
-	else {
-		DEBUG_PRINT("Download queue id %d failed", num + 1);
-		sEnv.call_eventUpdateError(m_callbackError, this, mgr->getErrorCode(), mgr->getStatusCode(), 0);
-	}
-	KLBDELETE(mgr);
-
-	workThread(pThread);
-	return 1;
 }
