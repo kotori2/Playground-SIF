@@ -10,6 +10,7 @@
 
 #import "AESCipher.h"
 #import <CommonCrypto/CommonCryptor.h>
+#import <CommonCrypto/CommonRandom.h>
 
 NSString *const kInitVector = @"16-Bytes--String";
 
@@ -17,28 +18,30 @@ size_t const kKeySize = kCCKeySizeAES128;
 
 @implementation AESCipher
 
-+ (NSString *)encryptAES:(NSString *)content key:(const char *)key {
++ (NSData *)encryptAES:(NSString *)content key:(const char *)key {
     
     NSData *contentData = [content dataUsingEncoding:NSUTF8StringEncoding];
     NSUInteger dataLength = contentData.length;
     
-    char keyPtr[512];
+    unsigned char iv[16] = {'\0'};
+    CCRandomGenerateBytes(iv, 16);
+    
+    char keyPtr[16];
+    size_t keySize = (strlen(keyPtr)<=16)?strlen(keyPtr):16;
     memset(keyPtr, '\0', sizeof(keyPtr));
-//    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    memcpy(keyPtr, key, sizeof(char) * keySize);
     
     size_t encryptSize = dataLength + kCCBlockSizeAES128;
-    void *encryptedBytes = malloc(encryptSize);
+    char *encryptedBytes = malloc(encryptSize);
     size_t actualOutSize = 0;
     
-    NSData *initVector = [kInitVector dataUsingEncoding:NSUTF8StringEncoding];
     
     CCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt,
                                           kCCAlgorithmAES,
                                           kCCOptionPKCS7Padding,
-                                          //keyPtr,
-                                          key,
+                                          keyPtr,
                                           kKeySize,
-                                          initVector.bytes,
+                                          iv,
                                           contentData.bytes,
                                           dataLength,
                                           encryptedBytes,
@@ -46,7 +49,7 @@ size_t const kKeySize = kCCKeySizeAES128;
                                           &actualOutSize);
     
     if (cryptStatus == kCCSuccess) {
-        return [[NSData dataWithBytesNoCopy:encryptedBytes length:actualOutSize] base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        return [NSData dataWithBytesNoCopy:encryptedBytes length:actualOutSize];
     }
     free(encryptedBytes);
     return nil;
@@ -57,12 +60,12 @@ size_t const kKeySize = kCCKeySizeAES128;
     NSData *contentData = [[NSData alloc] initWithBase64EncodedString:content options:NSDataBase64DecodingIgnoreUnknownCharacters];
     NSUInteger dataLength = contentData.length;
     
-    char keyPtr[512];
+    char keyPtr[16];
     memset(keyPtr, '\0', sizeof(keyPtr));
     [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
     
     size_t decryptSize = dataLength + kCCBlockSizeAES128;
-    void *decryptedBytes = malloc(decryptSize);
+    char *decryptedBytes = malloc(decryptSize);
     size_t actualOutSize = 0;
     
     NSData *initVector = [kInitVector dataUsingEncoding:NSUTF8StringEncoding];

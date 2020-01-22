@@ -1343,11 +1343,10 @@ int CiOSPlatform::HMAC_SHA1(const char* input, const char* key, int keyLen, char
 
 int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* _key, unsigned char* out, int outLen)
 {
+    memset(out, '\0', sizeof(unsigned char) * outLen);
     NSString *content = [[NSString alloc] initWithUTF8String:plaintext];
-    NSString *key = [[NSString alloc] initWithUTF8String:_key];
-    NSString *encryptStr = [AESCipher encryptAES:content key:_key];
+    NSData *data = [AESCipher encryptAES:content key:_key];
     
-    NSData *data = [encryptStr dataUsingEncoding:NSUTF8StringEncoding];
     unsigned char* buf = (unsigned char*)[data bytes];
     memcpy((void*)out, (const void*)buf, sizeof(unsigned char)*[data length]);
     int ret = (int)[data length];
@@ -1357,6 +1356,7 @@ int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, cons
 
 int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen)
 {
+    memset(out, '\0', sizeof(unsigned char) * outLen);
     NSData *data = [[NSData alloc] initWithBytes:plaintext length:plaintextLen];
     NSData *encryptData = [RSA encryptData:data publicKey:publicKey];
     unsigned char* buf = (unsigned char* )[encryptData bytes];
@@ -1391,5 +1391,6 @@ int CiOSPlatform::getRandomBytes(char* out, int len)
 
 int CiOSPlatform::getAuthSecret(char* out, int len)
 {
-    return 0;
+    getRandomBytes(out, 32);
+    return 32;
 }
