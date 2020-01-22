@@ -1348,7 +1348,8 @@ int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, cons
     NSString *encryptStr = [AESCipher encryptAES:content key:_key];
     
     NSData *data = [encryptStr dataUsingEncoding:NSUTF8StringEncoding];
-    out = (unsigned char*)[data bytes];
+    unsigned char* buf = (unsigned char*)[data bytes];
+    memcpy((void*)out, (const void*)buf, sizeof(unsigned char)*[data length]);
     int ret = (int)[data length];
     
     return ret;
@@ -1358,7 +1359,8 @@ int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, u
 {
     NSData *data = [[NSData alloc] initWithBytes:plaintext length:plaintextLen];
     NSData *encryptData = [RSA encryptData:data publicKey:publicKey];
-    out = (unsigned char* )[encryptData bytes];
+    unsigned char* buf = (unsigned char* )[encryptData bytes];
+    memcpy((void*)out, (const void*)buf, sizeof(unsigned char)*[encryptData length]);
     int ret = (int)[encryptData length];
     
     return ret;
@@ -1382,7 +1384,8 @@ int CiOSPlatform::getRandomBytes(char* out, int len)
     {
         [result appendFormat:@"%C", [table characterAtIndex:arc4random() % [table length]]];
     }
-    out = (char*)[result UTF8String];
+    char* buf = (char*)[result UTF8String];
+    memcpy((void*)out, (const void*)buf, sizeof(char)*[result length]);
     return (int)YES;
 }
 
