@@ -15,24 +15,21 @@
 */
 package klb.android.GameEngine.billing.manager;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
+
 import java.util.List;
 
 import klb.android.GameEngine.PFInterface;
-
-import klb.android.GameEngine.billing.util.IabHelper;
-import klb.android.GameEngine.billing.util.Purchase;
-
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
-
-import klb.android.GameEngine.billing.listener.IOnIabSetupFinishedListener;
-import klb.android.GameEngine.billing.listener.IQueryInventoryFinishedListener;
 import klb.android.GameEngine.billing.listener.IOnConsumeFinishedListener;
 import klb.android.GameEngine.billing.listener.IOnIabPurchaseFinishedListener;
+import klb.android.GameEngine.billing.listener.IOnIabSetupFinishedListener;
+import klb.android.GameEngine.billing.listener.IQueryInventoryFinishedListener;
+import klb.android.GameEngine.billing.util.IabHelper;
+import klb.android.GameEngine.billing.util.Purchase;
 /**
  * 
  *  
@@ -42,11 +39,11 @@ public class BillingManager {
 	
 	private static final String kClassName = BillingManager.class.getSimpleName();
 	
-	private Activity activity = null;
+	private AppCompatActivity activity = null;
 	private IabHelper iabHelper = null;
 	private static BillingManager billingManager = null;
 
-	public static BillingManager getInstance(Activity context) {
+	public static BillingManager getInstance(AppCompatActivity context) {
 		BillingManager.init(context);
 		return billingManager;
 	}
@@ -65,7 +62,7 @@ public class BillingManager {
 	    return list.size() > 0;
 	}
 	
-	private BillingManager(Activity context) {
+	private BillingManager(AppCompatActivity context) {
 		Log.d(kClassName, "BillingManager");
 		
 		this.activity  = context;
@@ -81,7 +78,7 @@ public class BillingManager {
 	}
 	
 	// INIT
-	public static void init(Activity context) {
+	public static void init(AppCompatActivity context) {
 		if (billingManager == null)  {
 			billingManager = new BillingManager(context);
 		}

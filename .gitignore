@@ -30,6 +30,7 @@ __MACOSX/
 /Engine/porting/Android/GameEngine-android/jni/
 /Engine/porting/Android/GameEngine-android/libs/
 /Engine/porting/Android/GameEngine-android/obj/
+/Engine/porting/Android/GameEngine-android/res/
 /Engine/porting/Android/GameEngine-android/src/
 /Engine/porting/Android/GameEngine-android/assets/AppAssets.zip
 /Engine/porting/Android/GameEngine-android/assets/version

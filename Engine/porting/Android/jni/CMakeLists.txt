@@ -23,8 +23,8 @@ elseif( ${ANDROID_ABI} STREQUAL "x86" )
     link_directories(../obj/local/x86)
 endif()
 
-set(LOCAL_LDLIB ${LOCAL_LDLIB} log curl GLESv1_CM dl z OpenSLES GLESv2 freetype2)
-set(DEBUG_FLAGS "${DEBUG_FLAGS} -DOPENGL2")
+set(LOCAL_LDLIB ${LOCAL_LDLIB} log curl GLESv1_CM dl z OpenSLES freetype2) #GLESv2
+# set(DEBUG_FLAGS "${DEBUG_FLAGS} -DOPENGL2")
 
 if (WIN32)
     execute_process(COMMAND CMD /c git log --pretty=format:%h -1 OUTPUT_VARIABLE ENGINE_GITHASH)
@@ -78,9 +78,10 @@ set(SOURCE ${SOURCE} ${SUB_SOURCES})
 file(GLOB_RECURSE SUB_SOURCES "./UserTask/*.cpp" "./UserTask/*.c" "./UserTask/*.cc")
 set(SOURCE ${SOURCE} ${SUB_SOURCES})
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDEBUG -DLUA_ANSI -DIOAPI_NO_64 ${DEBUG_FLAGS} -fPIC -DENGINE_GITHASH='\"${ENGINE_GITHASH}\"' -DSQLITE_THREADSAFE=1 ${SQLITE_ENABLE_COLUMN_METADATA} -DONLY_C")
-SET(CMAKE_CXX_FLAGS  "-fexceptions -fno-rtti")
-
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DLUA_ANSI -DIOAPI_NO_64 ${DEBUG_FLAGS} -fPIC -DENGINE_GITHASH='\"${ENGINE_GITHASH}\"' -DSQLITE_THREADSAFE=1 ${SQLITE_ENABLE_COLUMN_METADATA} -DONLY_C")
+set(CMAKE_C_FLAGS_DEBUG "-DDEBUG")
+set(CMAKE_CXX_FLAGS  "${CMAKE_C_FLAGS} -fexceptions -fno-rtti")
+set(CMAKE_CXX_FLAGS_DEBUG "-DDEBUG")
 
 add_library( # Sets the name of the library.
         Game
@@ -90,21 +91,6 @@ add_library( # Sets the name of the library.
 
         # Provides a relative path to your source file(s).
         ${SOURCE})
-
-
-
-# Searches for a specified prebuilt library and stores the path as a
-# variable. Because CMake includes system libraries in the search path by
-# default, you only need to specify the name of the public NDK library
-# you want to add. CMake verifies that the library exists before
-# completing its build.
-
-find_library( # Sets the name of the path variable.
-        log-lib
-
-        # Specifies the name of the NDK library that
-        # you want CMake to locate.
-        log)
 
 # FOR DEBUG
 # get_cmake_property(_variableNames VARIABLES)
