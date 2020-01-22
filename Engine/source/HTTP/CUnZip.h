@@ -21,7 +21,7 @@
 
 #include "zlib.h"
 #include "unzip.h"
-#pragma comment(lib, "zlib.lib")
+#pragma comment(lib, "zlibstat.lib")
 
 #include "BaseType.h"
 #include "ITmpFile.h"
