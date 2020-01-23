@@ -29,8 +29,12 @@ matrix:
 
 platform:
   - Win32
+  - x64
+  
 # build Configuration, i.e. Debug, Release, etc.
-configuration: Debug
+configuration: 
+  - Debug
+  - Release
 
 # to add several configurations to build matrix:
 #configuration:
@@ -49,9 +53,19 @@ build:
 after_build:
   - 7z a Win32_Debug.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\Output\Debug\*.dll
   - 7z a Win32_Debug.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\Output\Debug\SampleProject.exe
+  - 7z a Win32_Release.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\Output\Release\*.dll
+  - 7z a Win32_Release.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\Output\Release\SampleProject.exe
+  
+  - 7z a x64_Debug.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\x64\Debug\*.dll
+  - 7z a x64_Debug.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\x64\Debug\SampleProject.exe
+  - 7z a x64_Release.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\x64\Release\*.dll
+  - 7z a x64_Release.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\x64\Release\SampleProject.exe
 #---------------------------------#
 #      artifacts configuration    #
 #---------------------------------#
 
 artifacts:
   - path: Win32_Debug.zip
+  - path: Win32_Release.zip
+  - path: x64_Debug.zip
+  - path: x64_Release.zip
