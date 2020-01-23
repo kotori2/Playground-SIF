@@ -225,27 +225,9 @@ CKLBUpdate::saveUpdate()
 	}
 }
 
-/* No Command for now.
-int
-CKLBUpdate::commandScript(CLuaState& lua)
-{
-	int argc = lua.numArgs();
-	if(argc < 2) {
-		lua.retBoolean(false);
-		return 1;
-	}
-
-	int cmd = lua.getInt(2);
-	switch(cmd)
-	{
-	}
-}*/
-
 bool
 CKLBUpdate::initScript(CLuaState& lua)
 {
-	// bool res = true;
-
 	int argc = lua.numArgs();
 
 	// 引数チェック
@@ -371,7 +353,7 @@ CKLBUpdate::exec_download(u32 /*deltaT*/)
 				m_maxProgress = progress;
 				// Only perform callback here when progress is NOT complete.
 				if (!bResult) {
-					CKLBScriptEnv::getInstance().call_eventUpdateDownload(m_callbackDL, this, (double)progress, buf);
+//					CKLBScriptEnv::getInstance().call_eventUpdateDownload(m_callbackDL, this, (double)progress, buf);
 				}
 			}
 		}
@@ -386,11 +368,11 @@ CKLBUpdate::exec_download(u32 /*deltaT*/)
 			char buf[64];
 			CKLBUtility::numString64(buf, completeOnSize);
 			// Perform a 100% callback here because we know download IS complete.
-			CKLBScriptEnv::getInstance().call_eventUpdateDownload(m_callbackDL, this, (double)1.0, buf);
+//			CKLBScriptEnv::getInstance().call_eventUpdateDownload(m_callbackDL, this, (double)1.0, buf);
 			saveUpdate();
 			m_eStep = S_INIT_UNZIP;
 		} else {
-			CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this);
+			//CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this);
 			DEBUG_PRINT("[update] download success but with invalid size. retry.");
 			m_eStep = S_INIT_DL;
 		}
@@ -404,7 +386,7 @@ CKLBUpdate::exec_init_unzip(u32 /*deltaT*/)
 	m_unzip = KLBNEWC(CUpdateUnZip, (fullpath));
 
 	if (!m_unzip->getStatus()) {	// invalid zip file
-		CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this);
+		//CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this);
 		DEBUG_PRINT("[update] invalid zip file");
 		// do not change m_eStep, thus it will retry again as the download step do
 		return;

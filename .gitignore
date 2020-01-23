@@ -30,6 +30,7 @@ __MACOSX/
 /Engine/porting/Android/GameEngine-android/jni/
 /Engine/porting/Android/GameEngine-android/libs/
 /Engine/porting/Android/GameEngine-android/obj/
+/Engine/porting/Android/GameEngine-android/res/
 /Engine/porting/Android/GameEngine-android/src/
 /Engine/porting/Android/GameEngine-android/assets/AppAssets.zip
 /Engine/porting/Android/GameEngine-android/assets/version
@@ -43,16 +44,25 @@ __MACOSX/
 /Engine/porting/Win32/Output/Release/OSSGameLibraryWin32.*
 /Engine/porting/Win32/Output/Debug/SampleProject.*
 /Engine/porting/Win32/Output/Release/SampleProject.*
+/Engine/porting/Win32/x64/Debug/OSSGameLibraryWin32.*
+/Engine/porting/Win32/x64/Release/OSSGameLibraryWin32.*
+/Engine/porting/Win32/x64/Debug/SampleProject.*
+/Engine/porting/Win32/x64/Release/SampleProject.*
 /Engine/porting/Win32/Debug/
 /Engine/porting/Win32/Release/
+/Engine/porting/Win32/x64/Debug/obj/
+/Engine/porting/Win32/x64/Release/obj/
 /Engine/porting/Win32/SampleProject/Debug/
 /Engine/porting/Win32/SampleProject/Release/
+/Engine/porting/Win32/SampleProject/x64/Debug/
+/Engine/porting/Win32/SampleProject/x64/Release/
 /Engine/porting/Win32/.vs/
 
 # object files things
 *.exe
 *.pdb
 *.obj
+*.tlog
 *.a
 !libcurl.a
 *.so

@@ -361,10 +361,16 @@ void CKLBScriptEnv::call_eventWorld			(const char* funcName, CKLBObjectScriptabl
 	lua.callback(funcName,"III",serial,msg,status);
 }
 
-void CKLBScriptEnv::call_eventUpdateDownload(const char* funcName, CKLBObjectScriptable* obj, double progress, const char* progressStr) {
+void CKLBScriptEnv::call_eventUpdateDownload(const char* funcName, CKLBObjectScriptable* obj, int queueId) {
 	if (!funcName) { return; }
 	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
-	lua.callback(funcName,"PNS",obj,progress,progressStr);
+	lua.callback(funcName,"PI", obj, queueId);
+}
+
+void CKLBScriptEnv::call_eventUpdateProgress(const char* funcName, CKLBObjectScriptable* obj, int downloadedCount, int unzippedCount) {
+	if (!funcName) { return; }
+	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
+	lua.callback(funcName, "PIIIII", obj, 0, 0, 0, downloadedCount, unzippedCount);
 }
 
 void CKLBScriptEnv::call_eventUpdateZIP		(const char* funcName, CKLBObjectScriptable* obj, int progress, int total) {
@@ -379,10 +385,10 @@ void CKLBScriptEnv::call_eventUpdateComplete(const char* funcName, CKLBObjectScr
 	lua.callback(funcName, "P", obj);
 }
 
-void CKLBScriptEnv::call_eventUpdateError(const char* funcName, CKLBObjectScriptable* obj) {
+void CKLBScriptEnv::call_eventUpdateError(const char* funcName, CKLBObjectScriptable* obj, int errorCode, int statusCode, int curlStatus) {
 	if (!funcName) { return; }
 	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
-	lua.callback(funcName, "P", obj);
+	lua.callback(funcName, "PIII", obj, errorCode, statusCode, 0);
 }
 
 bool CKLBScriptEnv::call_netAPI_callback(const char* funcName, CKLBObjectScriptable* /*obj*/, int uniq, int msg, int status, CKLBJsonItem* pRoot) {

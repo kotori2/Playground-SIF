@@ -191,6 +191,9 @@ typedef long long unsigned int u64;
 #define CLS_KLBUIBUTTON		(80| CLS_KLBUSERTASK)
 #define CLS_KLBPACKERCTRL	(81| CLS_KLBENGINECLASS)
 
+// it's here temporary
+#define CLS_DOWNLOADCLIENT (82| CLS_KLBUSERTASK)
+
 //
 // Engine Assets
 //

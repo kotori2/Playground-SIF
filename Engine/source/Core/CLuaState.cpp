@@ -20,10 +20,13 @@
 #include "klb_vararg.h"
 #include "CLuaState.h"
 #include "CKLBLuaEnv.h"
+#include "map"
 
 #ifdef _WIN32
 #include <Windows.h>
 #endif
+
+static std::map<lua_State*, void*> LockList;
 
 namespace
 {
@@ -86,7 +89,9 @@ CLuaState::callback(const char * func, const char * argform, ...)
 {
 	va_list ap;
 	va_start(ap, argform);
+    luaLock();
 	bool result = call_luafunction(0, func, argform, ap);
+    luaUnlock();
 	va_end(ap);
 	return result;
 }
@@ -96,7 +101,9 @@ CLuaState::retcall(int retnum, const char * func, const char * argform, ...)
 {
 	va_list ap;
 	va_start(ap, argform);
+    luaLock();
 	bool result = call_luafunction(retnum, func, argform, ap);
+    luaUnlock();
 	va_end(ap);
 	return result;
 }
@@ -251,7 +258,7 @@ void CLuaState::printStack() {
 		{
 			printf("\nLUA TABLE DUMP START STACK %d\n", i);
 			// only one depth level
-			const char* str = "for a,b in pairs(({...})[1])do print(a,b)end";
+            const char* str = "for a,b in pairs(({...})[1])do print(a,b)end";
 			klb_assert(luaL_loadstring(m_L, str) == 0, "Syntax error");
 			retValue(i);
 			klb_assert(lua_pcall(m_L, 1, 0, 0) == 0, "Syntax error");
@@ -267,3 +274,28 @@ void CLuaState::printStack() {
 		}
 	}
 }
+
+void CLuaState::luaLock()
+{
+    IPlatformRequest& platform = CPFInterface::getInstance().platform();
+    void* lock = LockList[m_L];
+
+    if (lock == NULL)
+    {
+        lock = platform.allocMutex();
+        klb_assert(lock, "Failed to alloc mutex for lua state %p", m_L);
+        LockList[m_L] = lock;
+    }
+
+    platform.mutexLock(lock);
+}
+
+void CLuaState::luaUnlock()
+{
+    void* lock = LockList[m_L];
+
+    klb_assert(lock, "Mutex for lua state %p does not exist", m_L);
+
+    CPFInterface::getInstance().platform().mutexUnlock(lock);
+}
+

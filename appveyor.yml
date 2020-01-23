@@ -29,8 +29,12 @@ matrix:
 
 platform:
   - Win32
+  - x64
+  
 # build Configuration, i.e. Debug, Release, etc.
-configuration: Debug
+configuration: 
+  - Debug
+  - Release
 
 # to add several configurations to build matrix:
 #configuration:
@@ -47,11 +51,17 @@ build:
   verbosity: normal
   
 after_build:
-  - 7z a Win32_Debug.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\Output\Debug\*.dll
-  - 7z a Win32_Debug.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\Output\Debug\SampleProject.exe
+  - ps: |
+      if ($env:PLATFORM -eq "Win32"){
+        $env:OUTPATH = "Output"
+      }else{
+         $env:OUTPATH = "x64"
+      }
+  - 7z a %PLATFORM%_%CONFIGURATION%.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\%OUTPATH%\%CONFIGURATION%\*.dll
+  - 7z a %PLATFORM%_%CONFIGURATION%.zip %APPVEYOR_BUILD_FOLDER%\Engine\porting\Win32\%OUTPATH%\%CONFIGURATION%\SampleProject.exe
 #---------------------------------#
 #      artifacts configuration    #
 #---------------------------------#
 
 artifacts:
-  - path: Win32_Debug.zip
+  - path: $(PLATFORM)_$(CONFIGURATION).zip

@@ -20,6 +20,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.billingclient:billing:2.0.3' //DO NOT UPGRADE OR com.android.vending MISSING
     implementation 'com.google.firebase:firebase-core:17.2.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
 }
 
 android {

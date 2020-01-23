@@ -15,52 +15,52 @@
 */
 package klb.android.GameEngine;
 
-import android.app.ProgressDialog;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.WindowManager;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
-import android.content.DialogInterface;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.OrientationEventListener;
-import android.content.res.Configuration;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-import android.view.ViewGroup;
+
 import com.google.android.gcm.GCMRegistrar;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.Intent;
-import android.net.Uri;
-import android.media.AudioManager;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.lang.ref.WeakReference;
 
 import klb.android.GameEngine.billing.manager.BillingManager;
 
-public class GameEngineActivity extends Activity {
+public class GameEngineActivity extends AppCompatActivity {
 	private static final boolean USE_SD_CARD = false;  // SDカード優先フラグ
 	OrientationEventListener mOrientationListener;
 	private static AssetManager mAssetMgr = null;
@@ -369,7 +369,15 @@ public class GameEngineActivity extends Activity {
 	public void refreshSystemUi() {
 		if (isSystemUiDirty) {
 			if (Build.VERSION_CODES.ICE_CREAM_SANDWICH <= Build.VERSION.SDK_INT) {
-				getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+				int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+						| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+						| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+						| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+						| View.SYSTEM_UI_FLAG_FULLSCREEN;
+				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+					flags |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+				}
+				getWindow().getDecorView().setSystemUiVisibility(flags);
 			}
 			isSystemUiDirty = false;
 		}

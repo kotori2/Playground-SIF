@@ -102,6 +102,7 @@ class PlaygroundBuilder:
         if perform_rebuild:
             self.rmtree('./jni')
             self.rmtree('./src')
+            self.rmtree('./res')
 
         if not path.isdir('../../../../%s' % project):
             print(bcolors.WARNING + "No project %s found in %s" % (project, path.abspath(__file__ + "../../../../../../%s"%project)))
@@ -120,8 +121,7 @@ class PlaygroundBuilder:
         self.copytree('../../../../%s/game' % project, './jni/UserTask/')
 
         # layouts
-        self.copyfile('../GameEngine-android/res/layout/indicator.xml', './res/layout/')
-        self.copyfile('../GameEngine-android/res/layout/install.xml', './res/layout/')
+        self.copytree('../res/', '.')
 
         # create location to put prebuilt *.a files in
         self.makedirs('./obj/local/armeabi')

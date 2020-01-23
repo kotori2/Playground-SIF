@@ -4,6 +4,7 @@
     <string name="hello">Hello World!</string>
     <string name="app_name">Playground-SIF</string>
     
-    <string name="sender_id">694365359580</string>
+    <string name="install_dialog_title">Game loading…</string>
+    <string name="install_dialog_message">Please wait</string>
 
 </resources>

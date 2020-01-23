@@ -16,7 +16,7 @@
             android:label="@string/app_name"
             android:name="GameEngineActivity"
             android:screenOrientation="landscape"
-			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:configChanges="screenSize|orientation|keyboardHidden"
 			android:launchMode="singleTop" >
             <intent-filter >

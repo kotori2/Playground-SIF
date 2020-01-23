@@ -260,7 +260,7 @@ CAndroidTextWidget::cmd(int cmd, ...)
 			jmethodID methodID = 0;
 			jclass cls_pfif = CJNI::getJNIEnv()->FindClass(JNI_LOAD_PATH);
 			methodID = CJNI::getJNIEnv()->GetStaticMethodID(cls_pfif, "textbox_setpaint", "(ILandroid/graphics/Paint;)V");
-			jint ret = CJNI::getJNIEnv()->CallStaticIntMethod(cls_pfif, methodID, GetIndex(), (jobject)m_pFont->getPaint());
+			CJNI::getJNIEnv()->CallStaticVoidMethod(cls_pfif, methodID, GetIndex(), (jobject)m_pFont->getPaint());
 			CJNI::getJNIEnv()->DeleteLocalRef(cls_pfif);
 
 			break;

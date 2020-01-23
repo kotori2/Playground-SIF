@@ -680,6 +680,12 @@
     <ClInclude Include="..\..\source\UISystem\CKLBUIShader.h">
       <Filter>Source Files\UISystem\Task</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\HTTP\DownloadClient.h">
+      <Filter>Source Files\Network\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\HTTP\DownloadManager.h">
+      <Filter>Source Files\Network\Element</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\Animation\CKLBSystem.cpp">
@@ -1989,6 +1995,12 @@
     </ClCompile>
     <ClCompile Include="..\..\libs\lua\lzio.c">
       <Filter>libs\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\HTTP\DownloadClient.cpp">
+      <Filter>Source Files\Network\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\HTTP\DownloadManager.cpp">
+      <Filter>Source Files\Network\Element</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
