@@ -134,7 +134,7 @@
     <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)LuaEdit\x86;$(ProjectDir)Vorbis\libogg\include\;$(ProjectDir)Vorbis\libvorbis\include\;$(ProjectDir)directx;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)LuaEdit\x86;$(ProjectDir)Vorbis\libogg\include\;$(ProjectDir)Vorbis\libvorbis\include\;$(ProjectDir)directx\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)openssl/lib;$(ProjectDir)Lame;$(ProjectDir)LuaEdit\x86;$(ProjectDir)directx\x64</LibraryPath>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Cpp|Win32'">

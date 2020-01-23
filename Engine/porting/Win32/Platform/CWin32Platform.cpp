@@ -45,7 +45,7 @@
 #ifdef _WIN64
   #pragma comment(lib, "libcrypto64MD.lib")
 #else
-  #pragma comment(lib, "libeay32.lib")
+  #pragma comment(lib, "libcrypto32MD.lib")
 #endif
 
 #include "FontRendering.h"

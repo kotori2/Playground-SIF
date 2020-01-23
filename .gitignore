@@ -62,6 +62,7 @@ __MACOSX/
 *.exe
 *.pdb
 *.obj
+*.tlog
 *.a
 !libcurl.a
 *.so
