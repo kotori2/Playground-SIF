@@ -24,6 +24,7 @@
 #include <sys/mount.h>
 #import <mach/mach_time.h>
 #import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonRandom.h>
 #import <Security/Security.h>
 #import <StoreKit/StoreKit.h>
 #import <sys/xattr.h>
@@ -1441,15 +1442,16 @@ bool CiOSPlatform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, u
 
 int CiOSPlatform::getRandomBytes(char* out, int len)
 {
-    NSString *table = [[NSString alloc] initWithFormat:@"%@", @"01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"];
-    NSString *result = [NSMutableString stringWithCapacity:len];
-    [result appendFormat:@"%C", [table characterAtIndex:(arc4random() % ([table length]-1))+1]];
-    for (int i = 1; i < len; i++)
-    {
-        [result appendFormat:@"%C", [table characterAtIndex:arc4random() % [table length]]];
-    }
-    char* buf = (char*)[result UTF8String];
-    memcpy((void*)out, (const void*)buf, sizeof(char)*[result length]);
+//    NSString *table = [[NSString alloc] initWithFormat:@"%@", @"01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+//    NSString *result = [NSMutableString stringWithCapacity:len];
+//    [result appendFormat:@"%C", [table characterAtIndex:(arc4random() % ([table length]-1))+1]];
+//    for (int i = 1; i < len; i++)
+//    {
+//        [result appendFormat:@"%C", [table characterAtIndex:arc4random() % [table length]]];
+//    }
+//    char* buf = (char*)[result UTF8String];
+//    memcpy((void*)out, (const void*)buf, sizeof(char)*[result length]);
+    CCRandomGenerateBytes(out, len);
     return (int)YES;
 }
 

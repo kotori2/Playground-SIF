@@ -122,7 +122,7 @@ CKLBNetAPI::execute(u32 deltaT)
 		CKLBNetAPIKeyChain& kc = CKLBNetAPIKeyChain::getInstance();
 		// Get Data
 		u8* body	= m_http->getRecvResource();
-		u32 bodyLen	= body ? m_http->getSize() : 0;
+		u32 bodyLen	= body ? (u32)m_http->getSize() : 0;
 		
 		char* tmpBuf = KLBNEWA(char, bodyLen + 1);
 		memcpy(tmpBuf, body, bodyLen);
@@ -327,7 +327,10 @@ CKLBNetAPI::authKey(int status)
 		m_http->reuse();
 
 		// dummy token part
-		const char* clientKey = kc.getClientKey();
+		const char* _clientKey = kc.getClientKey();
+		char clientKey[32];
+		memcpy(clientKey, _clientKey, sizeof(char)*32);
+		
 		unsigned char clientKeyEncrypted[512];
 		int clientKeyEncryptedLen = platform.publicKeyEncrypt((unsigned char*)clientKey, 32, clientKeyEncrypted, 512);
         klb_assert(clientKeyEncryptedLen > 0, "platform.publicKeyEncrypt failed");
@@ -342,7 +345,7 @@ CKLBNetAPI::authKey(int status)
 		char* authSecretB64 = base64(authSecret, authSecretLen, &authSecretB64Len);
 		sprintf(devData, "{ \"1\":\"%s\",\"2\": \"%s\", \"3\": \"%s\"}", kc.getLoginKey(), kc.getLoginPwd(), authSecretB64);
 		unsigned char devDataEnc[512];
-		int devDataEncLen = platform.encryptAES128CBC(devData, strlen(devData), clientKey, devDataEnc, 512);
+		int devDataEncLen = platform.encryptAES128CBC(devData, (int)strlen(devData), clientKey, devDataEnc, 512);
 		klb_assert(devDataEncLen > 0, "platform.encryptAES128CBC failed");
 		int authDataLen = 0;
 		char* authData = base64(devDataEnc, devDataEncLen, &authDataLen);
@@ -371,13 +374,17 @@ CKLBNetAPI::authKey(int status)
 			const char* dummyToken = m_pRoot->child()->child()->next()->getString();
 			klb_assert(dummyToken, "Dummy token does not exist!!!");
 			int len = 0;
-			unsigned char* unbasedToken = unbase64(dummyToken, strlen(dummyToken), &len);
+			unsigned char* unbasedToken = unbase64(dummyToken, (int)strlen(dummyToken), &len);
+			printf("\n\n\n\nunbasedToken\n\n\n%s\n", (const char*)unbasedToken);
 
-			const char* clientKey = kc.getClientKey();
+			const char* _clientKey = kc.getClientKey();
+			char clientKey[32];
+			memcpy(clientKey, _clientKey, sizeof(char)*32);
 			char sessionKey[32];
 			for (int i = 0; i < 32; i++) {
 				sessionKey[i] = unbasedToken[i] ^ clientKey[i];
 			}
+//			memset(sessionKey, '\0', sizeof(char)*32);
 			kc.setSessionKey(sessionKey);
 			m_handle = m_lastCommand == NETAPI_LOGIN ? NETAPIHDL_LOGIN_REQUEST : NETAPIHDL_STARTUP_REQUEST;
 		}
@@ -406,15 +413,18 @@ CKLBNetAPI::login(int status)
 
 		const char* loginKey = kc.getLoginKey();
 		const char* loginPwd = kc.getLoginPwd();
-		const char* sessionKey = kc.getSessionKey();
+		const char* _sessionKey = kc.getSessionKey();
+		
+		char sessionKey[32];
+		memcpy(sessionKey, _sessionKey, sizeof(char)*32);
 
 		// encrypt credentials
 		unsigned char loginKeyEnc[128];
 		unsigned char loginPwdEnc[256];
 
-		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, 128);
+		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, (int)strlen(loginKey), sessionKey, loginKeyEnc, 128);
 		klb_assert(loginKeyEncLen > 0, "platform.encryptAES128CBC failed");
-		int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, 256);
+		int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, (int)strlen(loginPwd), sessionKey, loginPwdEnc, 256);
         klb_assert(loginPwdEncLen > 0, "platform.encryptAES128CBC failed");
 
 		// and do base64
@@ -478,15 +488,18 @@ CKLBNetAPI::startUp(int status)
 
 		const char* loginKey = kc.getLoginKey();
 		const char* loginPwd = kc.getLoginPwd();
-		const char* sessionKey = kc.getSessionKey();
+		const char* _sessionKey = kc.getSessionKey();
+		
+		char sessionKey[32];
+		memcpy(sessionKey, _sessionKey, sizeof(char)*32);
 
 		// encrypt credentials
 		unsigned char loginKeyEnc[128];
 		unsigned char loginPwdEnc[256];
 
-		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, 128);
+		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, (int)strlen(loginKey), sessionKey, loginKeyEnc, 128);
         klb_assert(loginKeyEncLen > 0, "platform.encryptAES128CBC failed");
-        int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, 256);
+        int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, (int)strlen(loginPwd), sessionKey, loginPwdEnc, 256);
         klb_assert(loginPwdEncLen > 0, "platform.encryptAES128CBC failed");
 
 		// and do base64
@@ -781,8 +794,8 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 						char* json;
 						const char * items[2];
 						const char* req = "request_data=";
-						int send_json_length = strlen(send_json);
-						int req_length = strlen(req);
+						int send_json_length = (int)strlen(send_json);
+						int req_length = (int)strlen(req);
 
 						json = KLBNEWA(char, send_json_length + req_length + 1);
 						strcpy( json , req );
