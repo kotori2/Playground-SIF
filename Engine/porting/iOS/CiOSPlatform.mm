@@ -50,6 +50,18 @@
 #import "RSA.h"
 #import "AESCipher.h"
 
+#define __USE_OPENSSL__
+
+#ifdef __USE_OPENSSL__
+
+#include <openssl/sha.h>
+#include <openssl/hmac.h>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
+#include <openssl/rand.h>
+
+#endif
+
 
 #define IDENTIFIER 
 
@@ -1343,25 +1355,77 @@ int CiOSPlatform::HMAC_SHA1(const char* input, const char* key, int keyLen, char
 
 int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* _key, unsigned char* out, int outLen)
 {
+    int ret;
+#ifndef __USE_OPENSSL__
     memset(out, '\0', sizeof(unsigned char) * outLen);
     NSString *content = [[NSString alloc] initWithUTF8String:plaintext];
     NSData *data = [AESCipher encryptAES:content key:_key];
     
     unsigned char* buf = (unsigned char*)[data bytes];
     memcpy((void*)out, (const void*)buf, sizeof(unsigned char)*[data length]);
-    int ret = (int)[data length];
+    ret = (int)[data length];
+#else
+    EVP_CIPHER_CTX* ctx;
+    int len;
+
+    unsigned char iv[16] = "";
+    RAND_bytes(iv, 16);
+
+    if (false)
+    {
+    fail:
+        if (ctx) EVP_CIPHER_CTX_free(ctx);
+        return 0;
+    }
+
+    // put iv into beginning
+    // we don't need to encrypt it
+    // on client-side we just slice it before decrypting
+    memcpy(out, iv, 16);
+    if (!(ctx = EVP_CIPHER_CTX_new()))
+        goto fail;
+    if (EVP_EncryptInit_ex(ctx, EVP_aes_128_cbc(), NULL, (u8*)_key, iv) == 0)
+        goto fail;
+    // + 16 because of IV
+    if (EVP_EncryptUpdate(ctx, out + 16, &len, (u8*)plaintext, plaintextLen) == 0)
+        goto fail;
+
+    outLen = len + 16; // include IV length
+    if (EVP_EncryptFinal_ex(ctx, out + len + 16, &len) == 0)
+        goto fail;
+    outLen += len;
+
+    /* Clean up */
+    EVP_CIPHER_CTX_free(ctx);
+    ret = outLen;
+#endif
     
     return ret;
 }
 
 int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen)
 {
+    int ret;
+#ifndef __USE_OPENSSL__
     memset(out, '\0', sizeof(unsigned char) * outLen);
     NSData *data = [[NSData alloc] initWithBytes:plaintext length:plaintextLen];
-    NSData *encryptData = [RSA encryptData:data publicKey:publicKey];
+    NSData *encryptData = [RSAObject encryptRawData:data publicKey:publicKey];
     unsigned char* buf = (unsigned char* )[encryptData bytes];
     memcpy((void*)out, (const void*)buf, sizeof(unsigned char)*[encryptData length]);
-    int ret = (int)[encryptData length];
+    ret = (int)[encryptData length];
+#else
+    RSA *p_rsa;
+    BIO *bio = BIO_new_mem_buf((void *)[publicKey UTF8String], (int)[publicKey length]);
+    p_rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
+    if (!p_rsa)
+    {
+        BIO_free(bio);
+        return -1;
+    }
+    ret = RSA_public_encrypt(plaintextLen, plaintext, out, p_rsa, RSA_PKCS1_PADDING);
+    
+    
+#endif
     
     return ret;
 }
@@ -1371,7 +1435,7 @@ bool CiOSPlatform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, u
     NSData *plainData = [[NSData alloc] initWithBytes:plaintext length:plaintextLen];
     size_t hashLen = strlen((const char*)hash);
     NSData *encryptData = [[NSData alloc] initWithBytes:hash length:hashLen];
-    BOOL ret = [RSA verifyPubKey:plainData encryptData:encryptData publicKey:publicKey];
+    BOOL ret = [RSAObject verifyPubKey:plainData encryptData:encryptData publicKey:publicKey];
 	return (bool)ret;
 }
 

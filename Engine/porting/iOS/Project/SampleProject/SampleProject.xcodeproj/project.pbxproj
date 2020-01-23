@@ -268,6 +268,8 @@
 		8EFEBE8615FEEAF3003EB0DF /* CKLBPauseCtrl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EFEBE8415FEEAF3003EB0DF /* CKLBPauseCtrl.cpp */; };
 		B0A50A80153425AE008CCF28 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A50A7F153425AE008CCF28 /* Default@2x.png */; };
 		B1B806D7152C416300A8717A /* CKLBUISimpleItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1B806D5152C416300A8717A /* CKLBUISimpleItem.cpp */; };
+		F50BA84923D9A743008A30A6 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F50BA84823D9A731008A30A6 /* libcrypto.a */; };
+		F50BA84E23D9A804008A30A6 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F50BA84D23D9A804008A30A6 /* libssl.a */; };
 		F5494CAA23CEBE0E00B5E19B /* m_boot in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7123CEBE0400B5E19B /* m_boot */; };
 		F5494CAB23CEBE0E00B5E19B /* m_achievement in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7223CEBE0400B5E19B /* m_achievement */; };
 		F5494CAC23CEBE0E00B5E19B /* m_notice in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7323CEBE0400B5E19B /* m_notice */; };
@@ -913,6 +915,12 @@
 		B0A50A7F153425AE008CCF28 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		B1B806D5152C416300A8717A /* CKLBUISimpleItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKLBUISimpleItem.cpp; sourceTree = "<group>"; };
 		B1B806D6152C416300A8717A /* CKLBUISimpleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBUISimpleItem.h; sourceTree = "<group>"; };
+		F50BA84323D9A60A008A30A6 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../openssl/lib/libcrypto.a; sourceTree = "<group>"; };
+		F50BA84423D9A60A008A30A6 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../openssl/lib/libssl.a; sourceTree = "<group>"; };
+		F50BA84723D9A731008A30A6 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../openssl/libssl.a; sourceTree = "<group>"; };
+		F50BA84823D9A731008A30A6 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../openssl/libcrypto.a; sourceTree = "<group>"; };
+		F50BA84B23D9A7FD008A30A6 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../openssl/libcrypto.a; sourceTree = "<group>"; };
+		F50BA84D23D9A804008A30A6 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../openssl/libssl.a; sourceTree = "<group>"; };
 		F5494C7123CEBE0400B5E19B /* m_boot */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_boot; path = ../../../../OSX/sif/m_boot; sourceTree = "<group>"; };
 		F5494C7223CEBE0400B5E19B /* m_achievement */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_achievement; path = ../../../../OSX/sif/m_achievement; sourceTree = "<group>"; };
 		F5494C7323CEBE0400B5E19B /* m_notice */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_notice; path = ../../../../OSX/sif/m_notice; sourceTree = "<group>"; };
@@ -1014,6 +1022,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F4AD67A17003DF1007699EF /* libcurl.a in Frameworks */,
+				F50BA84E23D9A804008A30A6 /* libssl.a in Frameworks */,
 				3500F79D164221EC005228DC /* libz.dylib in Frameworks */,
 				8EE212CB15DDFE5F006694A1 /* CoreMedia.framework in Frameworks */,
 				8EE212C915DDFDDF006694A1 /* MediaPlayer.framework in Frameworks */,
@@ -1024,6 +1033,7 @@
 				8E0A2B3714D12C02007E98B3 /* AudioToolbox.framework in Frameworks */,
 				8E0A2B3914D12C02007E98B3 /* OpenGLES.framework in Frameworks */,
 				8E0A2B3A14D12C02007E98B3 /* QuartzCore.framework in Frameworks */,
+				F50BA84923D9A743008A30A6 /* libcrypto.a in Frameworks */,
 				8E0A29E414D12A6E007E98B3 /* UIKit.framework in Frameworks */,
 				F5FA4D3E23D0323C00EBEE24 /* AVFoundation.framework in Frameworks */,
 				8E0A29E814D12A6E007E98B3 /* CoreGraphics.framework in Frameworks */,
@@ -1412,6 +1422,8 @@
 				F5494C7023CEBDA900B5E19B /* SIF */,
 				17729FCD17C316F400D4E765 /* Default-568h@2x.png */,
 				6F4AD67917003DF1007699EF /* libcurl.a */,
+				F50BA84B23D9A7FD008A30A6 /* libcrypto.a */,
+				F50BA84D23D9A804008A30A6 /* libssl.a */,
 				FCFB03D316AEAAFE00E81C9C /* Sound */,
 				35E358E616154D460092EB1E /* icon@2x.png */,
 				8E3CEEF8152C3775008C7EC1 /* ProjectResources */,
@@ -1446,6 +1458,10 @@
 		8E0A29E214D12A6E007E98B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F50BA84323D9A60A008A30A6 /* libcrypto.a */,
+				F50BA84823D9A731008A30A6 /* libcrypto.a */,
+				F50BA84423D9A60A008A30A6 /* libssl.a */,
+				F50BA84723D9A731008A30A6 /* libssl.a */,
 				3500F79C164221EC005228DC /* libz.dylib */,
 				8EE212CA15DDFE5F006694A1 /* CoreMedia.framework */,
 				8EE212C815DDFDDF006694A1 /* MediaPlayer.framework */,
@@ -2676,11 +2692,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../curl/ios-dev/lib\"",
 					"\"$(SRCROOT)/../..\"",
+					"\"$(SRCROOT)/../../openssl\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = misaki.LLSIF;
 				PRODUCT_NAME = "Sample Application";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SYSTEM_HEADER_SEARCH_PATHS = "";
+				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/Cellar/openssl@1.1/1.1.1d/include/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Debug Opt";
@@ -2781,11 +2798,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../curl/ios-dev/lib\"",
 					"\"$(SRCROOT)/../..\"",
+					"\"$(SRCROOT)/../../openssl\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = misaki.LLSIF;
 				PRODUCT_NAME = "Sample Application";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SYSTEM_HEADER_SEARCH_PATHS = "";
+				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/Cellar/openssl@1.1/1.1.1d/include/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2820,11 +2838,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../curl/ios-appstore/lib\"",
 					"\"$(SRCROOT)/../..\"",
+					"\"$(SRCROOT)/../../openssl\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = misaki.LLSIF;
 				PRODUCT_NAME = "Sample Application";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SYSTEM_HEADER_SEARCH_PATHS = "";
+				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/Cellar/openssl@1.1/1.1.1d/include/";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

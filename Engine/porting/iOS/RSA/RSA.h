@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RSA : NSObject
+@interface RSAObject : NSObject
 
 // return base64 encoded string
 + (NSString *)encryptString:(NSString *)str publicKey:(NSString *)pubKey;
@@ -21,6 +21,7 @@
 + (NSData *)decryptData:(NSData *)data publicKey:(NSString *)pubKey;
 + (NSString *)decryptString:(NSString *)str privateKey:(NSString *)privKey;
 + (NSData *)decryptData:(NSData *)data privateKey:(NSString *)privKey;
++ (NSData* )encryptRawData:(NSData* )data publicKey:(NSString* )pubKey;
 
 // verify publickey, return YES when the key is valid.
 + (BOOL)verifyPubKey:(NSData* )plainData encryptData:(NSData *)data publicKey:(NSString *)pubKey;
