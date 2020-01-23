@@ -152,3 +152,12 @@ DownloadClient::reUnzip(CLuaState& lua)
 	klb_assertAlways("Not implemented yet");
 	return 0;
 }
+
+void
+DownloadClient::httpFailureCallback(int statusCode)
+{
+	// 1. error code
+	// 2. http status code
+	// 3. TODO: curl status
+	CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this, CKLBUPDATE_DOWNLOAD_ERROR, statusCode, 0);
+}

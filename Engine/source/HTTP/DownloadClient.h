@@ -35,6 +35,8 @@ public:
 	int retryDownload	(CLuaState& lua);
 	int reUnzip			(CLuaState& lua);
 
+	void httpFailureCallback(int statusCode);
+
 private:
 	typedef struct DOWNLOAD_QUEUE {
 		int total;
