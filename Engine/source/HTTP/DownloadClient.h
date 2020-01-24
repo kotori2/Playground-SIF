@@ -38,10 +38,15 @@ public:
 	void httpFailureCallback(int statusCode);
 
 private:
+	void createQueue	(CLuaState& lua);
+
 	typedef struct DOWNLOAD_QUEUE {
 		int total;
+		// 4096 is max for now
 		char urls[4096][256];
 		int size[4096];
+		int	queueIds[4096];
+		DOWNLOAD_QUEUE() : total(0), urls(), size(), queueIds() {}
 	};
 	DOWNLOAD_QUEUE		m_queue;
 

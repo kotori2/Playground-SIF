@@ -52,8 +52,7 @@ DownloadClient::getClassID()
 void
 DownloadClient::execute(u32 deltaT)
 {
-	// TODO: call progress callback
-	// also call finish callback if unzip of last file is done
+
 }
 
 void
@@ -133,8 +132,20 @@ DownloadClient::commandScript(CLuaState& lua)
 int
 DownloadClient::startDownload(CLuaState& lua)
 {
-	klb_assertAlways("Not implemented yet");
-	return 0;
+	IPlatformRequest& platform	= CPFInterface::getInstance().platform();
+	DownloadManager* manager	= DownloadManager::getInstance();
+
+	// erase temp folder
+	platform.removeFileOrFolder("file://external/tmpDL/");
+	// TODO: create folder if not exists
+
+	// create queue task
+	createQueue(lua);
+
+	int pipeline = lua.getInt(3);
+	// TODO: start download
+	manager->download(m_queue.urls[0], m_queue.size[0], m_queue.queueIds[0]);
+	return 1;
 }
 
 int
@@ -160,4 +171,30 @@ DownloadClient::httpFailureCallback(int statusCode)
 	// 2. http status code
 	// 3. TODO: curl status
 	CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this, CKLBUPDATE_DOWNLOAD_ERROR, statusCode, 0);
+}
+
+void
+DownloadClient::createQueue(CLuaState& lua)
+{
+	// tested only on START_DL command
+	// TODO: reset queue
+
+	// start filling task queue
+	u32 json_size = 0;
+	const char* json = NULL;
+	lua.retValue(4);
+	json = CKLBUtility::lua2json(lua, json_size);
+	lua.pop(1);
+	CKLBJsonItem* pRoot = CKLBJsonItem::ReadJsonData(json, json_size);
+
+	CKLBJsonItem* item = pRoot->child();
+	do {
+		strcpy(m_queue.urls[m_queue.total], item->searchChild("url")->getString());
+		m_queue.size[m_queue.total] = item->searchChild("size")->getInt();
+		m_queue.queueIds[m_queue.total] = item->searchChild("queue_id")->getInt();
+		m_queue.total++;
+	} while (item = item->next());
+
+	KLBDELETE(pRoot);
+	KLBDELETE(item);
 }

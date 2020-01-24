@@ -21,16 +21,17 @@ class DownloadManager
 public:
 	DownloadManager();
 	static DownloadManager* getInstance();
-	int download(char* url, int size);
+	int download(char* url, int size, int queueId);
 	virtual ~DownloadManager();
 protected:
     struct Task
     {
         int id;
+        int queueId;
         int size;
         char* url;
 
-        Task() : id(0), size(0), url("\0") {}
+        Task() : id(0), queueId(0), size(0), url("\0") {}
     };
 private:
     int m_lastId;

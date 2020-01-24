@@ -32,13 +32,13 @@ s32
 DownloadManager::runNextTask(void* /*pThread*/, void* tid)
 {
     DownloadManager::getInstance()->runNextTask(*(int*)tid);
+    return 1;
 }
 
 void
 DownloadManager::runNextTask(int tid)
 {
-    CKLBHTTPInterface* httpIF;
-    httpIF = NetworkManager::createConnection();
+    CKLBHTTPInterface* httpIF = NetworkManager::createConnection();
 
     // alwasy looking for new task to execute
     while (true)
@@ -56,9 +56,12 @@ DownloadManager::runNextTask(int tid)
 
         if (task.id == 0) break; // no new task
 
+        char path[64];
+        int downloadedSize = 0;
+        sprintf(path, "file://external/tmpDL/%d.zip", task.queueId);
         // initialize download
         httpIF->reuse();
-        httpIF->setDownload("file://external/tmp/1.zip"); //TODO: CHANGE ME
+        httpIF->setDownload(path);
         httpIF->httpGET(task.url, false);
 
         // check download loop
@@ -71,7 +74,18 @@ DownloadManager::runNextTask(int tid)
             // Completly download size (accurate but updated at the end)
             s64 completeOnSize = httpIF->getSize();
 
-            //TODO
+            if (size != downloadedSize) {
+                downloadedSize = size;
+            }
+            if (bResult) {
+                // downloading is done
+                if (completeOnSize == task.size) {
+                    // download success
+                }
+                else {
+                    // something went wrong
+                }
+            }
         }
 
         //callCallbackSafely(task.id);
@@ -89,12 +103,13 @@ DownloadManager::runNextTask(int tid)
 }
 
 int 
-DownloadManager::download(char* url, int size)
+DownloadManager::download(char* url, int size, int queueId)
 {
     DownloadManager::Task task;
     task.id = ++m_lastId;
     task.url = url;
     task.size = size;
+    task.queueId = queueId;
 
     // put it in to the queue
     s_waiting.lock();
