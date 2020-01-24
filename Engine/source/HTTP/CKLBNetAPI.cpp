@@ -124,11 +124,16 @@ CKLBNetAPI::execute(u32 deltaT)
 		u8* body	= m_http->getRecvResource();
 		u32 bodyLen	= body ? m_http->getSize() : 0;
 		
-		char* tmpBuf = KLBNEWA(char, bodyLen + 1);
-		memcpy(tmpBuf, body, bodyLen);
-		tmpBuf[bodyLen] = 0;
-		DEBUG_PRINT("[HTTP RESPONSE] %s", tmpBuf);
-		KLBDELETEA(tmpBuf);
+		if (bodyLen > 0) {
+			u32 tmpLen = bodyLen <= 16000 ? bodyLen + 1 : 16000;
+			u32 endLen = bodyLen <= 16000 ? bodyLen + 1 : 16100;
+			char* tmpBuf = KLBNEWA(char, endLen);
+			memcpy(tmpBuf, body, tmpLen);
+			tmpBuf[tmpLen - 1] = 0;
+			if(bodyLen > 16000) strcat(tmpBuf, " ... (buffer too small)");
+			DEBUG_PRINT("[HTTP RESPONSE] %s", tmpBuf);
+			KLBDELETEA(tmpBuf);
+		}
 		
 		// Get Status Code
 		int state = m_http->getHttpState();

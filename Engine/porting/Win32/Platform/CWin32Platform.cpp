@@ -137,10 +137,10 @@ void
 CWin32Platform::detailedLogging(const char * /*basefile*/, const char * /*functionName*/, int /*lineNo*/, const char * format, ...)
 {
 	va_list	ap;
-	char log	[1024];
+	char log	[16384];
 
 	va_start(ap, format);
-	vsprintf_s( log,1024, format, ap);
+	vsprintf_s( log, 16384, format, ap);
 	va_end(ap);
 	strcat(log, "\n");
 
