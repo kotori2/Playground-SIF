@@ -4,19 +4,22 @@
 
 #define MAX_DOWNLOAD_THREAD 4
 
-mutex DownloadManager::s_waiting;
-mutex DownloadManager::s_threadCount;
-mutex DownloadManager::s_thread;
-mutex DownloadManager::s_callback;
+std::mutex DownloadManager::s_waiting;
+std::mutex DownloadManager::s_threadCount;
+std::mutex DownloadManager::s_thread;
+std::mutex DownloadManager::s_callback;
 
 DownloadManager::DownloadManager() :
     m_lastId(0),
-    m_threadCount(0)
+    m_threadCount(0),
+    m_downloadClient(NULL),
+    m_isError(false)
 {
 
 }
 
-DownloadManager* DownloadManager::getInstance()
+DownloadManager* 
+DownloadManager::getInstance(DownloadClient* downloadClient)
 {
     static DownloadManager* s_instance = NULL;
 
@@ -25,13 +28,17 @@ DownloadManager* DownloadManager::getInstance()
         s_instance = new DownloadManager;
     }
 
+    if (downloadClient != NULL) {
+        s_instance->m_downloadClient = downloadClient;
+    }
+
     return s_instance;
 }
 
 s32
 DownloadManager::runNextTask(void* /*pThread*/, void* tid)
 {
-    DownloadManager::getInstance()->runNextTask(*(int*)tid);
+    DownloadManager::getInstance(NULL)->runNextTask(*(int*)tid);
     return 1;
 }
 
@@ -74,27 +81,40 @@ DownloadManager::runNextTask(int tid)
             // Completly download size (accurate but updated at the end)
             s64 completeOnSize = httpIF->getSize();
 
-            if (size != downloadedSize) {
+            bool isError = httpIF->isError();
+            if (isError)
+            {
+                callBackOnHttpError(-1);
+                break;
+            }
+
+            if (size != downloadedSize) 
+            {
                 downloadedSize = size;
             }
-            if (bResult) {
+            if (bResult) 
+            {
                 // downloading is done
                 if (completeOnSize == task.size) {
-                    // download success
+                    callBackOnOneSuccess(task.queueId);
                 }
                 else {
-                    // something went wrong
+                    callBackOnHttpError(httpIF->getHttpState());
                 }
+                break;
             }
         }
-
-        //callCallbackSafely(task.id);
     }
 
     // at last, minus thread count
     s_threadCount.lock();
     bool allDone = --m_threadCount == 0;
     s_threadCount.unlock();
+
+    if (allDone)
+    {
+        callBackOnAllSuccess();
+    }
 
     // remove tid of this thread from m_thread
     s_thread.lock();
@@ -105,6 +125,9 @@ DownloadManager::runNextTask(int tid)
 int 
 DownloadManager::download(char* url, int size, int queueId)
 {
+    if (m_isError) {
+        return -1;
+    }
     DownloadManager::Task task;
     task.id = ++m_lastId;
     task.url = url;
@@ -149,10 +172,10 @@ DownloadManager::download(char* url, int size, int queueId)
 }
 
 void
-DownloadManager::callBackOnOneSuccess()
+DownloadManager::callBackOnOneSuccess(int queueId)
 {
     s_callback.lock();
-
+    m_downloadClient->oneSuccessCallback(queueId);
     s_callback.unlock();
 }
 
@@ -160,15 +183,22 @@ void
 DownloadManager::callBackOnAllSuccess()
 {
     s_callback.lock();
-
+    m_downloadClient->allSuccessCallback();
     s_callback.unlock();
 }
 
 void
-DownloadManager::callBackOnHttpError()
+DownloadManager::callBackOnHttpError(int statusCode)
 {
-    s_callback.lock();
+    m_isError = true;
+    // empty download queue
+    s_waiting.lock();
+    m_waiting.empty();
+    s_waiting.unlock();
 
+    // callback
+    s_callback.lock();
+    m_downloadClient->httpFailureCallback(statusCode);
     s_callback.unlock();
 }
 

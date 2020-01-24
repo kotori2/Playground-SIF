@@ -11,16 +11,16 @@
 #include <mutex>
 #include <map>
 
-using namespace std;
 /*
 	DownloadManager class allows to download multiple files at the time (TODO)
     Some code copied from https://github.com/hivivo/Downloader
 */
+class DownloadClient;
 class DownloadManager
 {
 public:
 	DownloadManager();
-	static DownloadManager* getInstance();
+	static DownloadManager* getInstance(DownloadClient* downloadClient);
 	int download(char* url, int size, int queueId);
 	virtual ~DownloadManager();
 protected:
@@ -34,25 +34,27 @@ protected:
         Task() : id(0), queueId(0), size(0), url("\0") {}
     };
 private:
+    DownloadClient* m_downloadClient;
     int m_lastId;
+    bool m_isError;
 
-    queue<Task> m_waiting;
-    static mutex s_waiting;
+    std::queue<Task> m_waiting;
+    static std::mutex s_waiting;
 
     int m_threadCount;
-    static mutex s_threadCount;
+    static std::mutex s_threadCount;
 
-    map<int, void*> m_thread;
-    static mutex s_thread;
+    std::map<int, void*> m_thread;
+    static std::mutex s_thread;
 
-    static mutex s_callback;
+    static std::mutex s_callback;
 
     void runNextTask(int tid);
     static s32 runNextTask(void* /*pThread*/, void* data);
 
-    void callBackOnOneSuccess();
+    void callBackOnOneSuccess(int queueId);
     void callBackOnAllSuccess();
-    void callBackOnHttpError();
+    void callBackOnHttpError(int statusCode);
 };
 
 #endif // DownloadManager_h

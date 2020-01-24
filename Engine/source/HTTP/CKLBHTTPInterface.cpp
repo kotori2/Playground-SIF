@@ -51,6 +51,7 @@ s32 CKLBHTTPInterface::HTTPConnectionThread(void * /*hThread*/, void * data)
 void CKLBHTTPInterface::download() {
 	m_threadStop = 0;
 	m_pCurl      = curl_easy_init();
+	m_isError    = false;
 	if(m_pCurl)
 	{
 		curl_slist* headerlist = NULL;
@@ -111,12 +112,14 @@ void CKLBHTTPInterface::download() {
 #endif
 		CURLcode res = curl_easy_perform(m_pCurl);
 		if (res == CURLE_OK) {
+			m_isError = false;
 			curl_easy_getinfo (m_pCurl, CURLINFO_RESPONSE_CODE, &m_errorCode);
 			// WARNING : IN THAT ORDER, because of multithreading, flag set LAST, after everything else.
 			m_receivedData	= m_buffer;
 			m_receivedSize	= m_writeIndex;
 			m_bDataComplete = true;
 		} else {
+			m_isError = true;
 			// printf("HTTP FAIL\n");
 			
 			// In some cases, the server cut the connection, resulting in a CURL error
@@ -457,6 +460,7 @@ void CKLBHTTPInterface::reuse() {
 }
 
 void CKLBHTTPInterface::init() {
+	m_isError           = false;
 	m_errorCode         = -1;
 	m_bDataComplete	    = false;
 	m_bDownload         = false;
@@ -581,6 +585,11 @@ bool CKLBHTTPInterface::httpRECV()
 int CKLBHTTPInterface::getHttpState()
 {
 	return m_errorCode;
+}
+
+bool CKLBHTTPInterface::isError()
+{
+	return m_isError;
 }
 
 #else

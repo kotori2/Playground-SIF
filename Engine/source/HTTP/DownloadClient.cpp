@@ -33,6 +33,8 @@ DownloadClient::DownloadClient()
 , m_callbackFinish(NULL)
 , m_callbackError(NULL)
 , m_callbackKbps(NULL)
+, m_downloadedCount(0)
+, m_unzippedCount(0)
 , m_queue()
 {
 
@@ -133,7 +135,7 @@ int
 DownloadClient::startDownload(CLuaState& lua)
 {
 	IPlatformRequest& platform	= CPFInterface::getInstance().platform();
-	DownloadManager* manager	= DownloadManager::getInstance();
+	DownloadManager* manager	= DownloadManager::getInstance(this);
 
 	// erase temp folder
 	platform.removeFileOrFolder("file://external/tmpDL/");
@@ -143,8 +145,11 @@ DownloadClient::startDownload(CLuaState& lua)
 	createQueue(lua);
 
 	int pipeline = lua.getInt(3);
-	// TODO: start download
-	manager->download(m_queue.urls[0], m_queue.size[0], m_queue.queueIds[0]);
+	for (int i = 0; i < m_queue.total; i++) 
+	{
+		int taskId = manager->download(m_queue.urls[i], m_queue.size[i], m_queue.queueIds[i]);
+		m_queue.taskIds[i] = taskId;
+	}
 	return 1;
 }
 
@@ -165,8 +170,29 @@ DownloadClient::reUnzip(CLuaState& lua)
 }
 
 void
+DownloadClient::allSuccessCallback()
+{
+	// do nothing for now
+}
+
+void
+DownloadClient::oneSuccessCallback(int queueId)
+{
+	m_downloadedCount++;
+	// 4. downloaded
+	// 5. unzipped
+	CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackError, this, m_downloadedCount, m_unzippedCount);
+	CKLBScriptEnv::getInstance().call_eventUpdateDownload(m_callbackError, this, queueId);
+}
+
+void
 DownloadClient::httpFailureCallback(int statusCode)
 {
+	// kill threads
+	// TODO: Double free if lots of thread got error at the same time
+	DownloadManager* instance = DownloadManager::getInstance(this);
+	delete instance;
+
 	// 1. error code
 	// 2. http status code
 	// 3. TODO: curl status

@@ -6,6 +6,8 @@
 #include "CKLBUtility.h"
 #include "DownloadManager.h"
 
+#define MAX_DOWNLOAD_QUEUE 4096
+
 // error codes
 enum {
 	CKLBUPDATE_DOWNLOAD_FORBIDDEN,
@@ -35,6 +37,8 @@ public:
 	int retryDownload	(CLuaState& lua);
 	int reUnzip			(CLuaState& lua);
 
+	void allSuccessCallback();
+	void oneSuccessCallback(int queueId);
 	void httpFailureCallback(int statusCode);
 
 private:
@@ -43,12 +47,16 @@ private:
 	typedef struct DOWNLOAD_QUEUE {
 		int total;
 		// 4096 is max for now
-		char urls[4096][256];
-		int size[4096];
-		int	queueIds[4096];
+		char urls[MAX_DOWNLOAD_QUEUE][2048];
+		int size[MAX_DOWNLOAD_QUEUE];
+		int	queueIds[MAX_DOWNLOAD_QUEUE];
+		int	taskIds[MAX_DOWNLOAD_QUEUE];
 		DOWNLOAD_QUEUE() : total(0), urls(), size(), queueIds() {}
 	};
 	DOWNLOAD_QUEUE		m_queue;
+
+	int m_downloadedCount;
+	int m_unzippedCount;
 
 	// lua callbacks
 	const char*			m_callbackDownloadFinish;
