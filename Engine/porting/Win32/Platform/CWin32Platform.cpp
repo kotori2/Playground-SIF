@@ -252,7 +252,9 @@ CWin32Platform::openTmpFile(const char * filePath)
 		int attr = GetFileAttributesA(folderPath);
 
 		if (!(attr & FILE_ATTRIBUTE_DIRECTORY) || attr == INVALID_FILE_ATTRIBUTES) {
-			CreateDirectory(folderPath, NULL);
+			if (!CreateDirectory(folderPath, NULL)) {
+				DEBUG_PRINT("Failed to create tmp folder %s", filePath);
+			}
 		}
 		free(folderPath);
 
