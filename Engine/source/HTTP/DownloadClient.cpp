@@ -55,7 +55,9 @@ DownloadClient::getClassID()
 void
 DownloadClient::execute(u32 deltaT)
 {
-
+	DownloadManager* instance = DownloadManager::getInstance(this);
+	double speed = instance->getTotalSpeed();
+	CKLBScriptEnv::getInstance().call_eventUpdateKbps(m_callbackKbps, this, 0, speed);
 }
 
 void
@@ -142,7 +144,7 @@ DownloadClient::startDownload(CLuaState& lua)
 	// TODO: !!!!! we should not erase the folder because there could be
 	// some unfinished zips
 	// but idk when should we erase it.
-	platform.removeFileOrFolder("file://external/tmpDL/");
+	//platform.removeFileOrFolder("file://external/tmpDL/");
 	
 	// create queue task
 	createQueue(lua);
@@ -229,7 +231,7 @@ DownloadClient::createQueue(CLuaState& lua)
 		strcpy(m_queue.urls[m_queue.total], item->searchChild("url")->getString());
 		m_queue.size[m_queue.total] = item->searchChild("size")->getInt();
 		m_queue.queueIds[m_queue.total] = item->searchChild("queue_id")->getInt();
-		m_queue.downloaded[m_queue.total] = item->searchChild("status")->getInt() == 1;
+		m_queue.downloaded[m_queue.total] = item->searchChild("status")->getInt() >= 1;
 		m_queue.unzipped[m_queue.total] = false;
 		m_queue.total++;
 	} while (item = item->next());
@@ -248,6 +250,7 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 		// start unzip
 		if (that->m_queue.downloaded[i]) {
 			DEBUG_PRINT("Start unzipping %d", that->m_queue.queueIds[i]);
+			CKLBScriptEnv::getInstance().call_eventUpdateUnzipStart(that->m_callbackUnzipStart, that, that->m_queue.queueIds[i]);
 			int zipEntry = 0;
 			char zipPath[64];
 			sprintf(zipPath, "external/tmpDL/%d.zip", that->m_queue.queueIds[i]); // TODO: Maybe place the format stuffs in somewhere else?
@@ -282,9 +285,12 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 						KLBDELETE(unzip);
 						unzip = NULL;
 						// delete tmp zip file
-						// CPFInterface::getInstance().platform().removeTmpFile(zipPath);
+						char pfPath[80];
+						sprintf(pfPath, "file://%s", zipPath);
+						CPFInterface::getInstance().platform().removeTmpFile(pfPath);
 						CKLBScriptEnv::getInstance().call_eventUpdateUnzipEnd(that->m_callbackUnzipFinish, that, that->m_queue.queueIds[i]);
 						that->m_unzippedCount++;
+						that->m_queue.unzipped[i] = true;
 						DEBUG_PRINT("Unzipping %d finished", that->m_queue.queueIds[i]);
 						break;
 					} else {
@@ -295,6 +301,8 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 				}
 
 			}
+		} else {
+			std::this_thread::sleep_for(std::chrono::milliseconds(32));
 		}
 	}
 	return 0;

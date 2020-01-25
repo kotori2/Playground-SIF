@@ -11,6 +11,7 @@
 #include <mutex>
 #include <map>
 
+#define MAX_DOWNLOAD_THREAD 4
 /*
 	DownloadManager class allows to download multiple files at the time (TODO)
     Some code copied from https://github.com/hivivo/Downloader
@@ -22,6 +23,7 @@ public:
 	DownloadManager();
 	static DownloadManager* getInstance(DownloadClient* downloadClient);
 	int download(char* url, int size, int queueId);
+    double getTotalSpeed();
 	virtual ~DownloadManager();
 protected:
     struct Task
@@ -46,6 +48,8 @@ private:
 
     std::map<int, void*> m_thread;
     static std::mutex s_thread;
+
+    std::map<int, double> m_speed;
 
     void runNextTask(int tid);
     static s32 runNextTask(void* /*pThread*/, void* data);

@@ -2,8 +2,6 @@
 #include "DownloadManager.h"
 #include <DownloadClient.h>
 
-#define MAX_DOWNLOAD_THREAD 4
-
 std::mutex DownloadManager::s_waiting;
 std::mutex DownloadManager::s_threadCount;
 std::mutex DownloadManager::s_thread;
@@ -35,9 +33,11 @@ DownloadManager::getInstance(DownloadClient* downloadClient)
 }
 
 s32
-DownloadManager::runNextTask(void* /*pThread*/, void* tid)
+DownloadManager::runNextTask(void* /*pThread*/, void* _tid)
 {
-    DownloadManager::getInstance(NULL)->runNextTask(*(int*)tid);
+    int tid = *(int*)_tid;
+    KLBDELETE(_tid);
+    DownloadManager::getInstance(NULL)->runNextTask(tid);
     return 1;
 }
 
@@ -71,6 +71,9 @@ DownloadManager::runNextTask(int tid)
         httpIF->setDownload(path);
         httpIF->httpGET(task.url, false);
 
+        s64 sizeDiff = 0;
+        s64 timeDiff = CPFInterface::getInstance().platform().nanotime();
+
         // check download loop
         while (true)
         {
@@ -80,7 +83,17 @@ DownloadManager::runNextTask(int tid)
             s64 size = httpIF->getDwnldSize();
             // Completly download size (accurate but updated at the end)
             s64 completeOnSize = httpIF->getSize();
-                
+
+            // calculate speed of current thread
+            if (size != 0) {
+                s64 now = CPFInterface::getInstance().platform().nanotime();
+                s64 timeDelta = now - timeDiff;
+                s64 sizeDelta = size - sizeDiff;
+                timeDiff = now;
+                sizeDiff = size;
+                m_speed[tid] = (((double)sizeDelta) / (double)timeDelta) * 976562.5; // 976562.5 = 10^9/1024
+            }
+            
             bool isError = httpIF->isError();
             if (isError)
             {
@@ -103,6 +116,8 @@ DownloadManager::runNextTask(int tid)
                 }
                 break;
             }
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(32));
         }
         NetworkManager::releaseConnection(httpIF);
     }
@@ -114,7 +129,7 @@ DownloadManager::runNextTask(int tid)
 
     if (allDone)
     {
-        m_downloadClient->allSuccessCallback();
+        // DONT CALL THIS m_downloadClient->allSuccessCallback();
     }
 
     // remove tid of this thread from m_thread
@@ -156,15 +171,17 @@ DownloadManager::download(char* url, int size, int queueId)
         // create new thread to execute the task
         s_thread.lock();
         // find a proper slot to insert this thread
-        int tid;
+        int *tid = KLBNEW(int); // allocate on heap to prevent de-alloc
+        *tid = 0;
         for (int i = 0; i < MAX_DOWNLOAD_THREAD; i++) {
             if (m_thread.find(i) == m_thread.end()) {
-                tid = i;
+                *tid = i;
                 break;
             }
         }
-        void* newThread = CPFInterface::getInstance().platform().createThread(runNextTask, &tid);
-        m_thread[tid] = newThread;
+        void* newThread = CPFInterface::getInstance().platform().createThread(runNextTask, tid);
+        m_speed[*tid] = 0.0;
+        m_thread[*tid] = newThread;
         s_thread.unlock();
     }
     
@@ -183,6 +200,16 @@ DownloadManager::callBackOnHttpError(int statusCode)
 
     // callback
     m_downloadClient->httpFailureCallback(statusCode);
+}
+
+double
+DownloadManager::getTotalSpeed()
+{
+    double total = 0.0;
+    for (int i = 0; i < MAX_DOWNLOAD_THREAD; i++) {
+        total += m_speed[i];
+    }
+    return total;
 }
 
 DownloadManager::~DownloadManager()

@@ -138,7 +138,7 @@ public:
 
 	void call_eventUpdateComplete	(const char* funcName, CKLBObjectScriptable* obj);
 	void call_eventUpdateError		(const char* funcName, CKLBObjectScriptable* obj, int errorCode, int statusCode, int curlStatus);
-
+	void call_eventUpdateKbps       (const char* funcName, CKLBObjectScriptable* obj, int unused, double speed);
 	// NetAPI
 	bool call_netAPI_callback		(const char* funcName, CKLBObjectScriptable* obj, int uniq, int msg, int status, CKLBJsonItem * pRoot);
 	void call_netAPI_versionUp		(const char* funcName, CKLBObjectScriptable* obj, const char* clientVer, const char* serverVer);
