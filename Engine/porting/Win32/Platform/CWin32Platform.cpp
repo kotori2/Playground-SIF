@@ -238,8 +238,27 @@ CWin32Platform::openTmpFile(const char * filePath)
 	const char * target = "file://external/";
 	int len = strlen(target);
 	if(!strncmp(filePath, target, len)) {
+		// create folder
+		int pos = 1;
+		for (int i = 0; i < strlen(filePath); i++) {
+			if (filePath[i] == '/') {
+				pos = i;
+			}
+		}
+		char* folderPath = (char*)malloc(pos * sizeof(char));
+		memcpy(folderPath, filePath + 7, pos - 7); // REMOVE file://
+		folderPath[pos - 7] = 0;
+
+		int attr = GetFileAttributesA(folderPath);
+
+		if (!(attr & FILE_ATTRIBUTE_DIRECTORY) || attr == INVALID_FILE_ATTRIBUTES) {
+			CreateDirectory(folderPath, NULL);
+		}
+		free(folderPath);
+
 		CWin32TmpFile * pTmpFile = new CWin32TmpFile(filePath);
 		if(!pTmpFile->isReady()) {
+			DEBUG_PRINT("Failed to create tmp file %s", filePath);
 			delete pTmpFile;
 			pTmpFile = NULL;
 		}

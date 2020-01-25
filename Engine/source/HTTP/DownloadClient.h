@@ -51,7 +51,7 @@ private:
 		int size[MAX_DOWNLOAD_QUEUE];
 		int	queueIds[MAX_DOWNLOAD_QUEUE];
 		int	taskIds[MAX_DOWNLOAD_QUEUE];
-		DOWNLOAD_QUEUE() : total(0), urls(), size(), queueIds() {}
+		DOWNLOAD_QUEUE() : total(0), urls(), size(), queueIds(), taskIds() {}
 	};
 	DOWNLOAD_QUEUE		m_queue;
 
