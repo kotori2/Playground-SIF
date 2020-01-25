@@ -124,6 +124,7 @@ DownloadClient::commandScript(CLuaState& lua)
 		break;
 	}
 	case REUNZIP: {
+		klb_assert(argc == 4, "Arguments count should be 4!")
 		reUnzip(lua);
 		break;
 	}
@@ -172,18 +173,26 @@ DownloadClient::retryDownload(CLuaState& lua)
 int
 DownloadClient::reUnzip(CLuaState& lua)
 {
-	// if all download are finished and
-	// client crashed or terminated, 
-	// client will call this
-	lua.printStack();
-	klb_assertAlways("Not implemented yet");
+	// if download is finished, file unzipping and
+	// client crashed or terminated, client will call 
+	// this at boot
+	IPlatformRequest& platform = CPFInterface::getInstance().platform();
+	DownloadManager* manager = DownloadManager::getInstance(this);
+	// create queue task
+	createQueue(lua);
+	CPFInterface::getInstance().platform().createThread(unzipThread, this);
 	return 0;
 }
 
+// Both download and unzip finished
+// Since every download should end with unzip,
+// we call this only after unzip
 void
 DownloadClient::allSuccessCallback()
 {
-	// do nothing for now
+	// empty queue
+	m_queue.total = 0;
+	CKLBScriptEnv::getInstance().call_eventUpdateComplete(m_callbackFinish, this);
 }
 
 void
@@ -305,5 +314,6 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 			std::this_thread::sleep_for(std::chrono::milliseconds(32));
 		}
 	}
+	that->allSuccessCallback();
 	return 0;
 }
