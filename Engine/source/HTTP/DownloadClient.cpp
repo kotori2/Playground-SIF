@@ -139,11 +139,9 @@ DownloadClient::startDownload(CLuaState& lua)
 
 	// erase temp folder
 	platform.removeFileOrFolder("file://external/tmpDL/");
-	// TODO: create folder if not exists
-
+	
 	// create queue task
 	createQueue(lua);
-
 	int pipeline = lua.getInt(3);
 	for (int i = 0; i < m_queue.total; i++) 
 	{
@@ -188,10 +186,7 @@ DownloadClient::oneSuccessCallback(int queueId)
 void
 DownloadClient::httpFailureCallback(int statusCode)
 {
-	// kill threads
-	// TODO: Double free if lots of thread got error at the same time
-	DownloadManager* instance = DownloadManager::getInstance(this);
-	delete instance;
+	// TODO: kill all threads
 
 	// 1. error code
 	// 2. http status code
@@ -215,10 +210,14 @@ DownloadClient::createQueue(CLuaState& lua)
 
 	CKLBJsonItem* item = pRoot->child();
 	do {
-		strcpy(m_queue.urls[m_queue.total], item->searchChild("url")->getString());
-		m_queue.size[m_queue.total] = item->searchChild("size")->getInt();
-		m_queue.queueIds[m_queue.total] = item->searchChild("queue_id")->getInt();
-		m_queue.total++;
+		if (item->searchChild("status")->getInt() == 0) {
+			// to download
+			strcpy(m_queue.urls[m_queue.total], item->searchChild("url")->getString());
+			m_queue.size[m_queue.total] = item->searchChild("size")->getInt();
+			m_queue.queueIds[m_queue.total] = item->searchChild("queue_id")->getInt();
+			m_queue.total++;
+		}
+		// TODO: to unzip (status == 1)
 	} while (item = item->next());
 
 	KLBDELETE(pRoot);

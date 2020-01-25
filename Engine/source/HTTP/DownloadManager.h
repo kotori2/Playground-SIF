@@ -47,13 +47,8 @@ private:
     std::map<int, void*> m_thread;
     static std::mutex s_thread;
 
-    static std::mutex s_callback;
-
     void runNextTask(int tid);
     static s32 runNextTask(void* /*pThread*/, void* data);
-
-    void callBackOnOneSuccess(int queueId);
-    void callBackOnAllSuccess();
     void callBackOnHttpError(int statusCode);
 };
 

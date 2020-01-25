@@ -7,7 +7,6 @@
 std::mutex DownloadManager::s_waiting;
 std::mutex DownloadManager::s_threadCount;
 std::mutex DownloadManager::s_thread;
-std::mutex DownloadManager::s_callback;
 
 DownloadManager::DownloadManager() :
     m_lastId(0),
@@ -45,7 +44,6 @@ DownloadManager::runNextTask(void* /*pThread*/, void* tid)
 void
 DownloadManager::runNextTask(int tid)
 {
-    CKLBHTTPInterface* httpIF = NetworkManager::createConnection();
 
     // alwasy looking for new task to execute
     while (true)
@@ -62,6 +60,8 @@ DownloadManager::runNextTask(int tid)
         s_waiting.unlock();
 
         if (task.id == 0) break; // no new task
+
+        CKLBHTTPInterface* httpIF = NetworkManager::createConnection();
 
         char path[64];
         int downloadedSize = 0;
@@ -80,7 +80,7 @@ DownloadManager::runNextTask(int tid)
             s64 size = httpIF->getDwnldSize();
             // Completly download size (accurate but updated at the end)
             s64 completeOnSize = httpIF->getSize();
-
+                
             bool isError = httpIF->isError();
             if (isError)
             {
@@ -96,7 +96,7 @@ DownloadManager::runNextTask(int tid)
             {
                 // downloading is done
                 if (completeOnSize == task.size) {
-                    callBackOnOneSuccess(task.queueId);
+                    m_downloadClient->oneSuccessCallback(task.queueId);
                 }
                 else {
                     callBackOnHttpError(httpIF->getHttpState());
@@ -104,6 +104,7 @@ DownloadManager::runNextTask(int tid)
                 break;
             }
         }
+        NetworkManager::releaseConnection(httpIF);
     }
 
     // at last, minus thread count
@@ -113,7 +114,7 @@ DownloadManager::runNextTask(int tid)
 
     if (allDone)
     {
-        callBackOnAllSuccess();
+        m_downloadClient->allSuccessCallback();
     }
 
     // remove tid of this thread from m_thread
@@ -172,22 +173,6 @@ DownloadManager::download(char* url, int size, int queueId)
 }
 
 void
-DownloadManager::callBackOnOneSuccess(int queueId)
-{
-    s_callback.lock();
-    m_downloadClient->oneSuccessCallback(queueId);
-    s_callback.unlock();
-}
-
-void
-DownloadManager::callBackOnAllSuccess()
-{
-    s_callback.lock();
-    m_downloadClient->allSuccessCallback();
-    s_callback.unlock();
-}
-
-void
 DownloadManager::callBackOnHttpError(int statusCode)
 {
     m_isError = true;
@@ -197,9 +182,7 @@ DownloadManager::callBackOnHttpError(int statusCode)
     s_waiting.unlock();
 
     // callback
-    s_callback.lock();
     m_downloadClient->httpFailureCallback(statusCode);
-    s_callback.unlock();
 }
 
 DownloadManager::~DownloadManager()
