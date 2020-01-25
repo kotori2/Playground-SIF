@@ -63,6 +63,9 @@ private:
 	int m_downloadedCount;
 	int m_unzippedCount;
 
+	int m_executeCount;
+	void* m_unzipThread;
+
 	// lua callbacks
 	const char*			m_callbackDownloadFinish;
 	const char*			m_callbackUnzipStart;

@@ -36,14 +36,19 @@ DownloadClient::DownloadClient()
 , m_callbackKbps(NULL)
 , m_downloadedCount(0)
 , m_unzippedCount(0)
+, m_executeCount(0)
 , m_queue()
+, m_unzipThread(NULL)
 {
 
 }
 
 DownloadClient::~DownloadClient()
 {
-	// done in die
+	if (m_unzipThread) { 
+		CPFInterface::getInstance().platform().deleteThread(m_unzipThread); 
+		m_unzipThread = NULL;
+	}
 }
 
 u32
@@ -55,14 +60,27 @@ DownloadClient::getClassID()
 void
 DownloadClient::execute(u32 deltaT)
 {
-	DownloadManager* instance = DownloadManager::getInstance(this);
-	double speed = instance->getTotalSpeed();
-	CKLBScriptEnv::getInstance().call_eventUpdateKbps(m_callbackKbps, this, 0, speed);
+	// update status every 20 frames
+	m_executeCount++;
+	if (m_executeCount >= 20) {
+		m_executeCount = 0;
+		DownloadManager* instance = DownloadManager::getInstance(this);
+		double speed = instance->getTotalSpeed();
+		CKLBScriptEnv::getInstance().call_eventUpdateKbps(m_callbackKbps, this, 0, speed);
+		// progress should be called here to prevent
+		// your network is too fast and downloaded a
+		// file before download stage appear
+		CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
+	}
 }
 
 void
 DownloadClient::die()
 {
+	if (m_unzipThread) {
+		CPFInterface::getInstance().platform().deleteThread(m_unzipThread);
+		m_unzipThread = NULL;
+	}
 	KLBDELETEA(m_callbackDownloadFinish);
 	KLBDELETEA(m_callbackUnzipStart);
 	KLBDELETEA(m_callbackUnzipFinish);
@@ -152,8 +170,10 @@ DownloadClient::startDownload(CLuaState& lua)
 	int pipeline = lua.getInt(3);
 	for (int i = 0; i < m_queue.total; i++) 
 	{
-		int taskId = manager->download(m_queue.urls[i], m_queue.size[i], m_queue.queueIds[i]);
-		m_queue.taskIds[i] = taskId;
+		if (!m_queue.downloaded[i]) {
+			int taskId = manager->download(m_queue.urls[i], m_queue.size[i], m_queue.queueIds[i]);
+			m_queue.taskIds[i] = taskId;
+		}
 	}
 	CPFInterface::getInstance().platform().createThread(unzipThread, this);
 	return 1;
@@ -180,7 +200,7 @@ DownloadClient::reUnzip(CLuaState& lua)
 	DownloadManager* manager = DownloadManager::getInstance(this);
 	// create queue task
 	createQueue(lua);
-	CPFInterface::getInstance().platform().createThread(unzipThread, this);
+	m_unzipThread = platform.createThread(unzipThread, this);
 	return 0;
 }
 
@@ -206,7 +226,6 @@ DownloadClient::oneSuccessCallback(int queueId)
 	}
 	// 4. downloaded
 	// 5. unzipped
-	CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
 	CKLBScriptEnv::getInstance().call_eventUpdateDownload(m_callbackDownloadFinish, this, queueId);
 }
 
