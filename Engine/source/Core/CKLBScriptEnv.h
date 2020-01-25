@@ -132,6 +132,10 @@ public:
 	void call_eventUpdateProgress	(const char* funcName, CKLBObjectScriptable* obj, int downloadedCount, int unzippedCount);
 
 	void call_eventUpdateZIP		(const char* funcName, CKLBObjectScriptable* obj, int progress, int total);
+	void call_eventUpdateUnzipStart (const char* funcName, CKLBObjectScriptable* obj, int queueId);
+	void call_eventUpdateUnzipEnd   (const char* funcName, CKLBObjectScriptable* obj, int queueId);
+	void call_eventUpdateUnzipError (const char* funcName, CKLBObjectScriptable* obj, int errorCode, int statusCode, int unused);
+
 	void call_eventUpdateComplete	(const char* funcName, CKLBObjectScriptable* obj);
 	void call_eventUpdateError		(const char* funcName, CKLBObjectScriptable* obj, int errorCode, int statusCode, int curlStatus);
 

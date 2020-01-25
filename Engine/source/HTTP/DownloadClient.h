@@ -41,6 +41,8 @@ public:
 	void oneSuccessCallback(int queueId);
 	void httpFailureCallback(int statusCode);
 
+	static s32 unzipThread(void* /*pThread*/, void* instance);
+
 private:
 	void createQueue	(CLuaState& lua);
 
@@ -51,7 +53,10 @@ private:
 		int size[MAX_DOWNLOAD_QUEUE];
 		int	queueIds[MAX_DOWNLOAD_QUEUE];
 		int	taskIds[MAX_DOWNLOAD_QUEUE];
-		DOWNLOAD_QUEUE() : total(0), urls(), size(), queueIds(), taskIds() {}
+		bool downloaded[MAX_DOWNLOAD_QUEUE];
+		bool unzipped[MAX_DOWNLOAD_QUEUE];
+		DOWNLOAD_QUEUE() : total(0), urls(), size(), queueIds(), 
+			taskIds(), downloaded(), unzipped() {}
 	};
 	DOWNLOAD_QUEUE		m_queue;
 

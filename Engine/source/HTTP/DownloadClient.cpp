@@ -1,5 +1,6 @@
 
 #include "DownloadClient.h"
+#include <CUnZip.h>
 
 enum {
 	START_DL,
@@ -138,6 +139,9 @@ DownloadClient::startDownload(CLuaState& lua)
 	DownloadManager* manager	= DownloadManager::getInstance(this);
 
 	// erase temp folder
+	// TODO: !!!!! we should not erase the folder because there could be
+	// some unfinished zips
+	// but idk when should we erase it.
 	platform.removeFileOrFolder("file://external/tmpDL/");
 	
 	// create queue task
@@ -148,12 +152,16 @@ DownloadClient::startDownload(CLuaState& lua)
 		int taskId = manager->download(m_queue.urls[i], m_queue.size[i], m_queue.queueIds[i]);
 		m_queue.taskIds[i] = taskId;
 	}
+	CPFInterface::getInstance().platform().createThread(unzipThread, this);
 	return 1;
 }
 
 int
 DownloadClient::retryDownload(CLuaState& lua)
 {
+	// if error occured and downloaded zip is more then
+	// a threshold (4 currently), client will call this
+	// instead of re-download all zips
 	lua.printStack();
 	klb_assertAlways("Not implemented yet");
 	return 0;
@@ -162,6 +170,9 @@ DownloadClient::retryDownload(CLuaState& lua)
 int
 DownloadClient::reUnzip(CLuaState& lua)
 {
+	// if all download are finished and
+	// client crashed or terminated, 
+	// client will call this
 	lua.printStack();
 	klb_assertAlways("Not implemented yet");
 	return 0;
@@ -177,6 +188,11 @@ void
 DownloadClient::oneSuccessCallback(int queueId)
 {
 	m_downloadedCount++;
+	for (int i = 0; i < m_queue.total; i++) {
+		if (m_queue.queueIds[i] == queueId) {
+			m_queue.downloaded[i] = true;
+		}
+	}
 	// 4. downloaded
 	// 5. unzipped
 	CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
@@ -210,16 +226,76 @@ DownloadClient::createQueue(CLuaState& lua)
 
 	CKLBJsonItem* item = pRoot->child();
 	do {
-		if (item->searchChild("status")->getInt() == 0) {
-			// to download
-			strcpy(m_queue.urls[m_queue.total], item->searchChild("url")->getString());
-			m_queue.size[m_queue.total] = item->searchChild("size")->getInt();
-			m_queue.queueIds[m_queue.total] = item->searchChild("queue_id")->getInt();
-			m_queue.total++;
-		}
-		// TODO: to unzip (status == 1)
+		strcpy(m_queue.urls[m_queue.total], item->searchChild("url")->getString());
+		m_queue.size[m_queue.total] = item->searchChild("size")->getInt();
+		m_queue.queueIds[m_queue.total] = item->searchChild("queue_id")->getInt();
+		m_queue.downloaded[m_queue.total] = item->searchChild("status")->getInt() == 1;
+		m_queue.unzipped[m_queue.total] = false;
+		m_queue.total++;
 	} while (item = item->next());
 
 	KLBDELETE(pRoot);
 	KLBDELETE(item);
+}
+
+s32
+DownloadClient::unzipThread(void* /*pThread*/, void* instance)
+{
+	DownloadClient* that = (DownloadClient*)instance;
+	// check if there is a downloaded file to unzip
+	while (that->m_unzippedCount < that->m_queue.total) {
+		int i = that->m_unzippedCount;
+		// start unzip
+		if (that->m_queue.downloaded[i]) {
+			DEBUG_PRINT("Start unzipping %d", that->m_queue.queueIds[i]);
+			int zipEntry = 0;
+			char zipPath[64];
+			sprintf(zipPath, "external/tmpDL/%d.zip", that->m_queue.queueIds[i]); // TODO: Maybe place the format stuffs in somewhere else?
+			CUnZip* unzip = KLBNEWC(CUnZip, (zipPath));
+
+			// wait for file write
+			for (int j = 0; j < 10; j++) {
+				if (!unzip->getStatus()) {
+					// use this for now since i don't want to add platfrom code
+					// 32ms is about 2 frames
+					std::this_thread::sleep_for(std::chrono::milliseconds(32));
+					unzip->Open(zipPath);
+				} else {
+					break;
+				}
+			}
+
+			if (!unzip->getStatus()) {	// invalid zip file
+				CKLBScriptEnv::getInstance().call_eventUpdateError(that->m_callbackError, that, CKLBUPDATE_UNZIP_ERROR, 1, 0);
+				DEBUG_PRINT("[update] invalid zip file");
+				// TODO: how to handle thread after call an error?
+				return 0;
+			}
+
+			zipEntry = unzip->numEntry();
+			while (true) {
+				// finish extracting CURRENT file in zip
+				if (unzip->isFinishExtract()) {
+					bool bResult = unzip->gotoNextFile();
+					// ALL files in zip was extracted
+					if (!bResult) {
+						KLBDELETE(unzip);
+						unzip = NULL;
+						// delete tmp zip file
+						// CPFInterface::getInstance().platform().removeTmpFile(zipPath);
+						CKLBScriptEnv::getInstance().call_eventUpdateUnzipEnd(that->m_callbackUnzipFinish, that, that->m_queue.queueIds[i]);
+						that->m_unzippedCount++;
+						DEBUG_PRINT("Unzipping %d finished", that->m_queue.queueIds[i]);
+						break;
+					} else {
+						if (unzip->readCurrentFileInfo()) {
+							unzip->extractCurrentFile("file://external/");
+						}
+					}
+				}
+
+			}
+		}
+	}
+	return 0;
 }
