@@ -181,8 +181,8 @@ DownloadClient::oneSuccessCallback(int queueId)
 	m_downloadedCount++;
 	// 4. downloaded
 	// 5. unzipped
-	CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackError, this, m_downloadedCount, m_unzippedCount);
-	CKLBScriptEnv::getInstance().call_eventUpdateDownload(m_callbackError, this, queueId);
+	CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
+	CKLBScriptEnv::getInstance().call_eventUpdateDownload(m_callbackDownloadFinish, this, queueId);
 }
 
 void
