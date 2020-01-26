@@ -143,7 +143,7 @@ CKLBNetAPI::execute(u32 deltaT)
 			const char* server_ver[2];
 			if (m_http->hasHeader("Server-Version", server_ver))
 			{
-				if (strncmp(*server_ver, kc.getClient(), strlen(kc.getClient())))
+				if (strlen(*server_ver) != strlen(kc.getClient()) || strncmp(*server_ver, kc.getClient(), strlen(kc.getClient())))
 				{
 					releaseConnection();
 					CKLBScriptEnv::getInstance().call_netAPI_versionUp(m_verup_callback, this, kc.getClient(), *server_ver);
