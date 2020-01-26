@@ -165,6 +165,7 @@ CUnZip::extractCurrentFile(const char * extract_root)
 	// ファイルの場合
 	if (unzOpenCurrentFile(m_hUnzip) != UNZ_OK) {
 		if (m_targetPath) {
+			DEBUG_PRINT("Unzip failed: %s", m_targetPath);
 			delete [] m_targetPath;
 			m_targetPath = NULL;
 		}

@@ -327,31 +327,38 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 			}
 
 			zipEntry = unzip->numEntry();
-			while (true) {
-				// finish extracting CURRENT file in zip
-				if (unzip->isFinishExtract()) {
-					bool bResult = unzip->gotoNextFile();
-					// ALL files in zip was extracted
-					if (!bResult) {
-						KLBDELETE(unzip);
-						unzip = NULL;
-						// delete tmp zip file
-						char pfPath[80];
-						sprintf(pfPath, "file://%s", zipPath);
-						CPFInterface::getInstance().platform().removeTmpFile(pfPath);
-						CKLBScriptEnv::getInstance().call_eventUpdateUnzipEnd(that->m_callbackUnzipFinish, that, that->m_queue.queueIds[i]);
-						that->m_unzippedCount++;
-						that->m_queue.unzipped[i] = true;
-						DEBUG_PRINT("Unzipping %d finished", that->m_queue.queueIds[i]);
-						break;
-					} else {
-						if (unzip->readCurrentFileInfo()) {
-							unzip->extractCurrentFile("file://external/");
-						}
-					}
+
+			for (int i = 0; i < zipEntry; i++) {
+				if (unzip->readCurrentFileInfo()) {
+					unzip->extractCurrentFile("file://external/");
 				}
 
+				// actually unzip will immediately finish after extractCurrentFile
+				// call isFinishExtract is going to close file ptr etc
+				while (!unzip->isFinishExtract()) {
+					// wait for finish
+					std::this_thread::sleep_for(std::chrono::milliseconds(1));
+				}
+
+				bool bResult = unzip->gotoNextFile();
+				if (!bResult && i + 1 != zipEntry) {
+					DEBUG_PRINT("gotoNextFile=false %d/%d", i, zipEntry);
+					break;
+				}
 			}
+
+			// ALL files in zip was extracted
+			KLBDELETE(unzip);
+			unzip = NULL;
+			// delete tmp zip file
+			char pfPath[80];
+			sprintf(pfPath, "file://%s", zipPath);
+			CPFInterface::getInstance().platform().removeTmpFile(pfPath);
+			CKLBScriptEnv::getInstance().call_eventUpdateUnzipEnd(that->m_callbackUnzipFinish, that, that->m_queue.queueIds[i]);
+			that->m_unzippedCount++;
+			that->m_queue.unzipped[i] = true;
+			DEBUG_PRINT("Unzipping %d finished", that->m_queue.queueIds[i]);
+			
 		} else {
 			std::this_thread::sleep_for(std::chrono::milliseconds(32));
 		}
