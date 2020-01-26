@@ -47,6 +47,7 @@ private:
     int m_threadCount;
     static void* s_threadCount;
 
+    std::map<int, CKLBHTTPInterface*>m_httpIFPool;
     std::map<int, void*> m_thread;
     static void* s_thread;
 

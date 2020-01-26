@@ -69,6 +69,7 @@ DownloadManager::runNextTask(int tid)
         if (task.id == 0) break; // no new task
 
         CKLBHTTPInterface* httpIF = NetworkManager::createConnection();
+        m_httpIFPool[tid] = httpIF;
 
         char path[64];
         int downloadedSize = 0;
@@ -235,6 +236,10 @@ DownloadManager::~DownloadManager()
             CPFInterface::getInstance().platform().breakThread(iter->second);
             CPFInterface::getInstance().platform().deleteThread(iter->second);
             const int key = iter->first;
+            if (m_httpIFPool.count(key)) {
+                NetworkManager::releaseConnection(m_httpIFPool[key]);
+                m_httpIFPool.erase(key);
+            }
             iter++;
             m_thread.erase(key);
             
