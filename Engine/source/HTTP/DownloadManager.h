@@ -21,6 +21,7 @@ class DownloadManager
 {
 public:
 	DownloadManager();
+    static DownloadManager* s_instance;
 	static DownloadManager* getInstance(DownloadClient* downloadClient);
 	int download(char* url, int size, int queueId);
     double getTotalSpeed();
@@ -41,13 +42,13 @@ private:
     bool m_isError;
 
     std::queue<Task> m_waiting;
-    static std::mutex s_waiting;
+    static void* s_waiting;
 
     int m_threadCount;
-    static std::mutex s_threadCount;
+    static void* s_threadCount;
 
     std::map<int, void*> m_thread;
-    static std::mutex s_thread;
+    static void* s_thread;
 
     std::map<int, double> m_speed;
 

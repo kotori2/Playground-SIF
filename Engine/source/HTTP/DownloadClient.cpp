@@ -45,11 +45,18 @@ DownloadClient::DownloadClient()
 
 DownloadClient::~DownloadClient()
 {
-	if (m_unzipThread) { 
+	this->killAllThreads();
+}
+
+void
+DownloadClient::killAllThreads()
+{
+	if (m_unzipThread) {
 		CPFInterface::getInstance().platform().breakThread(m_unzipThread);
-		CPFInterface::getInstance().platform().deleteThread(m_unzipThread); 
+		CPFInterface::getInstance().platform().deleteThread(m_unzipThread);
 		m_unzipThread = NULL;
 	}
+	if(DownloadManager::s_instance) KLBDELETE(DownloadManager::getInstance(this));
 }
 
 u32
@@ -81,17 +88,16 @@ DownloadClient::execute(u32 deltaT)
 		// 2. http status code
 		// 3. TODO: curl status
 		CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this, m_error.erorrType, m_error.errorCode, 0);
+
+		// make sure all threads was killed
+		killAllThreads();
 	}
 }
 
 void
 DownloadClient::die()
 {
-	if (m_unzipThread) {
-		CPFInterface::getInstance().platform().breakThread(m_unzipThread);
-		CPFInterface::getInstance().platform().deleteThread(m_unzipThread);
-		m_unzipThread = NULL;
-	}
+	this->killAllThreads();
 	KLBDELETEA(m_callbackDownloadFinish);
 	KLBDELETEA(m_callbackUnzipStart);
 	KLBDELETEA(m_callbackUnzipFinish);
@@ -149,6 +155,8 @@ DownloadClient::commandScript(CLuaState& lua)
 		break;
 	}
 	case RETRY_DL: {
+		klb_assert(argc == 3, "Arguments count should be 3!")
+		// 3. pipeline count
 		retryDownload(lua);
 		break;
 	}
@@ -177,7 +185,7 @@ DownloadClient::startDownload(CLuaState& lua)
 	//platform.removeFileOrFolder("file://external/tmpDL/");
 	
 	// create queue task
-	createQueue(lua);
+	createQueue(lua, false);
 	int pipeline = lua.getInt(3);
 	for (int i = 0; i < m_queue.total; i++) 
 	{
@@ -186,19 +194,25 @@ DownloadClient::startDownload(CLuaState& lua)
 			m_queue.taskIds[i] = taskId;
 		}
 	}
-	CPFInterface::getInstance().platform().createThread(unzipThread, this);
+	m_unzipThread = CPFInterface::getInstance().platform().createThread(unzipThread, this);
 	return 1;
 }
 
 int
 DownloadClient::retryDownload(CLuaState& lua)
 {
-	// if error occured and downloaded zip is more then
-	// a threshold (4 currently), client will call this
-	// instead of re-download all zips
-	lua.printStack();
-	klb_assertAlways("Not implemented yet");
-	return 0;
+	// press retry if error occured.
+	// no pipeline passed so we should re-use our old queue
+	DownloadManager* manager = DownloadManager::getInstance(this);
+	for (int i = 0; i < m_queue.total; i++)
+	{
+		if (!m_queue.downloaded[i]) {
+			int taskId = manager->download(m_queue.urls[i], m_queue.size[i], m_queue.queueIds[i]);
+			m_queue.taskIds[i] = taskId;
+		}
+	}
+	m_unzipThread = CPFInterface::getInstance().platform().createThread(unzipThread, this);
+	return 1;
 }
 
 int
@@ -208,9 +222,8 @@ DownloadClient::reUnzip(CLuaState& lua)
 	// client crashed or terminated, client will call 
 	// this at boot
 	IPlatformRequest& platform = CPFInterface::getInstance().platform();
-	DownloadManager* manager = DownloadManager::getInstance(this);
 	// create queue task
-	createQueue(lua);
+	createQueue(lua, true);
 	m_unzipThread = platform.createThread(unzipThread, this);
 	return 0;
 }
@@ -245,19 +258,13 @@ DownloadClient::httpFailureCallback(int statusCode)
 {
 	if (m_error.isError) { return; }
 	m_error.isError = true;
-	// TODO: kill all threads
-	DownloadManager::getInstance(this)->~DownloadManager();
-	
 	m_error.erorrType = CKLBUPDATE_DOWNLOAD_ERROR;
 	m_error.errorCode = statusCode;
 }
 
 void
-DownloadClient::createQueue(CLuaState& lua)
+DownloadClient::createQueue(CLuaState& lua, bool isReUnzip)
 {
-	// tested only on START_DL command
-	// TODO: reset queue
-
 	// start filling task queue
 	u32 json_size = 0;
 	const char* json = NULL;
@@ -271,7 +278,16 @@ DownloadClient::createQueue(CLuaState& lua)
 		strcpy(m_queue.urls[m_queue.total], item->searchChild("url")->getString());
 		m_queue.size[m_queue.total] = item->searchChild("size")->getInt();
 		m_queue.queueIds[m_queue.total] = item->searchChild("queue_id")->getInt();
-		m_queue.downloaded[m_queue.total] = item->searchChild("status")->getInt() >= 1;
+		// we need to re-download if status == 2 because that means unzip
+		// failes at start up
+		// 2020/1/26 but seems klab will not pass them in lua, there is a
+		// bug in lua code. manually change database atm
+		if (isReUnzip) {
+			m_queue.downloaded[m_queue.total] = item->searchChild("status")->getInt() >= 1;
+		} else {
+			m_queue.downloaded[m_queue.total] = item->searchChild("status")->getInt() == 1;
+		}
+		
 		m_queue.unzipped[m_queue.total] = false;
 		m_queue.total++;
 	} while (item = item->next());
@@ -309,9 +325,11 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 			}
 
 			if (!unzip->getStatus()) {	// invalid zip file
-				CKLBScriptEnv::getInstance().call_eventUpdateError(that->m_callbackError, that, CKLBUPDATE_UNZIP_ERROR, 1, 0);
+				that->m_error.isError = true;
+				that->m_error.erorrType = CKLBUPDATE_UNZIP_ERROR;
+				that->m_error.errorCode = 1;
+
 				DEBUG_PRINT("[update] invalid zip file");
-				// TODO: how to handle thread after call an error?
 				return 0;
 			}
 

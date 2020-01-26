@@ -44,7 +44,8 @@ public:
 	static s32 unzipThread(void* /*pThread*/, void* instance);
 
 private:
-	void createQueue	(CLuaState& lua);
+	void createQueue	(CLuaState& lua, bool isReUnzip);
+	void killAllThreads();
 
 	typedef struct DOWNLOAD_QUEUE {
 		int total;

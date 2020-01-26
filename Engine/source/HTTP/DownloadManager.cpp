@@ -2,9 +2,10 @@
 #include "DownloadManager.h"
 #include <DownloadClient.h>
 
-std::mutex DownloadManager::s_waiting;
-std::mutex DownloadManager::s_threadCount;
-std::mutex DownloadManager::s_thread;
+void* DownloadManager::s_waiting = NULL;
+void* DownloadManager::s_threadCount = NULL;
+void* DownloadManager::s_thread = NULL;
+DownloadManager* DownloadManager::s_instance = NULL;;
 
 DownloadManager::DownloadManager() :
     m_lastId(0),
@@ -12,14 +13,20 @@ DownloadManager::DownloadManager() :
     m_downloadClient(NULL),
     m_isError(false)
 {
+    IPlatformRequest& pfif = CPFInterface::getInstance().platform();
+    if(!s_waiting)      s_waiting = pfif.allocMutex();
+    if(!s_threadCount)  s_threadCount = pfif.allocMutex();
+    if(!s_thread)       s_thread = pfif.allocMutex();
 
+    // unlock all mutex
+    pfif.mutexUnlock(s_waiting);
+    pfif.mutexUnlock(s_threadCount);
+    pfif.mutexUnlock(s_thread);
 }
 
 DownloadManager* 
 DownloadManager::getInstance(DownloadClient* downloadClient)
 {
-    static DownloadManager* s_instance = NULL;
-
     if (s_instance == NULL)
     {
         s_instance = new DownloadManager;
@@ -44,20 +51,20 @@ DownloadManager::runNextTask(void* /*pThread*/, void* _tid)
 void
 DownloadManager::runNextTask(int tid)
 {
-
+    IPlatformRequest& pfif = CPFInterface::getInstance().platform();
     // alwasy looking for new task to execute
     while (true)
     {
         Task task;
 
         // try to fetch next task
-        s_waiting.lock();
+        pfif.mutexLock(s_waiting);
         if (!m_waiting.empty())
         {
             task = m_waiting.front();
             m_waiting.pop();
         }
-        s_waiting.unlock();
+        pfif.mutexUnlock(s_waiting);
 
         if (task.id == 0) break; // no new task
 
@@ -123,9 +130,9 @@ DownloadManager::runNextTask(int tid)
     }
 
     // at last, minus thread count
-    s_threadCount.lock();
+    pfif.mutexLock(s_threadCount);
     bool allDone = --m_threadCount == 0;
-    s_threadCount.unlock();
+    pfif.mutexUnlock(s_threadCount);
 
     if (allDone)
     {
@@ -133,9 +140,9 @@ DownloadManager::runNextTask(int tid)
     }
 
     // remove tid of this thread from m_thread
-    s_thread.lock();
+    pfif.mutexLock(s_thread);
     m_thread.erase(tid);
-    s_thread.unlock();
+    pfif.mutexUnlock(s_thread);
 }
 
 int 
@@ -144,6 +151,7 @@ DownloadManager::download(char* url, int size, int queueId)
     if (m_isError) {
         return -1;
     }
+    IPlatformRequest& pfif = CPFInterface::getInstance().platform();
     DownloadManager::Task task;
     task.id = ++m_lastId;
     task.url = url;
@@ -151,25 +159,25 @@ DownloadManager::download(char* url, int size, int queueId)
     task.queueId = queueId;
 
     // put it in to the queue
-    s_waiting.lock();
+    pfif.mutexLock(s_waiting);
     m_waiting.push(task);
-    s_waiting.unlock();
+    pfif.mutexUnlock(s_waiting);
 
     // check thread count
     bool canCreateThread = false;
 
-    s_threadCount.lock();
+    pfif.mutexLock(s_threadCount);
     if (m_threadCount < MAX_DOWNLOAD_THREAD)
     {
         canCreateThread = true;
         ++m_threadCount;
     }
-    s_threadCount.unlock();
+    pfif.mutexUnlock(s_threadCount);
 
     if (canCreateThread)
     {
         // create new thread to execute the task
-        s_thread.lock();
+        pfif.mutexLock(s_thread);
         // find a proper slot to insert this thread
         int *tid = KLBNEW(int); // allocate on heap to prevent de-alloc
         *tid = 0;
@@ -182,7 +190,7 @@ DownloadManager::download(char* url, int size, int queueId)
         void* newThread = CPFInterface::getInstance().platform().createThread(runNextTask, tid);
         m_speed[*tid] = 0.0;
         m_thread[*tid] = newThread;
-        s_thread.unlock();
+        pfif.mutexUnlock(s_thread);
     }
     
 
@@ -192,11 +200,12 @@ DownloadManager::download(char* url, int size, int queueId)
 void
 DownloadManager::callBackOnHttpError(int statusCode)
 {
+    IPlatformRequest& pfif = CPFInterface::getInstance().platform();
     m_isError = true;
     // empty download queue
-    s_waiting.lock();
+    pfif.mutexLock(s_waiting);
     m_waiting.empty();
-    s_waiting.unlock();
+    pfif.mutexUnlock(s_waiting);
 
     // callback
     m_downloadClient->httpFailureCallback(statusCode);
@@ -214,14 +223,21 @@ DownloadManager::getTotalSpeed()
 
 DownloadManager::~DownloadManager()
 {
+    IPlatformRequest& pfif = CPFInterface::getInstance().platform();
+    s_instance = NULL;
     // kill all active threads
-    s_thread.lock();
-    for (int i = 0; i < MAX_DOWNLOAD_THREAD; i++) {
-        if (m_thread.find(i) != m_thread.end()) {
-            CPFInterface::getInstance().platform().breakThread(m_thread[i]);
-            CPFInterface::getInstance().platform().deleteThread(m_thread[i]);
-            m_thread.erase(i);
+    pfif.mutexLock(s_thread);
+    if (m_thread.size() > 0) {
+        std::map<int, void*>::iterator iter;
+        iter = m_thread.begin();
+        while (iter != m_thread.end()) {
+            CPFInterface::getInstance().platform().breakThread(iter->second);
+            CPFInterface::getInstance().platform().deleteThread(iter->second);
+            const int key = iter->first;
+            iter++;
+            m_thread.erase(key);
+            
         }
     }
-    s_thread.unlock();
+    pfif.mutexUnlock(s_thread);
 }
