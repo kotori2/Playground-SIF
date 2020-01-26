@@ -74,6 +74,14 @@ private:
 	const char*			m_callbackFinish;
 	const char*			m_callbackError;
 	const char*			m_callbackKbps;
+
+	typedef struct DOWNLOAD_ERROR {
+		bool isError;
+		int erorrType;
+		int errorCode;
+		DOWNLOAD_ERROR(): isError(false), erorrType(-1), errorCode(0) {}
+	};
+	DOWNLOAD_ERROR m_error;
 };
 
 #endif

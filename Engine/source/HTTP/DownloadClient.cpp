@@ -46,6 +46,7 @@ DownloadClient::DownloadClient()
 DownloadClient::~DownloadClient()
 {
 	if (m_unzipThread) { 
+		CPFInterface::getInstance().platform().breakThread(m_unzipThread);
 		CPFInterface::getInstance().platform().deleteThread(m_unzipThread); 
 		m_unzipThread = NULL;
 	}
@@ -72,12 +73,22 @@ DownloadClient::execute(u32 deltaT)
 		// file before download stage appear
 		CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
 	}
+
+	// callback http error
+	if (m_error.isError) {
+		m_error.isError = false;
+		// 1. error code
+		// 2. http status code
+		// 3. TODO: curl status
+		CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this, m_error.erorrType, m_error.errorCode, 0);
+	}
 }
 
 void
 DownloadClient::die()
 {
 	if (m_unzipThread) {
+		CPFInterface::getInstance().platform().breakThread(m_unzipThread);
 		CPFInterface::getInstance().platform().deleteThread(m_unzipThread);
 		m_unzipThread = NULL;
 	}
@@ -232,12 +243,13 @@ DownloadClient::oneSuccessCallback(int queueId)
 void
 DownloadClient::httpFailureCallback(int statusCode)
 {
+	if (m_error.isError) { return; }
+	m_error.isError = true;
 	// TODO: kill all threads
-
-	// 1. error code
-	// 2. http status code
-	// 3. TODO: curl status
-	CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this, CKLBUPDATE_DOWNLOAD_ERROR, statusCode, 0);
+	DownloadManager::getInstance(this)->~DownloadManager();
+	
+	m_error.erorrType = CKLBUPDATE_DOWNLOAD_ERROR;
+	m_error.errorCode = statusCode;
 }
 
 void

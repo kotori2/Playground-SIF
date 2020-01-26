@@ -218,6 +218,7 @@ DownloadManager::~DownloadManager()
     s_thread.lock();
     for (int i = 0; i < MAX_DOWNLOAD_THREAD; i++) {
         if (m_thread.find(i) != m_thread.end()) {
+            CPFInterface::getInstance().platform().breakThread(m_thread[i]);
             CPFInterface::getInstance().platform().deleteThread(m_thread[i]);
             m_thread.erase(i);
         }
