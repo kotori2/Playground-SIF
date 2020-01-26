@@ -213,9 +213,10 @@ size_t CKLBHTTPInterface::headerReceive_func( void *ptr, size_t size, size_t nme
 	if (strncmpi("Server-Version:", data, 15/*Server-Version*/) == 0) {
 		u32 lineSize = size * nmemb;	// Full Size
 		lineSize -= 15;					// Remove Server-Version
+		lineSize -= 2;                  // Remove \r\n
 		data += 15;
 		
-		// skip : and space before and after
+		// skip : and space before version name
 		while (*data == ' ') {
 			data++;
 			lineSize--;
