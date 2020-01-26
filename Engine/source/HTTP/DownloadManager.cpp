@@ -102,9 +102,10 @@ DownloadManager::runNextTask(int tid)
             }
             
             bool isError = httpIF->isError();
-            if (isError)
+            int  status = httpIF->getHttpState();
+            if (isError || status == 403)
             {
-                callBackOnHttpError(-1);
+                callBackOnHttpError(status, status == 403 ? CKLBUPDATE_DOWNLOAD_FORBIDDEN : CKLBUPDATE_DOWNLOAD_ERROR);
                 break;
             }
 
@@ -119,7 +120,7 @@ DownloadManager::runNextTask(int tid)
                     m_downloadClient->oneSuccessCallback(task.queueId);
                 }
                 else {
-                    callBackOnHttpError(httpIF->getHttpState());
+                    callBackOnHttpError(status, CKLBUPDATE_DOWNLOAD_INVALID_SIZE);
                 }
                 break;
             }
@@ -198,7 +199,7 @@ DownloadManager::download(char* url, int size, int queueId)
 }
 
 void
-DownloadManager::callBackOnHttpError(int statusCode)
+DownloadManager::callBackOnHttpError(int statusCode, int errorCode)
 {
     IPlatformRequest& pfif = CPFInterface::getInstance().platform();
     m_isError = true;
@@ -208,7 +209,7 @@ DownloadManager::callBackOnHttpError(int statusCode)
     pfif.mutexUnlock(s_waiting);
 
     // callback
-    m_downloadClient->httpFailureCallback(statusCode);
+    m_downloadClient->httpFailureCallback(statusCode, errorCode);
 }
 
 double

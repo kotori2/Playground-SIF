@@ -39,7 +39,7 @@ DownloadClient::DownloadClient()
 , m_executeCount(0)
 , m_queue()
 , m_unzipThread(NULL)
-, m_allSuccess(false)
+, m_isFinished(false)
 {
 
 }
@@ -92,6 +92,12 @@ DownloadClient::execute(u32 deltaT)
 
 		// make sure all threads was killed
 		killAllThreads();
+	}
+
+	if (m_isFinished) {
+		// Both download and unzip finished
+		CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
+		CKLBScriptEnv::getInstance().call_eventUpdateComplete(m_callbackFinish, this);
 	}
 }
 
@@ -156,8 +162,10 @@ DownloadClient::commandScript(CLuaState& lua)
 		break;
 	}
 	case RETRY_DL: {
-		klb_assert(argc == 3, "Arguments count should be 3!")
+		//
 		// 3. pipeline count
+		//
+		klb_assert(argc == 3, "Arguments count should be 3!")
 		retryDownload(lua);
 		break;
 	}
@@ -178,12 +186,6 @@ DownloadClient::startDownload(CLuaState& lua)
 {
 	IPlatformRequest& platform	= CPFInterface::getInstance().platform();
 	DownloadManager* manager	= DownloadManager::getInstance(this);
-
-	// erase temp folder
-	// TODO: !!!!! we should not erase the folder because there could be
-	// some unfinished zips
-	// but idk when should we erase it.
-	//platform.removeFileOrFolder("file://external/tmpDL/");
 	
 	// create queue task
 	createQueue(lua, false);
@@ -226,19 +228,12 @@ DownloadClient::reUnzip(CLuaState& lua)
 	// create queue task
 	createQueue(lua, true);
 	m_unzipThread = platform.createThread(unzipThread, this);
-	return 0;
+	return 1;
 }
 
 // Both download and unzip finished
 // Since every download should end with unzip,
 // we call this only after unzip
-void
-DownloadClient::allSuccessCallback()
-{
-	// empty queue
-	m_queue.total = 0;
-	CKLBScriptEnv::getInstance().call_eventUpdateComplete(m_callbackFinish, this);
-}
 
 void
 DownloadClient::oneSuccessCallback(int queueId)
@@ -249,17 +244,15 @@ DownloadClient::oneSuccessCallback(int queueId)
 			m_queue.downloaded[i] = true;
 		}
 	}
-	// 4. downloaded
-	// 5. unzipped
 	CKLBScriptEnv::getInstance().call_eventUpdateDownload(m_callbackDownloadFinish, this, queueId);
 }
 
 void
-DownloadClient::httpFailureCallback(int statusCode)
+DownloadClient::httpFailureCallback(int statusCode, int errorType)
 {
 	if (m_error.isError) { return; }
 	m_error.isError = true;
-	m_error.errorType = CKLBUPDATE_DOWNLOAD_ERROR;
+	m_error.errorType = errorType;
 	m_error.errorCode = statusCode;
 }
 
@@ -329,7 +322,6 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 				that->m_error.isError = true;
 				that->m_error.errorType = CKLBUPDATE_UNZIP_ERROR;
 				that->m_error.errorCode = 1;
-
 				DEBUG_PRINT("[update] invalid zip file");
 				return 0;
 			}
@@ -364,6 +356,8 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 			std::this_thread::sleep_for(std::chrono::milliseconds(32));
 		}
 	}
-	that->allSuccessCallback();
+	// empty queue
+	that->m_queue.total = 0;
+	that->m_isFinished = true;
 	return 0;
 }

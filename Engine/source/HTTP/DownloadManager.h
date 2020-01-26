@@ -54,7 +54,7 @@ private:
 
     void runNextTask(int tid);
     static s32 runNextTask(void* /*pThread*/, void* data);
-    void callBackOnHttpError(int statusCode);
+    void callBackOnHttpError(int statusCode, int errorCode);
 };
 
 #endif // DownloadManager_h

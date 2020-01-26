@@ -6,7 +6,7 @@
 #include "CKLBUtility.h"
 #include "DownloadManager.h"
 
-#define MAX_DOWNLOAD_QUEUE 4096
+#define MAX_DOWNLOAD_QUEUE 4096 // change if required
 
 // error codes
 enum {
@@ -36,10 +36,9 @@ public:
 	int startDownload	(CLuaState& lua);
 	int retryDownload	(CLuaState& lua);
 	int reUnzip			(CLuaState& lua);
-
-	void allSuccessCallback();
+	
 	void oneSuccessCallback(int queueId);
-	void httpFailureCallback(int statusCode);
+	void httpFailureCallback(int statusCode, int errorType);
 
 	static s32 unzipThread(void* /*pThread*/, void* instance);
 
@@ -49,7 +48,6 @@ private:
 
 	typedef struct DOWNLOAD_QUEUE {
 		int total;
-		// 4096 is max for now
 		char urls[MAX_DOWNLOAD_QUEUE][2048];
 		int size[MAX_DOWNLOAD_QUEUE];
 		int	queueIds[MAX_DOWNLOAD_QUEUE];
@@ -63,8 +61,6 @@ private:
 
 	int m_downloadedCount;
 	int m_unzippedCount;
-	
-	bool m_allSuccess;
 
 	int m_executeCount;
 	void* m_unzipThread;
@@ -84,7 +80,8 @@ private:
 		int errorCode;
 		DOWNLOAD_ERROR(): isError(false), errorType(-1), errorCode(0) {}
 	};
-	DOWNLOAD_ERROR m_error;
+	DOWNLOAD_ERROR	m_error;
+	bool			m_isFinished;
 };
 
 #endif
