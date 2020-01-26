@@ -39,6 +39,7 @@ DownloadClient::DownloadClient()
 , m_executeCount(0)
 , m_queue()
 , m_unzipThread(NULL)
+, m_allSuccess(false)
 {
 
 }
@@ -87,7 +88,7 @@ DownloadClient::execute(u32 deltaT)
 		// 1. error code
 		// 2. http status code
 		// 3. TODO: curl status
-		CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this, m_error.erorrType, m_error.errorCode, 0);
+		CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this, m_error.errorType, m_error.errorCode, 0);
 
 		// make sure all threads was killed
 		killAllThreads();
@@ -258,7 +259,7 @@ DownloadClient::httpFailureCallback(int statusCode)
 {
 	if (m_error.isError) { return; }
 	m_error.isError = true;
-	m_error.erorrType = CKLBUPDATE_DOWNLOAD_ERROR;
+	m_error.errorType = CKLBUPDATE_DOWNLOAD_ERROR;
 	m_error.errorCode = statusCode;
 }
 
@@ -326,7 +327,7 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 
 			if (!unzip->getStatus()) {	// invalid zip file
 				that->m_error.isError = true;
-				that->m_error.erorrType = CKLBUPDATE_UNZIP_ERROR;
+				that->m_error.errorType = CKLBUPDATE_UNZIP_ERROR;
 				that->m_error.errorCode = 1;
 
 				DEBUG_PRINT("[update] invalid zip file");

@@ -63,6 +63,8 @@ private:
 
 	int m_downloadedCount;
 	int m_unzippedCount;
+	
+	bool m_allSuccess;
 
 	int m_executeCount;
 	void* m_unzipThread;
@@ -78,9 +80,9 @@ private:
 
 	typedef struct DOWNLOAD_ERROR {
 		bool isError;
-		int erorrType;
+		int errorType;
 		int errorCode;
-		DOWNLOAD_ERROR(): isError(false), erorrType(-1), errorCode(0) {}
+		DOWNLOAD_ERROR(): isError(false), errorType(-1), errorCode(0) {}
 	};
 	DOWNLOAD_ERROR m_error;
 };
