@@ -18,6 +18,7 @@
 #include "Dictionnary.h"
 #include "CPFInterface.h"
 #include "CKLBUtility.h"
+#include "CKLBLuaEnv.h"
 
 // --------------------------------------------------------------
 //   Asset Manager
@@ -398,7 +399,9 @@ CKLBAssetManager::loadAssetStream(IReadStream* pReadStream, CKLBAbstractAsset** 
 			}
 		}
 	} else {
-		klb_assertAlways("File not found or invalid stream");
+		// just return here because we have mdl
+		// klb_assertAlways("File not found or invalid stream");
+		return false;
 	}
 
 	logEndTime('A',(*ppAsset ? (*ppAsset)->getName() : NULL));
@@ -432,6 +435,10 @@ CKLBAssetManager::loadAsset(u8* stream, u32 streamSize, CKLBAbstractAsset** ppAs
 			if (pStream) {
 				bool result = loadAssetStream(pStream, ppAsset,0,useAsync);
 				delete pStream;	// DO NOT USE KLBDELETE : platform use "new"
+				if (result == false && m_notFoundHandler)
+				{
+					CKLBScriptEnv::getInstance().call_assetNotFound(m_notFoundHandler, fileName);
+				}
 				return result;
 			} else {
 				noError = false;
@@ -524,7 +531,27 @@ CKLBAssetManager::freeAsset(u16 assetID)
 		KLBDELETE(pAsset);	// Also free memory slot if any or reference count.
 	}
 }
+bool 
+CKLBAssetManager::setAssetNotFoundHandler(const char* hand)
+{
+	KLBDELETEA(m_notFoundHandler);
+	m_notFoundHandler = CKLBUtility::copyString(hand);
 
+	return true;
+}
+
+bool 
+CKLBAssetManager::setPlaceHolder(const char* asset)
+{
+	KLBDELETEA(m_placeholder);
+	m_placeholder = CKLBUtility::copyString(asset);
+	return true;
+}
+
+const char*
+CKLBAssetManager::getPlaceHolder() {
+	return m_placeholder;
+}
 // =========================================================================
 /* NO DICO
 bool CKLBAbstractAsset::include(const char* name)

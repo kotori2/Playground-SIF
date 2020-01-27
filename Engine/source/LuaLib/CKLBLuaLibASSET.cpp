@@ -237,7 +237,7 @@ CKLBLuaLibASSET::luaRegisterNotFound(lua_State * L)
 	CLuaState lua(L);
 	CKLBAssetManager& mgr = CKLBAssetManager::getInstance();
 	const char* handler = lua.getString(1);
-	mgr.setRegisterNotFound(handler);
+	mgr.setAssetNotFoundHandler(handler);
 	return 1;
 }
 
@@ -247,7 +247,7 @@ CKLBLuaLibASSET::luaSetPlaceHolder(lua_State * L)
 	CLuaState lua(L);
 	CKLBAssetManager& mgr = CKLBAssetManager::getInstance();
 	const char* asset = lua.getString(1);
-	mgr.setPlaceholder(asset);
+	mgr.setPlaceHolder(asset);
 	return 1;
 }
 

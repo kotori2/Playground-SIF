@@ -143,6 +143,7 @@ public:
 	// NetAPI
 	bool call_netAPI_callback		(const char* funcName, CKLBObjectScriptable* obj, int uniq, int msg, int status, CKLBJsonItem * pRoot);
 	void call_netAPI_versionUp		(const char* funcName, CKLBObjectScriptable* obj, const char* clientVer, const char* serverVer);
+	void call_assetNotFound			(const char* funcName, const char* file);
 
 };
 

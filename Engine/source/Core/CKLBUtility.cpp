@@ -328,8 +328,16 @@ CKLBUtility::loadAsset(const char * asset, u32 * handle, IKLBAssetPlugin* plugIn
 
 	pAsset = (CKLBAsset *)pAssetManager.loadAssetByFileName(asset, plugIn);
 
-	if(!pAsset) {
-		return NULL;
+	if (!pAsset) {
+		// Asset not found. Load placeholder if available
+		CKLBAbstractAsset* temp = pAssetManager.loadAssetByFileName(pAssetManager.getPlaceHolder());
+
+		if (temp == NULL)
+			return NULL;
+
+		if (handle) *handle = CKLBDataHandler::allocateHandle(temp);
+
+		return dynamic_cast<CKLBTextureAsset*>(temp)->getImage(pAssetManager.getPlaceHolder() + 8);
 	}
 	if (handle) {
 		*handle = CKLBDataHandler::allocateHandle(pAsset);

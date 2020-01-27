@@ -444,5 +444,12 @@ void CKLBScriptEnv::call_netAPI_versionUp		(const char* funcName, CKLBObjectScri
 	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
 	lua.callback(funcName, "PSS", obj, clientVer, serverVer);
 }
+
+void CKLBScriptEnv::call_assetNotFound(const char* funcName, const char* file)
+{
+	if (!funcName) { return; }
+	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
+	lua.callback(funcName, "SS", file + 8, file);
+}
 #endif
 #endif
