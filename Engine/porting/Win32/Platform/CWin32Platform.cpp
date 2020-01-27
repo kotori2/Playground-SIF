@@ -1026,6 +1026,39 @@ CWin32Platform::encryptAES128CBC(const char* plaintext, int plaintextLen, const 
 }
 
 int
+CWin32Platform::decryptAES128CBC(unsigned const char* ciphertext, int ciphertextLen, const char* key, char* out, int outLen)
+{
+	EVP_CIPHER_CTX* ctx;
+
+	if (!(ctx = EVP_CIPHER_CTX_new()))
+		return 0;
+
+	if (false)
+	{
+	fail:
+		EVP_CIPHER_CTX_free(ctx);
+		return 0;
+	}
+
+	// The first 16 bytes in CyperText is actually initialization vector.
+	// The CipherLength is the actual length of the ciphered text, aka strlen(CipherText) - 16,
+	// so we can use this length directly.
+
+	// In the EVP_DecryptInit_ex the fifth param is IV, so we pass in the CipherText
+	if (EVP_DecryptInit_ex(ctx, EVP_aes_128_cbc(), NULL, (const u8*)key, (const u8*)ciphertext) == 0)
+		goto fail;
+
+	// In the EVP_DecryptUpdate the forth param is ciphered text, so we pass in the CipherText + 16
+	if (EVP_DecryptUpdate(ctx, (u8*)out, &outLen, (const u8*)ciphertext + 16, ciphertextLen) == 0)
+		goto fail;
+
+	int paddingLen = *(out + outLen - 1);
+	outLen = outLen - paddingLen;
+	EVP_CIPHER_CTX_free(ctx);
+	return outLen;
+}
+
+int
 CWin32Platform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen)
 {
 	FILE* publicKey = fopen("public.pem", "rb");

@@ -691,6 +691,8 @@
     </ClInclude>
     <ClInclude Include="..\..\source\HTTP\DownloadQueue.h">
       <Filter>Source Files\Network\Element</Filter>
+    <ClInclude Include="..\..\source\LuaLib\LuaLibCRYPTO.h">
+      <Filter>Source Files\LuaLib\modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2013,6 +2015,8 @@
     </ClCompile>
     <ClCompile Include="..\..\source\HTTP\DownloadQueue.cpp">
       <Filter>Source Files\Network\Element</Filter>
+    <ClCompile Include="..\..\source\LuaLib\LuaLibCRYPTO.cpp">
+      <Filter>Source Files\LuaLib\modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
