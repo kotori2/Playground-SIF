@@ -124,7 +124,8 @@ inline unsigned char* unbase64(const char* ascii, int len, int* flen)
 	if (safeAsciiPtr[len - 2] == '=')  ++pad;
 
 	*flen = 3 * len / 4 - pad;
-	bin = (unsigned char*)malloc(*flen);
+	
+	bin = KLBNEWA(unsigned char, *flen);
 	klb_assert(bin, "unbase64 could not allocate enough memory");
 
 	for (charNo = 0; charNo <= len - 4 - pad; charNo += 4)

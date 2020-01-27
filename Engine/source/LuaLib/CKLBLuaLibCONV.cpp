@@ -98,5 +98,6 @@ CKLBLuaLibCONV::base64Decode(lua_State* L)
 	int resLen = 0;
 	unsigned char* result = unbase64(str, strlen(str), &resLen);
 	lua_pushlstring(L, (char*)result, resLen);
+	KLBDELETEA(result);
 	return 1;
 }
