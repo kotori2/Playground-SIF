@@ -695,6 +695,9 @@
     <ClInclude Include="..\..\source\LuaLib\LuaLibCRYPTO.h">
       <Filter>Source Files\LuaLib\modules</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\Core\NotificationManager.h">
+      <Filter>Source Files\UtilTask</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\Animation\CKLBSystem.cpp">
@@ -2019,6 +2022,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\LuaLib\LuaLibCRYPTO.cpp">
       <Filter>Source Files\LuaLib\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Core\NotificationManager.cpp">
+      <Filter>Source Files\UtilTask</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

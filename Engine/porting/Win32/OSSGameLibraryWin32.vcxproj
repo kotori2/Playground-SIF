@@ -360,6 +360,7 @@
     <ClInclude Include="..\..\source\Core\DebugTracker.h" />
     <ClInclude Include="..\..\source\Core\HonokaMiku\DecrypterContext.h" />
     <ClInclude Include="..\..\source\Core\HonokaMiku\md5.h" />
+	<ClInclude Include="..\..\source\Core\NotificationManager.h" />
     <ClInclude Include="..\..\source\Database\CKLBDatabase.h" />
     <ClInclude Include="..\..\source\Database\CKLBLanguageDatabase.h" />
     <ClInclude Include="..\..\source\Database\CKLBLuaDB.h" />
@@ -2081,6 +2082,7 @@
     <ClCompile Include="..\..\source\Core\HonokaMiku\V2_Decrypter.cc" />
     <ClCompile Include="..\..\source\Core\HonokaMiku\V3_Decrypter.cc" />
     <ClCompile Include="..\..\source\Core\ITmpFile.cpp" />
+	<ClCompile Include="..\..\source\Core\NotificationManager.cpp" />
     <ClCompile Include="..\..\source\Database\CKLBDatabase.cpp" />
     <ClCompile Include="..\..\source\Database\CKLBLanguageDatabase.cpp" />
     <ClCompile Include="..\..\source\Database\CKLBLuaDB.cpp" />
