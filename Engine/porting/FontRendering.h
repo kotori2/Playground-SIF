@@ -28,6 +28,8 @@
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include FT_STROKER_H 
+#include FT_BITMAP_H
 
 // ==========================================================================================
 //   Definitions
@@ -50,8 +52,8 @@ public:
 	static void destroyFont(FontObject* pFont, bool force = false);
 	static void releaseFontSystem();
 	
-	FT_GlyphSlot renderChar(u32 unicode);
-	void renderText	(s32 x, s32 y, const char* text, u8* greyBuffer, u32 colorARGB8888, u32 buffWidth, u32 buffHeight, s32 strideByte, bool use4444);
+	FT_GlyphSlot renderChar(u32 unicode, u8 embolden);
+	void renderText	(s32 x, s32 y, const char* text, u8* greyBuffer, u32 colorARGB8888, u32 buffWidth, u32 buffHeight, s32 strideByte, bool use4444, u8 embolden);
 	void getTextInfo(const char* text, STextInfo* result);
 	float getAscent();
 
@@ -95,7 +97,7 @@ struct CharCache {
 	friend struct CharDictionnary;
 	friend struct FontObject;
 public:
-	static CharCache* createEntry(u32 uniCode, u16* outIndex, FontObject* pFont);
+	static CharCache* createEntry(u32 uniCode, u16* outIndex, FontObject* pFont, u8 embolden);
 	
 	static void test();
 	static void reboot() {
@@ -129,16 +131,20 @@ private:
 	~CharCache();
 
 	static u16 s_cacheStart;
+	static u16 s_noCacheStart;
 	static u16 s_cacheEnd;
+	static u16 s_noCacheEnd;
 	static CharCache s_cacheArray[CHAR_CACHE_SIZE];
+	static CharCache s_noCacheArray[CHAR_CACHE_SIZE];
 	static u16 s_allocCounter;
+	static u16 s_allocNoCacheCounter;
 };
 
 struct CharDictionnary {
 	friend struct FontObject;
 	friend class FntDebug;
 public:
-	static CharCache* getChar(u32 uniCode, FontObject* pFont);
+	static CharCache* getChar(u32 uniCode, FontObject* pFont, u8 embolden);
 	static void	removeDicoEntry(u16 startEntry, u32 unicode);
 	static void destroyTree(u16 entry, u16 depth);
 	static void removeEntry(u16 entry);

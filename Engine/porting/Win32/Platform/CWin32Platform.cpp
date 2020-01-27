@@ -540,11 +540,12 @@ CWin32Platform::deleteFontSystem(void * pFont)
 bool
 CWin32Platform::renderText(const char* utf8String, void * pFont, u32 color,
 						   u16 width, u16 height, u8 * pBuffer8888,
-						   s16 stride, s16 base_x, s16 base_y, bool use4444)
+						   s16 stride, s16 base_x, s16 base_y,
+						   u8 embolden, bool use4444)
 {
 	FontObject* pObjFont = (FontObject*)pFont;
 	if (pObjFont) {
-		pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, use4444);
+		pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, use4444, embolden);
 	}
 	return true;
 }

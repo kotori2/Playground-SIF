@@ -106,7 +106,8 @@ public:
     //! フォントテクスチャ描画
     bool renderText(const char* utf8String, void * pFont, u32 color,    //!< 描画する文字列とフォントの指定
                     u16 width, u16 height, u8 * pBuffer8888,    		//!< 描画対象とするテクスチャバッファとそのピクセルサイズ
-                    s16 stride, s16 base_x, s16 base_y, bool use4444);  //!< baseline起点とするテクスチャ内の位置
+                    s16 stride, s16 base_x, s16 base_y, 
+					u8 embolden, bool use4444);  //!< baseline起点とするテクスチャ内の位置
 
     bool getTextInfo(const char* utf8String, void * pFont, STextInfo* pReturnInfo);
 

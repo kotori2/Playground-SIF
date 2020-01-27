@@ -137,10 +137,11 @@ public:
 	void *	getFontSystem	(int size, const char * fontName = 0);
 	void	deleteFontSystem(void * pFont);
 
+
 	//! テキストレンダリング
 	bool renderText(const char* utf8String, void * pFont, u32 color,
 		u16 width, u16 height, u8 * pBuffer8888,
-		s16 stride, s16 base_x, s16 base_y, bool use4444 = false);
+		s16 stride, s16 base_x, s16 base_y, u8 embolden, bool use4444 = false);
 	bool getTextInfo(const char* utf8String, void * pFont, STextInfo* pReturnInfo);
 
 	void *			getGLExtension(const char * ext);
