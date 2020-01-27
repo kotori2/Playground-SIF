@@ -805,7 +805,7 @@ FT_GlyphSlot FontObject::renderChar(u32 unicode, u8 embolden) {
 			MemoryBlock::freeBlock(pItem->m_blockIndex, pItem->m_blockCharIndex);
 
 			// 3.Remove entry from dictionnary
-			if (pItem->m_pFontObj) {
+			if (pItem->m_pFontObj && !embolden) {
 				CharDictionnary::removeDicoEntry(pItem->m_pFontObj->m_dicoStart, pItem->m_unicode);
 			}
 		}
