@@ -208,6 +208,7 @@ public:
 
 	int			HMAC_SHA1			(const char* string, const char* key, int keyLen, char* retbuf);
 	int			encryptAES128CBC	(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen);
+	int			decryptAES128CBC	(unsigned const char* ciphertext, int ciphertextLen, const char* key, char* out, int outLen);
 	int			publicKeyEncrypt	(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen);
 	bool        publicKeyVerify		(unsigned char* plaintext, int plaintextLen, unsigned char* hash);
 	int         getRandomBytes		(char* out, int len);

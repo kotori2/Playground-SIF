@@ -689,6 +689,9 @@
     <ClInclude Include="Platform\Win32TouchLib.h">
       <Filter>Platform</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\LuaLib\LuaLibCRYPTO.h">
+      <Filter>Source Files\LuaLib\modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\Animation\CKLBSystem.cpp">
@@ -2007,6 +2010,9 @@
     </ClCompile>
     <ClCompile Include="Platform\Win32TouchLib.cpp">
       <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\LuaLib\LuaLibCRYPTO.cpp">
+      <Filter>Source Files\LuaLib\modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

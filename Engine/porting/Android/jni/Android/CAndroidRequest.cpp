@@ -1727,6 +1727,13 @@ CAndroidRequest::encryptAES128CBC(const char* plaintext, int plaintextLen, const
     return (int)ret;
 }
 
+int
+CAndroidRequest::decryptAES128CBC(unsigned const char* ciphertext, int ciphertextLen, const char* key, char* out, int outLen)
+{
+	// TODO
+	return 0;
+}
+
 const char* RSAPublicKey = "-----BEGIN PUBLIC KEY-----\n"
 "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBpUMUVjHWNI5q3ZRjF1vPnh+m\n"
 "aEGdbZkeosVvzLytBy9eYJ9qLYyFXxOY1LiggWyOLS+xEVMpV3A6frI3VewkVuCw\n"
