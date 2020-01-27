@@ -689,6 +689,9 @@
     <ClInclude Include="Platform\Win32TouchLib.h">
       <Filter>Platform</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\HTTP\DownloadQueue.h">
+      <Filter>Source Files\Network\Element</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\Animation\CKLBSystem.cpp">
@@ -2007,6 +2010,9 @@
     </ClCompile>
     <ClCompile Include="Platform\Win32TouchLib.cpp">
       <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\HTTP\DownloadQueue.cpp">
+      <Filter>Source Files\Network\Element</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

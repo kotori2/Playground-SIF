@@ -373,6 +373,7 @@
     <ClInclude Include="..\..\source\HTTP\CUnZip.h" />
     <ClInclude Include="..\..\source\HTTP\DownloadClient.h" />
     <ClInclude Include="..\..\source\HTTP\DownloadManager.h" />
+    <ClInclude Include="..\..\source\HTTP\DownloadQueue.h" />
     <ClInclude Include="..\..\source\include\CPFInterface.h" />
     <ClInclude Include="..\..\source\include\CSoundAnalysis.h" />
     <ClInclude Include="..\..\source\LuaLib\CKLBLuaConst.h" />
@@ -2092,6 +2093,7 @@
     <ClCompile Include="..\..\source\HTTP\CUnZip.cpp" />
     <ClCompile Include="..\..\source\HTTP\DownloadClient.cpp" />
     <ClCompile Include="..\..\source\HTTP\DownloadManager.cpp" />
+    <ClCompile Include="..\..\source\HTTP\DownloadQueue.cpp" />
     <ClCompile Include="..\..\source\HTTP\MultithreadedNetwork.cpp" />
     <ClCompile Include="..\..\source\LuaLib\CKLBLuaConst.cpp" />
     <ClCompile Include="..\..\source\LuaLib\CKLBLuaLibAPP.cpp" />

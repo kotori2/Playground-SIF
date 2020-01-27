@@ -916,7 +916,7 @@ void FontObject::renderText	(s32 x, s32 y, const char* text, u8* Buffer8888, u32
 	if (wind_utf8ucs4(text, arrayUnicode, &charCount) == 0)
 	for (u32 n=0; n < charCount; n++) {
 		u32 charcode = arrayUnicode[n];
-		DEBUG_PRINT("RENDERING; letter: %x(%c)", charcode, (char)charcode);
+		// DEBUG_PRINT("RENDERING; letter: %x(%c)", charcode, (char)charcode);
 
 		CharCache* pChar = CharDictionnary::getChar(charcode, this, embolden);
 		

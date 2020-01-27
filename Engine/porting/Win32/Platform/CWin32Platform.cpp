@@ -245,18 +245,25 @@ CWin32Platform::openTmpFile(const char * filePath)
 				pos = i;
 			}
 		}
-		char* folderPath = (char*)malloc(pos * sizeof(char));
-		memcpy(folderPath, filePath + 7, pos - 7); // REMOVE file://
-		folderPath[pos - 7] = 0;
 
-		int attr = GetFileAttributesA(folderPath);
-
-		if (!(attr & FILE_ATTRIBUTE_DIRECTORY) || attr == INVALID_FILE_ATTRIBUTES) {
-			if (!CreateDirectory(folderPath, NULL)) {
-				DEBUG_PRINT("Failed to create tmp folder %s", filePath);
+		//Create folder recursively
+		const char* ptr = filePath + 7;
+		for (int i = 0; i < strlen(ptr); i++) {
+			if (ptr[i] == '/') {
+				char* folder = (char*)malloc(sizeof(char) * i + 2);
+				strncpy(folder, ptr, i + 1);
+				folder[i + 1] = 0;
+				int attr = GetFileAttributesA(folder);
+				if (!(attr & FILE_ATTRIBUTE_DIRECTORY) || attr == INVALID_FILE_ATTRIBUTES) {
+					DEBUG_PRINT("Create folder %s", folder);
+					if (CreateDirectory(folder, NULL) != 0) {
+						DEBUG_PRINT("Failed to create folder %s", folder);
+						break;
+					}
+				}
+				free(folder);
 			}
 		}
-		free(folderPath);
 
 		CWin32TmpFile * pTmpFile = new CWin32TmpFile(filePath);
 		if(!pTmpFile->isReady()) {

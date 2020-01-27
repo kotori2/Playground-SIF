@@ -17,6 +17,7 @@
 #include "CKLBUtility.h"
 #include <dirent.h>
 #include "CKLBGameApplication.h"
+#include "DownloadQueue.h"
 
 static ILuaFuncLib::DEFCONST luaConst[] = {
 //	{ "DBG_M_SWITCH",	DBG_MENU::M_SWITCH },
@@ -32,20 +33,22 @@ CKLBLuaLibASSET::~CKLBLuaLibASSET() {}
 void
 CKLBLuaLibASSET::addLibrary()
 {
-	addFunction("ASSET_getImageSize",		CKLBLuaLibASSET::luaGetImageSize);
-	addFunction("ASSET_getBoundSize",		CKLBLuaLibASSET::luaGetBoundSize);
-	addFunction("ASSET_getAssetInfo",		CKLBLuaLibASSET::luaGetAssetInfo);
-	addFunction("ASSET_getExternalFree",	CKLBLuaLibASSET::luaGetExternalFree);
-	addFunction("ASSET_getFileList",		CKLBLuaLibASSET::luaGetFileList);
+	addFunction("ASSET_getImageSize",			CKLBLuaLibASSET::luaGetImageSize);
+	addFunction("ASSET_getBoundSize",			CKLBLuaLibASSET::luaGetBoundSize);
+	addFunction("ASSET_getAssetInfo",			CKLBLuaLibASSET::luaGetAssetInfo);
+	addFunction("ASSET_getExternalFree",		CKLBLuaLibASSET::luaGetExternalFree);
+	addFunction("ASSET_getFileList",			CKLBLuaLibASSET::luaGetFileList);
 	addFunction("ASSET_getAssetPathIfNotExist", CKLBLuaLibASSET::luaGetAssetPathIfNotExist);
-	addFunction("ASSET_delExternal",		CKLBLuaLibASSET::luaDelExternal);
-	addFunction("ASSET_registerNotFound",	CKLBLuaLibASSET::luaRegisterNotFound);
-	addFunction("ASSET_setPlaceHolder",		CKLBLuaLibASSET::luaSetPlaceHolder);
-	addFunction("ASSET_killDownload",		CKLBLuaLibASSET::luaKillDownload);
+	addFunction("ASSET_startDownload",			CKLBLuaLibASSET::luaStartDownload);
+	addFunction("ASSET_killDownload",			CKLBLuaLibASSET::luaKillDownload);
+	addFunction("ASSET_delExternal",			CKLBLuaLibASSET::luaDelExternal);
+	addFunction("ASSET_registerNotFound",		CKLBLuaLibASSET::luaRegisterNotFound);
+	addFunction("ASSET_setPlaceHolder",			CKLBLuaLibASSET::luaSetPlaceHolder);
+	addFunction("ASSET_killDownload",			CKLBLuaLibASSET::luaKillDownload);
 
-	addFunction("Asset_getNMAssetSize",		CKLBLuaLibASSET::luaGetNMAssetSize);
-	addFunction("Asset_getNMAsset",			CKLBLuaLibASSET::luaGetNMAsset);
-	addFunction("Asset_setNMAsset",			CKLBLuaLibASSET::luaSetNMAsset);
+	addFunction("Asset_getNMAssetSize",			CKLBLuaLibASSET::luaGetNMAssetSize);
+	addFunction("Asset_getNMAsset",				CKLBLuaLibASSET::luaGetNMAsset);
+	addFunction("Asset_setNMAsset",				CKLBLuaLibASSET::luaSetNMAsset);
 }
 
 s32
@@ -290,7 +293,8 @@ CKLBLuaLibASSET::luaGetAssetPathIfNotExist(lua_State* L)
 	CLuaState lua(L);
 	IPlatformRequest& platform = CPFInterface::getInstance().platform();
 	const char* assetPath = lua.getString(1);
-	char* newAssetPath = new char[strlen(assetPath) + 14];
+	char* newAssetPath = KLBNEWA(char, strlen(assetPath) + 14);
+	char* tmpCheckPath = KLBNEWA(char, strlen(newAssetPath + 5));
 
 	klb_assert(!strstr(assetPath, ".mp3") || !strstr(assetPath, ".ogg"), "Never use a .ogg or .mp3 extension. Audio Asset have none, automatically detected inside");
 	sprintf(newAssetPath, "asset://%s", assetPath);
@@ -299,30 +303,45 @@ CKLBLuaLibASSET::luaGetAssetPathIfNotExist(lua_State* L)
 	if (platform.getFullPath(newAssetPath)) {
 		// return nil if file exists
 		lua.retNil();
-		delete[] newAssetPath;
-		return 1;
+		goto fin;
 	}
 
 	if (!strstr(newAssetPath, ".texb") && !strstr(newAssetPath, ".imag")) {
 		// check path with .mp3 audio extension
-		sprintf(newAssetPath + strlen(newAssetPath), ".mp3");
-		if (platform.getFullPath(newAssetPath)) {
+		sprintf(tmpCheckPath, "%s.mp3", newAssetPath);
+		if (platform.getFullPath(tmpCheckPath)) {
 			lua.retNil();
-			delete[] newAssetPath;
-			return 1;
+			goto fin;
 		}
 
 		// check path with .ogg audio extension
-		sprintf(newAssetPath + strlen(newAssetPath) - 4, ".ogg");
-		if (platform.getFullPath(newAssetPath)) {
+		sprintf(tmpCheckPath, "%s.ogg", newAssetPath);
+		if (platform.getFullPath(tmpCheckPath)) {
 			lua.retNil();
-			delete[] newAssetPath;
-			return 1;
+			goto fin;
 		}
 	}
 
 	lua.retString(newAssetPath);
-	delete[] newAssetPath;
+fin:
+	KLBDELETEA(newAssetPath);
+	KLBDELETEA(tmpCheckPath);
+	return 1;
+}
+
+/* args:
+ 1. callback
+ 2. file target
+ 3. download link
+*/
+s32
+CKLBLuaLibASSET::luaStartDownload(lua_State* L)
+{
+	CLuaState lua(L);
+
+	MicroDownload::Queue(lua.getString(1), lua.getString(2), lua.getString(3));
+	lua.retBool(true);
+
 	return 1;
 }
 
@@ -330,9 +349,10 @@ s32
 CKLBLuaLibASSET::luaKillDownload(lua_State* L)
 {
 	CLuaState lua(L);
-	// part of Micro Download
-	// TODO
-	lua.printStack();
+
+	MicroDownload::DeleteAll();
+	lua.retBool(true);
+
 	return 1;
 }
 

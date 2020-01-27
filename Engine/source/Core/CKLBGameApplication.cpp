@@ -51,6 +51,7 @@
 #include "CKLBLanguageDatabase.h"
 #include "CompositeManagement.h"
 #include "CKLBHTTPInterface.h"
+#include "DownloadQueue.h"
 
 // Global Text rendering buffer.
 #include "CKLBTextTempBuffer.h"
@@ -211,6 +212,7 @@ CKLBGameApplication::frameFlip(u32 deltaT)
         // changeScreenMatrix(m_origin, m_width, m_height);
     }
 	bool bContinue = CKLBTaskMgr::getInstance().execute(deltaT);
+	MicroDownload::MainLoop(deltaT);
 	if(m_reboot) {
 		finishGame();
 		initGame();
