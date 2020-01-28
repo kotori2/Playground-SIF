@@ -1,8 +1,6 @@
 // Implements Micro Download system
 
 #include <vector>
-#include <direct.h>
-#include <io.h>
 
 #include "CPFInterface.h"
 #include "CKLBScriptEnv.h"
