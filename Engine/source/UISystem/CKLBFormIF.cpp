@@ -482,8 +482,15 @@ CKLBFormIF::updateUIElement(CLuaState& lua, int argc, int base, int subcmd, CKLB
 
 	case FORM_UIE_GET_ASSET_NAME:
 	{
-		lua.printStack();
-		ret = 0;
+		int mode = lua.getInt(5);
+		const char* name = pElement->getAssetName((CKLBUIElement::ASSET_TYPE)mode);
+		if (name != NULL) {
+			lua.retString(name);
+		}
+		else {
+			lua.retNil();
+		}
+		ret = 1;
 	}
 	break;
 	}

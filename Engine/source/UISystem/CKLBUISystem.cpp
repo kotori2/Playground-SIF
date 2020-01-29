@@ -392,6 +392,25 @@ CKLBUIElement::setAsset(CKLBAsset*	pAsset, CKLBUIElement::ASSET_TYPE mode)
 	}
 }
 
+/*virtual*/
+const char*
+CKLBUIElement::getAssetName(CKLBUIElement::ASSET_TYPE mode)
+{
+	switch (mode) {
+	case CKLBUIElement::NORMAL_ASSET:
+		if (m_pNormal != NULL) {
+			return m_pNormal->getName();
+		}
+		break;
+	case CKLBUIElement::DISABLED_ASSET:
+		if (m_pDisabled != NULL) {
+			return m_pDisabled->getName();
+		}
+		break;
+	}
+	return NULL;
+}
+
 void 
 CKLBUIElement::visibleSelf() 
 {
@@ -915,16 +934,35 @@ void
 CKLBUISelectable::setAsset(CKLBAsset*	pAsset, CKLBUIElement::ASSET_TYPE mode) 
 {
 	switch (mode) {
-	case CKLBUIElement::PUSHED_ASSET:
-		resetAsset(&m_pPushed, &m_pPushedTree, pAsset);
-		break;
 	case CKLBUIElement::FOCUSED_ASSET:
+		resetAsset(&m_pFocus, &m_pFocusTree, pAsset);
+		break;
+	case CKLBUIElement::PUSHED_ASSET:
 		resetAsset(&m_pPushed, &m_pPushedTree, pAsset);
 		break;
 	default:
 		CKLBUIElement::setAsset(pAsset, mode);
 		break;
 	}
+}
+
+/*virtual*/
+const char*
+CKLBUISelectable::getAssetName(CKLBUIElement::ASSET_TYPE mode)
+{
+	switch (mode) {
+	case CKLBUIElement::FOCUSED_ASSET:
+		if (m_pFocus != NULL) {
+			return m_pFocus->getName();
+		}
+		break;
+	case CKLBUIElement::PUSHED_ASSET:
+		if (m_pPushed != NULL) {
+			return m_pPushed->getName();
+		}
+		break;
+	}
+	return CKLBUIElement::getAssetName(mode);
 }
 
 void 
