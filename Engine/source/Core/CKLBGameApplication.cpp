@@ -212,7 +212,6 @@ CKLBGameApplication::frameFlip(u32 deltaT)
         // changeScreenMatrix(m_origin, m_width, m_height);
     }
 	bool bContinue = CKLBTaskMgr::getInstance().execute(deltaT);
-	MicroDownload::MainLoop(deltaT);
 	if(m_reboot) {
 		finishGame();
 		initGame();
@@ -308,6 +307,7 @@ CKLBGameApplication::callInitialTasks(int width, int height)
 	res &= (CKLBDeviceKeyEvent::create() != NULL);
     res &= (CKLBOSCtrlEvent::create() != NULL);
 	res &= (CKLBTouchEventUITask::create() != NULL);
+	res &= (MicroDownload::create() != NULL);
 #ifdef DEBUG_MENU
     //
     // Was initialized in CKLBDebugMenu::Create but

@@ -4,40 +4,54 @@
 
 #include "CPFInterface.h"
 #include "CKLBScriptEnv.h"
+#include "CKLBLuaEnv.h"
 #include "CKLBUtility.h"
 #include "MultithreadedNetwork.h"
 
 #include "DownloadQueue.h"
 
-struct MDLData
-{
-	const char* url;
-	const char* callback;
-	const char* filename;
-	CKLBHTTPInterface* http;
-
-	MDLData(const char* c, const char* f, const char* u)
-	{
-		url = CKLBUtility::copyString(u);
-		callback = CKLBUtility::copyString(c);
-		filename = CKLBUtility::copyString(f);
-		http = NetworkManager::createConnection();
-
-		http->httpGET(u, false);
-	};
-
-	~MDLData()
-	{
-		KLBDELETEA(url);
-		KLBDELETEA(callback);
-		KLBDELETEA(filename);
-
-		NetworkManager::releaseConnection(http);
-	};
+static IFactory::DEFCMD cmd[] = {
+		{0, 0}
 };
 
-typedef std::vector<MDLData*> MicroDLQueue;
-MicroDLQueue queue_list;
+static CKLBTaskFactory<MicroDownload> factory("MicroDownload", CLS_MICRODL, cmd);
+
+u32
+MicroDownload::getClassID()
+{
+	return CLS_MICRODL;
+}
+
+MicroDownload*
+MicroDownload::create()
+{
+	MicroDownload* pTask = KLBNEW(MicroDownload);
+	if (!pTask) return NULL;
+	CLuaState l = null;
+	if (!pTask->initScript(l)) return NULL;
+	return pTask;
+}
+
+bool
+MicroDownload::initScript(CLuaState& lua)
+{
+	return regist(NULL, P_NORMAL);
+}
+
+void
+MicroDownload::execute(u32 deltaT)
+{
+	MainLoop(deltaT);
+}
+
+void
+MicroDownload::die()
+{
+	DeleteAll();
+}
+
+
+MicroDLQueue MicroDownload::queue_list;
 
 void MicroDownload::MainLoop(int )
 {

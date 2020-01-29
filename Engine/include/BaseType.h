@@ -194,6 +194,7 @@ typedef long long unsigned int u64;
 // it's here temporary
 #define CLS_DOWNLOADCLIENT (82| CLS_KLBUSERTASK)
 #define CLS_NOTIFICATIONMANAGER (83| CLS_KLBUSERTASK | CLS_NONVISUALTASK)
+#define CLS_MICRODL (84| CLS_KLBUSERTASK)
 
 //
 // Engine Assets
