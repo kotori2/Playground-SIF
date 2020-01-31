@@ -722,7 +722,6 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 			//	6. Skip version check?
 			//	7. End point arg are absolute url?
 			//
-			lua.printStack();
 			if(argc < 3 || argc > 9) {
 				klb_assertAlways("Too more or not enough args");
 				lua.retBoolean(false);

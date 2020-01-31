@@ -209,8 +209,6 @@ CKLBLuaLibASSET::luaSetNMAsset(lua_State * L)
 {
 	CLuaState lua(L);
 	int argc = lua.numArgs();
-	// MAY cause crash
-	// lua.printStack();
 	if (argc != 2) {
 		lua.retBool(false);
 		return 0;
@@ -225,7 +223,7 @@ CKLBLuaLibASSET::luaSetNMAsset(lua_State * L)
 	if (strlen(str1) == 16 || strlen(str2) == 16)
 		lua_pushlstring(L, result, 16);
 	else
-		lua_pushlstring(L, result, 32);
+		lua_pushlstring(L, result, assetSize);
 	free(result);
 	return 1;
 }
@@ -266,19 +264,17 @@ CKLBLuaLibASSET::luaGetFileList(lua_State* L)
 
 	if ( (dir = opendir(path)) ) {
 		while ( (ent = readdir(dir)) ) {
-			if (strcmp(ent->d_name, ".") && strcmp(ent->d_name, "..")) {
-				// store index in table
-				lua.retInt(i++);
+			// store index in table
+			lua.retInt(i++);
 
-				// create sub table
-				lua.tableNew();
-				lua.retString("name");
-				lua.retString(ent->d_name);
-				// set sub table
-				lua.tableSet();
-				// set parent table
-				lua.tableSet();
-			}
+			// create sub table
+			lua.tableNew();
+			lua.retString("name");
+			lua.retString(ent->d_name);
+			// set sub table
+			lua.tableSet();
+			// set parent table
+			lua.tableSet();
 		}
 		closedir(dir);
 	}

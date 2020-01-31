@@ -43,7 +43,6 @@ NotificationManager::create()
 bool
 NotificationManager::initScript(CLuaState& lua)
 {
-	lua.printStack();
 	return regist(NULL, P_NORMAL);
 }
 
