@@ -50,7 +50,7 @@
 
 #include "FontRendering.h"
 
-constexpr auto BUNDLE_VERSION = "6.9.2";
+constexpr auto BUNDLE_VERSION = "6.9.3";
 
 bool CWin32Platform::g_useDecryption = true;
 bool CWin32Platform::g_ignoreError = false;
