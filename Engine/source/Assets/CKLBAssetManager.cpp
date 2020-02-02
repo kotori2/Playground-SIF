@@ -307,6 +307,42 @@ CKLBAssetManager::restoreAsset() {
 	}
 }
 
+// only texb from imag for now
+const char*
+CKLBAssetManager::getAssetNameFromFileName(const char* fileName)
+{
+	IPlatformRequest& pfif = CPFInterface::getInstance().platform();
+	IReadStream* pStream = pfif.openReadStream(fileName, pfif.useEncryption());
+	if (!pStream || pStream->getStatus() != IReadStream::NORMAL) {
+		delete pStream;
+		return NULL;
+	}
+
+	klb_assert(pStream->getSize() >= 8, "Too small for asset");
+
+	int size = pStream->getSize() - pStream->getPosition();
+	u8* buffer = KLBNEWA(u8, size);
+	char* assetName = KLBNEWA(char, 256);
+	bool success = false;
+	if (buffer) {
+		if (pStream->readBlock(buffer, size)) {
+			u32 pluginType32 = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3];
+			if (pluginType32 == CHUNK_TAG('L', 'I', 'N', 'K')) {
+				sprintf(assetName, "asset://%s", buffer + 8);
+				success = true;
+			}
+		}
+		KLBDELETEA(buffer);
+	}
+	delete pStream;
+
+	if (success == false) {
+		KLBDELETEA(assetName);
+		return NULL;
+	}
+	return assetName;
+}
+
 CKLBAbstractAsset*
 CKLBAssetManager::loadAssetByFileName(const char* fileName, IKLBAssetPlugin* plugin, bool noStream, bool asyncLoad) {
 	checkAsync(asyncLoad);

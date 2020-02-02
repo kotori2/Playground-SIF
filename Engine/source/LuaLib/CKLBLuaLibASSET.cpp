@@ -288,40 +288,56 @@ CKLBLuaLibASSET::luaGetAssetPathIfNotExist(lua_State* L)
 {
 	CLuaState lua(L);
 	IPlatformRequest& platform = CPFInterface::getInstance().platform();
-	const char* assetPath = lua.getString(1);
-	char* newAssetPath = KLBNEWA(char, strlen(assetPath) + 14);
-	char* tmpCheckPath = KLBNEWA(char, strlen(newAssetPath + 5));
+	const char* filePath = lua.getString(1);
+	klb_assert(!strstr(filePath, ".mp3") || !strstr(filePath, ".ogg"), "Never use a .ogg or .mp3 extension. Audio Asset have none, automatically detected inside");
 
-	klb_assert(!strstr(assetPath, ".mp3") || !strstr(assetPath, ".ogg"), "Never use a .ogg or .mp3 extension. Audio Asset have none, automatically detected inside");
-	sprintf(newAssetPath, "asset://%s", assetPath);
+	char* assetPath = KLBNEWA(char, strlen(filePath) + 14);
+	char* audioAssetPath = KLBNEWA(char, strlen(assetPath + 5));
+	sprintf(assetPath, "asset://%s", filePath);
 
-	// check path
-	if (platform.getFullPath(newAssetPath)) {
-		// return nil if file exists
-		lua.retNil();
-		goto fin;
-	}
+	if (!strstr(filePath, ".texb") && !strstr(filePath, ".imag")) {
+		// audio asset
 
-	if (!strstr(newAssetPath, ".texb") && !strstr(newAssetPath, ".imag")) {
 		// check path with .mp3 audio extension
-		sprintf(tmpCheckPath, "%s.mp3", newAssetPath);
-		if (platform.getFullPath(tmpCheckPath)) {
+		sprintf(audioAssetPath, "%s.mp3", assetPath);
+		if (platform.getFullPath(audioAssetPath)) {
+			// return nil if file exists
 			lua.retNil();
 			goto fin;
 		}
 
 		// check path with .ogg audio extension
-		sprintf(tmpCheckPath, "%s.ogg", newAssetPath);
-		if (platform.getFullPath(tmpCheckPath)) {
+		sprintf(audioAssetPath, "%s.ogg", assetPath);
+		if (platform.getFullPath(audioAssetPath)) {
 			lua.retNil();
 			goto fin;
 		}
+
+		// return provided path if file not exists
+		lua.retString(filePath);
+		goto fin;
 	}
 
-	lua.retString(newAssetPath);
+	// texture asset
+	// we should return path of TEXB, not IMAG
+	CKLBAssetManager& mgr = CKLBAssetManager::getInstance();
+	const char* texbAssetPath = mgr.getAssetNameFromFileName(assetPath);
+	if (texbAssetPath == NULL) {
+		// link file not exists...
+		lua.retString(filePath);
+		goto fin;
+	}
+	if (platform.getFullPath(texbAssetPath)) {
+		lua.retNil();
+	}
+	else {
+		// return path to texb file
+		lua.retString(texbAssetPath + 8);
+	}
+	KLBDELETEA(texbAssetPath);
 fin:
-	KLBDELETEA(newAssetPath);
-	KLBDELETEA(tmpCheckPath);
+	KLBDELETEA(audioAssetPath);
+	KLBDELETEA(assetPath);
 	return 1;
 }
 

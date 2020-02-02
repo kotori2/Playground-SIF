@@ -335,6 +335,7 @@ public:
 
 	u16			getAssetIDFromName	(const char* name, char plugin, u32 retryCounter = 0);
 	const char*	getAssetNameFromID	(u16 assetID);
+	const char* getAssetNameFromFileName(const char* fileName);
 	
 	// TOO Slow, and not used for now.
 	// u16			getAssetCount		();
