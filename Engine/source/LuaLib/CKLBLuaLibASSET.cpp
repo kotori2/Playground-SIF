@@ -315,26 +315,27 @@ CKLBLuaLibASSET::luaGetAssetPathIfNotExist(lua_State* L)
 
 		// return provided path if file not exists
 		lua.retString(filePath);
-		goto fin;
-	}
-
-	// texture asset
-	// we should return path of TEXB, not IMAG
-	CKLBAssetManager& mgr = CKLBAssetManager::getInstance();
-	const char* texbAssetPath = mgr.getAssetNameFromFileName(assetPath);
-	if (texbAssetPath == NULL) {
-		// link file not exists...
-		lua.retString(filePath);
-		goto fin;
-	}
-	if (platform.getFullPath(texbAssetPath)) {
-		lua.retNil();
 	}
 	else {
-		// return path to texb file
-		lua.retString(texbAssetPath + 8);
+		// texture asset
+		// we should return path of TEXB, not IMAG
+		CKLBAssetManager& mgr = CKLBAssetManager::getInstance();
+		const char* texbAssetPath = NULL;
+		texbAssetPath = mgr.getAssetNameFromFileName(assetPath);
+		if (texbAssetPath == NULL) {
+			// link file not exists...
+			lua.retString(filePath);
+			goto fin;
+		}
+		if (platform.getFullPath(texbAssetPath)) {
+			lua.retNil();
+		}
+		else {
+			// return path to texb file
+			lua.retString(texbAssetPath + 8);
+		}
+		KLBDELETEA(texbAssetPath);
 	}
-	KLBDELETEA(texbAssetPath);
 fin:
 	KLBDELETEA(audioAssetPath);
 	KLBDELETEA(assetPath);
