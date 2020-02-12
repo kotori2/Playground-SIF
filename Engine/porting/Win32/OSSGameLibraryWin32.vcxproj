@@ -174,6 +174,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ShowIncludes>false</ShowIncludes>
       <OmitFramePointers>false</OmitFramePointers>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -211,6 +212,7 @@
       <AdditionalOptions>/D "DEBUG" %(AdditionalOptions)</AdditionalOptions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <CompileAsManaged>false</CompileAsManaged>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -248,6 +250,7 @@
       <PreprocessorDefinitions>CURL_STATICLIB;WIN32;FT_DEBUG_LEVEL_ERROR;FT_DEBUG_LEVEL_TRACE;FT2_BUILD_LIBRARY;_CONSOLE;DEBUG_MEMORY_OFF;DEBUG_PERFORMANCE_OFF;DEBUG_LUAEDIT_OFF;DEBUG_RT_CHECK;DEBUG_MENU;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>../../source/UISystem/;../../source/Animation/;../../source/Assets/;../../source/Core/;../../source/LuaLib/;../../source/HTTP/;../../source/SystemTask/;../../source/Rendering/;../../source/SceneGraph/;../../source/UnitSystem/;../../porting/;../../libs/freeType/include/;../../libs/sha1/;../../libs/utf8_converter/;../../include/;../../Source/include/;../../libs/minizip;../../libs/lua;../../porting/Win32/;../../porting/Win32/LuaEdit/include/;../../porting/Win32/Platform;../../porting/Win32/openssl/include/;../../porting/Win32/Lame/;../../libs/SQLite/;../../source/Database/;../../source/AISystem/;../../source/DataSet/;./zlib/include/;../../libs/;../../libs/curl-7.29.0-minimal/include/curl/;../../libs/curl-7.29.0-minimal/lib/;../../libs/curl-7.29.0-minimal/include/;./Vorbis/libvorbis/include/;./Vorbis/libogg/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -277,6 +280,7 @@
       <CompileAsManaged>false</CompileAsManaged>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -364,7 +368,7 @@
     <ClInclude Include="..\..\source\Core\DebugTracker.h" />
     <ClInclude Include="..\..\source\Core\HonokaMiku\DecrypterContext.h" />
     <ClInclude Include="..\..\source\Core\HonokaMiku\md5.h" />
-	<ClInclude Include="..\..\source\Core\NotificationManager.h" />
+    <ClInclude Include="..\..\source\Core\NotificationManager.h" />
     <ClInclude Include="..\..\source\Database\CKLBDatabase.h" />
     <ClInclude Include="..\..\source\Database\CKLBLanguageDatabase.h" />
     <ClInclude Include="..\..\source\Database\CKLBLuaDB.h" />
@@ -443,6 +447,7 @@
     <ClInclude Include="..\..\source\UISystem\CKLBUIMultiImgItem.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUIPieChart.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUIPolyline.h" />
+    <ClInclude Include="..\..\source\UISystem\CKLBUIPolyline2.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUIRubberBand.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUIShader.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUISimpleItem.h" />
@@ -2086,7 +2091,7 @@
     <ClCompile Include="..\..\source\Core\HonokaMiku\V2_Decrypter.cc" />
     <ClCompile Include="..\..\source\Core\HonokaMiku\V3_Decrypter.cc" />
     <ClCompile Include="..\..\source\Core\ITmpFile.cpp" />
-	<ClCompile Include="..\..\source\Core\NotificationManager.cpp" />
+    <ClCompile Include="..\..\source\Core\NotificationManager.cpp" />
     <ClCompile Include="..\..\source\Database\CKLBDatabase.cpp" />
     <ClCompile Include="..\..\source\Database\CKLBLanguageDatabase.cpp" />
     <ClCompile Include="..\..\source\Database\CKLBLuaDB.cpp" />
@@ -2182,6 +2187,7 @@
     <ClCompile Include="..\..\source\UISystem\CKLBUIMultiImgItem.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUIPieChart.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUIPolyline.cpp" />
+    <ClCompile Include="..\..\source\UISystem\CKLBUIPolyline2.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUIProgressBar.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUIRubberBand.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUIScale9.cpp" />

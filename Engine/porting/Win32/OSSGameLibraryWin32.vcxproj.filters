@@ -698,6 +698,9 @@
     <ClInclude Include="..\..\source\HTTP\DownloadQueue.h">
       <Filter>Source Files\Network\Task</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\UISystem\CKLBUIPolyline2.h">
+      <Filter>Source Files\UISystem\Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\Animation\CKLBSystem.cpp">
@@ -2025,6 +2028,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\HTTP\DownloadQueue.cpp">
       <Filter>Source Files\Network\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\UISystem\CKLBUIPolyline2.cpp">
+      <Filter>Source Files\UISystem\Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
