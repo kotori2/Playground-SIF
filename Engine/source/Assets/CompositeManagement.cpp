@@ -1170,6 +1170,7 @@ static const key_name_value keywordsOther[] = {
 	{"allownavigation",(sizeof("allownavigation")-1),CKLBCompositeAsset::FLAG_0_FIELD},
 	{"animtime",(sizeof("animtime")-1),CKLBCompositeAsset::ANIM_TIME_FIELD},
 	{"arrownavigation",(sizeof("arrownavigation")-1),CKLBCompositeAsset::FLAG_0_FIELD},
+	{"assetdot",(sizeof("assetdot") - 1),CKLBCompositeAsset::ASSET_DISABLED_FIELD},
 	{"baseinvisible",(sizeof("baseinvisible")-1),CKLBCompositeAsset::BASEINVISIBLE_FIELD},
 	{"callback",(sizeof("callback")-1),CKLBCompositeAsset::CALLBACK_FIELD},
 	{"chartype",(sizeof("chartype")-1),CKLBCompositeAsset::CHARTYPE},
