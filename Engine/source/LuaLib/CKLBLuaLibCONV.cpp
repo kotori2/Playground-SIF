@@ -52,6 +52,10 @@ CKLBLuaLibCONV::json2lua(lua_State * L)
 {
 	CLuaState lua(L);
 	const char * json = lua.getString(1);
+	if (strcmp(json, "null") == 0) {
+		lua.retNil();
+		return 1;
+	}
 	CKLBUtility::json2lua(lua, json, strlen(json));
 	return 1;
 }
