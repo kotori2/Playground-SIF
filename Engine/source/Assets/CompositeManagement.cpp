@@ -189,6 +189,7 @@ CKLBInnerDef::CKLBInnerDef()
 ,radioID	(-1)
 ,name		(0)
 ,text		(NULL)
+,assetdot	(NULL)
 ,placeholder(NULL)
 ,fontName	(NULL)
 ,color		(0xFFFFFFFF)
@@ -963,8 +964,11 @@ int CKLBCompositeAsset::readString(const unsigned char * stringVal, size_t strin
 	case ASSET_9:
 		m_pCurrInnerDef->assets[m_parserField - ASSET_FIELD] = this->registerString((const char*)stringVal, stringLen, &err);
 		break;
+	case ASSET_DOT:
+		m_pCurrInnerDef->assetdot = this->registerString((const char*)stringVal, stringLen, &err);
+		break;
 	case NAME_FIELD:
-		m_pCurrInnerDef->name					= this->registerString((const char*)stringVal, stringLen, &err);
+		m_pCurrInnerDef->name = this->registerString((const char*)stringVal, stringLen, &err);
 		break;
 	case FONT_NAME_FIELD:
 		m_pCurrInnerDef->fontName				= this->registerString((const char*)stringVal, stringLen, &err);
@@ -1170,7 +1174,7 @@ static const key_name_value keywordsOther[] = {
 	{"allownavigation",(sizeof("allownavigation")-1),CKLBCompositeAsset::FLAG_0_FIELD},
 	{"animtime",(sizeof("animtime")-1),CKLBCompositeAsset::ANIM_TIME_FIELD},
 	{"arrownavigation",(sizeof("arrownavigation")-1),CKLBCompositeAsset::FLAG_0_FIELD},
-	{"assetdot",(sizeof("assetdot") - 1),CKLBCompositeAsset::ASSET_DISABLED_FIELD},
+	{"assetdot",(sizeof("assetdot") - 1),CKLBCompositeAsset::ASSET_DOT},
 	{"baseinvisible",(sizeof("baseinvisible")-1),CKLBCompositeAsset::BASEINVISIBLE_FIELD},
 	{"callback",(sizeof("callback")-1),CKLBCompositeAsset::CALLBACK_FIELD},
 	{"chartype",(sizeof("chartype")-1),CKLBCompositeAsset::CHARTYPE},
@@ -1962,6 +1966,14 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 
 				tsk->setValue(templateDef->value);
 				tsk->setColor(filterDBInt(templateDef->dbField[DB_VAL_COLOR], templateDef->color));
+				if (templateDef->assetdot) {
+					u32 handle = 0;
+					auto s = addAssetPrefix(templateDef->assetdot->string);
+					CKLBImageAsset* pAsset = (CKLBImageAsset*)CKLBUtility::loadAssetScript(s, &handle);
+					SKLBRect* rect = pAsset->getSize();
+					tsk->setDot(s, rect->getWidth(), 0);
+					CKLBDataHandler::releaseHandle(handle);
+				}
 
 				setupTask(templateDef,tsk);
 
