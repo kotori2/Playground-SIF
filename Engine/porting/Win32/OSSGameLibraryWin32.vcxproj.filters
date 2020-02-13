@@ -701,6 +701,9 @@
     <ClInclude Include="..\..\source\UISystem\CKLBUIPolyline2.h">
       <Filter>Source Files\UISystem\Task</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\UISystem\CKLBUIPolygon.h">
+      <Filter>Source Files\UISystem\Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\Animation\CKLBSystem.cpp">
@@ -2030,6 +2033,9 @@
       <Filter>Source Files\Network\Task</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\UISystem\CKLBUIPolyline2.cpp">
+      <Filter>Source Files\UISystem\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\UISystem\CKLBUIPolygon.cpp">
       <Filter>Source Files\UISystem\Task</Filter>
     </ClCompile>
   </ItemGroup>

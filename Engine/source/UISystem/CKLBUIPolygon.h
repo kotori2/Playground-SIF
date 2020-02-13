@@ -1,5 +1,5 @@
 ﻿/* 
-   Copyright 2013 2020 Playground-SIF developers
+   Copyright 2020 Playground-SIF developers
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,30 +13,29 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-#ifndef CKLBUIPolyline2_h
-#define CKLBUIPolyline2_h
+#ifndef CKLBUIPolygon_h
+#define CKLBUIPolygon_h
 
 #include "CKLBUITask.h"
-#include <queue>
 
 /*!
-* \class CKLBUIPolyline
-* \brief Polyline Task Class
+* \class CKLBUIPolygon
+* \brief Polygon Task Class
 * 
-* CKLBUIPolyline allows to create Polylines.
+* CKLBUIPolygon allows to create Polygons.
 */
-class CKLBUIPolyline2 : public CKLBUITask
+class CKLBUIPolygon : public CKLBUITask
 {
-	friend class CKLBTaskFactory<CKLBUIPolyline2>;
+	friend class CKLBTaskFactory<CKLBUIPolygon>;
 private:
-	CKLBUIPolyline2();
-	virtual ~CKLBUIPolyline2();
+	CKLBUIPolygon();
+	virtual ~CKLBUIPolygon();
 
 	bool init(CKLBUITask* pParent, CKLBNode* pNode, u32 order);
 	bool initCore(u32 order);
 public:
 	virtual u32 getClassID();
-	static CKLBUIPolyline2* create(CKLBUITask* pParent, CKLBNode* pNode, u32 order);
+	static CKLBUIPolygon* create(CKLBUITask* pParent, CKLBNode* pNode, u32 order);
 	bool initUI  (CLuaState& lua);
 	int commandUI(CLuaState& lua, int argc, int cmd);
 
@@ -85,9 +84,8 @@ private:
 	u32					m_pointCount;
 	u32					m_order;
 	u32					m_color;
-	std::queue<point>	m_points;
 	static	PROP_V2		ms_propItems[];
 };
 
 
-#endif // CKLBUIPolyline2_h
+#endif // CKLBUIPolygon_h

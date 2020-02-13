@@ -49,6 +49,7 @@
 #include "CKLBUIMoviePlayer.h"
 #include "CKLBUIMultiImgItem.h"
 #include "CKLBUIPieChart.h"
+#include "CKLBUIPolygon.h"
 #include "CKLBUIPolyline.h"
 #include "CKLBUIPolyline2.h"
 #include "CKLBUIProgressBar.h"
@@ -104,6 +105,7 @@ bool EngineTaskReference()
 	bResult = bResult && getFactoryFunc<CKLBUIMoviePlayer>();
 	bResult = bResult && getFactoryFunc<CKLBUIMultiImgItem>();
 	bResult = bResult && getFactoryFunc<CKLBUIPieChart>();
+	bResult = bResult && getFactoryFunc<CKLBUIPolygon>();
 	bResult = bResult && getFactoryFunc<CKLBUIPolyline>();
 	bResult = bResult && getFactoryFunc<CKLBUIPolyline2>();
 	bResult = bResult && getFactoryFunc<CKLBUIProgressBar>();
