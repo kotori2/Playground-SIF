@@ -35,6 +35,7 @@ CKLBLuaLibAPP::addLibrary()
 	addFunction("APP_CallApplication",		CKLBLuaLibAPP::luaCallApplication);
 	addFunction("APP_GetPhysicalMem",		CKLBLuaLibAPP::luaGetPhysicalMem);
 	addFunction("APP_DateTimeNow",			CKLBLuaLibAPP::luaDateTimeNow);
+	addFunction("APP_SetIdleTimerActivity", CKLBLuaLibAPP::luaSetIdleTimerActivity);
 }
 
 int
@@ -125,6 +126,15 @@ int
 CKLBLuaLibAPP::luaDateTimeNow(lua_State * L)
 {
 	CLuaState lua(L);
-	lua.retInt(std::time(0));
+	DEBUG_PRINT("APP_DateTimeNow implemented not correctly");
+	lua.retInt(std::time(0)); // should be formatted like "YYYY-MM-DD-HH-mm-ss" in JP timezone
+	return 1;
+}
+
+int
+CKLBLuaLibAPP::luaSetIdleTimerActivity(lua_State * L)
+{
+	// arg 1 is boolean
+	DEBUG_PRINT("APP_SetIdleTimerActivity not implemented yet");
 	return 1;
 }

@@ -45,6 +45,7 @@ CKLBLuaLibASSET::addLibrary()
 	addFunction("ASSET_registerNotFound",		CKLBLuaLibASSET::luaRegisterNotFound);
 	addFunction("ASSET_setPlaceHolder",			CKLBLuaLibASSET::luaSetPlaceHolder);
 	addFunction("ASSET_killDownload",			CKLBLuaLibASSET::luaKillDownload);
+	addFunction("ASSET_enableTextureBorderPatch", CKLBLuaLibASSET::luaEnableTextureBorderPatch);
 
 	addFunction("Asset_getNMAssetSize",			CKLBLuaLibASSET::luaGetNMAssetSize);
 	addFunction("Asset_getNMAsset",				CKLBLuaLibASSET::luaGetNMAsset);
@@ -366,6 +367,14 @@ CKLBLuaLibASSET::luaKillDownload(lua_State* L)
 	MicroDownload::DeleteAll();
 	lua.retBool(true);
 
+	return 1;
+}
+
+s32
+CKLBLuaLibASSET::luaEnableTextureBorderPatch(lua_State* L)
+{
+	// arg 1 is boolean
+	DEBUG_PRINT("ASSET_enableTextureBorderPatch not implemented yet");
 	return 1;
 }
 
