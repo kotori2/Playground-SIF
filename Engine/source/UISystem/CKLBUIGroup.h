@@ -34,12 +34,12 @@ private:
 	CKLBUIGroup();
 	virtual ~CKLBUIGroup();
 
-	bool init(CKLBUITask* parent, CKLBNode* pNode, float x, float y);
-	bool initCore(float x, float y);
+	bool init(CKLBUITask* parent, CKLBNode* pNode, u32 order, float x, float y);
+	bool initCore(u32 order, float x, float y);
 public:
 	u32 getClassID();
 
-	static CKLBUIGroup* create(CKLBUITask* parent, CKLBNode* pNode, float x, float y);
+	static CKLBUIGroup* create(CKLBUITask* parent, CKLBNode* pNode, u32 order, float x, float y);
 	bool initUI     (CLuaState& lua);
 	int  commandUI  (CLuaState& lua, int argc, int cmd);
 	void execute    (u32 deltaT);
@@ -50,8 +50,11 @@ public:
 	inline bool skipAnim		(const char* name)				{ return m_animpack.skipAnim(getNode(), name);			}
 	inline bool isAnim			(const char* name)				{ return name ? (m_animpack.getAnimCounter(name) > 0) : false; }
 
-	CKLBNodeAnimPack	m_animpack;
+	inline virtual u32 getOrder() { return m_order; }
+private:
+	u32					m_order;
 
+	CKLBNodeAnimPack	m_animpack;
 	static	PROP_V2		ms_propItems[];
 };
 

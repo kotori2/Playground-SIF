@@ -2227,7 +2227,7 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 				CKLBUIGroup * tsk = CKLBUIGroup::create(
 					pParentTask, 
 					parent,
-					/*newPrio,*/ // Guillaume :  Order is not used anymore in Group
+					newPrio,
 					templateDef->x,
 					templateDef->y);
 
