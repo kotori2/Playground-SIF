@@ -577,11 +577,11 @@ CAndroidRequest::deleteFontSystem(void * pFont)
 bool
 CAndroidRequest::renderText(const char* utf8String, void * pFont, u32 color,	//!< 描画する文字列とフォントの指定
 							u16 width, u16 height, u8 * pBuffer8888,    		//!< 描画対象とするテクスチャバッファとそのピクセルサイズ
-							s16 stride, s16 base_x, s16 base_y, bool use4444)         		//!< baseline起点とするテクスチャ内の位置
+							s16 stride, s16 base_x, s16 base_y, u8 embolden, bool use4444)         		//!< baseline起点とするテクスチャ内の位置
 {
 	FontObject* pObjFont = (FontObject*)pFont;
 	if (pObjFont) {
-		pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, use4444);
+		pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, use4444, embolden);
 	}
 	return true;
 }
@@ -1725,6 +1725,13 @@ CAndroidRequest::encryptAES128CBC(const char* plaintext, int plaintextLen, const
 
     DEBUG_PRINT("encryptAES128CBC return: %d", ret);
     return (int)ret;
+}
+
+int
+CAndroidRequest::decryptAES128CBC(unsigned const char* ciphertext, int ciphertextLen, const char* key, char* out, int outLen)
+{
+	// TODO
+	return 0;
 }
 
 const char* RSAPublicKey = "-----BEGIN PUBLIC KEY-----\n"

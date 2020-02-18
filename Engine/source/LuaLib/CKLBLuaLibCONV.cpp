@@ -52,6 +52,10 @@ CKLBLuaLibCONV::json2lua(lua_State * L)
 {
 	CLuaState lua(L);
 	const char * json = lua.getString(1);
+	if (strcmp(json, "null") == 0) {
+		lua.retNil();
+		return 1;
+	}
 	CKLBUtility::json2lua(lua, json, strlen(json));
 	return 1;
 }
@@ -98,5 +102,6 @@ CKLBLuaLibCONV::base64Decode(lua_State* L)
 	int resLen = 0;
 	unsigned char* result = unbase64(str, strlen(str), &resLen);
 	lua_pushlstring(L, (char*)result, resLen);
+	KLBDELETEA(result);
 	return 1;
 }

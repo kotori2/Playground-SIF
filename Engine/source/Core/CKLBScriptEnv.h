@@ -132,12 +132,18 @@ public:
 	void call_eventUpdateProgress	(const char* funcName, CKLBObjectScriptable* obj, int downloadedCount, int unzippedCount);
 
 	void call_eventUpdateZIP		(const char* funcName, CKLBObjectScriptable* obj, int progress, int total);
+	void call_eventUpdateUnzipStart (const char* funcName, CKLBObjectScriptable* obj, int queueId);
+	void call_eventUpdateUnzipEnd   (const char* funcName, CKLBObjectScriptable* obj, int queueId);
+	void call_eventUpdateUnzipError (const char* funcName, CKLBObjectScriptable* obj, int errorCode, int statusCode, int unused);
+
 	void call_eventUpdateComplete	(const char* funcName, CKLBObjectScriptable* obj);
 	void call_eventUpdateError		(const char* funcName, CKLBObjectScriptable* obj, int errorCode, int statusCode, int curlStatus);
-
+	void call_eventUpdateKbps       (const char* funcName, CKLBObjectScriptable* obj, int unused, double speed);
+	void call_eventMdlFinish		(const char* funcName, const char* filename, const char* url, bool success, int statusCode);
 	// NetAPI
 	bool call_netAPI_callback		(const char* funcName, CKLBObjectScriptable* obj, int uniq, int msg, int status, CKLBJsonItem * pRoot);
 	void call_netAPI_versionUp		(const char* funcName, CKLBObjectScriptable* obj, const char* clientVer, const char* serverVer);
+	void call_assetNotFound			(const char* funcName, const char* file);
 
 };
 

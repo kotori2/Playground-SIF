@@ -124,11 +124,19 @@ CKLBNetAPI::execute(u32 deltaT)
 		u8* body	= m_http->getRecvResource();
 		u32 bodyLen	= body ? (u32)m_http->getSize() : 0;
 		
-		char* tmpBuf = KLBNEWA(char, bodyLen + 1);
-		memcpy(tmpBuf, body, bodyLen);
-		tmpBuf[bodyLen] = 0;
-		DEBUG_PRINT("[HTTP RESPONSE] %s", tmpBuf);
-		KLBDELETEA(tmpBuf);
+#ifdef DEBUG
+		if (bodyLen > 0) {
+			u32 tmpLen = bodyLen <= 16000 ? bodyLen + 1 : 16000;
+			u32 endLen = bodyLen <= 16000 ? bodyLen + 1 : 16100;
+			char* tmpBuf = KLBNEWA(char, endLen);
+			memcpy(tmpBuf, body, tmpLen);
+			tmpBuf[tmpLen - 1] = 0;
+			if (bodyLen > 16000) strcat(tmpBuf, " ... (buffer too small)");
+			DEBUG_PRINT("[HTTP RESPONSE] %s", tmpBuf);
+			KLBDELETEA(tmpBuf);
+		}
+#endif // DEBUG
+		
 		
 		// Get Status Code
 		int state = m_http->getHttpState();
@@ -138,7 +146,7 @@ CKLBNetAPI::execute(u32 deltaT)
 			const char* server_ver[2];
 			if (m_http->hasHeader("Server-Version", server_ver))
 			{
-				if (strncmp(*server_ver, kc.getClient(), strlen(kc.getClient())))
+				if (strlen(*server_ver) != strlen(kc.getClient()) || strncmp(*server_ver, kc.getClient(), strlen(kc.getClient())))
 				{
 					releaseConnection();
 					CKLBScriptEnv::getInstance().call_netAPI_versionUp(m_verup_callback, this, kc.getClient(), *server_ver);
@@ -622,7 +630,18 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 		if (headers[i] != NULL)
 			DEBUG_PRINT("[HTTP HEADER] %s", headers[i]);
 	}
-	DEBUG_PRINT("[POST BODY] %s", data);
+
+#ifdef DEBUG
+	int bodyLen = strlen(data);
+	u32 tmpLen = bodyLen <= 16000 ? bodyLen + 1 : 16000;
+	u32 endLen = bodyLen <= 16000 ? bodyLen + 1 : 16100;
+	char* tmpBuf = KLBNEWA(char, endLen);
+	memcpy(tmpBuf, data, tmpLen);
+	tmpBuf[tmpLen - 1] = 0;
+	if (bodyLen > 16000) strcat(tmpBuf, " ... (buffer too small)");
+	DEBUG_PRINT("[POST BODY] %s", tmpBuf);
+	KLBDELETEA(tmpBuf);
+#endif // DEBUG
 
 	KLBDELETEA(authorizeString);
 	delete[] authorize;
@@ -745,7 +764,6 @@ CKLBNetAPI::commandScript(CLuaState& lua)
 			//	6. Skip version check?
 			//	7. End point arg are absolute url?
 			//
-			lua.printStack();
 			if(argc < 3 || argc > 9) {
 				klb_assertAlways("Too more or not enough args");
 				lua.retBoolean(false);

@@ -306,12 +306,6 @@ public:
 	//
 	void		registerAssetPlugIn	(IKLBAssetPlugin* plugin);
 	void		registerAsset		(CKLBAbstractAsset* pAsset);
-	inline void	setRegisterNotFound	(const char* handler) {
-		m_notFoundHandler = handler;
-	}
-	inline void		setPlaceholder(const char* asset) {
-		m_placeholder = asset;
-	}
 private:
 	const char* m_placeholder;
 	const char* m_notFoundHandler;
@@ -321,17 +315,27 @@ public:
 				getPlugin			(u8 charCode) { return m_arrayByCharCode[charCode]; }
 
 	void		freeAsset			(u16 assetID);
+	bool		setAssetNotFoundHandler(const char* hand);
+	bool		setPlaceHolder		(const char* asset);
+	const char* getPlaceHolder		();
 
 	inline
 	CKLBAbstractAsset*		
 				getAsset			(u16 assetID) {
-					klb_assert((assetID < m_maxAssetEntry), "invalid asset ID");
-					klb_assert(this->m_assetRecord[assetID].m_isFree == false, "already free");
+					if (assetID > m_maxAssetEntry) {
+						DEBUG_PRINT("invalid asset ID %d", assetID);
+						return NULL;
+					}
+					if (this->m_assetRecord[assetID].m_isFree != false) {
+						DEBUG_PRINT("already free %d", assetID);
+						return NULL;
+					}
 					return this->m_assetRecord[assetID].m_pAsset;
 				}
 
 	u16			getAssetIDFromName	(const char* name, char plugin, u32 retryCounter = 0);
 	const char*	getAssetNameFromID	(u16 assetID);
+	const char* getAssetNameFromFileName(const char* fileName);
 	
 	// TOO Slow, and not used for now.
 	// u16			getAssetCount		();

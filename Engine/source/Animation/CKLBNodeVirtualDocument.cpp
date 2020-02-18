@@ -373,19 +373,26 @@ void RenderContext::drawText(s32 x , s32 y , char* string  , u32 color, void* fo
 		memset(pBuffer, 0, this->stride * format * this->targetHeight);
 	}
 
+	u8 embolden = 0;
+	if (strlen(string) > 4 && string[0] == *"{" && string[1] == *"b" && string[3] == *"}") {
+		embolden = string[2] - '0';
+		memmove(string, string + 4, strlen(string) - 3 + 1);
+	}
+
 	//
 	// 2. Render text
 	//
-	platform.renderText(	string,
-							font,
-							color,
-							this->targetWidth,
-							this->targetHeight,
-							(u8*)pBuffer,
-							this->stride * format,	// Byte stride
-							x,
-							y,
-							(format != 4));
+	platform.renderText(string,
+		font,
+		color,
+		this->targetWidth,
+		this->targetHeight,
+		(u8*)pBuffer,
+		this->stride * format,	// Byte stride
+		x,
+		y,
+		embolden,
+		(format != 4));
 }
 
 void RenderContext::drawImage(s32 x , s32 y , SDrawCommand* pCommand  , u8 alpha) {

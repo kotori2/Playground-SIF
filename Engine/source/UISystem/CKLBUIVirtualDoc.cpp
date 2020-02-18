@@ -18,41 +18,57 @@
 #include "CKLBScriptEnv.h"
 #include "CKLBLuaEnv.h"
 #include "CKLBLanguageDatabase.h"
-;
+
 // Command Values
 enum {
 	UI_VDOC_CLEAR = 0x01,
 	UI_VDOC_FONT,
-	UI_VDOC_VIEWPOS,
 	UI_VDOC_DRAW,
+	UI_VDOC_VIEWPOS,
 
 	UI_VDOC_ALIGN,
+	UI_VDOC_MARQUEESETUP,		// TODO
+	UI_VDOC_MARQUEEACTIVATE,	// TODO
+	UI_VDOC_FIT,				// TODO
+	UI_VDOC_USENATIVE_FONT,		// TODO
 
 	VD_DRAW_LINE = 0x10,
 	VD_DRAW_TEXT,
 	VD_FILL_RECT,
 	VD_DRAW_IMAG,
+	VD_DRAW_TEXTFX,				// TODO
+	VD_DRAW_TEXT_SPACING,		// TODO
 
 	VD_ALIGN_LEFT = 0,
 	VD_ALIGN_CENTER,
 	VD_ALIGN_RIGHT,
+	VD_FIT_NONE,				// TODO
+	VD_FIT_FULLHEIGHT,			// TODO
 };
 
 static IFactory::DEFCMD cmd[] = {
-	{ "UI_VDOC_CLEAR",		UI_VDOC_CLEAR   },
-	{ "UI_VDOC_FONT",		UI_VDOC_FONT    },
-	{ "UI_VDOC_DRAW",		UI_VDOC_DRAW    },
-	{ "UI_VDOC_VIEWPOS",	UI_VDOC_VIEWPOS },
-	{ "UI_VDOC_ALIGN",		UI_VDOC_ALIGN   },
+	{ "UI_VDOC_CLEAR",			 UI_VDOC_CLEAR		},
+	{ "UI_VDOC_FONT",			 UI_VDOC_FONT		},
+	{ "UI_VDOC_DRAW",			 UI_VDOC_DRAW		},
+	{ "UI_VDOC_VIEWPOS",		 UI_VDOC_VIEWPOS	},
+	{ "UI_VDOC_ALIGN",			 UI_VDOC_ALIGN		},
+	{ "UI_VDOC_MARQUEESETUP",	 UI_VDOC_MARQUEESETUP},
+	{ "UI_VDOC_MARQUEEACTIVATE", UI_VDOC_MARQUEEACTIVATE},
+	{ "UI_VDOC_FIT",			 UI_VDOC_FIT		},
+	{ "UI_VDOC_USENATIVE_FONT",  UI_VDOC_USENATIVE_FONT	},
 
-	{ "VD_DRAW_LINE",		VD_DRAW_LINE    },
-	{ "VD_DRAW_TEXT",		VD_DRAW_TEXT    },
-	{ "VD_FILL_RECT",		VD_FILL_RECT    },
-	{ "VD_DRAW_IMAG",		VD_DRAW_IMAG    },
+	{ "VD_DRAW_LINE",			 VD_DRAW_LINE		},
+	{ "VD_DRAW_TEXT",			 VD_DRAW_TEXT		},
+	{ "VD_FILL_RECT",			 VD_FILL_RECT		},
+	{ "VD_DRAW_IMAG",			 VD_DRAW_IMAG		},
+	{ "VD_DRAW_TEXTFX",			 VD_DRAW_TEXTFX		},
+	{ "VD_DRAW_TEXT_SPACING",	 VD_DRAW_TEXT_SPACING    },
 
-	{ "VD_ALIGN_LEFT",		VD_ALIGN_LEFT   },
-	{ "VD_ALIGN_CENTER",	VD_ALIGN_CENTER },
-	{ "VD_ALIGN_RIGHT",		VD_ALIGN_RIGHT  },
+	{ "VD_ALIGN_LEFT",			 VD_ALIGN_LEFT		},
+	{ "VD_ALIGN_CENTER",		 VD_ALIGN_CENTER	},
+	{ "VD_ALIGN_RIGHT",			 VD_ALIGN_RIGHT		},
+	{ "VD_FIT_NONE",			 VD_FIT_NONE		},
+	{ "VD_FIT_FULLHEIGHT",		 VD_FIT_FULLHEIGHT	},
 
 	{ 0, 0}
 };
@@ -339,6 +355,23 @@ CKLBUIVirtualDoc::commandUI(CLuaState& lua, int argc, int cmd)
 	default:
 		klb_assertAlways("[UI_VirtualDoc] unknown command 0x%04x.\n", cmd);
 
+	case UI_VDOC_MARQUEESETUP:
+		{
+		}
+		break;
+	case UI_VDOC_MARQUEEACTIVATE:
+		{
+		}
+		break;
+	case UI_VDOC_FIT:
+		{
+		}
+		break;
+	case UI_VDOC_USENATIVE_FONT:
+		{
+
+		}
+		break;
 	case UI_VDOC_CLEAR:
 		{
 			if(argc != 4) {
@@ -486,6 +519,16 @@ CKLBUIVirtualDoc::commandUI(CLuaState& lua, int argc, int cmd)
 
 						// image は後で破棄しなければならないので、使った分をリストとして保持しておく。
 						drawImage(x0, y0, image, alpha);
+					}
+					break;
+				case VD_DRAW_TEXTFX:
+					{
+
+					}
+					break;
+				case VD_DRAW_TEXT_SPACING:
+					{
+
 					}
 					break;
 				}

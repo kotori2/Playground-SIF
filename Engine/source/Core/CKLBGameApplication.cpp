@@ -51,6 +51,7 @@
 #include "CKLBLanguageDatabase.h"
 #include "CompositeManagement.h"
 #include "CKLBHTTPInterface.h"
+#include "DownloadQueue.h"
 
 // Global Text rendering buffer.
 #include "CKLBTextTempBuffer.h"
@@ -306,6 +307,7 @@ CKLBGameApplication::callInitialTasks(int width, int height)
 	res &= (CKLBDeviceKeyEvent::create() != NULL);
     res &= (CKLBOSCtrlEvent::create() != NULL);
 	res &= (CKLBTouchEventUITask::create() != NULL);
+	res &= (MicroDownload::create() != NULL);
 #ifdef DEBUG_MENU
     //
     // Was initialized in CKLBDebugMenu::Create but

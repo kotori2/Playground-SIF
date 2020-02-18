@@ -137,10 +137,11 @@ public:
 	void *	getFontSystem	(int size, const char * fontName = 0);
 	void	deleteFontSystem(void * pFont);
 
+
 	//! テキストレンダリング
 	bool renderText(const char* utf8String, void * pFont, u32 color,
 		u16 width, u16 height, u8 * pBuffer8888,
-		s16 stride, s16 base_x, s16 base_y, bool use4444 = false);
+		s16 stride, s16 base_x, s16 base_y, u8 embolden, bool use4444 = false);
 	bool getTextInfo(const char* utf8String, void * pFont, STextInfo* pReturnInfo);
 
 	void *			getGLExtension(const char * ext);
@@ -207,6 +208,7 @@ public:
 
 	int			HMAC_SHA1			(const char* string, const char* key, int keyLen, char* retbuf);
 	int			encryptAES128CBC	(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen);
+	int			decryptAES128CBC	(unsigned const char* ciphertext, int ciphertextLen, const char* key, char* out, int outLen);
 	int			publicKeyEncrypt	(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen);
 	bool        publicKeyVerify		(unsigned char* plaintext, int plaintextLen, unsigned char* hash);
 	int         getRandomBytes		(char* out, int len);

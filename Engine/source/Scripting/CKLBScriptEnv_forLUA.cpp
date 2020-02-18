@@ -373,10 +373,29 @@ void CKLBScriptEnv::call_eventUpdateProgress(const char* funcName, CKLBObjectScr
 	lua.callback(funcName, "PIIIII", obj, 0, 0, 0, downloadedCount, unzippedCount);
 }
 
+// deprecated
 void CKLBScriptEnv::call_eventUpdateZIP		(const char* funcName, CKLBObjectScriptable* obj, int progress, int total) {
 	if (!funcName) { return; }
 	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
 	lua.callback(funcName, "PII", obj, progress, total);
+}
+
+void CKLBScriptEnv::call_eventUpdateUnzipStart		(const char* funcName, CKLBObjectScriptable* obj, int taskId) {
+	if (!funcName) { return; }
+	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
+	lua.callback(funcName, "PI", obj, taskId);
+}
+
+void CKLBScriptEnv::call_eventUpdateUnzipEnd(const char* funcName, CKLBObjectScriptable* obj, int taskId) {
+	if (!funcName) { return; }
+	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
+	lua.callback(funcName, "PI", obj, taskId);
+}
+
+void CKLBScriptEnv::call_eventUpdateUnzipError(const char* funcName, CKLBObjectScriptable* obj, int errorCode, int statusCode, int unused) {
+	if (!funcName) { return; }
+	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
+	lua.callback(funcName, "PIII", obj, errorCode, statusCode, unused);
 }
 
 void CKLBScriptEnv::call_eventUpdateComplete(const char* funcName, CKLBObjectScriptable* obj) {
@@ -389,6 +408,18 @@ void CKLBScriptEnv::call_eventUpdateError(const char* funcName, CKLBObjectScript
 	if (!funcName) { return; }
 	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
 	lua.callback(funcName, "PIII", obj, errorCode, statusCode, 0);
+}
+
+void CKLBScriptEnv::call_eventUpdateKbps(const char* funcName, CKLBObjectScriptable* obj, int unused, double speed) {
+	if (!funcName) { return; }
+	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
+	lua.callback(funcName, "PIN", obj, unused, speed);
+}
+
+void CKLBScriptEnv::call_eventMdlFinish(const char* funcName, const char* filename, const char* url, bool success, int statusCode) {
+	if (!funcName) { return; }
+	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
+	lua.callback(funcName, "PSSII", nullptr, filename, url, (int)success, statusCode);
 }
 
 bool CKLBScriptEnv::call_netAPI_callback(const char* funcName, CKLBObjectScriptable* /*obj*/, int uniq, int msg, int status, CKLBJsonItem* pRoot) {
@@ -414,5 +445,11 @@ void CKLBScriptEnv::call_netAPI_versionUp		(const char* funcName, CKLBObjectScri
 	lua.callback(funcName, "PSS", obj, clientVer, serverVer);
 }
 
+void CKLBScriptEnv::call_assetNotFound(const char* funcName, const char* file)
+{
+	if (!funcName) { return; }
+	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
+	lua.callback(funcName, "SS", file + 8, file);
+}
 #endif
 #endif

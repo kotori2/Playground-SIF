@@ -37,7 +37,7 @@
 
 #include "CKLBLuaEnv.h"
 #include "CKLBTouchPad.h"
-
+#include "Win32TouchLib.h"
 // #pragma comment(lib, "GameLibraryWin32.lib")
 
 //
@@ -49,6 +49,8 @@
 #include "CKLBAsset.h"
 
 #include <conio.h>
+
+#define IS_TOUCH ((GetMessageExtraInfo() & 0xFFFFFF00) == 0xFF515700)
 
 //
 //-----------------------------------------
@@ -123,30 +125,36 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// DragQueryFile((HDROP)wParam, 0, &fileNameBuff[0], 512);			
 		break;
 	case WM_LBUTTONDOWN:
-		if (mouse_stat) {	// ボタンを押したまま画面外に出た
+		if (!IS_TOUCH) {
+			if (mouse_stat) {	// ボタンを押したまま画面外に出た
 			// 最後の座標を使って、無理やり RELEASEを送る
 			// If going out of the screen with a pushed button
 			// Force sending a RELEASE signal.
-			CPFInterface::getInstance().client().inputPoint(0, IClientRequest::I_RELEASE,
-				lastX, lastY);
-			mouse_stat = 0;
+				CPFInterface::getInstance().client().inputPoint(0, IClientRequest::I_RELEASE,
+					lastX, lastY);
+				mouse_stat = 0;
+			}
+			CPFInterface::getInstance().client().inputPoint(0, IClientRequest::I_CLICK,
+				GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+			mouse_stat = 1;
 		}
-		CPFInterface::getInstance().client().inputPoint(0, IClientRequest::I_CLICK,
-			GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
-		mouse_stat = 1;
 		break;
 	case WM_MOUSEMOVE:
-		if (wParam & MK_LBUTTON) {
-			lastX = GET_X_LPARAM(lParam);
-			lastY = GET_Y_LPARAM(lParam);
-			CPFInterface::getInstance().client().inputPoint(0, IClientRequest::I_DRAG,
-				lastX, lastY);
+		if (!IS_TOUCH) {
+			if (wParam & MK_LBUTTON) {
+				lastX = GET_X_LPARAM(lParam);
+				lastY = GET_Y_LPARAM(lParam);
+				CPFInterface::getInstance().client().inputPoint(0, IClientRequest::I_DRAG,
+					lastX, lastY);
+			}
 		}
 		break;
 	case WM_LBUTTONUP:
-		CPFInterface::getInstance().client().inputPoint(0, IClientRequest::I_RELEASE,
-			GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
-		mouse_stat = 0;
+		if (!IS_TOUCH) {
+			CPFInterface::getInstance().client().inputPoint(0, IClientRequest::I_RELEASE,
+				GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+			mouse_stat = 0;
+		}
 		break;
 	case WM_KEYDOWN:
 		switch (wParam) {
@@ -241,7 +249,52 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+	case WM_TOUCH:
+	{
+		using namespace Win32Touch;
 
+		TouchInputList touchlist = GetTouchList(hWnd, (void*)lParam, LOWORD(wParam));
+		IClientRequest& cr = CPFInterface::getInstance().client();
+
+		for (TouchInputList::iterator i = touchlist.begin(); i != touchlist.end(); i++)
+		{
+			TouchPoint& cur = *i;
+
+			switch (cur.Type)
+			{
+			case TouchDown:
+			{
+				cr.inputPoint(cur.TouchID, IClientRequest::I_CLICK, cur.X, cur.Y);
+				break;
+			}
+			case TouchUp:
+			{
+				cr.inputPoint(cur.TouchID, IClientRequest::I_RELEASE, cur.X, cur.Y);
+				break;
+			}
+			case TouchMove:
+			{
+				cr.inputPoint(cur.TouchID, IClientRequest::I_DRAG, cur.X, cur.Y);
+				break;
+			}
+			default:
+				klb_assertAlways("Unknown touch type. TouchID = %d", cur.TouchID);
+				break;
+			}
+		}
+
+		ReleaseTouchHandle((void*)lParam);
+	}
+	break;
+	case WM_SYSCOMMAND:
+	{
+		IClientRequest& cr = CPFInterface::getInstance().client();
+
+		if (wParam == SC_MINIMIZE)
+			cr.pauseGame(true);
+		else if (wParam == SC_RESTORE)
+			cr.pauseGame(false);
+	}
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
@@ -520,6 +573,10 @@ int GameEngineMain(int argc, _TCHAR* argv[])
 
 	// set screen size
 	pfif.client().setScreenInfo(false, width, height);
+
+	// Register for touch
+	Win32Touch::RegisterWindowForTouch(hwnd);
+
 	// boot path
 	if (strlen(g_fileName)) {
 		pfif.client().setFilePath(g_fileName);

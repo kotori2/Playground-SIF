@@ -23,6 +23,7 @@
 #include "EngineStdReference.h"
 
 // Utility Task
+#include "NotificationManager.h"
 #include "CKLBGenericTask.h"
 #include "CKLBIntervalTimer.h"
 #include "CKLBLifeCtrlTask.h"
@@ -48,7 +49,9 @@
 #include "CKLBUIMoviePlayer.h"
 #include "CKLBUIMultiImgItem.h"
 #include "CKLBUIPieChart.h"
+#include "CKLBUIPolygon.h"
 #include "CKLBUIPolyline.h"
+#include "CKLBUIPolyline2.h"
 #include "CKLBUIProgressBar.h"
 #include "CKLBUIRubberBand.h"
 #include "CKLBUIScale9.h"
@@ -72,6 +75,7 @@ bool EngineTaskReference()
 	bool bResult = true;
 
 	// Utility Task
+	bResult = bResult && getFactoryFunc<NotificationManager>();
 	bResult = bResult && getFactoryFunc<CKLBGenericTask>();
 	bResult = bResult && getFactoryFunc<CKLBIntervalTimer>();
 	bResult = bResult && getFactoryFunc<CKLBLifeCtrlTask>();
@@ -101,7 +105,9 @@ bool EngineTaskReference()
 	bResult = bResult && getFactoryFunc<CKLBUIMoviePlayer>();
 	bResult = bResult && getFactoryFunc<CKLBUIMultiImgItem>();
 	bResult = bResult && getFactoryFunc<CKLBUIPieChart>();
+	bResult = bResult && getFactoryFunc<CKLBUIPolygon>();
 	bResult = bResult && getFactoryFunc<CKLBUIPolyline>();
+	bResult = bResult && getFactoryFunc<CKLBUIPolyline2>();
 	bResult = bResult && getFactoryFunc<CKLBUIProgressBar>();
 	bResult = bResult && getFactoryFunc<CKLBUIRubberBand>();
 	bResult = bResult && getFactoryFunc<CKLBUIScale9>();
@@ -141,6 +147,8 @@ bool EngineTaskReference()
 #include "CKLBLuaLibTASK.h"
 #include "CKLBLuaLibUI.h"
 
+#include "LuaLibCRYPTO.h"
+
 #include "CKLBAppProperty.h"
 
 #include "CKLBScrMgrDefault.h"
@@ -172,6 +180,7 @@ bool EngineLuaFuncReference()
 	bResult = bResult && getFuncRegister<CKLBLuaLibUI>();
 	bResult = bResult && getFuncRegister<CKLBLuaLibUPDATE>();
 	bResult = bResult && getFuncRegister<CKLBLuaLibPackerControl>();
+	bResult = bResult && getFuncRegister<LuaLibCRYPTO>();
 	bResult = bResult && (0 != CKLBAppScriptIF::setValue);
 
 	return bResult;

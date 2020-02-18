@@ -18,6 +18,7 @@
 #include "Dictionnary.h"
 #include "CPFInterface.h"
 #include "CKLBUtility.h"
+#include "CKLBLuaEnv.h"
 
 // --------------------------------------------------------------
 //   Asset Manager
@@ -306,6 +307,42 @@ CKLBAssetManager::restoreAsset() {
 	}
 }
 
+// only texb from imag for now
+const char*
+CKLBAssetManager::getAssetNameFromFileName(const char* fileName)
+{
+	IPlatformRequest& pfif = CPFInterface::getInstance().platform();
+	IReadStream* pStream = pfif.openReadStream(fileName, pfif.useEncryption());
+	if (!pStream || pStream->getStatus() != IReadStream::NORMAL) {
+		delete pStream;
+		return NULL;
+	}
+
+	klb_assert(pStream->getSize() >= 8, "Too small for asset");
+
+	int size = pStream->getSize() - pStream->getPosition();
+	u8* buffer = KLBNEWA(u8, size);
+	char* assetName = KLBNEWA(char, 256);
+	bool success = false;
+	if (buffer) {
+		if (pStream->readBlock(buffer, size)) {
+			u32 pluginType32 = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3];
+			if (pluginType32 == CHUNK_TAG('L', 'I', 'N', 'K')) {
+				sprintf(assetName, "asset://%s", buffer + 8);
+				success = true;
+			}
+		}
+		KLBDELETEA(buffer);
+	}
+	delete pStream;
+
+	if (success == false) {
+		KLBDELETEA(assetName);
+		return NULL;
+	}
+	return assetName;
+}
+
 CKLBAbstractAsset*
 CKLBAssetManager::loadAssetByFileName(const char* fileName, IKLBAssetPlugin* plugin, bool noStream, bool asyncLoad) {
 	checkAsync(asyncLoad);
@@ -398,7 +435,9 @@ CKLBAssetManager::loadAssetStream(IReadStream* pReadStream, CKLBAbstractAsset** 
 			}
 		}
 	} else {
-		klb_assertAlways("File not found or invalid stream");
+		// just return here because we have mdl
+		// klb_assertAlways("File not found or invalid stream");
+		return false;
 	}
 
 	logEndTime('A',(*ppAsset ? (*ppAsset)->getName() : NULL));
@@ -432,6 +471,10 @@ CKLBAssetManager::loadAsset(u8* stream, u32 streamSize, CKLBAbstractAsset** ppAs
 			if (pStream) {
 				bool result = loadAssetStream(pStream, ppAsset,0,useAsync);
 				delete pStream;	// DO NOT USE KLBDELETE : platform use "new"
+				if (result == false && m_notFoundHandler)
+				{
+					CKLBScriptEnv::getInstance().call_assetNotFound(m_notFoundHandler, fileName);
+				}
 				return result;
 			} else {
 				noError = false;
@@ -524,7 +567,27 @@ CKLBAssetManager::freeAsset(u16 assetID)
 		KLBDELETE(pAsset);	// Also free memory slot if any or reference count.
 	}
 }
+bool 
+CKLBAssetManager::setAssetNotFoundHandler(const char* hand)
+{
+	KLBDELETEA(m_notFoundHandler);
+	m_notFoundHandler = CKLBUtility::copyString(hand);
 
+	return true;
+}
+
+bool 
+CKLBAssetManager::setPlaceHolder(const char* asset)
+{
+	KLBDELETEA(m_placeholder);
+	m_placeholder = CKLBUtility::copyString(asset);
+	return true;
+}
+
+const char*
+CKLBAssetManager::getPlaceHolder() {
+	return m_placeholder;
+}
 // =========================================================================
 /* NO DICO
 bool CKLBAbstractAsset::include(const char* name)

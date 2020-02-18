@@ -79,6 +79,7 @@ public:
 		ASSET_7,
 		ASSET_8,
 		ASSET_9,
+		ASSET_DOT,
 		SUB_FIELD,
 		PRIORITY_FIELD,
 		RADIO_FIELD,
@@ -338,6 +339,7 @@ public:
 	CKLBCompositeAsset::STRINGENTRY*	handler	[MAX_HANDLER];
 	CKLBCompositeAsset::STRINGENTRY*	assets	[MAX_ASSETS];
 
+	CKLBCompositeAsset::STRINGENTRY*	assetdot;
 	CKLBCompositeAsset::STRINGENTRY*	name;
 	CKLBCompositeAsset::STRINGENTRY*	text;
 	CKLBCompositeAsset::STRINGENTRY*	placeholder;

@@ -17,6 +17,7 @@
 #include "CKLBUtility.h"
 #include <dirent.h>
 #include "CKLBGameApplication.h"
+#include "DownloadQueue.h"
 
 static ILuaFuncLib::DEFCONST luaConst[] = {
 //	{ "DBG_M_SWITCH",	DBG_MENU::M_SWITCH },
@@ -32,20 +33,23 @@ CKLBLuaLibASSET::~CKLBLuaLibASSET() {}
 void
 CKLBLuaLibASSET::addLibrary()
 {
-	addFunction("ASSET_getImageSize",		CKLBLuaLibASSET::luaGetImageSize);
-	addFunction("ASSET_getBoundSize",		CKLBLuaLibASSET::luaGetBoundSize);
-	addFunction("ASSET_getAssetInfo",		CKLBLuaLibASSET::luaGetAssetInfo);
-	addFunction("ASSET_getExternalFree",	CKLBLuaLibASSET::luaGetExternalFree);
-	addFunction("ASSET_getFileList",		CKLBLuaLibASSET::luaGetFileList);
+	addFunction("ASSET_getImageSize",			CKLBLuaLibASSET::luaGetImageSize);
+	addFunction("ASSET_getBoundSize",			CKLBLuaLibASSET::luaGetBoundSize);
+	addFunction("ASSET_getAssetInfo",			CKLBLuaLibASSET::luaGetAssetInfo);
+	addFunction("ASSET_getExternalFree",		CKLBLuaLibASSET::luaGetExternalFree);
+	addFunction("ASSET_getFileList",			CKLBLuaLibASSET::luaGetFileList);
 	addFunction("ASSET_getAssetPathIfNotExist", CKLBLuaLibASSET::luaGetAssetPathIfNotExist);
-	addFunction("ASSET_delExternal",		CKLBLuaLibASSET::luaDelExternal);
-	addFunction("ASSET_registerNotFound",	CKLBLuaLibASSET::luaRegisterNotFound);
-	addFunction("ASSET_setPlaceHolder",		CKLBLuaLibASSET::luaSetPlaceHolder);
-	addFunction("ASSET_killDownload",		CKLBLuaLibASSET::luaKillDownload);
+	addFunction("ASSET_startDownload",			CKLBLuaLibASSET::luaStartDownload);
+	addFunction("ASSET_killDownload",			CKLBLuaLibASSET::luaKillDownload);
+	addFunction("ASSET_delExternal",			CKLBLuaLibASSET::luaDelExternal);
+	addFunction("ASSET_registerNotFound",		CKLBLuaLibASSET::luaRegisterNotFound);
+	addFunction("ASSET_setPlaceHolder",			CKLBLuaLibASSET::luaSetPlaceHolder);
+	addFunction("ASSET_killDownload",			CKLBLuaLibASSET::luaKillDownload);
+	addFunction("ASSET_enableTextureBorderPatch", CKLBLuaLibASSET::luaEnableTextureBorderPatch);
 
-	addFunction("Asset_getNMAssetSize",		CKLBLuaLibASSET::luaGetNMAssetSize);
-	addFunction("Asset_getNMAsset",			CKLBLuaLibASSET::luaGetNMAsset);
-	addFunction("Asset_setNMAsset",			CKLBLuaLibASSET::luaSetNMAsset);
+	addFunction("Asset_getNMAssetSize",			CKLBLuaLibASSET::luaGetNMAssetSize);
+	addFunction("Asset_getNMAsset",				CKLBLuaLibASSET::luaGetNMAsset);
+	addFunction("Asset_setNMAsset",				CKLBLuaLibASSET::luaSetNMAsset);
 }
 
 s32
@@ -206,8 +210,6 @@ CKLBLuaLibASSET::luaSetNMAsset(lua_State * L)
 {
 	CLuaState lua(L);
 	int argc = lua.numArgs();
-	// MAY cause crash
-	// lua.printStack();
 	if (argc != 2) {
 		lua.retBool(false);
 		return 0;
@@ -222,7 +224,7 @@ CKLBLuaLibASSET::luaSetNMAsset(lua_State * L)
 	if (strlen(str1) == 16 || strlen(str2) == 16)
 		lua_pushlstring(L, result, 16);
 	else
-		lua_pushlstring(L, result, 32);
+		lua_pushlstring(L, result, assetSize);
 	free(result);
 	return 1;
 }
@@ -234,7 +236,7 @@ CKLBLuaLibASSET::luaRegisterNotFound(lua_State * L)
 	CLuaState lua(L);
 	CKLBAssetManager& mgr = CKLBAssetManager::getInstance();
 	const char* handler = lua.getString(1);
-	mgr.setRegisterNotFound(handler);
+	mgr.setAssetNotFoundHandler(handler);
 	return 1;
 }
 
@@ -244,7 +246,7 @@ CKLBLuaLibASSET::luaSetPlaceHolder(lua_State * L)
 	CLuaState lua(L);
 	CKLBAssetManager& mgr = CKLBAssetManager::getInstance();
 	const char* asset = lua.getString(1);
-	mgr.setPlaceholder(asset);
+	mgr.setPlaceHolder(asset);
 	return 1;
 }
 
@@ -263,19 +265,17 @@ CKLBLuaLibASSET::luaGetFileList(lua_State* L)
 
 	if ( (dir = opendir(path)) ) {
 		while ( (ent = readdir(dir)) ) {
-			if (strcmp(ent->d_name, ".") && strcmp(ent->d_name, "..")) {
-				// store index in table
-				lua.retInt(i++);
+			// store index in table
+			lua.retInt(i++);
 
-				// create sub table
-				lua.tableNew();
-				lua.retString("name");
-				lua.retString(ent->d_name);
-				// set sub table
-				lua.tableSet();
-				// set parent table
-				lua.tableSet();
-			}
+			// create sub table
+			lua.tableNew();
+			lua.retString("name");
+			lua.retString(ent->d_name);
+			// set sub table
+			lua.tableSet();
+			// set parent table
+			lua.tableSet();
 		}
 		closedir(dir);
 	}
@@ -289,40 +289,73 @@ CKLBLuaLibASSET::luaGetAssetPathIfNotExist(lua_State* L)
 {
 	CLuaState lua(L);
 	IPlatformRequest& platform = CPFInterface::getInstance().platform();
-	const char* assetPath = lua.getString(1);
-	char* newAssetPath = new char[strlen(assetPath) + 14];
+	const char* filePath = lua.getString(1);
+	klb_assert(!strstr(filePath, ".mp3") || !strstr(filePath, ".ogg"), "Never use a .ogg or .mp3 extension. Audio Asset have none, automatically detected inside");
 
-	klb_assert(!strstr(assetPath, ".mp3") || !strstr(assetPath, ".ogg"), "Never use a .ogg or .mp3 extension. Audio Asset have none, automatically detected inside");
-	sprintf(newAssetPath, "asset://%s", assetPath);
+	char* assetPath = KLBNEWA(char, strlen(filePath) + 14);
+	char* audioAssetPath = KLBNEWA(char, strlen(assetPath + 5));
+	sprintf(assetPath, "asset://%s", filePath);
 
-	// check path
-	if (platform.getFullPath(newAssetPath)) {
-		// return nil if file exists
-		lua.retNil();
-		delete[] newAssetPath;
-		return 1;
-	}
+	if (!strstr(filePath, ".texb") && !strstr(filePath, ".imag")) {
+		// audio asset
 
-	if (!strstr(newAssetPath, ".texb") && !strstr(newAssetPath, ".imag")) {
 		// check path with .mp3 audio extension
-		sprintf(newAssetPath + strlen(newAssetPath), ".mp3");
-		if (platform.getFullPath(newAssetPath)) {
+		sprintf(audioAssetPath, "%s.mp3", assetPath);
+		if (platform.getFullPath(audioAssetPath)) {
+			// return nil if file exists
 			lua.retNil();
-			delete[] newAssetPath;
-			return 1;
+			goto fin;
 		}
 
 		// check path with .ogg audio extension
-		sprintf(newAssetPath + strlen(newAssetPath) - 4, ".ogg");
-		if (platform.getFullPath(newAssetPath)) {
+		sprintf(audioAssetPath, "%s.ogg", assetPath);
+		if (platform.getFullPath(audioAssetPath)) {
 			lua.retNil();
-			delete[] newAssetPath;
-			return 1;
+			goto fin;
 		}
-	}
 
-	lua.retString(newAssetPath);
-	delete[] newAssetPath;
+		// return provided path if file not exists
+		lua.retString(filePath);
+	}
+	else {
+		// texture asset
+		// we should return path of TEXB, not IMAG
+		CKLBAssetManager& mgr = CKLBAssetManager::getInstance();
+		const char* texbAssetPath = NULL;
+		texbAssetPath = mgr.getAssetNameFromFileName(assetPath);
+		if (texbAssetPath == NULL) {
+			// link file not exists...
+			lua.retString(filePath);
+			goto fin;
+		}
+		if (platform.getFullPath(texbAssetPath)) {
+			lua.retNil();
+		}
+		else {
+			// return path to texb file
+			lua.retString(texbAssetPath + 8);
+		}
+		KLBDELETEA(texbAssetPath);
+	}
+fin:
+	KLBDELETEA(audioAssetPath);
+	KLBDELETEA(assetPath);
+	return 1;
+}
+
+/* args:
+ 1. callback
+ 2. file target
+ 3. download link
+*/
+s32
+CKLBLuaLibASSET::luaStartDownload(lua_State* L)
+{
+	CLuaState lua(L);
+
+	MicroDownload::Queue(lua.getString(1), lua.getString(2), lua.getString(3));
+	lua.retBool(true);
+
 	return 1;
 }
 
@@ -330,9 +363,18 @@ s32
 CKLBLuaLibASSET::luaKillDownload(lua_State* L)
 {
 	CLuaState lua(L);
-	// part of Micro Download
-	// TODO
-	lua.printStack();
+
+	MicroDownload::DeleteAll();
+	lua.retBool(true);
+
+	return 1;
+}
+
+s32
+CKLBLuaLibASSET::luaEnableTextureBorderPatch(lua_State* L)
+{
+	// arg 1 is boolean
+	DEBUG_PRINT("ASSET_enableTextureBorderPatch not implemented yet");
 	return 1;
 }
 

@@ -38,9 +38,13 @@ private:
 /*static*/ u16				CharDictionnary::s_usedList = 0xFFFF;
 
 /*static*/ CharCache		CharCache::s_cacheArray[CHAR_CACHE_SIZE];
+/*static*/ CharCache		CharCache::s_noCacheArray[CHAR_CACHE_SIZE];
 /*static*/ u16				CharCache::s_cacheStart		= 0xFFFF;
+/*static*/ u16				CharCache::s_noCacheStart		= 0xFFFF;
 /*static*/ u16				CharCache::s_cacheEnd		= 0;// First allocated object.
+/*static*/ u16				CharCache::s_noCacheEnd		= 0;// First allocated object.
 /*static*/ u16				CharCache::s_allocCounter	= 0;
+/*static*/ u16				CharCache::s_allocNoCacheCounter	= 0;
 
 /*static*/ FontObject*		FontObject::s_list			= NULL;
 /*static*/ bool				FontObject::s_init			= false;
@@ -240,11 +244,19 @@ CharDictionnary::CharDictionnary()
 	memset(m_idxTbl, 0xFF, 16 * sizeof(u16));
 }
 
-/*static*/ CharCache* CharDictionnary::getChar(u32 uniCode, FontObject* pFont) {
+/*static*/ CharCache* CharDictionnary::getChar(u32 uniCode, FontObject* pFont, u8 embolden) {
 	FntDebug::check();	// Only place with one check.
+	u16 idxChar;
 
+	if (embolden) {
+		return CharCache::createEntry(uniCode, &idxChar, pFont, embolden);
+	}
+
+	// find in cache
 	CharCache* pEntry = findEntry(pFont, uniCode);
 
+	// not found, save in cache
+	// no cache if we use embolden
 	if (pEntry == NULL) {
 		CharDictionnary* pParse = &s_dicoArray[pFont->m_dicoStart];
 		u32 copyCode = uniCode;
@@ -262,9 +274,8 @@ CharDictionnary::CharDictionnary()
 			}
 			copyCode <<=4;
 		}
-
-		u16 idxChar;
-		pEntry = CharCache::createEntry(uniCode, &idxChar, pFont);
+		
+		pEntry = CharCache::createEntry(uniCode, &idxChar, pFont, embolden);
 		if (pEntry) {
 			pParse->m_idxTbl[copyCode>>28] = idxChar;
 		}
@@ -721,12 +732,30 @@ float FontObject::getAscent() {
 	return (float)(met->ascender >> 6);
 }
 
-FT_GlyphSlot FontObject::renderChar(u32 unicode) {
+FT_GlyphSlot FontObject::renderChar(u32 unicode, u8 embolden) {
 	FT_GlyphSlot glyphslt = m_face->glyph;
 	u32 glyph_index = FT_Get_Char_Index( m_face, unicode );
-	FT_Error error = FT_Load_Glyph(	m_face,				/* handle to face object */
-							glyph_index,		/* glyph index */
-							FT_LOAD_RENDER );	/* does render with FT_RENDER_MODE_NORMAL as we do not perform any transform */
+	//FT_Error error = FT_Load_Glyph(	m_face,				/* handle to face object */
+	//						glyph_index,		/* glyph index */
+	//						FT_LOAD_RENDER );	/* does render with FT_RENDER_MODE_NORMAL as we do not perform any transform */
+	
+	// set embolden
+	// initialize stroker, so you can create outline font
+	FT_Stroker stroker;
+	FT_Stroker_New(FontObject::s_library, &stroker);
+	FT_Stroker_Set(stroker, embolden << 3, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
+	auto error = FT_Load_Glyph(m_face, glyph_index, FT_LOAD_DEFAULT);
+	FT_Glyph glyph;
+	FT_Get_Glyph(m_face->glyph, &glyph);
+	FT_Glyph_StrokeBorder(&glyph, stroker, false, true);
+	FT_Glyph_To_Bitmap(&glyph, FT_RENDER_MODE_NORMAL, nullptr, true);
+	FT_BitmapGlyph bitmapGlyph = reinterpret_cast<FT_BitmapGlyph>(glyph);
+	// TODO: maybe memory leak?
+	glyphslt->bitmap = bitmapGlyph->bitmap;
+	glyphslt->bitmap_left = bitmapGlyph->left;
+	glyphslt->bitmap_top = bitmapGlyph->top;
+	
+
 	if (!error) {
 		return glyphslt;
 	} else {
@@ -734,52 +763,64 @@ FT_GlyphSlot FontObject::renderChar(u32 unicode) {
 	}
 }
 
-/*static*/ CharCache* CharCache::createEntry(u32 uniCode, u16* outIdx, FontObject* pFont) {
+/*static*/ CharCache* CharCache::createEntry(u32 uniCode, u16* outIdx, FontObject* pFont, u8 embolden) {
 	CharCache* pItem = NULL;
 
 	// Render Glyph
-	FT_GlyphSlot glyphslt = pFont->renderChar(uniCode);
+	FT_GlyphSlot glyphslt = pFont->renderChar(uniCode, embolden);
 	
 	// Add to block	
 	u16 blockIdx;
 	u16 blockCharIdx;
 	u8* ptrBuff;
 
+	// set cache target
+	CharCache *cacheArray = s_cacheArray;
+	u16 *allocCounter = &s_allocCounter;
+	u16 *cacheStart = &s_cacheStart;
+	u16 *cacheEnd = &s_cacheEnd;
+	if (embolden) {
+		cacheArray = s_noCacheArray;
+		allocCounter = &s_allocNoCacheCounter;
+		cacheStart = &s_noCacheStart;
+		cacheEnd = &s_noCacheEnd;
+	}
+
 	if (glyphslt && MemoryBlock::allocBlock(&blockIdx, &blockCharIdx, &ptrBuff)) {
 		u16 idx;
-		if (s_allocCounter < CHAR_CACHE_SIZE) {
-			idx = s_allocCounter++;
+		if (*allocCounter < CHAR_CACHE_SIZE) {
+			idx = (*allocCounter)++;
 		} else {
-			idx = s_cacheEnd;
-			CharCache* pItem = &s_cacheArray[idx];
+			idx = *cacheEnd;
+			CharCache* pItem = &cacheArray[idx];
 			// 1.Remove from link list -> maintain head AND queue.
 			if (pItem->m_prev != 0xFFFF) {
-				s_cacheArray[pItem->m_prev].m_next = 0xFFFF;
-				s_cacheEnd = pItem->m_prev;
+				cacheArray[pItem->m_prev].m_next = 0xFFFF;
+				*cacheEnd = pItem->m_prev;
 			} else {
-				s_cacheEnd = s_cacheStart; // Should never arrive
+				*cacheEnd = *cacheStart; // Should never arrive
 			}
 
 			// 2.Remove data from block
 			MemoryBlock::freeBlock(pItem->m_blockIndex, pItem->m_blockCharIndex);
 
 			// 3.Remove entry from dictionnary
-			if (pItem->m_pFontObj) {
+			if (pItem->m_pFontObj && !embolden) {
 				CharDictionnary::removeDicoEntry(pItem->m_pFontObj->m_dicoStart, pItem->m_unicode);
 			}
 		}
 		
-		pItem = &s_cacheArray[idx];
+		pItem = &cacheArray[idx];
 		*outIdx = idx;
 		pItem->m_unicode = uniCode;
 
 		// Add to link list
-		pItem->m_next	 = s_cacheStart;
+		pItem->m_next	 = *cacheStart;
 		pItem->m_prev	 = 0xFFFF;
-		if (s_cacheStart != 0xFFFF) {
-			s_cacheArray[s_cacheStart].m_prev = idx;
+		if (*cacheStart != 0xFFFF) {
+			cacheArray[*cacheStart].m_prev = idx;
 		}
-		s_cacheStart = idx;	// s_cacheEnd is 0 by default -> always point to first allocated item.
+		*cacheStart = idx;	// s_cacheEnd is 0 by default -> always point to first allocated item.
 
 		FT_Bitmap* bmp		= &glyphslt->bitmap;
 		pItem->m_width		= bmp->width;
@@ -852,7 +893,7 @@ FT_GlyphSlot FontObject::renderChar(u32 unicode) {
 	return pItem;
 }
 
-void FontObject::renderText	(s32 x, s32 y, const char* text, u8* Buffer8888, u32 colorARGB8888, u32 buffWidth, u32 buffHeight, s32 strideByte, bool use4444) {
+void FontObject::renderText	(s32 x, s32 y, const char* text, u8* Buffer8888, u32 colorARGB8888, u32 buffWidth, u32 buffHeight, s32 strideByte, bool use4444, u8 embolden) {
 	// FT_GlyphSlot glyphslt = m_face->glyph;
 	s32 currX = x;
 	s32 currY = y;
@@ -877,7 +918,7 @@ void FontObject::renderText	(s32 x, s32 y, const char* text, u8* Buffer8888, u32
 		u32 charcode = arrayUnicode[n];
 		// DEBUG_PRINT("RENDERING; letter: %x(%c)", charcode, (char)charcode);
 
-		CharCache* pChar = CharDictionnary::getChar(charcode, this);
+		CharCache* pChar = CharDictionnary::getChar(charcode, this, embolden);
 		
 		if (pChar) {
 			//========================================
@@ -1125,7 +1166,7 @@ void FontObject::getTextInfo(const char* text, STextInfo* result) {
 		for (u32 n=0; n < charCount; n++) {
 			u32 charcode = arrayUnicode[n];
 
-			CharCache* pChar = CharDictionnary::getChar(charcode, this);
+			CharCache* pChar = CharDictionnary::getChar(charcode, this, 0);
 		
 			if (pChar) {
 				s32 Wwidth		= pChar->m_width;

@@ -686,6 +686,24 @@
     <ClInclude Include="..\..\source\HTTP\DownloadManager.h">
       <Filter>Source Files\Network\Element</Filter>
     </ClInclude>
+    <ClInclude Include="Platform\Win32TouchLib.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\LuaLib\LuaLibCRYPTO.h">
+      <Filter>Source Files\LuaLib\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\Core\NotificationManager.h">
+      <Filter>Source Files\UtilTask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\HTTP\DownloadQueue.h">
+      <Filter>Source Files\Network\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\UISystem\CKLBUIPolyline2.h">
+      <Filter>Source Files\UISystem\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\UISystem\CKLBUIPolygon.h">
+      <Filter>Source Files\UISystem\Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\Animation\CKLBSystem.cpp">
@@ -2001,6 +2019,24 @@
     </ClCompile>
     <ClCompile Include="..\..\source\HTTP\DownloadManager.cpp">
       <Filter>Source Files\Network\Element</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Win32TouchLib.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\LuaLib\LuaLibCRYPTO.cpp">
+      <Filter>Source Files\LuaLib\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Core\NotificationManager.cpp">
+      <Filter>Source Files\UtilTask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\HTTP\DownloadQueue.cpp">
+      <Filter>Source Files\Network\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\UISystem\CKLBUIPolyline2.cpp">
+      <Filter>Source Files\UISystem\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\UISystem\CKLBUIPolygon.cpp">
+      <Filter>Source Files\UISystem\Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

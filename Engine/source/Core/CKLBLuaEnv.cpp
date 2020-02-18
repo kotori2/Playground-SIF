@@ -305,15 +305,7 @@ CKLBLuaEnv::command(lua_State *L)
     if(!pTask) return 0;
 	CHECKTASK(pTask);
 	if (lua.isNil(2)) {
-#ifdef _WIN32
-#ifdef DEBUG
-		DEBUG_PRINT("command const is not defined");
-		DebugBreak();
-		return 0;
-#endif
-#else
 		klb_assertAlways("command const is not defined");
-#endif
 	}
 
 #ifdef INTERNAL_BENCH

@@ -50,7 +50,7 @@
 
 #include "FontRendering.h"
 
-constexpr auto BUNDLE_VERSION = "6.9.1";
+constexpr auto BUNDLE_VERSION = "6.9.3";
 
 bool CWin32Platform::g_useDecryption = true;
 bool CWin32Platform::g_ignoreError = false;
@@ -137,10 +137,10 @@ void
 CWin32Platform::detailedLogging(const char * /*basefile*/, const char * /*functionName*/, int /*lineNo*/, const char * format, ...)
 {
 	va_list	ap;
-	char log	[1024];
+	char log	[16384];
 
 	va_start(ap, format);
-	vsprintf_s( log,1024, format, ap);
+	vsprintf_s( log, 16384, format, ap);
 	va_end(ap);
 	strcat(log, "\n");
 
@@ -238,8 +238,36 @@ CWin32Platform::openTmpFile(const char * filePath)
 	const char * target = "file://external/";
 	int len = strlen(target);
 	if(!strncmp(filePath, target, len)) {
+		// create folder
+		int pos = 1;
+		for (int i = 0; i < strlen(filePath); i++) {
+			if (filePath[i] == '/') {
+				pos = i;
+			}
+		}
+
+		//Create folder recursively
+		const char* ptr = filePath + 7;
+		for (int i = 0; i < strlen(ptr); i++) {
+			if (ptr[i] == '/') {
+				char* folder = (char*)malloc(sizeof(char) * i + 2);
+				strncpy(folder, ptr, i + 1);
+				folder[i + 1] = 0;
+				int attr = GetFileAttributesA(folder);
+				if (!(attr & FILE_ATTRIBUTE_DIRECTORY) || attr == INVALID_FILE_ATTRIBUTES) {
+					DEBUG_PRINT("Create folder %s", folder);
+					if (CreateDirectory(folder, NULL) != 0) {
+						DEBUG_PRINT("Failed to create folder %s", folder);
+						break;
+					}
+				}
+				free(folder);
+			}
+		}
+
 		CWin32TmpFile * pTmpFile = new CWin32TmpFile(filePath);
 		if(!pTmpFile->isReady()) {
+			DEBUG_PRINT("Failed to create tmp file %s", filePath);
 			delete pTmpFile;
 			pTmpFile = NULL;
 		}
@@ -519,11 +547,12 @@ CWin32Platform::deleteFontSystem(void * pFont)
 bool
 CWin32Platform::renderText(const char* utf8String, void * pFont, u32 color,
 						   u16 width, u16 height, u8 * pBuffer8888,
-						   s16 stride, s16 base_x, s16 base_y, bool use4444)
+						   s16 stride, s16 base_x, s16 base_y,
+						   u8 embolden, bool use4444)
 {
 	FontObject* pObjFont = (FontObject*)pFont;
 	if (pObjFont) {
-		pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, use4444);
+		pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, use4444, embolden);
 	}
 	return true;
 }
@@ -992,6 +1021,39 @@ CWin32Platform::encryptAES128CBC(const char* plaintext, int plaintextLen, const 
 	outLen += len;
 
 	/* Clean up */
+	EVP_CIPHER_CTX_free(ctx);
+	return outLen;
+}
+
+int
+CWin32Platform::decryptAES128CBC(unsigned const char* ciphertext, int ciphertextLen, const char* key, char* out, int outLen)
+{
+	EVP_CIPHER_CTX* ctx;
+
+	if (!(ctx = EVP_CIPHER_CTX_new()))
+		return 0;
+
+	if (false)
+	{
+	fail:
+		EVP_CIPHER_CTX_free(ctx);
+		return 0;
+	}
+
+	// The first 16 bytes in CyperText is actually initialization vector.
+	// The CipherLength is the actual length of the ciphered text, aka strlen(CipherText) - 16,
+	// so we can use this length directly.
+
+	// In the EVP_DecryptInit_ex the fifth param is IV, so we pass in the CipherText
+	if (EVP_DecryptInit_ex(ctx, EVP_aes_128_cbc(), NULL, (const u8*)key, (const u8*)ciphertext) == 0)
+		goto fail;
+
+	// In the EVP_DecryptUpdate the forth param is ciphered text, so we pass in the CipherText + 16
+	if (EVP_DecryptUpdate(ctx, (u8*)out, &outLen, (const u8*)ciphertext + 16, ciphertextLen) == 0)
+		goto fail;
+
+	int paddingLen = *(out + outLen - 1);
+	outLen = outLen - paddingLen;
 	EVP_CIPHER_CTX_free(ctx);
 	return outLen;
 }

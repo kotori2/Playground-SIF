@@ -134,6 +134,7 @@ public:
 	CKLBUIContainer* getParentUI();
 
 	virtual	bool processAction	(CKLBAction* pAction);
+	virtual const char* getAssetName(ASSET_TYPE mode);
 
 	void	registerHandler		(CKLBActionHandler* pActionHandler);
 	void	clearHandlers		();
@@ -232,6 +233,8 @@ public:
 	void	setEnabled			(bool isEnabled);
 	virtual
 	void	setAsset			(CKLBAsset*	pAsset, ASSET_TYPE mode);
+	virtual 
+	const char* getAssetName	(ASSET_TYPE mode);
 
 	void	setAudio			(CKLBAudioAsset* pAudioAsset, u32 mode, float volume, bool bOwner = false);
 	void	setMultiplyVolume	(u32 mode, float factorVolume);

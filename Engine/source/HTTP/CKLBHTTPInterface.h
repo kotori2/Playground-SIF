@@ -63,6 +63,8 @@ public:
 	// 受信ステータス
 	bool httpRECV();
 
+	bool isError();
+
 	// 現在の受信サイズ
 	s64 getSize();
 	inline s64 getDwnldSize()	{ return m_receivedSize; }
@@ -90,6 +92,7 @@ private:
 	void		download();
 
 	// HTTP Error Code
+	bool		m_isError;
 	int			m_errorCode;
 	int			m_tmpErrorCode;
 	bool		m_bDataComplete;
