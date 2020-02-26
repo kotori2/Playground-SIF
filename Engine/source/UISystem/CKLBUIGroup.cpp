@@ -209,7 +209,6 @@ CKLBUIGroup::commandUI(CLuaState& lua, int argc, int cmd)
 	case UI_GROUP_GET_SIZE:
 		{
 			DEBUG_PRINT("UI_GROUP_GET_SIZE not implemented yet");
-			lua.retInt(124);
 			ret = 1;
 		}
 		break;

@@ -188,7 +188,7 @@ CKLBUIVariableItem::initCore(u32 order, float x, float y, float width, float hei
 }
 
 bool
-CKLBUIVariableItem::setAsset(const char * asset)
+CKLBUIVariableItem::setAsset(const char * asset, bool useOrigSize)
 {
 	u32 handle = 0;
 	CKLBImageAsset * pTex = NULL;
@@ -239,6 +239,10 @@ CKLBUIVariableItem::setAsset(const char * asset)
 
 		m_org_width  = pRect->getWidth();
 		m_org_height = pRect->getHeight();
+		if (useOrigSize) {
+			m_width = m_org_width;
+			m_height = m_org_height;
+		}
 		ret = true;
 	}
 
@@ -413,11 +417,10 @@ CKLBUIVariableItem::commandUI(CLuaState& lua, int argc, int cmd)
 	case UI_VARITEM_CHANGE_ASSET:
 		{
 			bool bResult = false;
-			if(argc == 4) {
-				// arg 4 is boolean
-				// TODO: understand what it do
+			if(argc >= 3) {
 				const char * asset = (lua.isNil(3)) ? NULL : lua.getString(3);
-				bResult = changeAsset(asset);
+				bool useOrigSize = lua.isNil(4) ? false : lua.getBoolean(4);
+				bResult = changeAsset(asset, useOrigSize);
 			}
 			lua.retBoolean(bResult);
 			ret = 1;
