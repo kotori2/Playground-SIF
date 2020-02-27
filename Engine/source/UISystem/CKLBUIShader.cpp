@@ -1,23 +1,37 @@
 
 #include "CKLBUIShader.h"
 
+enum {
+	VSHADER_VALUE = 0,
+	PSHADER_VALUE,
+	VSHADER_TEXTURE,
+	PSHADER_TEXTURE,
+	SHADER_ANIM,
+	UV_REPEAT,
+	SAMPLING_LINEAR
+};
+
 static IFactory::DEFCMD cmd[] = {
 	// command values
+	{"VSHADER_VALUE",	VSHADER_VALUE						},
+	{"PSHADER_VALUE",	PSHADER_VALUE						},
+	{"VSHADER_TEXTURE",	VSHADER_TEXTURE						},
+	{"PSHADER_TEXTURE",	PSHADER_TEXTURE						},
 	{"SHADER_ANIM",		SHADER_ANIM							},
-	{"PSHADER_VALUE",	CShaderInstance::PIXEL_SHADER		},
-	{"VSHADER_VALUE",	CShaderInstance::VERTEX_SHADER		},
+	{"UV_REPEAT",		UV_REPEAT							},
+	{"SAMPLING_LINEAR",	SAMPLING_LINEAR						},
 
 	// constants
-	{"PSHADER_PARAM",	CShaderInstance::PIXEL_SHADER		},
 	{"VSHADER_PARAM",	CShaderInstance::VERTEX_SHADER		},
-	{"SHD_VEC1",		VEC1F				},
-	{"SHD_VEC2",		VEC2				},
-	{"SHD_VEC3",		VEC3				},
-	{"SHD_VEC4",		VEC4				},
-	{"SHD_TEX2D",		TEX2D				},
-	{"SHD_LOW",			QUALITY_TYPE::LOWP	},
-	{"SHD_MED",			QUALITY_TYPE::MEDP	},
-	{"SHD_HIGH",		QUALITY_TYPE::HIGHP	},
+	{"PSHADER_PARAM",	CShaderInstance::PIXEL_SHADER		},
+	{"SHD_VEC1",		VEC1F								},
+	{"SHD_VEC2",		VEC2								},
+	{"SHD_VEC3",		VEC3								},
+	{"SHD_VEC4",		VEC4								},
+	{"SHD_TEX2D",		TEX2D								},
+	{"SHD_LOW",			QUALITY_TYPE::LOWP					},
+	{"SHD_MED",			QUALITY_TYPE::MEDP					},
+	{"SHD_HIGH",		QUALITY_TYPE::HIGHP					},
 	{0, 0}
 };
 
@@ -30,6 +44,7 @@ CKLBLuaPropTask::PROP_V2 CKLBUIShader::ms_propItems[] = {
 
 CKLBUIShader::CKLBUIShader()
 : CKLBUITask()
+, m_shaderName(NULL)
 {
 	m_newScriptModel = true;
 }
@@ -44,18 +59,35 @@ CKLBUIShader::getClassID()
 	return CLS_KLBUISHADER;
 }
 
+CKLBUIShader*
+CKLBUIShader::create()
+{
+	CKLBUIShader* pTask = KLBNEW(CKLBUIShader);
+	if (!pTask) { return NULL; }
+	if (!pTask->init()) {
+		KLBDELETE(pTask);
+		return NULL;
+	}
+	return pTask;
+}
+
+bool 
+CKLBUIShader::init() {
+	bool bResult = initCore();
+	bResult = registUI(NULL, bResult);
+	return bResult;
+}
+
 bool
 CKLBUIShader::initCore()
 {
-
-	return false;
+	return true;
 }
 
 bool
 CKLBUIShader::initUI(CLuaState& lua)
 {
-	
-	return false;
+	return initCore();
 }
 
 int
