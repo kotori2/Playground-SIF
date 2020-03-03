@@ -2794,6 +2794,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 327C0B7D179A3944007B7F42;
@@ -3507,7 +3508,13 @@
 					DEBUG_MENU,
 					FT2_BUILD_LIBRARY,
 				);
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../libs/freeType/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../libs/freeType/include\"",
+					"\"$(SRCROOT)/../../source/Core\"",
+					"\"$(SRCROOT)/../../include\"",
+					"\"$(SRCROOT)/../../source/HTTP\"",
+					"\"$(SRCROOT)/openssl-1.1.1c/include\"",
+				);
 				INFOPLIST_FILE = "Playground/Playground-Info.plist";
 				LIBRARY_SEARCH_PATHS = "";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
@@ -3531,7 +3538,13 @@
 					DEBUG_MENU,
 					FT2_BUILD_LIBRARY,
 				);
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../libs/freeType/include\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../libs/freeType/include\"",
+					"\"$(SRCROOT)/../../source/Core\"",
+					"\"$(SRCROOT)/../../include\"",
+					"\"$(SRCROOT)/../../source/HTTP\"",
+					"\"$(SRCROOT)/openssl-1.1.1c/include\"",
+				);
 				INFOPLIST_FILE = "Playground/Playground-Info.plist";
 				LIBRARY_SEARCH_PATHS = "";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
@@ -3565,6 +3578,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../libs/freeType/include\"",
+					"\"$(SRCROOT)/../../source/Core\"",
+					"\"$(SRCROOT)/../../include\"",
+					"\"$(SRCROOT)/../../source/HTTP\"",
 				);
 				INFOPLIST_FILE = "PlaygroundOSS/PlaygroundOSS-Info.plist";
 				LINK_WITH_STANDARD_LIBRARIES = YES;
@@ -3597,6 +3613,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../libs/freeType/include\"",
+					"\"$(SRCROOT)/../../source/Core\"",
+					"\"$(SRCROOT)/../../include\"",
+					"\"$(SRCROOT)/../../source/HTTP\"",
 				);
 				INFOPLIST_FILE = "PlaygroundOSS/PlaygroundOSS-Info.plist";
 				LINK_WITH_STANDARD_LIBRARIES = YES;
@@ -3688,6 +3707,7 @@
 				32D86B29182F73E800210C28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		32D86B2D182F73E800210C28 /* Build configuration list for PBXNativeTarget "PlaygroundOSSTests" */ = {
 			isa = XCConfigurationList;
@@ -3696,6 +3716,7 @@
 				32D86B2B182F73E800210C28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
