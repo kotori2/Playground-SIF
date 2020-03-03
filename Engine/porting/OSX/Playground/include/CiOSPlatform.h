@@ -95,7 +95,7 @@ public:
 	//! フォントテクスチャ描画
 	bool renderText(const char *utf8String, void *pFont, u32 color,     //!< 描画する文字列とフォントの指定
 	                u16 width, u16 height, u8 *pBuffer8888,             //!< 描画対象とするテクスチャバッファとそのピクセルサイズ
-	                s16 stride, s16 base_x, s16 base_y, bool use4444, u8 embolden);                //!< baseline起点とするテクスチャ内の位置
+	                s16 stride, s16 base_x, s16 base_y, u8 embolden, bool use4444);                //!< baseline起点とするテクスチャ内の位置
     
 	// フォントテクスチャ描画情報
 	bool getTextInfo(const char *utf8String, void *pFont, STextInfo *pReturnInfo);
@@ -168,13 +168,13 @@ public:
     
 	void forbidSleep(bool is_forbidden);
 	
-    virtual int         HMAC_SHA1        (const char* string, const char* key, int keyLen, char* retbuf) = 0;
-    virtual int         encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen) = 0;
-    virtual int         decryptAES128CBC(unsigned const char* ciphertext, int ciphertextLen, const char* key, char* out, int outLen) = 0;
-    virtual int         publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen) = 0;
-    virtual bool        publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash) = 0;
-    virtual int         getRandomBytes(char* out, int len) = 0;
-    virtual int         getAuthSecret(char* out, int len) = 0;
+    virtual int         HMAC_SHA1        (const char* string, const char* key, int keyLen, char* retbuf);
+    virtual int         encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen);
+    virtual int         decryptAES128CBC(unsigned const char* ciphertext, int ciphertextLen, const char* key, char* out, int outLen);
+    virtual int         publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen);
+    virtual bool        publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash);
+    virtual int         getRandomBytes(char* out, int len);
+    virtual int         getAuthSecret(char* out, int len);
 private:
 	struct PF_THREAD {
 		jmp_buf jmp;

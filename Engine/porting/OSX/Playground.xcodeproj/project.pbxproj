@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0765A169240EA964000747CC /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0765A167240EA94B000747CC /* libcrypto.a */; };
+		0765A175240EAA00000747CC /* V1_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A16B240EA9FF000747CC /* V1_Decrypter.cc */; };
+		0765A176240EAA00000747CC /* V3_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A16C240EA9FF000747CC /* V3_Decrypter.cc */; };
+		0765A177240EAA00000747CC /* JP_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A16E240EAA00000747CC /* JP_Decrypter.cc */; };
+		0765A178240EAA00000747CC /* EN_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A16F240EAA00000747CC /* EN_Decrypter.cc */; };
+		0765A179240EAA00000747CC /* CN_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A170240EAA00000747CC /* CN_Decrypter.cc */; };
+		0765A17A240EAA00000747CC /* Helper.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A172240EAA00000747CC /* Helper.cc */; };
+		0765A17B240EAA00000747CC /* V2_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A173240EAA00000747CC /* V2_Decrypter.cc */; };
+		0765A17C240EAA00000747CC /* TW_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A174240EAA00000747CC /* TW_Decrypter.cc */; };
+		0765A183240EAA29000747CC /* DownloadQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A17E240EAA29000747CC /* DownloadQueue.cpp */; };
+		0765A184240EAA29000747CC /* DownloadClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A180240EAA29000747CC /* DownloadClient.cpp */; };
+		0765A185240EAA29000747CC /* DownloadManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A181240EAA29000747CC /* DownloadManager.cpp */; };
 		32127067182530650027C57E /* CSampleProjectEntrance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32127065182530650027C57E /* CSampleProjectEntrance.cpp */; };
 		3212706A182532090027C57E /* CKLBDeviceKeyEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32127068182532090027C57E /* CKLBDeviceKeyEvent.cpp */; };
 		3212706E18253C800027C57E /* FileDelete.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3212706C18253C800027C57E /* FileDelete.cpp */; };
@@ -756,6 +768,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0765A167240EA94B000747CC /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "openssl-1.1.1c/lib/libcrypto.a"; sourceTree = "<group>"; };
+		0765A16B240EA9FF000747CC /* V1_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = V1_Decrypter.cc; path = ../../../source/Core/HonokaMiku/V1_Decrypter.cc; sourceTree = "<group>"; };
+		0765A16C240EA9FF000747CC /* V3_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = V3_Decrypter.cc; path = ../../../source/Core/HonokaMiku/V3_Decrypter.cc; sourceTree = "<group>"; };
+		0765A16D240EAA00000747CC /* DecrypterContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DecrypterContext.h; path = ../../../source/Core/HonokaMiku/DecrypterContext.h; sourceTree = "<group>"; };
+		0765A16E240EAA00000747CC /* JP_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JP_Decrypter.cc; path = ../../../source/Core/HonokaMiku/JP_Decrypter.cc; sourceTree = "<group>"; };
+		0765A16F240EAA00000747CC /* EN_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EN_Decrypter.cc; path = ../../../source/Core/HonokaMiku/EN_Decrypter.cc; sourceTree = "<group>"; };
+		0765A170240EAA00000747CC /* CN_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CN_Decrypter.cc; path = ../../../source/Core/HonokaMiku/CN_Decrypter.cc; sourceTree = "<group>"; };
+		0765A171240EAA00000747CC /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5.h; path = ../../../source/Core/HonokaMiku/md5.h; sourceTree = "<group>"; };
+		0765A172240EAA00000747CC /* Helper.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Helper.cc; path = ../../../source/Core/HonokaMiku/Helper.cc; sourceTree = "<group>"; };
+		0765A173240EAA00000747CC /* V2_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = V2_Decrypter.cc; path = ../../../source/Core/HonokaMiku/V2_Decrypter.cc; sourceTree = "<group>"; };
+		0765A174240EAA00000747CC /* TW_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TW_Decrypter.cc; path = ../../../source/Core/HonokaMiku/TW_Decrypter.cc; sourceTree = "<group>"; };
+		0765A17D240EAA28000747CC /* DownloadQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownloadQueue.h; path = ../../../source/HTTP/DownloadQueue.h; sourceTree = "<group>"; };
+		0765A17E240EAA29000747CC /* DownloadQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DownloadQueue.cpp; path = ../../../source/HTTP/DownloadQueue.cpp; sourceTree = "<group>"; };
+		0765A17F240EAA29000747CC /* DownloadClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownloadClient.h; path = ../../../source/HTTP/DownloadClient.h; sourceTree = "<group>"; };
+		0765A180240EAA29000747CC /* DownloadClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DownloadClient.cpp; path = ../../../source/HTTP/DownloadClient.cpp; sourceTree = "<group>"; };
+		0765A181240EAA29000747CC /* DownloadManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DownloadManager.cpp; path = ../../../source/HTTP/DownloadManager.cpp; sourceTree = "<group>"; };
+		0765A182240EAA29000747CC /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownloadManager.h; path = ../../../source/HTTP/DownloadManager.h; sourceTree = "<group>"; };
 		32127065182530650027C57E /* CSampleProjectEntrance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSampleProjectEntrance.cpp; path = ../../../../SampleProject/game/CSampleProjectEntrance.cpp; sourceTree = "<group>"; };
 		32127066182530650027C57E /* CSampleProjectEntrance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSampleProjectEntrance.h; path = ../../../../SampleProject/game/CSampleProjectEntrance.h; sourceTree = "<group>"; };
 		32127068182532090027C57E /* CKLBDeviceKeyEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CKLBDeviceKeyEvent.cpp; path = ../../../source/SystemTask/CKLBDeviceKeyEvent.cpp; sourceTree = "<group>"; };
@@ -1377,6 +1406,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0765A169240EA964000747CC /* libcrypto.a in Frameworks */,
 				32F55EA3179B2147003807CE /* libcurl.dylib in Frameworks */,
 				32F55E96179B1CA3003807CE /* libz.dylib in Frameworks */,
 				32F55E94179B17F5003807CE /* AudioUnit.framework in Frameworks */,
@@ -1425,6 +1455,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0765A16A240EA9CD000747CC /* HonokaMiku */ = {
+			isa = PBXGroup;
+			children = (
+				0765A170240EAA00000747CC /* CN_Decrypter.cc */,
+				0765A16D240EAA00000747CC /* DecrypterContext.h */,
+				0765A16F240EAA00000747CC /* EN_Decrypter.cc */,
+				0765A172240EAA00000747CC /* Helper.cc */,
+				0765A16E240EAA00000747CC /* JP_Decrypter.cc */,
+				0765A171240EAA00000747CC /* md5.h */,
+				0765A174240EAA00000747CC /* TW_Decrypter.cc */,
+				0765A16B240EA9FF000747CC /* V1_Decrypter.cc */,
+				0765A173240EAA00000747CC /* V2_Decrypter.cc */,
+				0765A16C240EA9FF000747CC /* V3_Decrypter.cc */,
+			);
+			name = HonokaMiku;
+			sourceTree = "<group>";
+		};
 		327C0B7D179A3944007B7F42 = {
 			isa = PBXGroup;
 			children = (
@@ -1449,6 +1496,7 @@
 		327C0B88179A3944007B7F42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0765A167240EA94B000747CC /* libcrypto.a */,
 				32F55EA2179B2147003807CE /* libcurl.dylib */,
 				32F55E95179B1CA2003807CE /* libz.dylib */,
 				32F55E93179B17F4003807CE /* AudioUnit.framework */,
@@ -1591,6 +1639,12 @@
 		327C0BAB179A3A16007B7F42 /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
+				0765A180240EAA29000747CC /* DownloadClient.cpp */,
+				0765A17F240EAA29000747CC /* DownloadClient.h */,
+				0765A181240EAA29000747CC /* DownloadManager.cpp */,
+				0765A182240EAA29000747CC /* DownloadManager.h */,
+				0765A17E240EAA29000747CC /* DownloadQueue.cpp */,
+				0765A17D240EAA28000747CC /* DownloadQueue.h */,
 				327C0C7A179A3EAF007B7F42 /* CKLBStoreService.cpp */,
 				327C0C7B179A3EAF007B7F42 /* CKLBStoreService.h */,
 				327C0C7C179A3EAF007B7F42 /* CKLBNetAPI.cpp */,
@@ -1717,6 +1771,7 @@
 		327C0BB1179A3A42007B7F42 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0765A16A240EA9CD000747CC /* HonokaMiku */,
 				327C0D01179A4052007B7F42 /* Scripting */,
 				327C0C0E179A3E7A007B7F42 /* CKLBTask.cpp */,
 				327C0C0F179A3E7A007B7F42 /* CKLBTask.h */,
@@ -2890,10 +2945,12 @@
 				327C0C56179A3E7A007B7F42 /* CKLBUtility.cpp in Sources */,
 				327C0C57179A3E7A007B7F42 /* CKLBDataHandler.cpp in Sources */,
 				327C0C58179A3E7A007B7F42 /* Dictionnary.cpp in Sources */,
+				0765A176240EAA00000747CC /* V3_Decrypter.cc in Sources */,
 				327C0C59179A3E7A007B7F42 /* CKLBBinArray.cpp in Sources */,
 				327C0C5A179A3E7A007B7F42 /* CKLBContext.cpp in Sources */,
 				327C0C5B179A3E7A007B7F42 /* DebugAlloc.cpp in Sources */,
 				327C0C5C179A3E7A007B7F42 /* DebugTracker.cpp in Sources */,
+				0765A184240EAA29000747CC /* DownloadClient.cpp in Sources */,
 				327C0C5D179A3E7A007B7F42 /* CKLBAppProperty.cpp in Sources */,
 				327C0C5E179A3E7A007B7F42 /* CKLBAsyncLoader.cpp in Sources */,
 				327C0C61179A3E7A007B7F42 /* CKLBGenericTask.cpp in Sources */,
@@ -2912,6 +2969,7 @@
 				327C0C79179A3E98007B7F42 /* DataSet_JSonDB.cpp in Sources */,
 				327C0C8A179A3EAF007B7F42 /* CKLBStoreService.cpp in Sources */,
 				327C0C8B179A3EAF007B7F42 /* CKLBNetAPI.cpp in Sources */,
+				0765A175240EAA00000747CC /* V1_Decrypter.cc in Sources */,
 				327C0C8C179A3EAF007B7F42 /* CKLBHTTPInterface.cpp in Sources */,
 				327C0C8D179A3EAF007B7F42 /* CKLBUpdate.cpp in Sources */,
 				327C0C8E179A3EAF007B7F42 /* CUnZip.cpp in Sources */,
@@ -2992,6 +3050,7 @@
 				327C0D86179A41BF007B7F42 /* CKLBUIControl.cpp in Sources */,
 				327C0D87179A41BF007B7F42 /* CKLBUIScale9.cpp in Sources */,
 				327C0D88179A41BF007B7F42 /* CKLBUITextInput.cpp in Sources */,
+				0765A177240EAA00000747CC /* JP_Decrypter.cc in Sources */,
 				327C0D89179A41BF007B7F42 /* CKLBActivityIndicatorNode.cpp in Sources */,
 				327C0D8A179A41BF007B7F42 /* CKLBDragCallbackIF.cpp in Sources */,
 				327C0D8B179A41BF007B7F42 /* CKLBFormGroup.cpp in Sources */,
@@ -3005,6 +3064,7 @@
 				327C0D93179A41BF007B7F42 /* CKLBUIPieChart.cpp in Sources */,
 				327C0D94179A41BF007B7F42 /* CKLBUIPolyline.cpp in Sources */,
 				327C0D95179A41BF007B7F42 /* CKLBUIRubberBand.cpp in Sources */,
+				0765A183240EAA29000747CC /* DownloadQueue.cpp in Sources */,
 				327C0D96179A41BF007B7F42 /* CKLBUIScore.cpp in Sources */,
 				327C0D97179A41BF007B7F42 /* CKLBUIScrollBar.cpp in Sources */,
 				327C0D98179A41BF007B7F42 /* CKLBUISimpleItem.cpp in Sources */,
@@ -3013,9 +3073,11 @@
 				3284FE3F179A4B2B00B0CA20 /* lauxlib.c in Sources */,
 				3284FE40179A4B2B00B0CA20 /* lbaselib.c in Sources */,
 				3284FE41179A4B2B00B0CA20 /* lbitlib.c in Sources */,
+				0765A178240EAA00000747CC /* EN_Decrypter.cc in Sources */,
 				3284FE42179A4B2B00B0CA20 /* lcode.c in Sources */,
 				3284FE43179A4B2B00B0CA20 /* lcorolib.c in Sources */,
 				3284FE44179A4B2B00B0CA20 /* lctype.c in Sources */,
+				0765A17C240EAA00000747CC /* TW_Decrypter.cc in Sources */,
 				3284FE45179A4B2B00B0CA20 /* ldblib.c in Sources */,
 				3284FE46179A4B2B00B0CA20 /* ldebug.c in Sources */,
 				3284FE47179A4B2B00B0CA20 /* ldo.c in Sources */,
@@ -3046,12 +3108,14 @@
 				3284FE6A179A4F1B00B0CA20 /* utf8.c in Sources */,
 				3284FE73179A4F4900B0CA20 /* ioapi.c in Sources */,
 				3284FE74179A4F4900B0CA20 /* mztools.c in Sources */,
+				0765A17A240EAA00000747CC /* Helper.cc in Sources */,
 				3284FE75179A4F4900B0CA20 /* unzip.c in Sources */,
 				3284FE8A179A4F6600B0CA20 /* yajl_buf.c in Sources */,
 				3284FE8B179A4F6600B0CA20 /* yajl_encode.c in Sources */,
 				3284FE8C179A4F6600B0CA20 /* yajl_lex.c in Sources */,
 				3284FE8D179A4F6600B0CA20 /* yajl_parser.c in Sources */,
 				3284FE8E179A4F6600B0CA20 /* yajl_tree.c in Sources */,
+				0765A17B240EAA00000747CC /* V2_Decrypter.cc in Sources */,
 				3284FE8F179A4F6600B0CA20 /* yajl.c in Sources */,
 				3284FE90179A4F6600B0CA20 /* json_binary_parser.c in Sources */,
 				3284FE92179A4F6600B0CA20 /* msg_pack_parser.c in Sources */,
@@ -3074,6 +3138,7 @@
 				3284007D179A4FB300B0CA20 /* ftpatent.c in Sources */,
 				3284007E179A4FB300B0CA20 /* ftpfr.c in Sources */,
 				32840083179A4FB300B0CA20 /* ftstroke.c in Sources */,
+				0765A179240EAA00000747CC /* CN_Decrypter.cc in Sources */,
 				32840084179A4FB300B0CA20 /* ftsynth.c in Sources */,
 				32840085179A4FB300B0CA20 /* ftsystem.c in Sources */,
 				32840087179A4FB300B0CA20 /* fttype1.c in Sources */,
@@ -3095,6 +3160,7 @@
 				3284014B179A4FB300B0CA20 /* truetype.c in Sources */,
 				3284015D179A4FB300B0CA20 /* type1.c in Sources */,
 				32840164179A4FB300B0CA20 /* type42.c in Sources */,
+				0765A185240EAA29000747CC /* DownloadManager.cpp in Sources */,
 				32840168179A4FB300B0CA20 /* winfnt.c in Sources */,
 				328401D8179A576300B0CA20 /* CiOSPlatform.mm in Sources */,
 				328401D9179A576300B0CA20 /* CiOSAudioManager.mm in Sources */,
@@ -3516,7 +3582,10 @@
 					"\"$(SRCROOT)/openssl-1.1.1c/include\"",
 				);
 				INFOPLIST_FILE = "Playground/Playground-Info.plist";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/openssl-1.1.1c/lib\"",
+					"$(PROJECT_DIR)/openssl-1.1.1c/lib",
+				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -3546,7 +3615,10 @@
 					"\"$(SRCROOT)/openssl-1.1.1c/include\"",
 				);
 				INFOPLIST_FILE = "Playground/Playground-Info.plist";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/openssl-1.1.1c/lib\"",
+					"$(PROJECT_DIR)/openssl-1.1.1c/lib",
+				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -3583,6 +3655,10 @@
 					"\"$(SRCROOT)/../../source/HTTP\"",
 				);
 				INFOPLIST_FILE = "PlaygroundOSS/PlaygroundOSS-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/openssl-1.1.1c/lib",
+				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -3618,6 +3694,10 @@
 					"\"$(SRCROOT)/../../source/HTTP\"",
 				);
 				INFOPLIST_FILE = "PlaygroundOSS/PlaygroundOSS-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/openssl-1.1.1c/lib",
+				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;

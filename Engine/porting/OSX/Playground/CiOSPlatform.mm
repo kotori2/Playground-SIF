@@ -420,7 +420,7 @@ void CiOSPlatform::deleteFontSystem(void *pFont) {
 
 bool CiOSPlatform::renderText(const char *utf8String, void *pFont, u32 color,
                               u16 width, u16 height, u8 *pBuffer8888,
-                              s16 stride, s16 base_x, s16 base_y, bool use4444, u8 embolden) {
+                              s16 stride, s16 base_x, s16 base_y, u8 embolden, bool use4444) {
 	FontObject *pObjFont = (FontObject *)pFont;
 	if (pObjFont) {
 		pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, use4444, bold);
@@ -945,7 +945,7 @@ int CiOSPlatform::HMAC_SHA1(const char* string, const char* key, int keyLen, cha
         sprintf(ptr, "%02x", hash[i]);
         ptr += strlen(ptr);
     }
-    return strlen(retbuf);
+    return (int)strlen(retbuf);
 }
 
 int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen)
@@ -998,16 +998,19 @@ int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, u
 	RSA* rsa = RSA_new();
 	rsa = PEM_read_RSA_PUBKEY(publicKey, &rsa, NULL, NULL);
 	fclose(publicKey);
+    int len = RSA_public_encrypt(plaintextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
 	
-	return RSA_public_encrypt(plaintextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
+    return len;
 }
 
 bool CiOSPlatform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash){
     return 0;
 }
-int getRandomBytes(char* out, int len){
+
+int CiOSPlatform::getRandomBytes(char* out, int len){
     return 0;
 }
-int getAuthSecret(char* out, int len){
+
+int CiOSPlatform::getAuthSecret(char* out, int len){
     return 0;
 }
