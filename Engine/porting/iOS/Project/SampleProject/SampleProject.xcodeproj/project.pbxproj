@@ -7,6 +7,67 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0765A236240EB26D000747CC /* m_achievement in Resources */ = {isa = PBXBuildFile; fileRef = 0765A1FC240EB266000747CC /* m_achievement */; };
+		0765A237240EB26D000747CC /* m_live_adjust in Resources */ = {isa = PBXBuildFile; fileRef = 0765A1FD240EB266000747CC /* m_live_adjust */; };
+		0765A238240EB26D000747CC /* m_live_menu in Resources */ = {isa = PBXBuildFile; fileRef = 0765A1FE240EB266000747CC /* m_live_menu */; };
+		0765A239240EB26D000747CC /* m_festival in Resources */ = {isa = PBXBuildFile; fileRef = 0765A1FF240EB266000747CC /* m_festival */; };
+		0765A23A240EB26D000747CC /* common in Resources */ = {isa = PBXBuildFile; fileRef = 0765A200240EB266000747CC /* common */; };
+		0765A23B240EB26D000747CC /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 0765A201240EB266000747CC /* lib */; };
+		0765A23C240EB26D000747CC /* Update.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0765A202240EB267000747CC /* Update.lua */; };
+		0765A23D240EB26D000747CC /* m_location in Resources */ = {isa = PBXBuildFile; fileRef = 0765A203240EB267000747CC /* m_location */; };
+		0765A23E240EB26D000747CC /* m_album in Resources */ = {isa = PBXBuildFile; fileRef = 0765A204240EB267000747CC /* m_album */; };
+		0765A23F240EB26D000747CC /* m_team in Resources */ = {isa = PBXBuildFile; fileRef = 0765A205240EB267000747CC /* m_team */; };
+		0765A240240EB26D000747CC /* m_unit in Resources */ = {isa = PBXBuildFile; fileRef = 0765A206240EB267000747CC /* m_unit */; };
+		0765A241240EB26D000747CC /* m_history in Resources */ = {isa = PBXBuildFile; fileRef = 0765A207240EB267000747CC /* m_history */; };
+		0765A242240EB26D000747CC /* m_hint in Resources */ = {isa = PBXBuildFile; fileRef = 0765A208240EB267000747CC /* m_hint */; };
+		0765A243240EB26D000747CC /* m_reward in Resources */ = {isa = PBXBuildFile; fileRef = 0765A209240EB267000747CC /* m_reward */; };
+		0765A244240EB26D000747CC /* m_event in Resources */ = {isa = PBXBuildFile; fileRef = 0765A20A240EB267000747CC /* m_event */; };
+		0765A245240EB26D000747CC /* m_background in Resources */ = {isa = PBXBuildFile; fileRef = 0765A20B240EB267000747CC /* m_background */; };
+		0765A246240EB26D000747CC /* config in Resources */ = {isa = PBXBuildFile; fileRef = 0765A20C240EB267000747CC /* config */; };
+		0765A247240EB26D000747CC /* m_favorite_ranking in Resources */ = {isa = PBXBuildFile; fileRef = 0765A20D240EB267000747CC /* m_favorite_ranking */; };
+		0765A248240EB26D000747CC /* m_friends in Resources */ = {isa = PBXBuildFile; fileRef = 0765A20E240EB268000747CC /* m_friends */; };
+		0765A249240EB26D000747CC /* m_player_profile in Resources */ = {isa = PBXBuildFile; fileRef = 0765A20F240EB268000747CC /* m_player_profile */; };
+		0765A24A240EB26D000747CC /* m_boot in Resources */ = {isa = PBXBuildFile; fileRef = 0765A210240EB268000747CC /* m_boot */; };
+		0765A24B240EB26D000747CC /* m_secretbox in Resources */ = {isa = PBXBuildFile; fileRef = 0765A211240EB268000747CC /* m_secretbox */; };
+		0765A24C240EB26D000747CC /* m_exchange in Resources */ = {isa = PBXBuildFile; fileRef = 0765A212240EB268000747CC /* m_exchange */; };
+		0765A24D240EB26D000747CC /* start.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0765A213240EB268000747CC /* start.lua */; };
+		0765A24E240EB26D000747CC /* GPUDMLprob.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0765A214240EB268000747CC /* GPUDMLprob.otf */; };
+		0765A24F240EB26D000747CC /* m_scenario in Resources */ = {isa = PBXBuildFile; fileRef = 0765A215240EB268000747CC /* m_scenario */; };
+		0765A250240EB26D000747CC /* formula in Resources */ = {isa = PBXBuildFile; fileRef = 0765A216240EB268000747CC /* formula */; };
+		0765A251240EB26D000747CC /* m_battle_event in Resources */ = {isa = PBXBuildFile; fileRef = 0765A217240EB268000747CC /* m_battle_event */; };
+		0765A252240EB26D000747CC /* m_item in Resources */ = {isa = PBXBuildFile; fileRef = 0765A218240EB268000747CC /* m_item */; };
+		0765A253240EB26D000747CC /* m_basicsettings in Resources */ = {isa = PBXBuildFile; fileRef = 0765A219240EB268000747CC /* m_basicsettings */; };
+		0765A254240EB26D000747CC /* MTLmr3m.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0765A21A240EB269000747CC /* MTLmr3m.ttf */; };
+		0765A255240EB26D000747CC /* m_live_custom in Resources */ = {isa = PBXBuildFile; fileRef = 0765A21B240EB269000747CC /* m_live_custom */; };
+		0765A256240EB26D000747CC /* m_sns in Resources */ = {isa = PBXBuildFile; fileRef = 0765A21C240EB269000747CC /* m_sns */; };
+		0765A257240EB26D000747CC /* m_challenge in Resources */ = {isa = PBXBuildFile; fileRef = 0765A21D240EB269000747CC /* m_challenge */; };
+		0765A258240EB26D000747CC /* m_duel in Resources */ = {isa = PBXBuildFile; fileRef = 0765A21E240EB269000747CC /* m_duel */; };
+		0765A259240EB26D000747CC /* m_award in Resources */ = {isa = PBXBuildFile; fileRef = 0765A21F240EB269000747CC /* m_award */; };
+		0765A25A240EB26D000747CC /* m_idol_skill in Resources */ = {isa = PBXBuildFile; fileRef = 0765A220240EB269000747CC /* m_idol_skill */; };
+		0765A25B240EB26D000747CC /* m_shop in Resources */ = {isa = PBXBuildFile; fileRef = 0765A221240EB269000747CC /* m_shop */; };
+		0765A25C240EB26D000747CC /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 0765A222240EB269000747CC /* assets */; };
+		0765A25D240EB26D000747CC /* m_debug in Resources */ = {isa = PBXBuildFile; fileRef = 0765A223240EB269000747CC /* m_debug */; };
+		0765A25E240EB26D000747CC /* m_class in Resources */ = {isa = PBXBuildFile; fileRef = 0765A224240EB269000747CC /* m_class */; };
+		0765A25F240EB26D000747CC /* Maintenance.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0765A225240EB26A000747CC /* Maintenance.lua */; };
+		0765A260240EB26D000747CC /* m_live in Resources */ = {isa = PBXBuildFile; fileRef = 0765A226240EB26A000747CC /* m_live */; };
+		0765A261240EB26D000747CC /* m_top in Resources */ = {isa = PBXBuildFile; fileRef = 0765A227240EB26A000747CC /* m_top */; };
+		0765A262240EB26D000747CC /* db in Resources */ = {isa = PBXBuildFile; fileRef = 0765A228240EB26A000747CC /* db */; };
+		0765A263240EB26D000747CC /* m_sandbox in Resources */ = {isa = PBXBuildFile; fileRef = 0765A229240EB26B000747CC /* m_sandbox */; };
+		0765A264240EB26D000747CC /* m_login in Resources */ = {isa = PBXBuildFile; fileRef = 0765A22A240EB26B000747CC /* m_login */; };
+		0765A265240EB26D000747CC /* m_stamp in Resources */ = {isa = PBXBuildFile; fileRef = 0765A22B240EB26B000747CC /* m_stamp */; };
+		0765A266240EB26D000747CC /* m_tutorial in Resources */ = {isa = PBXBuildFile; fileRef = 0765A22C240EB26C000747CC /* m_tutorial */; };
+		0765A267240EB26D000747CC /* m_online in Resources */ = {isa = PBXBuildFile; fileRef = 0765A22D240EB26C000747CC /* m_online */; };
+		0765A268240EB26D000747CC /* m_collab in Resources */ = {isa = PBXBuildFile; fileRef = 0765A22E240EB26C000747CC /* m_collab */; };
+		0765A269240EB26D000747CC /* m_ranking in Resources */ = {isa = PBXBuildFile; fileRef = 0765A22F240EB26C000747CC /* m_ranking */; };
+		0765A26A240EB26D000747CC /* m_notice in Resources */ = {isa = PBXBuildFile; fileRef = 0765A230240EB26C000747CC /* m_notice */; };
+		0765A26B240EB26D000747CC /* m_quest in Resources */ = {isa = PBXBuildFile; fileRef = 0765A231240EB26D000747CC /* m_quest */; };
+		0765A26C240EB26D000747CC /* m_menu in Resources */ = {isa = PBXBuildFile; fileRef = 0765A232240EB26D000747CC /* m_menu */; };
+		0765A26D240EB26D000747CC /* m_arcade in Resources */ = {isa = PBXBuildFile; fileRef = 0765A233240EB26D000747CC /* m_arcade */; };
+		0765A26E240EB26D000747CC /* m_scenario_menu in Resources */ = {isa = PBXBuildFile; fileRef = 0765A234240EB26D000747CC /* m_scenario_menu */; };
+		0765A26F240EB26D000747CC /* m_download in Resources */ = {isa = PBXBuildFile; fileRef = 0765A235240EB26D000747CC /* m_download */; };
+		0765A276240EB320000747CC /* DownloadClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A272240EB320000747CC /* DownloadClient.cpp */; };
+		0765A277240EB320000747CC /* DownloadQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A273240EB320000747CC /* DownloadQueue.cpp */; };
+		0765A278240EB320000747CC /* DownloadManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A275240EB320000747CC /* DownloadManager.cpp */; };
 		17729FCE17C316F400D4E765 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17729FCD17C316F400D4E765 /* Default-568h@2x.png */; };
 		17729FD517C3216A00D4E765 /* CSampleProjectEntrance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17729FCF17C31E2000D4E765 /* CSampleProjectEntrance.cpp */; };
 		3287A67E174C699300DF0E35 /* utf8.c in Sources */ = {isa = PBXBuildFile; fileRef = 3287A67C174C699300DF0E35 /* utf8.c */; };
@@ -268,63 +329,6 @@
 		8EFEBE8615FEEAF3003EB0DF /* CKLBPauseCtrl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EFEBE8415FEEAF3003EB0DF /* CKLBPauseCtrl.cpp */; };
 		B0A50A80153425AE008CCF28 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A50A7F153425AE008CCF28 /* Default@2x.png */; };
 		B1B806D7152C416300A8717A /* CKLBUISimpleItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1B806D5152C416300A8717A /* CKLBUISimpleItem.cpp */; };
-		F5494CAA23CEBE0E00B5E19B /* m_boot in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7123CEBE0400B5E19B /* m_boot */; };
-		F5494CAB23CEBE0E00B5E19B /* m_achievement in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7223CEBE0400B5E19B /* m_achievement */; };
-		F5494CAC23CEBE0E00B5E19B /* m_notice in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7323CEBE0400B5E19B /* m_notice */; };
-		F5494CAD23CEBE0E00B5E19B /* m_shop in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7423CEBE0400B5E19B /* m_shop */; };
-		F5494CAE23CEBE0E00B5E19B /* m_sandbox in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7523CEBE0500B5E19B /* m_sandbox */; };
-		F5494CAF23CEBE0E00B5E19B /* m_secretbox in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7623CEBE0500B5E19B /* m_secretbox */; };
-		F5494CB023CEBE0E00B5E19B /* Update.lua in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7723CEBE0500B5E19B /* Update.lua */; };
-		F5494CB123CEBE0E00B5E19B /* m_award in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7823CEBE0500B5E19B /* m_award */; };
-		F5494CB223CEBE0E00B5E19B /* MTLmr3m.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7923CEBE0500B5E19B /* MTLmr3m.ttf */; };
-		F5494CB323CEBE0E00B5E19B /* m_ranking in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7A23CEBE0500B5E19B /* m_ranking */; };
-		F5494CB423CEBE0E00B5E19B /* db in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7B23CEBE0500B5E19B /* db */; };
-		F5494CB523CEBE0E00B5E19B /* start.lua in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7C23CEBE0500B5E19B /* start.lua */; };
-		F5494CB623CEBE0E00B5E19B /* m_live_adjust in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7D23CEBE0500B5E19B /* m_live_adjust */; };
-		F5494CB723CEBE0E00B5E19B /* m_live in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7E23CEBE0500B5E19B /* m_live */; };
-		F5494CB823CEBE0E00B5E19B /* m_scenario_menu in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7F23CEBE0500B5E19B /* m_scenario_menu */; };
-		F5494CB923CEBE0E00B5E19B /* m_scenario in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8023CEBE0600B5E19B /* m_scenario */; };
-		F5494CBA23CEBE0E00B5E19B /* m_live_menu in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8123CEBE0600B5E19B /* m_live_menu */; };
-		F5494CBB23CEBE0E00B5E19B /* m_location in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8223CEBE0600B5E19B /* m_location */; };
-		F5494CBC23CEBE0E00B5E19B /* m_stamp in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8323CEBE0600B5E19B /* m_stamp */; };
-		F5494CBD23CEBE0E00B5E19B /* m_album in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8423CEBE0600B5E19B /* m_album */; };
-		F5494CBE23CEBE0E00B5E19B /* m_exchange in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8523CEBE0600B5E19B /* m_exchange */; };
-		F5494CBF23CEBE0E00B5E19B /* m_player_profile in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8623CEBE0600B5E19B /* m_player_profile */; };
-		F5494CC023CEBE0E00B5E19B /* assets in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8723CEBE0600B5E19B /* assets */; };
-		F5494CC123CEBE0E00B5E19B /* m_tutorial in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8823CEBE0600B5E19B /* m_tutorial */; };
-		F5494CC223CEBE0E00B5E19B /* m_reward in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8923CEBE0600B5E19B /* m_reward */; };
-		F5494CC323CEBE0E00B5E19B /* m_event in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8A23CEBE0700B5E19B /* m_event */; };
-		F5494CC423CEBE0E00B5E19B /* m_hint in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8B23CEBE0700B5E19B /* m_hint */; };
-		F5494CC523CEBE0E00B5E19B /* m_history in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8C23CEBE0700B5E19B /* m_history */; };
-		F5494CC623CEBE0E00B5E19B /* m_favorite_ranking in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8D23CEBE0800B5E19B /* m_favorite_ranking */; };
-		F5494CC723CEBE0E00B5E19B /* m_menu in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8E23CEBE0800B5E19B /* m_menu */; };
-		F5494CC823CEBE0E00B5E19B /* m_sns in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8F23CEBE0800B5E19B /* m_sns */; };
-		F5494CC923CEBE0E00B5E19B /* m_basicsettings in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9023CEBE0900B5E19B /* m_basicsettings */; };
-		F5494CCA23CEBE0E00B5E19B /* formula in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9123CEBE0900B5E19B /* formula */; };
-		F5494CCB23CEBE0E00B5E19B /* Maintenance.lua in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9223CEBE0900B5E19B /* Maintenance.lua */; };
-		F5494CCC23CEBE0E00B5E19B /* m_collab in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9323CEBE0900B5E19B /* m_collab */; };
-		F5494CCD23CEBE0E00B5E19B /* m_challenge in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9423CEBE0A00B5E19B /* m_challenge */; };
-		F5494CCE23CEBE0E00B5E19B /* m_battle_event in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9523CEBE0A00B5E19B /* m_battle_event */; };
-		F5494CCF23CEBE0E00B5E19B /* m_idol_skill in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9623CEBE0A00B5E19B /* m_idol_skill */; };
-		F5494CD023CEBE0E00B5E19B /* common in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9723CEBE0A00B5E19B /* common */; };
-		F5494CD123CEBE0E00B5E19B /* m_item in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9823CEBE0B00B5E19B /* m_item */; };
-		F5494CD223CEBE0E00B5E19B /* m_arcade in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9923CEBE0B00B5E19B /* m_arcade */; };
-		F5494CD323CEBE0E00B5E19B /* m_debug in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9A23CEBE0B00B5E19B /* m_debug */; };
-		F5494CD423CEBE0E00B5E19B /* m_download in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9B23CEBE0B00B5E19B /* m_download */; };
-		F5494CD523CEBE0E00B5E19B /* m_top in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9C23CEBE0C00B5E19B /* m_top */; };
-		F5494CD623CEBE0E00B5E19B /* m_duel in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9D23CEBE0C00B5E19B /* m_duel */; };
-		F5494CD723CEBE0E00B5E19B /* m_class in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9E23CEBE0C00B5E19B /* m_class */; };
-		F5494CD823CEBE0E00B5E19B /* m_online in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9F23CEBE0C00B5E19B /* m_online */; };
-		F5494CD923CEBE0E00B5E19B /* m_login in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA023CEBE0C00B5E19B /* m_login */; };
-		F5494CDA23CEBE0E00B5E19B /* m_live_custom in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA123CEBE0D00B5E19B /* m_live_custom */; };
-		F5494CDB23CEBE0E00B5E19B /* m_quest in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA223CEBE0D00B5E19B /* m_quest */; };
-		F5494CDC23CEBE0E00B5E19B /* m_unit in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA323CEBE0D00B5E19B /* m_unit */; };
-		F5494CDD23CEBE0E00B5E19B /* m_festival in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA423CEBE0D00B5E19B /* m_festival */; };
-		F5494CDE23CEBE0E00B5E19B /* lib in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA523CEBE0D00B5E19B /* lib */; };
-		F5494CDF23CEBE0E00B5E19B /* m_background in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA623CEBE0D00B5E19B /* m_background */; };
-		F5494CE023CEBE0E00B5E19B /* m_friends in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA723CEBE0E00B5E19B /* m_friends */; };
-		F5494CE123CEBE0E00B5E19B /* config in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA823CEBE0E00B5E19B /* config */; };
-		F5494CE223CEBE0E00B5E19B /* m_team in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA923CEBE0E00B5E19B /* m_team */; };
 		F58D7EBE23CEBB87006FE311 /* CN_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EB423CEBB86006FE311 /* CN_Decrypter.cc */; };
 		F58D7EBF23CEBB87006FE311 /* Helper.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EB523CEBB86006FE311 /* Helper.cc */; };
 		F58D7EC023CEBB87006FE311 /* V1_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EB623CEBB86006FE311 /* V1_Decrypter.cc */; };
@@ -349,6 +353,70 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0765A1FC240EB266000747CC /* m_achievement */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_achievement; path = Resources/m_achievement; sourceTree = "<group>"; };
+		0765A1FD240EB266000747CC /* m_live_adjust */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_adjust; path = Resources/m_live_adjust; sourceTree = "<group>"; };
+		0765A1FE240EB266000747CC /* m_live_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_menu; path = Resources/m_live_menu; sourceTree = "<group>"; };
+		0765A1FF240EB266000747CC /* m_festival */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_festival; path = Resources/m_festival; sourceTree = "<group>"; };
+		0765A200240EB266000747CC /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = common; path = Resources/common; sourceTree = "<group>"; };
+		0765A201240EB266000747CC /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = Resources/lib; sourceTree = "<group>"; };
+		0765A202240EB267000747CC /* Update.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = Update.lua; path = Resources/Update.lua; sourceTree = "<group>"; };
+		0765A203240EB267000747CC /* m_location */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_location; path = Resources/m_location; sourceTree = "<group>"; };
+		0765A204240EB267000747CC /* m_album */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_album; path = Resources/m_album; sourceTree = "<group>"; };
+		0765A205240EB267000747CC /* m_team */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_team; path = Resources/m_team; sourceTree = "<group>"; };
+		0765A206240EB267000747CC /* m_unit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_unit; path = Resources/m_unit; sourceTree = "<group>"; };
+		0765A207240EB267000747CC /* m_history */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_history; path = Resources/m_history; sourceTree = "<group>"; };
+		0765A208240EB267000747CC /* m_hint */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_hint; path = Resources/m_hint; sourceTree = "<group>"; };
+		0765A209240EB267000747CC /* m_reward */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_reward; path = Resources/m_reward; sourceTree = "<group>"; };
+		0765A20A240EB267000747CC /* m_event */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_event; path = Resources/m_event; sourceTree = "<group>"; };
+		0765A20B240EB267000747CC /* m_background */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_background; path = Resources/m_background; sourceTree = "<group>"; };
+		0765A20C240EB267000747CC /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; name = config; path = Resources/config; sourceTree = "<group>"; };
+		0765A20D240EB267000747CC /* m_favorite_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_favorite_ranking; path = Resources/m_favorite_ranking; sourceTree = "<group>"; };
+		0765A20E240EB268000747CC /* m_friends */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_friends; path = Resources/m_friends; sourceTree = "<group>"; };
+		0765A20F240EB268000747CC /* m_player_profile */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_player_profile; path = Resources/m_player_profile; sourceTree = "<group>"; };
+		0765A210240EB268000747CC /* m_boot */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_boot; path = Resources/m_boot; sourceTree = "<group>"; };
+		0765A211240EB268000747CC /* m_secretbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_secretbox; path = Resources/m_secretbox; sourceTree = "<group>"; };
+		0765A212240EB268000747CC /* m_exchange */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_exchange; path = Resources/m_exchange; sourceTree = "<group>"; };
+		0765A213240EB268000747CC /* start.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = start.lua; path = Resources/start.lua; sourceTree = "<group>"; };
+		0765A214240EB268000747CC /* GPUDMLprob.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GPUDMLprob.otf; path = Resources/GPUDMLprob.otf; sourceTree = "<group>"; };
+		0765A215240EB268000747CC /* m_scenario */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_scenario; path = Resources/m_scenario; sourceTree = "<group>"; };
+		0765A216240EB268000747CC /* formula */ = {isa = PBXFileReference; lastKnownFileType = folder; name = formula; path = Resources/formula; sourceTree = "<group>"; };
+		0765A217240EB268000747CC /* m_battle_event */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_battle_event; path = Resources/m_battle_event; sourceTree = "<group>"; };
+		0765A218240EB268000747CC /* m_item */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_item; path = Resources/m_item; sourceTree = "<group>"; };
+		0765A219240EB268000747CC /* m_basicsettings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_basicsettings; path = Resources/m_basicsettings; sourceTree = "<group>"; };
+		0765A21A240EB269000747CC /* MTLmr3m.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MTLmr3m.ttf; path = Resources/MTLmr3m.ttf; sourceTree = "<group>"; };
+		0765A21B240EB269000747CC /* m_live_custom */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_custom; path = Resources/m_live_custom; sourceTree = "<group>"; };
+		0765A21C240EB269000747CC /* m_sns */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_sns; path = Resources/m_sns; sourceTree = "<group>"; };
+		0765A21D240EB269000747CC /* m_challenge */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_challenge; path = Resources/m_challenge; sourceTree = "<group>"; };
+		0765A21E240EB269000747CC /* m_duel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_duel; path = Resources/m_duel; sourceTree = "<group>"; };
+		0765A21F240EB269000747CC /* m_award */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_award; path = Resources/m_award; sourceTree = "<group>"; };
+		0765A220240EB269000747CC /* m_idol_skill */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_idol_skill; path = Resources/m_idol_skill; sourceTree = "<group>"; };
+		0765A221240EB269000747CC /* m_shop */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_shop; path = Resources/m_shop; sourceTree = "<group>"; };
+		0765A222240EB269000747CC /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = Resources/assets; sourceTree = "<group>"; };
+		0765A223240EB269000747CC /* m_debug */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_debug; path = Resources/m_debug; sourceTree = "<group>"; };
+		0765A224240EB269000747CC /* m_class */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_class; path = Resources/m_class; sourceTree = "<group>"; };
+		0765A225240EB26A000747CC /* Maintenance.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = Maintenance.lua; path = Resources/Maintenance.lua; sourceTree = "<group>"; };
+		0765A226240EB26A000747CC /* m_live */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live; path = Resources/m_live; sourceTree = "<group>"; };
+		0765A227240EB26A000747CC /* m_top */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_top; path = Resources/m_top; sourceTree = "<group>"; };
+		0765A228240EB26A000747CC /* db */ = {isa = PBXFileReference; lastKnownFileType = folder; name = db; path = Resources/db; sourceTree = "<group>"; };
+		0765A229240EB26B000747CC /* m_sandbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_sandbox; path = Resources/m_sandbox; sourceTree = "<group>"; };
+		0765A22A240EB26B000747CC /* m_login */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_login; path = Resources/m_login; sourceTree = "<group>"; };
+		0765A22B240EB26B000747CC /* m_stamp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_stamp; path = Resources/m_stamp; sourceTree = "<group>"; };
+		0765A22C240EB26C000747CC /* m_tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_tutorial; path = Resources/m_tutorial; sourceTree = "<group>"; };
+		0765A22D240EB26C000747CC /* m_online */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_online; path = Resources/m_online; sourceTree = "<group>"; };
+		0765A22E240EB26C000747CC /* m_collab */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_collab; path = Resources/m_collab; sourceTree = "<group>"; };
+		0765A22F240EB26C000747CC /* m_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_ranking; path = Resources/m_ranking; sourceTree = "<group>"; };
+		0765A230240EB26C000747CC /* m_notice */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_notice; path = Resources/m_notice; sourceTree = "<group>"; };
+		0765A231240EB26D000747CC /* m_quest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_quest; path = Resources/m_quest; sourceTree = "<group>"; };
+		0765A232240EB26D000747CC /* m_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_menu; path = Resources/m_menu; sourceTree = "<group>"; };
+		0765A233240EB26D000747CC /* m_arcade */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_arcade; path = Resources/m_arcade; sourceTree = "<group>"; };
+		0765A234240EB26D000747CC /* m_scenario_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_scenario_menu; path = Resources/m_scenario_menu; sourceTree = "<group>"; };
+		0765A235240EB26D000747CC /* m_download */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_download; path = Resources/m_download; sourceTree = "<group>"; };
+		0765A270240EB320000747CC /* DownloadQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownloadQueue.h; path = ../../../../source/HTTP/DownloadQueue.h; sourceTree = "<group>"; };
+		0765A271240EB320000747CC /* DownloadClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownloadClient.h; path = ../../../../source/HTTP/DownloadClient.h; sourceTree = "<group>"; };
+		0765A272240EB320000747CC /* DownloadClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DownloadClient.cpp; path = ../../../../source/HTTP/DownloadClient.cpp; sourceTree = "<group>"; };
+		0765A273240EB320000747CC /* DownloadQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DownloadQueue.cpp; path = ../../../../source/HTTP/DownloadQueue.cpp; sourceTree = "<group>"; };
+		0765A274240EB320000747CC /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownloadManager.h; path = ../../../../source/HTTP/DownloadManager.h; sourceTree = "<group>"; };
+		0765A275240EB320000747CC /* DownloadManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DownloadManager.cpp; path = ../../../../source/HTTP/DownloadManager.cpp; sourceTree = "<group>"; };
 		17729FCD17C316F400D4E765 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		17729FCF17C31E2000D4E765 /* CSampleProjectEntrance.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSampleProjectEntrance.cpp; sourceTree = "<group>"; };
 		17729FD017C31E2000D4E765 /* CSampleProjectEntrance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSampleProjectEntrance.h; sourceTree = "<group>"; };
@@ -913,63 +981,6 @@
 		B0A50A7F153425AE008CCF28 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		B1B806D5152C416300A8717A /* CKLBUISimpleItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKLBUISimpleItem.cpp; sourceTree = "<group>"; };
 		B1B806D6152C416300A8717A /* CKLBUISimpleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBUISimpleItem.h; sourceTree = "<group>"; };
-		F5494C7123CEBE0400B5E19B /* m_boot */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_boot; path = ../../../../OSX/sif/m_boot; sourceTree = "<group>"; };
-		F5494C7223CEBE0400B5E19B /* m_achievement */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_achievement; path = ../../../../OSX/sif/m_achievement; sourceTree = "<group>"; };
-		F5494C7323CEBE0400B5E19B /* m_notice */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_notice; path = ../../../../OSX/sif/m_notice; sourceTree = "<group>"; };
-		F5494C7423CEBE0400B5E19B /* m_shop */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_shop; path = ../../../../OSX/sif/m_shop; sourceTree = "<group>"; };
-		F5494C7523CEBE0500B5E19B /* m_sandbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_sandbox; path = ../../../../OSX/sif/m_sandbox; sourceTree = "<group>"; };
-		F5494C7623CEBE0500B5E19B /* m_secretbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_secretbox; path = ../../../../OSX/sif/m_secretbox; sourceTree = "<group>"; };
-		F5494C7723CEBE0500B5E19B /* Update.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = Update.lua; path = ../../../../OSX/sif/Update.lua; sourceTree = "<group>"; };
-		F5494C7823CEBE0500B5E19B /* m_award */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_award; path = ../../../../OSX/sif/m_award; sourceTree = "<group>"; };
-		F5494C7923CEBE0500B5E19B /* MTLmr3m.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MTLmr3m.ttf; path = ../../../../OSX/sif/MTLmr3m.ttf; sourceTree = "<group>"; };
-		F5494C7A23CEBE0500B5E19B /* m_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_ranking; path = ../../../../OSX/sif/m_ranking; sourceTree = "<group>"; };
-		F5494C7B23CEBE0500B5E19B /* db */ = {isa = PBXFileReference; lastKnownFileType = folder; name = db; path = ../../../../OSX/sif/db; sourceTree = "<group>"; };
-		F5494C7C23CEBE0500B5E19B /* start.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = start.lua; path = ../../../../OSX/sif/start.lua; sourceTree = "<group>"; };
-		F5494C7D23CEBE0500B5E19B /* m_live_adjust */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_adjust; path = ../../../../OSX/sif/m_live_adjust; sourceTree = "<group>"; };
-		F5494C7E23CEBE0500B5E19B /* m_live */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live; path = ../../../../OSX/sif/m_live; sourceTree = "<group>"; };
-		F5494C7F23CEBE0500B5E19B /* m_scenario_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_scenario_menu; path = ../../../../OSX/sif/m_scenario_menu; sourceTree = "<group>"; };
-		F5494C8023CEBE0600B5E19B /* m_scenario */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_scenario; path = ../../../../OSX/sif/m_scenario; sourceTree = "<group>"; };
-		F5494C8123CEBE0600B5E19B /* m_live_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_menu; path = ../../../../OSX/sif/m_live_menu; sourceTree = "<group>"; };
-		F5494C8223CEBE0600B5E19B /* m_location */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_location; path = ../../../../OSX/sif/m_location; sourceTree = "<group>"; };
-		F5494C8323CEBE0600B5E19B /* m_stamp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_stamp; path = ../../../../OSX/sif/m_stamp; sourceTree = "<group>"; };
-		F5494C8423CEBE0600B5E19B /* m_album */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_album; path = ../../../../OSX/sif/m_album; sourceTree = "<group>"; };
-		F5494C8523CEBE0600B5E19B /* m_exchange */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_exchange; path = ../../../../OSX/sif/m_exchange; sourceTree = "<group>"; };
-		F5494C8623CEBE0600B5E19B /* m_player_profile */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_player_profile; path = ../../../../OSX/sif/m_player_profile; sourceTree = "<group>"; };
-		F5494C8723CEBE0600B5E19B /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../../../OSX/sif/assets; sourceTree = "<group>"; };
-		F5494C8823CEBE0600B5E19B /* m_tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_tutorial; path = ../../../../OSX/sif/m_tutorial; sourceTree = "<group>"; };
-		F5494C8923CEBE0600B5E19B /* m_reward */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_reward; path = ../../../../OSX/sif/m_reward; sourceTree = "<group>"; };
-		F5494C8A23CEBE0700B5E19B /* m_event */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_event; path = ../../../../OSX/sif/m_event; sourceTree = "<group>"; };
-		F5494C8B23CEBE0700B5E19B /* m_hint */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_hint; path = ../../../../OSX/sif/m_hint; sourceTree = "<group>"; };
-		F5494C8C23CEBE0700B5E19B /* m_history */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_history; path = ../../../../OSX/sif/m_history; sourceTree = "<group>"; };
-		F5494C8D23CEBE0800B5E19B /* m_favorite_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_favorite_ranking; path = ../../../../OSX/sif/m_favorite_ranking; sourceTree = "<group>"; };
-		F5494C8E23CEBE0800B5E19B /* m_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_menu; path = ../../../../OSX/sif/m_menu; sourceTree = "<group>"; };
-		F5494C8F23CEBE0800B5E19B /* m_sns */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_sns; path = ../../../../OSX/sif/m_sns; sourceTree = "<group>"; };
-		F5494C9023CEBE0900B5E19B /* m_basicsettings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_basicsettings; path = ../../../../OSX/sif/m_basicsettings; sourceTree = "<group>"; };
-		F5494C9123CEBE0900B5E19B /* formula */ = {isa = PBXFileReference; lastKnownFileType = folder; name = formula; path = ../../../../OSX/sif/formula; sourceTree = "<group>"; };
-		F5494C9223CEBE0900B5E19B /* Maintenance.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = Maintenance.lua; path = ../../../../OSX/sif/Maintenance.lua; sourceTree = "<group>"; };
-		F5494C9323CEBE0900B5E19B /* m_collab */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_collab; path = ../../../../OSX/sif/m_collab; sourceTree = "<group>"; };
-		F5494C9423CEBE0A00B5E19B /* m_challenge */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_challenge; path = ../../../../OSX/sif/m_challenge; sourceTree = "<group>"; };
-		F5494C9523CEBE0A00B5E19B /* m_battle_event */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_battle_event; path = ../../../../OSX/sif/m_battle_event; sourceTree = "<group>"; };
-		F5494C9623CEBE0A00B5E19B /* m_idol_skill */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_idol_skill; path = ../../../../OSX/sif/m_idol_skill; sourceTree = "<group>"; };
-		F5494C9723CEBE0A00B5E19B /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = common; path = ../../../../OSX/sif/common; sourceTree = "<group>"; };
-		F5494C9823CEBE0B00B5E19B /* m_item */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_item; path = ../../../../OSX/sif/m_item; sourceTree = "<group>"; };
-		F5494C9923CEBE0B00B5E19B /* m_arcade */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_arcade; path = ../../../../OSX/sif/m_arcade; sourceTree = "<group>"; };
-		F5494C9A23CEBE0B00B5E19B /* m_debug */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_debug; path = ../../../../OSX/sif/m_debug; sourceTree = "<group>"; };
-		F5494C9B23CEBE0B00B5E19B /* m_download */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_download; path = ../../../../OSX/sif/m_download; sourceTree = "<group>"; };
-		F5494C9C23CEBE0C00B5E19B /* m_top */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_top; path = ../../../../OSX/sif/m_top; sourceTree = "<group>"; };
-		F5494C9D23CEBE0C00B5E19B /* m_duel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_duel; path = ../../../../OSX/sif/m_duel; sourceTree = "<group>"; };
-		F5494C9E23CEBE0C00B5E19B /* m_class */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_class; path = ../../../../OSX/sif/m_class; sourceTree = "<group>"; };
-		F5494C9F23CEBE0C00B5E19B /* m_online */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_online; path = ../../../../OSX/sif/m_online; sourceTree = "<group>"; };
-		F5494CA023CEBE0C00B5E19B /* m_login */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_login; path = ../../../../OSX/sif/m_login; sourceTree = "<group>"; };
-		F5494CA123CEBE0D00B5E19B /* m_live_custom */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_custom; path = ../../../../OSX/sif/m_live_custom; sourceTree = "<group>"; };
-		F5494CA223CEBE0D00B5E19B /* m_quest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_quest; path = ../../../../OSX/sif/m_quest; sourceTree = "<group>"; };
-		F5494CA323CEBE0D00B5E19B /* m_unit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_unit; path = ../../../../OSX/sif/m_unit; sourceTree = "<group>"; };
-		F5494CA423CEBE0D00B5E19B /* m_festival */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_festival; path = ../../../../OSX/sif/m_festival; sourceTree = "<group>"; };
-		F5494CA523CEBE0D00B5E19B /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = ../../../../OSX/sif/lib; sourceTree = "<group>"; };
-		F5494CA623CEBE0D00B5E19B /* m_background */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_background; path = ../../../../OSX/sif/m_background; sourceTree = "<group>"; };
-		F5494CA723CEBE0E00B5E19B /* m_friends */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_friends; path = ../../../../OSX/sif/m_friends; sourceTree = "<group>"; };
-		F5494CA823CEBE0E00B5E19B /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; name = config; path = ../../../../OSX/sif/config; sourceTree = "<group>"; };
-		F5494CA923CEBE0E00B5E19B /* m_team */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_team; path = ../../../../OSX/sif/m_team; sourceTree = "<group>"; };
 		F58D7EB223CEBB2D006FE311 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		F58D7EB423CEBB86006FE311 /* CN_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CN_Decrypter.cc; path = ../../source/Core/HonokaMiku/CN_Decrypter.cc; sourceTree = "<group>"; };
 		F58D7EB523CEBB86006FE311 /* Helper.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Helper.cc; path = ../../source/Core/HonokaMiku/Helper.cc; sourceTree = "<group>"; };
@@ -1409,7 +1420,6 @@
 		8E0A29D414D12A6E007E98B3 = {
 			isa = PBXGroup;
 			children = (
-				F5494C7023CEBDA900B5E19B /* SIF */,
 				17729FCD17C316F400D4E765 /* Default-568h@2x.png */,
 				6F4AD67917003DF1007699EF /* libcurl.a */,
 				FCFB03D316AEAAFE00E81C9C /* Sound */,
@@ -1516,6 +1526,64 @@
 		8E3CEEF8152C3775008C7EC1 /* ProjectResources */ = {
 			isa = PBXGroup;
 			children = (
+				0765A222240EB269000747CC /* assets */,
+				0765A200240EB266000747CC /* common */,
+				0765A20C240EB267000747CC /* config */,
+				0765A228240EB26A000747CC /* db */,
+				0765A216240EB268000747CC /* formula */,
+				0765A214240EB268000747CC /* GPUDMLprob.otf */,
+				0765A201240EB266000747CC /* lib */,
+				0765A1FC240EB266000747CC /* m_achievement */,
+				0765A204240EB267000747CC /* m_album */,
+				0765A233240EB26D000747CC /* m_arcade */,
+				0765A21F240EB269000747CC /* m_award */,
+				0765A20B240EB267000747CC /* m_background */,
+				0765A219240EB268000747CC /* m_basicsettings */,
+				0765A217240EB268000747CC /* m_battle_event */,
+				0765A210240EB268000747CC /* m_boot */,
+				0765A21D240EB269000747CC /* m_challenge */,
+				0765A224240EB269000747CC /* m_class */,
+				0765A22E240EB26C000747CC /* m_collab */,
+				0765A223240EB269000747CC /* m_debug */,
+				0765A235240EB26D000747CC /* m_download */,
+				0765A21E240EB269000747CC /* m_duel */,
+				0765A20A240EB267000747CC /* m_event */,
+				0765A212240EB268000747CC /* m_exchange */,
+				0765A20D240EB267000747CC /* m_favorite_ranking */,
+				0765A1FF240EB266000747CC /* m_festival */,
+				0765A20E240EB268000747CC /* m_friends */,
+				0765A208240EB267000747CC /* m_hint */,
+				0765A207240EB267000747CC /* m_history */,
+				0765A220240EB269000747CC /* m_idol_skill */,
+				0765A218240EB268000747CC /* m_item */,
+				0765A226240EB26A000747CC /* m_live */,
+				0765A1FD240EB266000747CC /* m_live_adjust */,
+				0765A21B240EB269000747CC /* m_live_custom */,
+				0765A1FE240EB266000747CC /* m_live_menu */,
+				0765A203240EB267000747CC /* m_location */,
+				0765A22A240EB26B000747CC /* m_login */,
+				0765A232240EB26D000747CC /* m_menu */,
+				0765A230240EB26C000747CC /* m_notice */,
+				0765A22D240EB26C000747CC /* m_online */,
+				0765A20F240EB268000747CC /* m_player_profile */,
+				0765A231240EB26D000747CC /* m_quest */,
+				0765A22F240EB26C000747CC /* m_ranking */,
+				0765A209240EB267000747CC /* m_reward */,
+				0765A229240EB26B000747CC /* m_sandbox */,
+				0765A215240EB268000747CC /* m_scenario */,
+				0765A234240EB26D000747CC /* m_scenario_menu */,
+				0765A211240EB268000747CC /* m_secretbox */,
+				0765A221240EB269000747CC /* m_shop */,
+				0765A21C240EB269000747CC /* m_sns */,
+				0765A22B240EB26B000747CC /* m_stamp */,
+				0765A205240EB267000747CC /* m_team */,
+				0765A227240EB26A000747CC /* m_top */,
+				0765A22C240EB26C000747CC /* m_tutorial */,
+				0765A206240EB267000747CC /* m_unit */,
+				0765A225240EB26A000747CC /* Maintenance.lua */,
+				0765A21A240EB269000747CC /* MTLmr3m.ttf */,
+				0765A213240EB268000747CC /* start.lua */,
+				0765A202240EB267000747CC /* Update.lua */,
 				3287AAB0174C88B900DF0E35 /* MTLmr3m.ttf */,
 			);
 			name = ProjectResources;
@@ -1524,6 +1592,12 @@
 		8E842FB41532D11700C4800E /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
+				0765A272240EB320000747CC /* DownloadClient.cpp */,
+				0765A271240EB320000747CC /* DownloadClient.h */,
+				0765A275240EB320000747CC /* DownloadManager.cpp */,
+				0765A274240EB320000747CC /* DownloadManager.h */,
+				0765A273240EB320000747CC /* DownloadQueue.cpp */,
+				0765A270240EB320000747CC /* DownloadQueue.h */,
 				6F4AD675170038AF007699EF /* MultithreadedNetwork.cpp */,
 				6F4AD676170038AF007699EF /* MultithreadedNetwork.h */,
 				3500F7A9164222B4005228DC /* CKLBUpdate.cpp */,
@@ -2070,70 +2144,6 @@
 			name = ScrollMgr;
 			sourceTree = "<group>";
 		};
-		F5494C7023CEBDA900B5E19B /* SIF */ = {
-			isa = PBXGroup;
-			children = (
-				F5494C8723CEBE0600B5E19B /* assets */,
-				F5494C9723CEBE0A00B5E19B /* common */,
-				F5494CA823CEBE0E00B5E19B /* config */,
-				F5494C7B23CEBE0500B5E19B /* db */,
-				F5494C9123CEBE0900B5E19B /* formula */,
-				F5494CA523CEBE0D00B5E19B /* lib */,
-				F5494C7223CEBE0400B5E19B /* m_achievement */,
-				F5494C8423CEBE0600B5E19B /* m_album */,
-				F5494C9923CEBE0B00B5E19B /* m_arcade */,
-				F5494C7823CEBE0500B5E19B /* m_award */,
-				F5494CA623CEBE0D00B5E19B /* m_background */,
-				F5494C9023CEBE0900B5E19B /* m_basicsettings */,
-				F5494C9523CEBE0A00B5E19B /* m_battle_event */,
-				F5494C7123CEBE0400B5E19B /* m_boot */,
-				F5494C9423CEBE0A00B5E19B /* m_challenge */,
-				F5494C9E23CEBE0C00B5E19B /* m_class */,
-				F5494C9323CEBE0900B5E19B /* m_collab */,
-				F5494C9A23CEBE0B00B5E19B /* m_debug */,
-				F5494C9B23CEBE0B00B5E19B /* m_download */,
-				F5494C9D23CEBE0C00B5E19B /* m_duel */,
-				F5494C8A23CEBE0700B5E19B /* m_event */,
-				F5494C8523CEBE0600B5E19B /* m_exchange */,
-				F5494C8D23CEBE0800B5E19B /* m_favorite_ranking */,
-				F5494CA423CEBE0D00B5E19B /* m_festival */,
-				F5494CA723CEBE0E00B5E19B /* m_friends */,
-				F5494C8B23CEBE0700B5E19B /* m_hint */,
-				F5494C8C23CEBE0700B5E19B /* m_history */,
-				F5494C9623CEBE0A00B5E19B /* m_idol_skill */,
-				F5494C9823CEBE0B00B5E19B /* m_item */,
-				F5494C7E23CEBE0500B5E19B /* m_live */,
-				F5494C7D23CEBE0500B5E19B /* m_live_adjust */,
-				F5494CA123CEBE0D00B5E19B /* m_live_custom */,
-				F5494C8123CEBE0600B5E19B /* m_live_menu */,
-				F5494C8223CEBE0600B5E19B /* m_location */,
-				F5494CA023CEBE0C00B5E19B /* m_login */,
-				F5494C8E23CEBE0800B5E19B /* m_menu */,
-				F5494C7323CEBE0400B5E19B /* m_notice */,
-				F5494C9F23CEBE0C00B5E19B /* m_online */,
-				F5494C8623CEBE0600B5E19B /* m_player_profile */,
-				F5494CA223CEBE0D00B5E19B /* m_quest */,
-				F5494C7A23CEBE0500B5E19B /* m_ranking */,
-				F5494C8923CEBE0600B5E19B /* m_reward */,
-				F5494C7523CEBE0500B5E19B /* m_sandbox */,
-				F5494C8023CEBE0600B5E19B /* m_scenario */,
-				F5494C7F23CEBE0500B5E19B /* m_scenario_menu */,
-				F5494C7623CEBE0500B5E19B /* m_secretbox */,
-				F5494C7423CEBE0400B5E19B /* m_shop */,
-				F5494C8F23CEBE0800B5E19B /* m_sns */,
-				F5494C8323CEBE0600B5E19B /* m_stamp */,
-				F5494CA923CEBE0E00B5E19B /* m_team */,
-				F5494C9C23CEBE0C00B5E19B /* m_top */,
-				F5494C8823CEBE0600B5E19B /* m_tutorial */,
-				F5494CA323CEBE0D00B5E19B /* m_unit */,
-				F5494C9223CEBE0900B5E19B /* Maintenance.lua */,
-				F5494C7923CEBE0500B5E19B /* MTLmr3m.ttf */,
-				F5494C7C23CEBE0500B5E19B /* start.lua */,
-				F5494C7723CEBE0500B5E19B /* Update.lua */,
-			);
-			path = SIF;
-			sourceTree = "<group>";
-		};
 		F58D7EB323CEBB32006FE311 /* HonokaMiku */ = {
 			isa = PBXGroup;
 			children = (
@@ -2242,69 +2252,70 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5494CD623CEBE0E00B5E19B /* m_duel in Resources */,
-				F5494CB423CEBE0E00B5E19B /* db in Resources */,
-				F5494CC923CEBE0E00B5E19B /* m_basicsettings in Resources */,
-				F5494CD723CEBE0E00B5E19B /* m_class in Resources */,
-				F5494CAE23CEBE0E00B5E19B /* m_sandbox in Resources */,
-				F5494CC723CEBE0E00B5E19B /* m_menu in Resources */,
-				F5494CDE23CEBE0E00B5E19B /* lib in Resources */,
-				F5494CD923CEBE0E00B5E19B /* m_login in Resources */,
-				F5494CAD23CEBE0E00B5E19B /* m_shop in Resources */,
-				F5494CBA23CEBE0E00B5E19B /* m_live_menu in Resources */,
-				F5494CAB23CEBE0E00B5E19B /* m_achievement in Resources */,
-				F5494CBE23CEBE0E00B5E19B /* m_exchange in Resources */,
-				F5494CB723CEBE0E00B5E19B /* m_live in Resources */,
-				F5494CCC23CEBE0E00B5E19B /* m_collab in Resources */,
-				F5494CB223CEBE0E00B5E19B /* MTLmr3m.ttf in Resources */,
+				0765A262240EB26D000747CC /* db in Resources */,
+				0765A269240EB26D000747CC /* m_ranking in Resources */,
+				0765A25B240EB26D000747CC /* m_shop in Resources */,
+				0765A252240EB26D000747CC /* m_item in Resources */,
+				0765A250240EB26D000747CC /* formula in Resources */,
 				8E0A29EE14D12A6E007E98B3 /* InfoPlist.strings in Resources */,
-				F5494CB523CEBE0E00B5E19B /* start.lua in Resources */,
-				F5494CAC23CEBE0E00B5E19B /* m_notice in Resources */,
-				F5494CCA23CEBE0E00B5E19B /* formula in Resources */,
-				F5494CB823CEBE0E00B5E19B /* m_scenario_menu in Resources */,
-				F5494CCD23CEBE0E00B5E19B /* m_challenge in Resources */,
+				0765A26E240EB26D000747CC /* m_scenario_menu in Resources */,
+				0765A24E240EB26D000747CC /* GPUDMLprob.otf in Resources */,
+				0765A265240EB26D000747CC /* m_stamp in Resources */,
 				8E0A29FA14D12A6E007E98B3 /* ViewController_iPhone.xib in Resources */,
-				F5494CE123CEBE0E00B5E19B /* config in Resources */,
-				F5494CBC23CEBE0E00B5E19B /* m_stamp in Resources */,
-				F5494CB323CEBE0E00B5E19B /* m_ranking in Resources */,
-				F5494CD223CEBE0E00B5E19B /* m_arcade in Resources */,
-				F5494CC023CEBE0E00B5E19B /* assets in Resources */,
-				F5494CD323CEBE0E00B5E19B /* m_debug in Resources */,
-				F5494CAF23CEBE0E00B5E19B /* m_secretbox in Resources */,
-				F5494CDB23CEBE0E00B5E19B /* m_quest in Resources */,
-				F5494CDD23CEBE0E00B5E19B /* m_festival in Resources */,
-				F5494CE023CEBE0E00B5E19B /* m_friends in Resources */,
+				0765A26C240EB26D000747CC /* m_menu in Resources */,
 				8E0A29FD14D12A6E007E98B3 /* ViewController_iPad.xib in Resources */,
+				0765A249240EB26D000747CC /* m_player_profile in Resources */,
+				0765A244240EB26D000747CC /* m_event in Resources */,
+				0765A25A240EB26D000747CC /* m_idol_skill in Resources */,
+				0765A268240EB26D000747CC /* m_collab in Resources */,
+				0765A251240EB26D000747CC /* m_battle_event in Resources */,
+				0765A266240EB26D000747CC /* m_tutorial in Resources */,
+				0765A23E240EB26D000747CC /* m_album in Resources */,
+				0765A242240EB26D000747CC /* m_hint in Resources */,
+				0765A264240EB26D000747CC /* m_login in Resources */,
+				0765A255240EB26D000747CC /* m_live_custom in Resources */,
+				0765A256240EB26D000747CC /* m_sns in Resources */,
+				0765A248240EB26D000747CC /* m_friends in Resources */,
+				0765A237240EB26D000747CC /* m_live_adjust in Resources */,
+				0765A24F240EB26D000747CC /* m_scenario in Resources */,
+				0765A260240EB26D000747CC /* m_live in Resources */,
+				0765A247240EB26D000747CC /* m_favorite_ranking in Resources */,
+				0765A23A240EB26D000747CC /* common in Resources */,
+				0765A258240EB26D000747CC /* m_duel in Resources */,
+				0765A240240EB26D000747CC /* m_unit in Resources */,
+				0765A239240EB26D000747CC /* m_festival in Resources */,
+				0765A24D240EB26D000747CC /* start.lua in Resources */,
+				0765A243240EB26D000747CC /* m_reward in Resources */,
+				0765A24B240EB26D000747CC /* m_secretbox in Resources */,
+				0765A259240EB26D000747CC /* m_award in Resources */,
+				0765A254240EB26D000747CC /* MTLmr3m.ttf in Resources */,
+				0765A23B240EB26D000747CC /* lib in Resources */,
+				0765A241240EB26D000747CC /* m_history in Resources */,
+				0765A25C240EB26D000747CC /* assets in Resources */,
+				0765A23C240EB26D000747CC /* Update.lua in Resources */,
+				0765A24A240EB26D000747CC /* m_boot in Resources */,
+				0765A246240EB26D000747CC /* config in Resources */,
+				0765A25F240EB26D000747CC /* Maintenance.lua in Resources */,
+				0765A261240EB26D000747CC /* m_top in Resources */,
+				0765A245240EB26D000747CC /* m_background in Resources */,
+				0765A26F240EB26D000747CC /* m_download in Resources */,
+				0765A26A240EB26D000747CC /* m_notice in Resources */,
+				0765A26B240EB26D000747CC /* m_quest in Resources */,
+				0765A23F240EB26D000747CC /* m_team in Resources */,
+				0765A26D240EB26D000747CC /* m_arcade in Resources */,
+				0765A25D240EB26D000747CC /* m_debug in Resources */,
+				0765A236240EB26D000747CC /* m_achievement in Resources */,
+				0765A24C240EB26D000747CC /* m_exchange in Resources */,
 				B0A50A80153425AE008CCF28 /* Default@2x.png in Resources */,
-				F5494CC623CEBE0E00B5E19B /* m_favorite_ranking in Resources */,
-				F5494CB123CEBE0E00B5E19B /* m_award in Resources */,
-				F5494CD123CEBE0E00B5E19B /* m_item in Resources */,
-				F5494CD823CEBE0E00B5E19B /* m_online in Resources */,
-				F5494CDF23CEBE0E00B5E19B /* m_background in Resources */,
-				F5494CC523CEBE0E00B5E19B /* m_history in Resources */,
-				F5494CBD23CEBE0E00B5E19B /* m_album in Resources */,
-				F5494CDA23CEBE0E00B5E19B /* m_live_custom in Resources */,
-				F5494CB923CEBE0E00B5E19B /* m_scenario in Resources */,
+				0765A263240EB26D000747CC /* m_sandbox in Resources */,
+				0765A25E240EB26D000747CC /* m_class in Resources */,
+				0765A267240EB26D000747CC /* m_online in Resources */,
+				0765A257240EB26D000747CC /* m_challenge in Resources */,
+				0765A238240EB26D000747CC /* m_live_menu in Resources */,
 				35E358E716154D460092EB1E /* icon@2x.png in Resources */,
-				F5494CD523CEBE0E00B5E19B /* m_top in Resources */,
-				F5494CC123CEBE0E00B5E19B /* m_tutorial in Resources */,
-				F5494CBF23CEBE0E00B5E19B /* m_player_profile in Resources */,
-				F5494CC423CEBE0E00B5E19B /* m_hint in Resources */,
-				F5494CC223CEBE0E00B5E19B /* m_reward in Resources */,
-				F5494CCB23CEBE0E00B5E19B /* Maintenance.lua in Resources */,
-				F5494CCE23CEBE0E00B5E19B /* m_battle_event in Resources */,
-				F5494CBB23CEBE0E00B5E19B /* m_location in Resources */,
-				F5494CAA23CEBE0E00B5E19B /* m_boot in Resources */,
-				F5494CCF23CEBE0E00B5E19B /* m_idol_skill in Resources */,
 				17729FCE17C316F400D4E765 /* Default-568h@2x.png in Resources */,
-				F5494CD423CEBE0E00B5E19B /* m_download in Resources */,
-				F5494CE223CEBE0E00B5E19B /* m_team in Resources */,
-				F5494CC323CEBE0E00B5E19B /* m_event in Resources */,
-				F5494CC823CEBE0E00B5E19B /* m_sns in Resources */,
-				F5494CD023CEBE0E00B5E19B /* common in Resources */,
-				F5494CB023CEBE0E00B5E19B /* Update.lua in Resources */,
-				F5494CDC23CEBE0E00B5E19B /* m_unit in Resources */,
-				F5494CB623CEBE0E00B5E19B /* m_live_adjust in Resources */,
+				0765A253240EB26D000747CC /* m_basicsettings in Resources */,
+				0765A23D240EB26D000747CC /* m_location in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2315,6 +2326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0765A276240EB320000747CC /* DownloadClient.cpp in Sources */,
 				6F4AD67817003BAB007699EF /* MultithreadedNetwork.cpp in Sources */,
 				8E0A29F014D12A6E007E98B3 /* main.m in Sources */,
 				8E876090152015D100B36A2C /* CBuffer.cpp in Sources */,
@@ -2361,6 +2373,7 @@
 				8E8760E11520188000B36A2C /* CompositeManagement.cpp in Sources */,
 				8E8760E31520188B00B36A2C /* NodeAnimationAsset.cpp in Sources */,
 				8E8760E41520189500B36A2C /* TextureManagement.cpp in Sources */,
+				0765A277240EB320000747CC /* DownloadQueue.cpp in Sources */,
 				8E8760E6152018CE00B36A2C /* CKLBNodeVirtualDocument.cpp in Sources */,
 				8E8760E7152018D200B36A2C /* CKLBScoreNode.cpp in Sources */,
 				8E8760E8152018D500B36A2C /* CKLBSplineNode.cpp in Sources */,
@@ -2550,6 +2563,7 @@
 				3287AC9E174C90D700DF0E35 /* ftsystem.c in Sources */,
 				3287ACA0174C90D700DF0E35 /* fttype1.c in Sources */,
 				3287ACA2174C90D700DF0E35 /* ftwinfnt.c in Sources */,
+				0765A278240EB320000747CC /* DownloadManager.cpp in Sources */,
 				3287ACA3174C90D700DF0E35 /* ftxf86.c in Sources */,
 				3287ACA6174C90D700DF0E35 /* bdf.c in Sources */,
 				3287ACB0174C90D700DF0E35 /* ftcache.c in Sources */,
@@ -2649,7 +2663,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_ASSET_PATHS = "../../../OSX/sif/m_history ../../../OSX/sif/m_unit ../../../OSX/sif/assets ../../../OSX/sif/m_sns ../../../OSX/sif/m_scenario_menu ../../../OSX/sif/common ../../../OSX/sif/m_hint ../../../OSX/sif/m_online ../../../OSX/sif/Maintenance.lua ../../../OSX/sif/m_festival ../../../OSX/sif/m_idol_skill ../../../OSX/sif/m_tutorial ../../../OSX/sif/m_sandbox ../../../OSX/sif/m_event ../../../OSX/sif/m_top ../../../OSX/sif/lib ../../../OSX/sif/m_challenge ../../../OSX/sif/m_battle_event ../../../OSX/sif/m_class ../../../OSX/sif/m_shop ../../../OSX/sif/m_notice ../../../OSX/sif/m_reward ../../../OSX/sif/start.lua ../../../OSX/sif/Update.lua ../../../OSX/sif/m_team ../../../OSX/sif/m_download ../../../OSX/sif/m_player_profile ../../../OSX/sif/m_live ../../../OSX/sif/m_item ../../../OSX/sif/m_quest ../../../OSX/sif/formula ../../../OSX/sif/m_duel ../../../OSX/sif/config ../../../OSX/sif/m_live_custom ../../../OSX/sif/m_friends ../../../OSX/sif/m_collab ../../../OSX/sif/m_ranking ../../../OSX/sif/m_debug ../../../OSX/sif/m_album ../../../OSX/sif/m_favorite_ranking ../../../OSX/sif/m_location ../../../OSX/sif/m_scenario ../../../OSX/sif/m_stamp ../../../OSX/sif/MTLmr3m.ttf ../../../OSX/sif/m_background ../../../OSX/sif/m_login ../../../OSX/sif/m_basicsettings ../../../OSX/sif/m_award ../../../OSX/sif/m_arcade ../../../OSX/sif/m_exchange ../../../OSX/sif/m_boot ../../../OSX/sif/m_achievement ../../../OSX/sif/db ../../../OSX/sif/m_menu ../../../OSX/sif/m_secretbox ../../../OSX/sif/m_live_menu ../../../OSX/sif/m_live_adjust";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = A3VQ954R33;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2751,7 +2765,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_ASSET_PATHS = "../../../OSX/sif/m_history ../../../OSX/sif/m_unit ../../../OSX/sif/assets ../../../OSX/sif/m_sns ../../../OSX/sif/m_scenario_menu ../../../OSX/sif/common ../../../OSX/sif/m_hint ../../../OSX/sif/m_online ../../../OSX/sif/Maintenance.lua ../../../OSX/sif/m_festival ../../../OSX/sif/m_idol_skill ../../../OSX/sif/m_tutorial ../../../OSX/sif/m_sandbox ../../../OSX/sif/m_event ../../../OSX/sif/m_top ../../../OSX/sif/lib ../../../OSX/sif/m_challenge ../../../OSX/sif/m_battle_event ../../../OSX/sif/m_class ../../../OSX/sif/m_shop ../../../OSX/sif/m_notice ../../../OSX/sif/m_reward ../../../OSX/sif/start.lua ../../../OSX/sif/Update.lua ../../../OSX/sif/m_team ../../../OSX/sif/m_download ../../../OSX/sif/m_player_profile ../../../OSX/sif/m_live ../../../OSX/sif/m_item ../../../OSX/sif/m_quest ../../../OSX/sif/formula ../../../OSX/sif/m_duel ../../../OSX/sif/config ../../../OSX/sif/m_live_custom ../../../OSX/sif/m_friends ../../../OSX/sif/m_collab ../../../OSX/sif/m_ranking ../../../OSX/sif/m_debug ../../../OSX/sif/m_album ../../../OSX/sif/m_favorite_ranking ../../../OSX/sif/m_location ../../../OSX/sif/m_scenario ../../../OSX/sif/m_stamp ../../../OSX/sif/MTLmr3m.ttf ../../../OSX/sif/m_background ../../../OSX/sif/m_login ../../../OSX/sif/m_basicsettings ../../../OSX/sif/m_award ../../../OSX/sif/m_arcade ../../../OSX/sif/m_exchange ../../../OSX/sif/m_boot ../../../OSX/sif/m_achievement ../../../OSX/sif/db ../../../OSX/sif/m_menu ../../../OSX/sif/m_secretbox ../../../OSX/sif/m_live_menu ../../../OSX/sif/m_live_adjust";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = A3VQ954R33;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2771,7 +2785,10 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "";
-				"HEADER_SEARCH_PATHS[arch=*]" = "\"$(SRCROOT)/../../../../libs/freeType/include\"";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"\"$(SRCROOT)/../../../../libs/freeType/include\"",
+					"\"$(SRCROOT)/../../../../source/Core\"",
+				);
 				INFOPLIST_FILE = "SampleProject/SampleProject-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2799,7 +2816,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_ASSET_PATHS = "../../../OSX/sif/m_history ../../../OSX/sif/m_unit ../../../OSX/sif/assets ../../../OSX/sif/m_sns ../../../OSX/sif/m_scenario_menu ../../../OSX/sif/common ../../../OSX/sif/m_hint ../../../OSX/sif/m_online ../../../OSX/sif/Maintenance.lua ../../../OSX/sif/m_festival ../../../OSX/sif/m_idol_skill ../../../OSX/sif/m_tutorial ../../../OSX/sif/m_sandbox ../../../OSX/sif/m_event ../../../OSX/sif/m_top ../../../OSX/sif/lib ../../../OSX/sif/m_challenge ../../../OSX/sif/m_battle_event ../../../OSX/sif/m_class ../../../OSX/sif/m_shop ../../../OSX/sif/m_notice ../../../OSX/sif/m_reward ../../../OSX/sif/start.lua ../../../OSX/sif/Update.lua ../../../OSX/sif/m_team ../../../OSX/sif/m_download ../../../OSX/sif/m_player_profile ../../../OSX/sif/m_live ../../../OSX/sif/m_item ../../../OSX/sif/m_quest ../../../OSX/sif/formula ../../../OSX/sif/m_duel ../../../OSX/sif/config ../../../OSX/sif/m_live_custom ../../../OSX/sif/m_friends ../../../OSX/sif/m_collab ../../../OSX/sif/m_ranking ../../../OSX/sif/m_debug ../../../OSX/sif/m_album ../../../OSX/sif/m_favorite_ranking ../../../OSX/sif/m_location ../../../OSX/sif/m_scenario ../../../OSX/sif/m_stamp ../../../OSX/sif/MTLmr3m.ttf ../../../OSX/sif/m_background ../../../OSX/sif/m_login ../../../OSX/sif/m_basicsettings ../../../OSX/sif/m_award ../../../OSX/sif/m_arcade ../../../OSX/sif/m_exchange ../../../OSX/sif/m_boot ../../../OSX/sif/m_achievement ../../../OSX/sif/db ../../../OSX/sif/m_menu ../../../OSX/sif/m_secretbox ../../../OSX/sif/m_live_menu ../../../OSX/sif/m_live_adjust";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = A3VQ954R33;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = s;

@@ -37,9 +37,11 @@ __MACOSX/
 
 # iOS/macOS
 /Engine/porting/iOS/Project/SampleProject/SampleProject.xcodeproj/xcuserdata/
+/Engine/porting/iOS/Project/SampleProject/Resources/
 /Engine/porting/OSX/sif/
 /Engine/porting/OSX/Playground.xcodeproj/project.xcworkspace/
 /Engine/porting/OSX/Playground.xcodeproj/xcuserdata/
+/Engine/porting/OSX/Resources/
 
 # Windows stuffs
 /Engine/porting/Win32/Output/Debug/OSSGameLibraryWin32.*

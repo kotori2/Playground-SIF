@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -419,7 +419,7 @@ void CKLBScriptEnv::call_eventUpdateKbps(const char* funcName, CKLBObjectScripta
 void CKLBScriptEnv::call_eventMdlFinish(const char* funcName, const char* filename, const char* url, bool success, int statusCode) {
 	if (!funcName) { return; }
 	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
-	lua.callback(funcName, "PSSII", nullptr, filename, url, (int)success, statusCode);
+	lua.callback(funcName, "PSSII", null, filename, url, (int)success, statusCode);
 }
 
 bool CKLBScriptEnv::call_netAPI_callback(const char* funcName, CKLBObjectScriptable* /*obj*/, int uniq, int msg, int status, CKLBJsonItem* pRoot) {

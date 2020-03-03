@@ -1,6 +1,6 @@
-﻿
+
 #include "DownloadManager.h"
-#include <DownloadClient.h>
+#include "DownloadClient.h"
 
 void* DownloadManager::s_waiting = NULL;
 void* DownloadManager::s_threadCount = NULL;

@@ -563,11 +563,11 @@ CiOSPlatform::deleteFontSystem(void * pFont)
 	bool
 CiOSPlatform::renderText(const char *utf8String, void *pFont, u32 color,
 		u16 width, u16 height, u8 *pBuffer8888, 
-		s16 stride, s16 base_x, s16 base_y, bool use4444)
+		s16 stride, s16 base_x, s16 base_y, u8 embolden, bool use4444)
 {
     FontObject* pObjFont = (FontObject*)pFont;
     if (pObjFont) {
-        pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, use4444);
+        pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, embolden, use4444);
     }
 	return true;
 }
@@ -1355,6 +1355,10 @@ int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, cons
     return ret;
 }
 
+int CiOSPlatform::decryptAES128CBC(unsigned const char* ciphertext, int ciphertextLen, const char* key, char* out, int outLen){
+    return 0;
+}
+
 int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen)
 {
     NSData *data = [[NSData alloc] initWithBytes:plaintext length:plaintextLen];
@@ -1372,7 +1376,10 @@ bool CiOSPlatform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, u
 	return false;
 }
 
-int CiOSPlatform::getRandomBytes(char* out, int len)
-{
-    return -1;// TODO
+int CiOSPlatform::getRandomBytes(char* out, int len){
+    return 0;
+}
+
+int CiOSPlatform::getAuthSecret(char* out, int len){
+    return 0;
 }
