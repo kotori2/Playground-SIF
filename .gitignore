@@ -36,6 +36,7 @@ __MACOSX/
 /Engine/porting/Android/GameEngine-android/assets/version
 
 # iOS/macOS
+/Engine/porting/iOS/Project/SampleProject/SampleProject.xcodeproj/project.xcworkspace/xcuserdata/
 /Engine/porting/iOS/Project/SampleProject/SampleProject.xcodeproj/xcuserdata/
 /Engine/porting/iOS/Project/SampleProject/Resources/
 /Engine/porting/OSX/sif/
