@@ -41,7 +41,7 @@ __MACOSX/
 /Engine/porting/OSX/sif/
 /Engine/porting/OSX/Playground.xcodeproj/project.xcworkspace/
 /Engine/porting/OSX/Playground.xcodeproj/xcuserdata/
-/Engine/porting/OSX/Resources/
+/Engine/porting/OSX/SIF-Resources/
 
 # Windows stuffs
 /Engine/porting/Win32/Output/Debug/OSSGameLibraryWin32.*

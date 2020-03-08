@@ -83,12 +83,10 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 - (void)awakeFromNib {
 	NSOpenGLPixelFormatAttribute attrs[] = {
 		NSOpenGLPFADoubleBuffer,
+        NSOpenGLPFAColorSize, 24,
 		NSOpenGLPFADepthSize, 24,
-		// Must specify the 3.2 Core Profile to use OpenGL 3.2
-#if ESSENTIAL_GL_PRACTICES_SUPPORT_GL3
-		NSOpenGLPFAOpenGLProfile,
-		NSOpenGLProfileVersion3_2Core,
-#endif
+        NSOpenGLPFAOpenGLProfile,
+        NSOpenGLProfileVersionLegacy,
 		0
 	};
     
@@ -99,12 +97,11 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	}
     
 	// TODO: implement path overriding
-    
 	const char *g_pathInstall = PATH_INSTALL;
 	const char *g_pathExtern = PATH_EXTERN;
 	CPFInterface& pfif = CPFInterface::getInstance();
-	// CiOSPathConv& pathconv = CiOSPathConv::getInstance();
-	// pathconv.setPath(g_pathInstall, g_pathExtern);
+	CiOSPathConv& pathconv = CiOSPathConv::getInstance();
+	//pathconv.setPath(g_pathInstall, g_pathExtern);
 	CiOSPlatform *pPlatform = new CiOSPlatform(nullptr, 1.0f);
 	pfif.setPlatformRequest(pPlatform);
     
@@ -156,7 +153,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	[[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
     
 	// Init our renderer.  Use 0 for the defaultFBO which is appropriate for MacOS (but not iOS)
-	m_renderer = [[OpenGLRenderer alloc] initWithDefaultFBO:0];
+	m_renderer = [[OpenGLRenderer alloc] init];
 }
 
 - (void)reshape {
