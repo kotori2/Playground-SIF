@@ -37,7 +37,10 @@
 CiOSPlatform *CiOSPlatform::m_instance = 0;
 
 CiOSPlatform::CiOSPlatform(EAGLView *pView, float scale)
-: m_pView(pView), m_scale(scale) {
+: m_pView(pView)
+, m_scale(scale)
+, m_bNoDefaultFont(false)
+{
 	//-----機種取得
 	size_t size;
 	sysctlbyname("hw.machine", NULL, &size, NULL, 0);
@@ -398,7 +401,7 @@ s64 CiOSPlatform::getElapsedTime(void) {
 }
 
 bool CiOSPlatform::registerFont(const char *logicalName, const char *physFile, bool default_) {
-	return true;
+	return FontObject::registerFont(logicalName, physFile, default_) | m_bNoDefaultFont;
 }
 
 void *CiOSPlatform::getFont(int size, const char *fontName, float *pAscent) {

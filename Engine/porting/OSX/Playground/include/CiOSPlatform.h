@@ -208,6 +208,7 @@ private:
 	} m_storeState;
     
 	char m_platform[256];
+    bool m_bNoDefaultFont;
     
 	static CiOSPlatform *m_instance;
 };
