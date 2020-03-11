@@ -59,6 +59,10 @@ NSMutableDictionary* transactionDict =[NSMutableDictionary dictionary];
     }
 }
 
+ - (BOOL)prefersStatusBarHidden {
+   return NO;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -73,7 +77,7 @@ NSMutableDictionary* transactionDict =[NSMutableDictionary dictionary];
 //        [alert release];
 //    }
         
-    [UIApplication sharedApplication].statusBarHidden = YES;
+    // [UIApplication sharedApplication].statusBarHidden = YES;
     [self.view setFrame:[[UIScreen mainScreen] bounds]];
     self.view.contentScaleFactor = [EAGLView getScaleFactor];
     [viewGL startAnimation];
