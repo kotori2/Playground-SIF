@@ -886,7 +886,7 @@ CiOSAudio::tell()
 s32
 CiOSAudio::totalPlayTime()
 {
-    return m_soundAnalysisData.m_totalTime;
+    return (s32)m_soundAnalysisData.m_totalTime;
 }
 
 void
@@ -966,7 +966,7 @@ bool AudioFileMemory::loadFile(const char* url) {
 
 		// get Size
 		fseek(pFile, 0, SEEK_END);
-		m_dataLength = ftell(pFile) - (hasHeader);
+		m_dataLength = (u32)ftell(pFile) - (hasHeader);
 		fseek(pFile, (hasHeader), SEEK_SET);
 		
 		// Alloc buffer
@@ -976,7 +976,7 @@ bool AudioFileMemory::loadFile(const char* url) {
 			//
 			// Read & Decrypt
 			//
-			u32 count = fread(m_decryptBuffer, 1, m_dataLength, pFile);
+			u32 count = (u32)fread(m_decryptBuffer, 1, m_dataLength, pFile);
 			decrypt(m_decryptBuffer, count);
 			res = true;
 		}

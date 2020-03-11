@@ -202,7 +202,7 @@ CiOSTextWidget::getTextLength()
             pstr = [m_pTextBox.text UTF8String];
             break;
     }
-    return strlen(pstr);
+    return (int)strlen(pstr);
 }
 
 bool
@@ -218,7 +218,7 @@ CiOSTextWidget::getText(char * pBuf, int maxlen)
             pstr = [m_pTextBox.text UTF8String];
             break;
     }
-    int len = strlen(pstr);
+    size_t len = strlen(pstr);
     if(len >= maxlen) len = maxlen - 1;
     strncpy(pBuf, pstr, len);
     pBuf[len] = 0;
@@ -608,14 +608,14 @@ int
 CiOSWebWidget::getTextLength()
 {
     const char * pstr = m_pNowURL;
-    return strlen(pstr);
+    return (uint32_t)strlen(pstr);
 }
 
 bool
 CiOSWebWidget::getText(char * pBuf, int maxlen)
 {
     const char * pstr = m_pNowURL;
-    int len = strlen(pstr);
+    size_t len = strlen(pstr);
     if(len >= maxlen) len = maxlen - 1;
     strncpy(pBuf, pstr, len);
     pBuf[len] = 0;

@@ -203,7 +203,7 @@ const char* CiOSPlatform::getBundleVersion() {
 CiOSPlatform::openTmpFile(const char * tmpPath)
 {
 	const char * target = "file://external/";
-	int len = strlen(target);
+	size_t len = strlen(target);
 	if(!strncmp(tmpPath, target, len)) {
 		// 平成24年11月27日(火)
 		// CiOSTmpFileのファイルパスの解決の仕方が'file://'を抜いた状態で解釈するため、
@@ -228,7 +228,7 @@ const char* getFullNativePath(const char* path) {
 bool
 CiOSPlatform::removeFileOrFolder(const char* filePath) {
 	const char * target = "file://external/";
-	int len = strlen(target);
+	size_t len = strlen(target);
 	if(!strncmp(filePath, target, len)) {
 		return deleteFiles(filePath);
 	} else {
@@ -244,7 +244,7 @@ void
 CiOSPlatform::removeTmpFile(const char *tmpPath)
 {
 	const char * target = "file://external/";
-	int len = strlen(target);
+	size_t len = strlen(target);
 	if(!strncmp(tmpPath, target, len)) {
 		const char * fullpath = CiOSPathConv::getInstance().fullpath(tmpPath + 7);
 		remove(fullpath);
@@ -873,7 +873,7 @@ CiOSPlatform::getDevID(char * retBuf, int maxlen)
 CiOSPlatform::setKeyChain(const char * service_name, const char * key, const char * value)
 {
 	bool result = true;
-	int len = strlen(value);
+	size_t len = strlen(value);
 	NSString * service = [NSString stringWithUTF8String:service_name];
 	NSString * nskey = [NSString stringWithUTF8String:key];
 
@@ -1009,10 +1009,10 @@ CiOSPlatform::delSecureDataPW(const char *service_name)
 	int
 CiOSPlatform::sha512(const char * string, char * buf, int maxlen)
 {
-	int len = strlen(string);
+	size_t len = strlen(string);
 	NSData * data = [NSData dataWithBytes:string length:len];
 	uint8_t digest[CC_SHA512_DIGEST_LENGTH];
-	CC_SHA512(data.bytes, data.length, digest);
+	CC_SHA512(data.bytes, (uint32_t)data.length, digest);
 	NSMutableString * output = [NSMutableString stringWithCapacity:CC_SHA512_DIGEST_LENGTH * 2];
 	for(int i = 0; i < CC_SHA512_DIGEST_LENGTH; i++) {
 		[output appendFormat:@"%02x",digest[i]];
@@ -1308,23 +1308,23 @@ void		CiOSPlatform::ifclose	(void* file) {
 }
 
 int			CiOSPlatform::ifseek	(void* file, long int offset, int origin) {
-	return fseek((FILE*)file,offset,origin);
+	return (u32)fseek((FILE*)file,offset,origin);
 }
 
 u32			CiOSPlatform::ifread	(void* ptr, u32 size, u32 count, void* file ) {
-	return fread(ptr, size, count, (FILE*)file);
+	return (u32)fread(ptr, size, count, (FILE*)file);
 }
 
 u32			CiOSPlatform::ifwrite	(const void * ptr, u32 size, u32 count, void* file) {
-	return fwrite(ptr, size, count, (FILE*)file);
+	return (u32)fwrite(ptr, size, count, (FILE*)file);
 }
 
 int			CiOSPlatform::ifflush	(void* file) {
-	return fflush((FILE*)file);
+	return (u32)fflush((FILE*)file);
 }
 
 long int	CiOSPlatform::iftell	(void* file) {
-	return ftell((FILE*)file);
+	return (u32)ftell((FILE*)file);
 }
 
 bool CiOSPlatform::icreateEmptyFile(const char* name) {
@@ -1340,7 +1340,7 @@ bool CiOSPlatform::icreateEmptyFile(const char* name) {
 int CiOSPlatform::HMAC_SHA1(const char* input, const char* key, int keyLen, char* retbuf) {
     unsigned char rawHash[21];
     CHMAC_SHA1 *ctx = new CHMAC_SHA1;
-    ctx->HMAC_SHA1( reinterpret_cast<unsigned char*>(const_cast<char*>(input)), strlen(input),
+    ctx->HMAC_SHA1( reinterpret_cast<unsigned char*>(const_cast<char*>(input)), (u32)strlen(input),
                     reinterpret_cast<unsigned char*>(const_cast<char*>(key)), keyLen,
                     rawHash);
     const char* tmp = bin2hex(rawHash, 20);
