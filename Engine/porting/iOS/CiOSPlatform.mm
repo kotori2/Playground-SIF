@@ -195,8 +195,8 @@ CiOSPlatform::logging(const char * format, ...)
 
 const char* CiOSPlatform::getBundleVersion() {
     //set version string here instead of xcode project setting
-    const char* bundle_version = "6.9.1";
-    return /*[[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"] cStringUsingEncoding:NSUTF8StringEncoding]*/ bundle_version;
+    //const char* bundle_version = "6.9.1";
+    return [[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"] cStringUsingEncoding:NSUTF8StringEncoding];
 }
 
 	ITmpFile *

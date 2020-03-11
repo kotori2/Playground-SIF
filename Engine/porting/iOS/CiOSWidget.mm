@@ -545,7 +545,7 @@ CiOSWebWidget::~CiOSWebWidget()
 }
 
 CiOSWebWidget *
-CiOSWebWidget::searchWidget(UIWebView *pWebView)
+CiOSWebWidget::searchWidget(WKWebView *pWebView)
 {
     CiOSWebWidget * pWidget = ms_begin;
     while(pWidget) {
@@ -588,8 +588,12 @@ CiOSWebWidget::create(CONTROL type, int id,
     
 //    setText(caption);	// 2012.12.11  下でもやっているんのでコメントアウト
     set_bgcolor();
-    m_pWebView.delegate = pView;
-    m_pWebView.scalesPageToFit = YES;
+    
+    // Deprecated
+    // m_pWebView.delegate = pView;
+    
+    // Deprecated, replace with js injection
+    // m_pWebView.scalesPageToFit = YES;
     m_pWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     m_pWebView.opaque = NO;             // 不透明をNO状態にすることで透過が可能
@@ -678,8 +682,9 @@ CiOSWebWidget::cmd(int cmd, ...)
     switch (cmd) {
         case WEB_SET_SCALESPAGETOFIT:
         {
-            int pagetofit = va_arg(ap, int);
-            m_pWebView.scalesPageToFit = (pagetofit) ? YES : NO;
+            NSLog(@"scalesPageToFit deprecated in iOS, DO NOT USE");
+            // int pagetofit = va_arg(ap, int);
+            // m_pWebView.scalesPageToFit = (pagetofit) ? YES : NO;
             break;
         }
             
