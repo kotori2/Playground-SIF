@@ -1162,12 +1162,14 @@ CiOSAudio::initSE()
     //m_clientFormat.mSampleRate        = 44100.0;
     m_clientFormat.mSampleRate        = m_ASBD.mSampleRate;     // 2012/12/04 サンプリングレートが固定値で44100で入力されていたのが間違い、これだとサンプリングレートが44100以外の音声が途切れたりしてしまう。
     m_clientFormat.mFormatID          = kAudioFormatLinearPCM;
-    m_clientFormat.mFormatFlags       = kAudioFormatFlagsAudioUnitCanonical;
+    m_clientFormat.mFormatFlags       = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked |
+                                        kAudioFormatFlagIsNonInterleaved |
+                                        (kAudioUnitSampleFractionBits << kLinearPCMFormatFlagsSampleFractionShift);
     m_clientFormat.mChannelsPerFrame  = m_ASBD.mChannelsPerFrame;
-    m_clientFormat.mBytesPerFrame     = sizeof(AudioUnitSampleType);
-    m_clientFormat.mBytesPerPacket    = sizeof(AudioUnitSampleType);
+    m_clientFormat.mBytesPerFrame     = sizeof(SInt32);
+    m_clientFormat.mBytesPerPacket    = sizeof(SInt32);
     m_clientFormat.mFramesPerPacket   = 1;
-    m_clientFormat.mBitsPerChannel    = 8 * sizeof(AudioUnitSampleType);
+    m_clientFormat.mBitsPerChannel    = 8 * sizeof(SInt32);
     m_clientFormat.mReserved          = 0;
 
     // フォーマットの取得
@@ -1180,16 +1182,16 @@ CiOSAudio::initSE()
     klb_assert(!err, "could not open SE file.");
 
     // バッファの確保等
-    m_playBuffer = new AudioUnitSampleType * [ m_ASBD.mChannelsPerFrame ];
+    m_playBuffer = new SInt32 * [ m_ASBD.mChannelsPerFrame ];
     for(int i = 0; i < m_ASBD.mChannelsPerFrame; i++) {
-        m_playBuffer[i] = new AudioUnitSampleType [ m_totalFrames ];
+        m_playBuffer[i] = new SInt32 [ m_totalFrames ];
     }
 
     AudioBufferList * bufList = (AudioBufferList *)malloc(sizeof(AudioBufferList) + sizeof(AudioBuffer) * (m_ASBD.mChannelsPerFrame - 1));
     bufList->mNumberBuffers = m_ASBD.mChannelsPerFrame;
     for(int i = 0; i < m_ASBD.mChannelsPerFrame; i++) {
         bufList->mBuffers[i].mNumberChannels = 1;
-        bufList->mBuffers[i].mDataByteSize = sizeof(AudioUnitSampleType) * m_totalFrames;
+        bufList->mBuffers[i].mDataByteSize = sizeof(SInt32) * m_totalFrames;
         bufList->mBuffers[i].mData = m_playBuffer[i];
     }
 
@@ -1452,8 +1454,8 @@ CiOSAudioSession::callbackSE(AudioUnitRenderActionFlags * ioActionFlags,
                       AudioBufferList * ioData)
 {
     int indexR = (m_audio->m_ASBD.mChannelsPerFrame == 2) ? 1 : 0;
-    AudioUnitSampleType * outL = (AudioUnitSampleType *)ioData->mBuffers[0].mData;
-    AudioUnitSampleType * outR = (AudioUnitSampleType *)ioData->mBuffers[indexR].mData;
+    SInt32 * outL = (SInt32 *)ioData->mBuffers[0].mData;
+    SInt32 * outR = (SInt32 *)ioData->mBuffers[indexR].mData;
     
     // ポーズ中or末尾まで再生終了してる時はバッファに0を書き込み
     if( m_isDone || m_isPause )
