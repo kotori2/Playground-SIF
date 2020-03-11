@@ -444,7 +444,7 @@
 
     for( i = 0; i < face->num_locations; i++ )
     {
-      tt_face_get_location( face, i, &asize );
+      tt_face_get_location( face, (uint32_t)i, &asize );
       if ( asize > 0 )
       {
         count += 1;
@@ -466,7 +466,7 @@
         char buf[8];
 
 
-        error = FT_Get_Glyph_Name( ttface, glyph_index, buf, 8 );
+        error = FT_Get_Glyph_Name( ttface, (uint32_t)glyph_index, buf, 8 );
         if ( !error                                            &&
              buf[0] == '.' && !ft_strncmp( buf, ".notdef", 8 ) )
           result = TRUE;

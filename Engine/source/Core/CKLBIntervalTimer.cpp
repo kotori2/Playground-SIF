@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -77,7 +77,7 @@ CKLBIntervalTimer::init(CKLBTask* pTask, u32 timerID, u32 interval, bool repeat,
 	if(!m_callback) return false;
 
 	// Properties definition
-	if(!setupPropertyList((const char**)CKLBIntervalTimer::ms_propItems,SizeOfArray(ms_propItems))) {
+	if(!setupPropertyList((const char**)CKLBIntervalTimer::ms_propItems, (u32)SizeOfArray(ms_propItems))) {
 		return false;
 	}
 

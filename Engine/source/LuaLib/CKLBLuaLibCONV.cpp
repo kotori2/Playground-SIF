@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -56,7 +56,7 @@ CKLBLuaLibCONV::json2lua(lua_State * L)
 		lua.retNil();
 		return 1;
 	}
-	CKLBUtility::json2lua(lua, json, strlen(json));
+	CKLBUtility::json2lua(lua, json, (u32)strlen(json));
 	return 1;
 }
 
@@ -100,7 +100,7 @@ CKLBLuaLibCONV::base64Decode(lua_State* L)
 	CLuaState lua(L);
 	const char* str = lua.getString(1);
 	int resLen = 0;
-	unsigned char* result = unbase64(str, strlen(str), &resLen);
+	unsigned char* result = unbase64(str, (u32)strlen(str), &resLen);
 	lua_pushlstring(L, (char*)result, resLen);
 	KLBDELETEA(result);
 	return 1;

@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,8 +39,8 @@ CiOSPathConv::getInstance()
 const char *
 CiOSPathConv::makePath(const char * path, const char * suffix, const char * base)
 {
-    int extlen = (suffix) ? strlen(suffix) : 0;
-    int len = strlen(path) + strlen(base) + extlen + 2;
+    size_t extlen = (suffix) ? strlen(suffix) : 0;
+    size_t len = strlen(path) + strlen(base) + extlen + 2;
     char * buf = new char [ len ];
     strcpy(buf, base);
     //strcat(buf, "/");
@@ -101,7 +101,7 @@ CiOSPathConv::create_external()
     // file://external を作る
     NSString * nshome = NSHomeDirectory();
     const char * home = [nshome UTF8String];
-    int length = strlen(home) + strlen(PATH_EXTERN);
+    size_t length = strlen(home) + strlen(PATH_EXTERN);
     char * buf = new char [length + 1];
     strcpy(buf, home);
     strcat(buf, PATH_EXTERN);
@@ -118,7 +118,7 @@ CiOSPathConv::create_install()
     // file://install を作る
     NSString * nshome = [[NSBundle mainBundle] bundlePath] ;
     const char * home = [nshome UTF8String];
-    int length = strlen(home) + strlen(PATH_INSTALL);
+    size_t length = strlen(home) + strlen(PATH_INSTALL);
     char * buf = new char [length + 1];
     strcpy(buf, home);
     strcat(buf, PATH_INSTALL);

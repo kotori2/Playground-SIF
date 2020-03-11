@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -128,7 +128,7 @@ CKLBJsonItem::ReadJsonData(const char * json_string, u32 json_size)
 		/* and let's allow comments by default */  
 		yajl_config(hand, yajl_allow_comments, 1);
 
-		u32 size = (!json_size) ? strlen(json_string) : json_size;
+		u32 size = (!json_size) ? (u32)strlen(json_string) : json_size;
 		stat = yajl_parse(hand, (const unsigned char *)json_string, size);
 
 		CKLBJsonItem * pRoot = pState->pFirst;

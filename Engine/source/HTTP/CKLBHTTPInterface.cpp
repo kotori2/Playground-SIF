@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -170,7 +170,7 @@ int strncmpi(const char* str1, const char* str2, int len) {
 
 // static
 size_t CKLBHTTPInterface::headerReceive_func( void *ptr, size_t size, size_t nmemb, void *userdata) {
-	u32 totalSize = size * nmemb;
+	size_t totalSize = size * nmemb;
 	const char* data = (const char*)ptr;
 	char* tmpBuf = KLBNEWA(char, totalSize);
 	memset(tmpBuf, 0, totalSize);
@@ -211,7 +211,7 @@ size_t CKLBHTTPInterface::headerReceive_func( void *ptr, size_t size, size_t nme
 	}
 
 	if (strncmpi("Server-Version:", data, 15/*Server-Version*/) == 0) {
-		u32 lineSize = size * nmemb;	// Full Size
+		size_t lineSize = size * nmemb;	// Full Size
 		lineSize -= 15;					// Remove Server-Version
 		lineSize -= 2;                  // Remove \r\n
 		data += 15;
@@ -399,7 +399,7 @@ bool CKLBHTTPInterface::setHeader(const char ** headers)
 
 		int len = 1;	// 終端コードサイズは先に設宁E
 		for(int i = 0; headers[i]; i++) {
-			m_headerEntryLen[i] = strlen(headers[i]);
+			m_headerEntryLen[i] = (u32)strlen(headers[i]);
 			len += m_headerEntryLen[i] + 2;
 		}
 
@@ -420,7 +420,7 @@ bool CKLBHTTPInterface::setHeader(const char ** headers)
 		}
 		*buf = 0;
 
-		m_hdrlen = buf - m_headers;
+		m_hdrlen = (u32)(buf - m_headers);
 	}
 
 	return true;
