@@ -726,14 +726,22 @@ CiOSPlatform::callApplication(IPlatformRequest::APP_TYPE type, ...)
                 NSString *url = [[NSString alloc]initWithFormat:@"mailto:%@?subject=%@&body=%@", addr, subject, body];
                 NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet];
                 url = [[url stringByAddingPercentEncodingWithAllowedCharacters:set]stringByReplacingOccurrencesOfString:@"+" withString:@"%2B%"];
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:^(BOOL success) {
+                    if (success) {
+                         //NSLog(@"Opened url");
+                    }
+                }];
             }
             break;
         case IPlatformRequest::APP_BROWSER:
             {
                 NSString *urlString = [NSString stringWithCString: va_arg(ap, const char *) encoding:NSUTF8StringEncoding];
                 NSURL *url = [NSURL URLWithString:urlString];
-                [[UIApplication sharedApplication] openURL:url];
+                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+                    if (success) {
+                         //NSLog(@"Opened url");
+                    }
+                }];
             }
             break;
         case IPlatformRequest::APP_UPDATE:
@@ -741,7 +749,11 @@ CiOSPlatform::callApplication(IPlatformRequest::APP_TYPE type, ...)
                 const char * search_key = va_arg(ap, const char *);
                 NSString * url_str = [NSString stringWithFormat:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftwareUpdate?id=%s&mt=8", search_key];
                 NSURL *url = [NSURL URLWithString:url_str];
-                [[UIApplication sharedApplication] openURL:url];
+                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+                    if (success) {
+                         //NSLog(@"Opened url");
+                    }
+                }];
             }
             break;
         default:
