@@ -311,8 +311,4 @@ NSMutableDictionary* transactionDict =[NSMutableDictionary dictionary];
 //    IClientRequest& cli = CPFInterface::getInstance().client();
 //    cli.controlEvent(IClientRequest::E_STORE_RESTORE_COMPLETED, 0, 0, 0, 0, 0);
 //}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    abort();
-}
 @end
