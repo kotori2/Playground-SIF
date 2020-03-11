@@ -724,7 +724,8 @@ CiOSPlatform::callApplication(IPlatformRequest::APP_TYPE type, ...)
                 NSString *body    = [NSString stringWithCString: va_arg(ap, const char *) encoding:NSUTF8StringEncoding];
 
                 NSString *url = [[NSString alloc]initWithFormat:@"mailto:%@?subject=%@&body=%@", addr, subject, body];
-                url = [[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]stringByReplacingOccurrencesOfString:@"+" withString:@"%2B%"];
+                NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet];
+                url = [[url stringByAddingPercentEncodingWithAllowedCharacters:set]stringByReplacingOccurrencesOfString:@"+" withString:@"%2B%"];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
             }
             break;
