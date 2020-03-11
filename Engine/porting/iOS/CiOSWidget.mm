@@ -781,14 +781,14 @@ int
 CiOSMovieWidget::getTextLength()
 {
     const char * pstr = m_pNowPATH;
-    return strlen(pstr);
+    return (int)strlen(pstr);
 }
 
 bool
 CiOSMovieWidget::getText(char * pBuf, int maxlen)
 {
     const char * pstr = m_pNowPATH;
-    int len = strlen(pstr);
+    unsigned long len = strlen(pstr);
     if(len >= maxlen) len = maxlen - 1;
     strncpy(pBuf, pstr, len);
     pBuf[len] = 0;
@@ -798,7 +798,7 @@ CiOSMovieWidget::getText(char * pBuf, int maxlen)
 bool
 CiOSMovieWidget::setText(const char * string)
 {
-    int len = strlen(string);
+    unsigned long len = strlen(string);
     char * buf = new char [ len + 1 ];
     if(!buf) return false;
 
@@ -967,7 +967,7 @@ CiOSActivityIndicator::create(CONTROL type, int id,
         case IWidget::ACTIVITYINDICATOR:
             m_pActView = [[[UIActivityIndicatorView alloc] init] autorelease];
             m_pActView.hidesWhenStopped = NO;
-            m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+            m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
             m_size = 21.0f;
             break;
     }
@@ -1045,17 +1045,17 @@ CiOSActivityIndicator::cmd(int cmd, ...)
             {
                 case 0:
                 {
-                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
                     break;
                 }
                 case 1:
                 {
-                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
                     break;
                 }
                 case 2:
                 {
-                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
                     m_size = 36.0f;
                     break;
                 }
