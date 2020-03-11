@@ -87,7 +87,7 @@ CiOSTextWidget::CiOSTextWidget(CiOSPlatform * pParent, int maxlen)
 , m_maxlen(maxlen)
 , m_chartype(TXCH_7BIT_ASCII | TXCH_UTF8)
 , m_consoleType(E_CONSOLE_TYPE_UITEXTVIEW)
-, m_alignType(UITextAlignmentLeft)
+, m_alignType(NSTextAlignmentLeft)
 {
     m_cols[0] = 0xffffffff;
     m_cols[1] = 0xff000000;
