@@ -345,7 +345,6 @@
 		F58D7EC423CEBB87006FE311 /* EN_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EBC23CEBB86006FE311 /* EN_Decrypter.cc */; };
 		F58D7EC523CEBB87006FE311 /* V3_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EBD23CEBB87006FE311 /* V3_Decrypter.cc */; };
 		F5AD7DE123D003AF00297BFB /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DDF23D003AF00297BFB /* RSA.m */; };
-		F5AD7DE723D0077000297BFB /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DE623D0077000297BFB /* AESCipher.m */; };
 		F5FA4D3C23D02FF500EBEE24 /* SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5FA4D3823D02FF400EBEE24 /* SHA1.cpp */; };
 		F5FA4D3D23D02FF500EBEE24 /* HMAC_SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5FA4D3B23D02FF500EBEE24 /* HMAC_SHA1.cpp */; };
 		F5FA4D3E23D0323C00EBEE24 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0A2B3414D12C02007E98B3 /* AVFoundation.framework */; };
@@ -1007,8 +1006,6 @@
 		F58D7EBD23CEBB87006FE311 /* V3_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = V3_Decrypter.cc; path = ../../source/Core/HonokaMiku/V3_Decrypter.cc; sourceTree = "<group>"; };
 		F5AD7DDF23D003AF00297BFB /* RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSA.m; path = ../../RSA/RSA.m; sourceTree = "<group>"; };
 		F5AD7DE023D003AF00297BFB /* RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSA.h; path = ../../RSA/RSA.h; sourceTree = "<group>"; };
-		F5AD7DE323D003DB00297BFB /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AESCipher.h; path = ../../AESCipher/AESCipher.h; sourceTree = "<group>"; };
-		F5AD7DE623D0077000297BFB /* AESCipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AESCipher.m; path = ../../AESCipher/AESCipher.m; sourceTree = "<group>"; };
 		F5FA4D3723D02FF400EBEE24 /* SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHA1.h; path = ../../crypto/SHA1.h; sourceTree = "<group>"; };
 		F5FA4D3823D02FF400EBEE24 /* SHA1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SHA1.cpp; path = ../../crypto/SHA1.cpp; sourceTree = "<group>"; };
 		F5FA4D3923D02FF400EBEE24 /* bin2hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bin2hex.h; path = ../../crypto/bin2hex.h; sourceTree = "<group>"; };
@@ -1730,7 +1727,6 @@
 		8E875F87152014D300B36A2C /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				F5AD7DE223D003D000297BFB /* AESCipher */,
 				F5AD7DDB23CFF98F00297BFB /* rsa */,
 				F5AD7DD323CFF50700297BFB /* crypto */,
 				6FFE230F176B064B003B3F9F /* sha1 */,
@@ -2200,15 +2196,6 @@
 			name = rsa;
 			sourceTree = "<group>";
 		};
-		F5AD7DE223D003D000297BFB /* AESCipher */ = {
-			isa = PBXGroup;
-			children = (
-				F5AD7DE623D0077000297BFB /* AESCipher.m */,
-				F5AD7DE323D003DB00297BFB /* AESCipher.h */,
-			);
-			name = AESCipher;
-			sourceTree = "<group>";
-		};
 		FCFB03D316AEAAFE00E81C9C /* Sound */ = {
 			isa = PBXGroup;
 			children = (
@@ -2480,7 +2467,6 @@
 				8EA65E1E155D10490066E306 /* CKLBTextInputNode.cpp in Sources */,
 				8ECC289A156B4CD10022D683 /* CKLBLuaLibBIN.cpp in Sources */,
 				8ECC289B156B4CD10022D683 /* CKLBLuaLibCONV.cpp in Sources */,
-				F5AD7DE723D0077000297BFB /* AESCipher.m in Sources */,
 				8ECC289C156B4CD10022D683 /* CKLBLuaLibDATA.cpp in Sources */,
 				8ECC289D156B4CD10022D683 /* CKLBLuaLibDB.cpp in Sources */,
 				8ECC289E156B4CD10022D683 /* CKLBLuaLibGL.cpp in Sources */,
