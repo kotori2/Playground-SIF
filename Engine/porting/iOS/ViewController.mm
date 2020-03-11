@@ -60,7 +60,7 @@ NSMutableDictionary* transactionDict =[NSMutableDictionary dictionary];
 }
 
  - (BOOL)prefersStatusBarHidden {
-   return NO;
+   return YES;
 }
 
 - (void)viewDidLoad
