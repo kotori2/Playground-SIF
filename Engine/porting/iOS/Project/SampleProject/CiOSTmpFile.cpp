@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,6 +32,9 @@ CiOSTmpFile::CiOSTmpFile(const char * path) : m_fullpath(0)
     // ファイルが存在しない場合に該当ファイルが生成されない事への対応と
     // 権限の付与を行いました。
     m_fd = open(m_fullpath, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+    if(m_fd <= 0){
+        DEBUG_PRINT("Failed to open file: %s", m_fullpath);
+    }
     CPFInterface::getInstance().platform().excludePathFromBackup(m_fullpath);
 }
 

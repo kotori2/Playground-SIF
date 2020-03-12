@@ -233,6 +233,7 @@ CiOSPlatform::openTmpFile(const char * tmpPath)
                         break;
                     }
                 }
+                closedir(d);
                 free(folder);
             }
         }

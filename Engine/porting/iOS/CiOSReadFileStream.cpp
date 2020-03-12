@@ -91,7 +91,29 @@ CiOSReadFileStream *CiOSReadFileStream::openStream(const char *path, const char 
 			// オープンに失敗
 			pStream->m_eStat = NOT_FOUND;
 #ifdef DEBUG_MEMORY
-			CPFInterface& pfif = CPFInterface::getInstance();
+            CPFInterface& pfif = CPFInterface::getInstance();
+            
+            // THESE CODE WORKS FOR *NIX ONLY
+            /*int flags;
+            int fd;
+            char buf[1024] ;
+            int n = 1 ;
+
+            for (fd = 0; fd < (int) FD_SETSIZE; fd++) {
+                errno = 0;
+                flags = fcntl(fd, F_GETFD, 0);
+                if (flags == -1 && errno) {
+                    if (errno != EBADF) {
+                    }
+                    else
+                        continue;
+                }
+                fcntl(fd , F_GETPATH, buf ) ;
+                pfif.platform().logging("not closed stream: %s", buf);
+                //NSLog( @"File Descriptor %d number %d in use for: %s",fd,n , buf ) ;
+                ++n ;
+            }*/
+			
 			CiOSReadFileStream *p = ms_pBegin;
 			while (p) {
 				pfif.platform().logging("not closed stream: %s", p->m_fullpath);
