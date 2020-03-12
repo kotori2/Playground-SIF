@@ -1444,5 +1444,6 @@ int CiOSPlatform::getRandomBytes(char* out, int len){
 }
 
 int CiOSPlatform::getAuthSecret(char* out, int len){
-    return 0;
+    sprintf(out, "{\n\t\"db_sha1\":\"\",\n\t\"Hardware\":\"iOS\"\n}");
+    return (int)strlen(out);
 }
