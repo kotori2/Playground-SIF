@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,7 +91,7 @@ CKLBLuaDB::setName(const char * name)
 	KLBDELETEA(m_name);
 	m_name = NULL;
 	if(name) {
-		int len = strlen(name);
+		size_t len = strlen(name);
 		char * buf = KLBNEWA(char, len + 1);
         if(!buf) { return false; }
 		strcpy(buf, name);

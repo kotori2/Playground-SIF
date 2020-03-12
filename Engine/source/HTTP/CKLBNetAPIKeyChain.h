@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -170,7 +170,7 @@ public:
 		sprintf(retBuf, "%s-%s.%d.%d",
 				body, m_token,
 				(int)timeStamp, serial);
-		int len = strlen(retBuf);
+		int len = (int)strlen(retBuf);
 		return len;
 	}
 

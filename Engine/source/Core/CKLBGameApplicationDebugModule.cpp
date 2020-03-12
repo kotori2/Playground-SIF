@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,7 +51,7 @@ bool CKLBGameApplication::executeCommand(const char* command) {
 
 	bool	result = false;
 	// Copy string
-	int l = strlen(command);
+	size_t l = strlen(command);
 	memcpy(commandL, command, l+1);
 	
 	// Make sure previous stuff is cleaned.

@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -383,7 +383,7 @@ int fEncryptOpen					(sqlite3_vfs* vfs, const char *zName, sqlite3_file* file, i
 		fileDecrypt->m_hasHeader = fileDecrypt->m_decrypt.decryptSetup((const u8*)zName, header);
 
 		pltf.ifseek(f, 0, SEEK_END);
-		fileDecrypt->m_size = pltf.iftell(f) - (fileDecrypt->m_decrypt.m_header_size);
+		fileDecrypt->m_size = (int)pltf.iftell(f) - (fileDecrypt->m_decrypt.m_header_size);
 		pltf.ifseek(f, (fileDecrypt->m_decrypt.m_header_size), SEEK_SET);
 
 		return SQLITE_OK;
@@ -454,7 +454,7 @@ bool CKLBDatabase::init(const char* dbFile, int flags) {
 
 	// Else release old Database and old name
 	_release();
-	int size = strlen(dbFile);
+	size_t size = strlen(dbFile);
 	m_lastDB = KLBNEWA(char, size+1);
 
 	if (m_lastDB) {

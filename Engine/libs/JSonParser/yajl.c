@@ -263,10 +263,10 @@ yajl_parse(yajl_handle hand, const unsigned char * jsonText,
 	if (jsonTextLen >= 2) {
 		if (jsonText[0] == 0xFF && jsonText[1] == 0xFF) {
 			hand->bj.used = 1;
-			return (yajl_status)bjson_parse(hand,jsonText,jsonTextLen);
+			return (yajl_status)bjson_parse(hand,jsonText,(int)jsonTextLen);
 		} else if ((jsonText[0] >= 0xDC) && (jsonText[0] <= 0xDF)) {
 			hand->msgpack.used = 1;
-			return (yajl_status)msgpack_parse(hand,jsonText,jsonTextLen);
+			return (yajl_status)msgpack_parse(hand,jsonText,(int)jsonTextLen);
 		}
 	}
 

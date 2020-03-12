@@ -179,7 +179,7 @@ CKLBFormIF::updateNode(CLuaState& lua, int argc, int base, CKLBNode * pParent, i
 	case CLS_KLBTEXTEDIT:
 	case CLS_KLBUITEXTINPUT:	result = updateUITextEdit(lua, argc, base, subcmd, pNode, ret, item, index);	break;
 	case CLS_KLBUIWEBVIEW:
-	case CLS_KLBWEBVIEW:		result = updateUIWebView(lua, argc, base, subcmd, pNode, ret, item, index);	break;
+	case CLS_KLBWEBVIEW:		result = updateUIWebView(lua, argc, base, subcmd, pNode, ret, item, index);		break;
 	}
 	// ここまでで処理されたコマンドが無い場合、標準コマンドを処理する。
 	if(!result) {
@@ -778,6 +778,26 @@ CKLBFormIF::updateLabelNode(CLuaState& lua, int argc, int base, int subcmd, CKLB
 			}
 			lua.retString(uri);
 			ret = 1;
+		}
+		break;
+	case FORM_LBL_SET_COLOR:
+		{
+			int alpha = lua.getInt(4);
+			int color = lua.getInt(5);
+			((CKLBUILabel*)pTask)->setColor(color | (alpha << 24));
+			ret = 1;
+		}
+		break;
+	case FORM_LBL_SET_FIT:
+		{
+			DEBUG_PRINT("FORM_LBL_SET_FIT not implemented yet");
+			ret = 0;
+		}
+		break;
+	case FORM_LBL_SET_TEXTELLIPSIS:
+		{
+			DEBUG_PRINT("FORM_LBL_SET_TEXTELLIPSIS not implemented yet");
+			ret = 0;
 		}
 		break;
 	}

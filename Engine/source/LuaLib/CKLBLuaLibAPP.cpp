@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -127,7 +127,7 @@ CKLBLuaLibAPP::luaDateTimeNow(lua_State * L)
 {
 	CLuaState lua(L);
 	DEBUG_PRINT("APP_DateTimeNow implemented not correctly");
-	lua.retInt(std::time(0)); // should be formatted like "YYYY-MM-DD-HH-mm-ss" in JP timezone
+	lua.retInt((u32)std::time(0)); // should be formatted like "YYYY-MM-DD-HH-mm-ss" in JP timezone
 	return 1;
 }
 

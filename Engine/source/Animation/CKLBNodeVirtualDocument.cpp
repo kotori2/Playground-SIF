@@ -375,7 +375,9 @@ void RenderContext::drawText(s32 x , s32 y , char* string  , u32 color, void* fo
 
 	u8 embolden = 0;
 	if (strlen(string) > 4 && string[0] == *"{" && string[1] == *"b" && string[3] == *"}") {
-		embolden = string[2] - '0';
+		// TOOD: support for "z"?
+		if (string[2] != *"z")
+			embolden = string[2] - '0';
 		memmove(string, string + 4, strlen(string) - 3 + 1);
 	}
 

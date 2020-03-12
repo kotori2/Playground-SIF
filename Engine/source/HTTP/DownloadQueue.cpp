@@ -85,7 +85,8 @@ void MicroDownload::MainLoop(int )
 
 			size_t bodylen = body ? mdl->http->getSize() : 0;
 			f->writeTmp(body, bodylen);
-			KLBDELETE(f);
+			// don't use KLBDELETE, platform uses new
+			delete f;
 			
 			// callback
 			scriptenv.call_eventMdlFinish(mdl->callback, mdl->filename, mdl->url, true, status_code);

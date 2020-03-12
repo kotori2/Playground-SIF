@@ -87,7 +87,7 @@ CiOSTextWidget::CiOSTextWidget(CiOSPlatform * pParent, int maxlen)
 , m_maxlen(maxlen)
 , m_chartype(TXCH_7BIT_ASCII | TXCH_UTF8)
 , m_consoleType(E_CONSOLE_TYPE_UITEXTVIEW)
-, m_alignType(UITextAlignmentLeft)
+, m_alignType(NSTextAlignmentLeft)
 {
     m_cols[0] = 0xffffffff;
     m_cols[1] = 0xff000000;
@@ -202,7 +202,7 @@ CiOSTextWidget::getTextLength()
             pstr = [m_pTextBox.text UTF8String];
             break;
     }
-    return strlen(pstr);
+    return (int)strlen(pstr);
 }
 
 bool
@@ -218,7 +218,7 @@ CiOSTextWidget::getText(char * pBuf, int maxlen)
             pstr = [m_pTextBox.text UTF8String];
             break;
     }
-    int len = strlen(pstr);
+    size_t len = strlen(pstr);
     if(len >= maxlen) len = maxlen - 1;
     strncpy(pBuf, pstr, len);
     pBuf[len] = 0;
@@ -545,7 +545,7 @@ CiOSWebWidget::~CiOSWebWidget()
 }
 
 CiOSWebWidget *
-CiOSWebWidget::searchWidget(UIWebView *pWebView)
+CiOSWebWidget::searchWidget(WKWebView *pWebView)
 {
     CiOSWebWidget * pWidget = ms_begin;
     while(pWidget) {
@@ -588,8 +588,12 @@ CiOSWebWidget::create(CONTROL type, int id,
     
 //    setText(caption);	// 2012.12.11  下でもやっているんのでコメントアウト
     set_bgcolor();
-    m_pWebView.delegate = pView;
-    m_pWebView.scalesPageToFit = YES;
+    
+    // Deprecated
+    // m_pWebView.delegate = pView;
+    
+    // Deprecated, replace with js injection
+    // m_pWebView.scalesPageToFit = YES;
     m_pWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     m_pWebView.opaque = NO;             // 不透明をNO状態にすることで透過が可能
@@ -604,14 +608,14 @@ int
 CiOSWebWidget::getTextLength()
 {
     const char * pstr = m_pNowURL;
-    return strlen(pstr);
+    return (uint32_t)strlen(pstr);
 }
 
 bool
 CiOSWebWidget::getText(char * pBuf, int maxlen)
 {
     const char * pstr = m_pNowURL;
-    int len = strlen(pstr);
+    size_t len = strlen(pstr);
     if(len >= maxlen) len = maxlen - 1;
     strncpy(pBuf, pstr, len);
     pBuf[len] = 0;
@@ -678,8 +682,9 @@ CiOSWebWidget::cmd(int cmd, ...)
     switch (cmd) {
         case WEB_SET_SCALESPAGETOFIT:
         {
-            int pagetofit = va_arg(ap, int);
-            m_pWebView.scalesPageToFit = (pagetofit) ? YES : NO;
+            NSLog(@"scalesPageToFit deprecated in iOS, DO NOT USE");
+            // int pagetofit = va_arg(ap, int);
+            // m_pWebView.scalesPageToFit = (pagetofit) ? YES : NO;
             break;
         }
             
@@ -776,14 +781,14 @@ int
 CiOSMovieWidget::getTextLength()
 {
     const char * pstr = m_pNowPATH;
-    return strlen(pstr);
+    return (int)strlen(pstr);
 }
 
 bool
 CiOSMovieWidget::getText(char * pBuf, int maxlen)
 {
     const char * pstr = m_pNowPATH;
-    int len = strlen(pstr);
+    unsigned long len = strlen(pstr);
     if(len >= maxlen) len = maxlen - 1;
     strncpy(pBuf, pstr, len);
     pBuf[len] = 0;
@@ -793,7 +798,7 @@ CiOSMovieWidget::getText(char * pBuf, int maxlen)
 bool
 CiOSMovieWidget::setText(const char * string)
 {
-    int len = strlen(string);
+    unsigned long len = strlen(string);
     char * buf = new char [ len + 1 ];
     if(!buf) return false;
 
@@ -962,7 +967,7 @@ CiOSActivityIndicator::create(CONTROL type, int id,
         case IWidget::ACTIVITYINDICATOR:
             m_pActView = [[[UIActivityIndicatorView alloc] init] autorelease];
             m_pActView.hidesWhenStopped = NO;
-            m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+            m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
             m_size = 21.0f;
             break;
     }
@@ -1040,17 +1045,17 @@ CiOSActivityIndicator::cmd(int cmd, ...)
             {
                 case 0:
                 {
-                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
                     break;
                 }
                 case 1:
                 {
-                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
                     break;
                 }
                 case 2:
                 {
-                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+                    m_pActView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
                     m_size = 36.0f;
                     break;
                 }

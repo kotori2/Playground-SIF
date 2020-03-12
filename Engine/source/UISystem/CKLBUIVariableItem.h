@@ -77,8 +77,8 @@ public:
 
 	void changeUV(float x, float y, float width, float height);
 
-	inline bool changeAsset(const char* asset) {
-		bool bResult = setAsset(asset);
+	inline bool changeAsset(const char* asset, bool useOrigSize = false) {
+		bool bResult = setAsset(asset, useOrigSize);
 		m_pNode->markUpMatrix();
 		return bResult;
 	}
@@ -92,7 +92,7 @@ private:
 	
 	void getUV      (CKLBImageAsset * pTex);		// テクスチャからUV値を取り込んでおく
 	void getSize    (CKLBImageAsset * pTex);	    // テクスチャからオリジナルサイズを取得する。
-	bool setAsset   (const char * asset);
+	bool setAsset   (const char * asset, bool useOrigSize = false);
 private:
 	CKLBImageAsset	*	m_pTex;
 	u32					m_handle;

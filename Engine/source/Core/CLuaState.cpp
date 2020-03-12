@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,9 +89,9 @@ CLuaState::callback(const char * func, const char * argform, ...)
 {
 	va_list ap;
 	va_start(ap, argform);
-    luaLock();
+    //luaLock();
 	bool result = call_luafunction(0, func, argform, ap);
-    luaUnlock();
+    //luaUnlock();
 	va_end(ap);
 	return result;
 }

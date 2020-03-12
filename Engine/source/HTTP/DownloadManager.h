@@ -34,7 +34,7 @@ protected:
         int size;
         char* url;
 
-        Task() : id(0), queueId(0), size(0), url("\0") {}
+        Task() : id(0), queueId(0), size(0), url(nullptr) {}
     };
 private:
     DownloadClient* m_downloadClient;

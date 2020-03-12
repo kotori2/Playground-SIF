@@ -22,9 +22,9 @@
 #ifndef CiOSWebView_h
 #define CiOSWebView_h
 
-#import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
-@interface CiOSWebView : UIWebView {
+@interface CiOSWebView : WKWebView {
 
 @private
     NSString * m_token;

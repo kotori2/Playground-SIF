@@ -59,6 +59,10 @@ NSMutableDictionary* transactionDict =[NSMutableDictionary dictionary];
     }
 }
 
+ - (BOOL)prefersStatusBarHidden {
+   return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -73,7 +77,7 @@ NSMutableDictionary* transactionDict =[NSMutableDictionary dictionary];
 //        [alert release];
 //    }
         
-    [UIApplication sharedApplication].statusBarHidden = YES;
+    // [UIApplication sharedApplication].statusBarHidden = YES;
     [self.view setFrame:[[UIScreen mainScreen] bounds]];
     self.view.contentScaleFactor = [EAGLView getScaleFactor];
     [viewGL startAnimation];
@@ -311,8 +315,4 @@ NSMutableDictionary* transactionDict =[NSMutableDictionary dictionary];
 //    IClientRequest& cli = CPFInterface::getInstance().client();
 //    cli.controlEvent(IClientRequest::E_STORE_RESTORE_COMPLETED, 0, 0, 0, 0, 0);
 //}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    abort();
-}
 @end

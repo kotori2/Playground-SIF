@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,15 +37,21 @@ void assertFunction(int line, const char* file, const char* msg,...) {
 	NSLog(@"%s", alertBuf); 
     
     CiOSPlatform * pPlatform = CiOSPlatform::getInstance();
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Assertion"
+                                                                             message:alert_msg
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *abortButton = [UIAlertAction actionWithTitle:@"abort"
+                                                    style:UIAlertActionStyleDefault
+                                                  handler:^(UIAlertAction *action) {
+                                                    abort();
+                                                  }];
+
+    [alertController addAction:abortButton];
+
+    [pPlatform->m_pViewController presentViewController:alertController animated:YES completion:nil];
     
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Assertion"
-                                                     message:alert_msg
-                                                    delegate:pPlatform->m_pViewController
-                                           cancelButtonTitle:@"abort"
-                                           otherButtonTitles: nil];
-    [alert show];
-    [alert release];
-    
+    // TODO: crash the game once alert generated.
 }
     
 void msgBox(char * log) {

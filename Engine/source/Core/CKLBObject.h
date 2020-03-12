@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,7 +52,7 @@ public:
 	virtual ~CKLBObject()	{ /* Do nothing by default */ }
 
 	void* operator new( size_t num_bytes) {
-		return CKLBContext::getContext()->allocate(num_bytes);
+		return CKLBContext::getContext()->allocate((int)num_bytes);
     }
 
 	void operator delete(void* ptr) {
