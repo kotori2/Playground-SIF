@@ -311,11 +311,11 @@ CKLBLuaEnv::command(lua_State *L)
 #ifdef INTERNAL_BENCH
 	s64 startCommand = CPFInterface::getInstance().platform().nanotime();
 #endif
-	lua.luaLock();
+	//lua.luaLock();
 	CKLBTaskMgr::getInstance().setCurrentTask(pTask);
 	int res = pTask->commandScript(lua);
 	CKLBTaskMgr::getInstance().setCurrentTask(NULL);
-	lua.luaUnlock();
+	//lua.luaUnlock();
 #ifdef INTERNAL_BENCH
 	logTime('F', CPFInterface::getInstance().platform().nanotime() - startCommand, pTask->getClassID());
 #endif
@@ -865,7 +865,7 @@ CKLBLuaEnv::cmdLogging(const char* msg)
 	// ので、「きれいに出力される」ことは保証できない。
 	char buf[256];
 	const char * ptr;
-	int len = strlen(msg);
+	size_t len = strlen(msg);
 	ptr = msg;
 	while(len > 255) {
 		strncpy(buf, ptr, 255);

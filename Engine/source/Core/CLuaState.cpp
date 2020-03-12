@@ -185,7 +185,7 @@ CLuaState::call(int args, const char * func, int nresults)
     	}
         // 呼び出しエラー: 指定の関数呼び出しに失敗
 		const char * errmsg = getString(-1);
-        int buff_len = strlen(msg) + strlen(errmsg) + strlen(func) + 1;
+        size_t buff_len = strlen(msg) + strlen(errmsg) + strlen(func) + 1;
         char* buffer = KLBNEWA(char, buff_len);
 #if defined(_WIN32)
         sprintf_s(buffer, buff_len, msg, errmsg, func);

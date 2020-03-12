@@ -71,7 +71,7 @@ DownloadClient::execute(u32 deltaT)
 {
 	// update status every 20 frames
 	m_executeCount++;
-	if (m_executeCount >= 20) {
+	if (m_executeCount >= 20 || m_isFinished) {
 		m_executeCount = 0;
 		DownloadManager* instance = DownloadManager::getInstance(this);
 		double speed = instance->getTotalSpeed();
@@ -80,24 +80,40 @@ DownloadClient::execute(u32 deltaT)
 		// your network is too fast and downloaded a
 		// file before download stage appear
 		CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
+        return;
 	}
-
-	// callback http error
-	if (m_error.isError) {
-		m_error.isError = false;
-		// 1. error code
-		// 2. http status code
-		// 3. TODO: curl status
-		CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this, m_error.errorType, m_error.errorCode, 0);
-
-		// make sure all threads was killed
-		killAllThreads();
-	}
+    
+    if(m_callback_queue.empty()) return;
+    DOWNLOAD_CALLBACK_ITEM q = m_callback_queue.front();
+    m_callback_queue.pop();
+    
+    switch(q.type){
+        case DOWNLOAD_CLIENT_CALLBACK_ERROR:
+            // 1. error code
+            // 2. http status code
+            // 3. TODO: curl status
+            CKLBScriptEnv::getInstance().call_eventUpdateError(m_callbackError, this, q.errorType, q.errorCode, 0);
+            
+            // make sure all threads was killed
+            killAllThreads();
+            break;
+        case DOWNLOAD_CLIENT_CALLBACK_DOWNLOAD_FINISH:
+            CKLBScriptEnv::getInstance().call_eventUpdateDownload(m_callbackDownloadFinish, this, q.queueId);
+            break;
+        case DOWNLOAD_CLIENT_CALLBACK_UNZIP_START:
+            CKLBScriptEnv::getInstance().call_eventUpdateUnzipStart(this->m_callbackUnzipStart, this, q.queueId);
+            break;
+        case DOWNLOAD_CLIENT_CALLBACK_UNZIP_FINISH:
+            CKLBScriptEnv::getInstance().call_eventUpdateUnzipEnd(this->m_callbackUnzipFinish, this, q.queueId);
+            break;
+        default:
+            klb_assertAlways("Wrong download queue callback type");
+    }
 
 	if (m_isFinished) {
 		// Both download and unzip finished
-		CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
 		CKLBScriptEnv::getInstance().call_eventUpdateComplete(m_callbackFinish, this);
+        return;
 	}
 }
 
@@ -184,12 +200,12 @@ DownloadClient::commandScript(CLuaState& lua)
 int
 DownloadClient::startDownload(CLuaState& lua)
 {
-	IPlatformRequest& platform	= CPFInterface::getInstance().platform();
+	//IPlatformRequest& platform	= CPFInterface::getInstance().platform();
 	DownloadManager* manager	= DownloadManager::getInstance(this);
 	
 	// create queue task
 	createQueue(lua, false);
-	int pipeline = lua.getInt(3);
+	//int pipeline = lua.getInt(3);
 	for (int i = 0; i < m_queue.total; i++) 
 	{
 		if (!m_queue.downloaded[i]) {
@@ -242,18 +258,24 @@ DownloadClient::oneSuccessCallback(int queueId)
 	for (int i = 0; i < m_queue.total; i++) {
 		if (m_queue.queueIds[i] == queueId) {
 			m_queue.downloaded[i] = true;
+            break;
 		}
 	}
-	CKLBScriptEnv::getInstance().call_eventUpdateDownload(m_callbackDownloadFinish, this, queueId);
+    DOWNLOAD_CALLBACK_ITEM q;
+    q.type = DOWNLOAD_CLIENT_CALLBACK_DOWNLOAD_FINISH;
+    q.queueId = queueId;
+    m_callback_queue.push(q);
 }
 
 void
 DownloadClient::httpFailureCallback(int statusCode, int errorType)
 {
-	if (m_error.isError) { return; }
-	m_error.isError = true;
-	m_error.errorType = errorType;
-	m_error.errorCode = statusCode;
+	if (m_isError) { return; }
+    DOWNLOAD_CALLBACK_ITEM q;
+    q.type = DOWNLOAD_CLIENT_CALLBACK_ERROR;
+    q.errorCode = statusCode;
+    q.errorType = errorType;
+    m_callback_queue.push(q);
 }
 
 void
@@ -284,7 +306,7 @@ DownloadClient::createQueue(CLuaState& lua, bool isReUnzip)
 		
 		m_queue.unzipped[m_queue.total] = false;
 		m_queue.total++;
-	} while (item = item->next());
+	} while ((item = item->next()));
 
 	KLBDELETE(pRoot);
 	KLBDELETE(item);
@@ -300,8 +322,13 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 		// start unzip
 		if (that->m_queue.downloaded[i]) {
 			DEBUG_PRINT("Start unzipping %d", that->m_queue.queueIds[i]);
-			CKLBScriptEnv::getInstance().call_eventUpdateUnzipStart(that->m_callbackUnzipStart, that, that->m_queue.queueIds[i]);
-			int zipEntry = 0;
+            
+            DOWNLOAD_CALLBACK_ITEM q;
+            q.type = DOWNLOAD_CLIENT_CALLBACK_UNZIP_START;
+            q.queueId = that->m_queue.queueIds[i];
+            that->m_callback_queue.push(q);
+            
+			size_t zipEntry = 0;
 			char zipPath[64];
 			sprintf(zipPath, "external/tmpDL/%d.zip", that->m_queue.queueIds[i]); // TODO: Maybe place the format stuffs in somewhere else?
 			CUnZip* unzip = KLBNEWC(CUnZip, (zipPath));
@@ -319,9 +346,12 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 			}
 
 			if (!unzip->getStatus()) {	// invalid zip file
-				that->m_error.isError = true;
-				that->m_error.errorType = CKLBUPDATE_UNZIP_ERROR;
-				that->m_error.errorCode = 1;
+                DOWNLOAD_CALLBACK_ITEM q;
+                q.type = DOWNLOAD_CLIENT_CALLBACK_ERROR;
+                q.errorType = CKLBUPDATE_UNZIP_ERROR;
+                q.errorCode = 1;
+                that->m_callback_queue.push(q);
+                
 				DEBUG_PRINT("[update] invalid zip file");
 				return 0;
 			}
@@ -354,7 +384,11 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 			char pfPath[80];
 			sprintf(pfPath, "file://%s", zipPath);
 			CPFInterface::getInstance().platform().removeTmpFile(pfPath);
-			CKLBScriptEnv::getInstance().call_eventUpdateUnzipEnd(that->m_callbackUnzipFinish, that, that->m_queue.queueIds[i]);
+            
+            q.type = DOWNLOAD_CLIENT_CALLBACK_UNZIP_FINISH;
+            q.queueId = that->m_queue.queueIds[i];
+            that->m_callback_queue.push(q);
+            
 			that->m_unzippedCount++;
 			that->m_queue.unzipped[i] = true;
 			DEBUG_PRINT("Unzipping %d finished", that->m_queue.queueIds[i]);

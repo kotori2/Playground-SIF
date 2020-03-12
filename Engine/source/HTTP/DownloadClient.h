@@ -17,6 +17,16 @@ enum {
 	CKLBUPDATE_UNZIP_ERROR
 };
 
+enum {
+    DOWNLOAD_CLIENT_CALLBACK_DOWNLOAD_FINISH,
+    DOWNLOAD_CLIENT_CALLBACK_UNZIP_START,
+    DOWNLOAD_CLIENT_CALLBACK_UNZIP_FINISH,
+    DOWNLOAD_CLIENT_CALLBACK_PROGRESS,
+    DOWNLOAD_CLIENT_CALLBACK_FINISH,
+    DOWNLOAD_CLIENT_CALLBACK_ERROR,
+    DOWNLOAD_CLIENT_CALLBACK_KBPS,
+};
+
 class DownloadClient : public CKLBLuaTask
 {
 	friend class CKLBTaskFactory<DownloadClient>;
@@ -46,7 +56,7 @@ private:
 	void createQueue	(CLuaState& lua, bool isReUnzip);
 	void killAllThreads();
 
-	typedef struct DOWNLOAD_QUEUE {
+    struct DOWNLOAD_QUEUE {
 		int total;
 		char urls[MAX_DOWNLOAD_QUEUE][2048];
 		int size[MAX_DOWNLOAD_QUEUE];
@@ -74,14 +84,17 @@ private:
 	const char*			m_callbackError;
 	const char*			m_callbackKbps;
 
-	typedef struct DOWNLOAD_ERROR {
-		bool isError;
-		int errorType;
-		int errorCode;
-		DOWNLOAD_ERROR(): isError(false), errorType(-1), errorCode(0) {}
-	};
-	DOWNLOAD_ERROR	m_error;
-	bool			m_isFinished;
+	bool			    m_isFinished;
+    bool                m_isError;
+    struct DOWNLOAD_CALLBACK_ITEM {
+        s32 type;
+        s32 errorType;
+        s32 errorCode;
+        s32 queueId;
+        DOWNLOAD_CALLBACK_ITEM(): type(-1), errorType(-1), errorCode(0),
+        queueId(-1) {}
+    };
+    std::queue<DOWNLOAD_CALLBACK_ITEM> m_callback_queue;
 };
 
 #endif
