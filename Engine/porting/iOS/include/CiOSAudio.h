@@ -255,7 +255,7 @@ private:
     
     int                                 m_bufIndex;
     
-    UInt64                              m_numPacketPerTime;
+    UInt32                              m_numPacketPerTime;
     UInt32                              m_maxPacketSize;    
     SInt64                              m_startPackNum;
     SInt64                              m_pauseTime;
@@ -274,7 +274,7 @@ private:
     
     ExtAudioFileRef                     m_extAudioID;
     AudioStreamBasicDescription         m_clientFormat;
-    SInt64                              m_totalFrames;
+    SInt32                              m_totalFrames;
     
     SInt32                          **  m_playBuffer;
     

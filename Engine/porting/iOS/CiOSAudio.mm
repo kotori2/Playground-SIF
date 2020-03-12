@@ -1259,14 +1259,14 @@ CiOSAudio::sendQueue(AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
     err = AudioQueueSetParameter(inAQ, kAudioQueueParam_Volume, vol);
 
     // NSLog(@"sendQueue(%d)", (int)m_startPackNum);
-    UInt32 numBytes = 0;
+    UInt32 numBytes = inBuffer->mAudioDataBytesCapacity;
     UInt32 numPackets = m_numPacketPerTime;
     err = AudioFileReadPacketData(m_audioID, NO, &numBytes, m_ASPD, m_startPackNum, &numPackets, inBuffer->mAudioData);
     // klb_assert(numBytes > 0, "no audio data.");
 
     if(numPackets <= 0) {
         // ループ処理
-        numBytes = 0;
+        numBytes = inBuffer->mAudioDataBytesCapacity;
         numPackets = m_numPacketPerTime;
         m_startPackNum = 0;
 
