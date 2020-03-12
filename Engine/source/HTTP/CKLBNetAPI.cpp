@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -122,7 +122,7 @@ CKLBNetAPI::execute(u32 deltaT)
 		CKLBNetAPIKeyChain& kc = CKLBNetAPIKeyChain::getInstance();
 		// Get Data
 		u8* body	= m_http->getRecvResource();
-		u32 bodyLen	= body ? m_http->getSize() : 0;
+		u32 bodyLen	= body ? (u32)m_http->getSize() : 0;
 		
 #ifdef DEBUG
 		if (bodyLen > 0) {
@@ -350,7 +350,7 @@ CKLBNetAPI::authKey(int status)
 		char* authSecretB64 = base64(authSecret, authSecretLen, &authSecretB64Len);
 		sprintf(devData, "{ \"1\":\"%s\",\"2\": \"%s\", \"3\": \"%s\"}", kc.getLoginKey(), kc.getLoginPwd(), authSecretB64);
 		unsigned char devDataEnc[512];
-		int devDataEncLen = platform.encryptAES128CBC(devData, strlen(devData), clientKey, devDataEnc, 512);
+		int devDataEncLen = platform.encryptAES128CBC(devData, (int)strlen(devData), clientKey, devDataEnc, 512);
 		klb_assert(devDataEncLen > 0, "platform.encryptAES128CBC failed");
 		int authDataLen = 0;
 		char* authData = base64(devDataEnc, devDataEncLen, &authDataLen);
@@ -379,7 +379,7 @@ CKLBNetAPI::authKey(int status)
 			const char* dummyToken = m_pRoot->child()->child()->next()->getString();
 			klb_assert(dummyToken, "Dummy token does not exist!!!");
 			int len = 0;
-			unsigned char* unbasedToken = unbase64(dummyToken, strlen(dummyToken), &len);
+			unsigned char* unbasedToken = unbase64(dummyToken, (int)strlen(dummyToken), &len);
 
 			const char* clientKey = kc.getClientKey();
 			char sessionKey[32];
@@ -420,9 +420,9 @@ CKLBNetAPI::login(int status)
 		unsigned char loginKeyEnc[128];
 		unsigned char loginPwdEnc[256];
 
-		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, 128);
+		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, (int)strlen(loginKey), sessionKey, loginKeyEnc, 128);
 		klb_assert(loginKeyEncLen > 0, "platform.encryptAES128CBC failed");
-		int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, 256);
+		int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, (int)strlen(loginPwd), sessionKey, loginPwdEnc, 256);
         klb_assert(loginPwdEncLen > 0, "platform.encryptAES128CBC failed");
 
 		// and do base64
@@ -492,9 +492,9 @@ CKLBNetAPI::startUp(int status)
 		unsigned char loginKeyEnc[128];
 		unsigned char loginPwdEnc[256];
 
-		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, strlen(loginKey), sessionKey, loginKeyEnc, 128);
+		int loginKeyEncLen = platform.encryptAES128CBC(loginKey, (int)strlen(loginKey), sessionKey, loginKeyEnc, 128);
         klb_assert(loginKeyEncLen > 0, "platform.encryptAES128CBC failed");
-        int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, strlen(loginPwd), sessionKey, loginPwdEnc, 256);
+        int loginPwdEncLen = platform.encryptAES128CBC(loginPwd, (int)strlen(loginPwd), sessionKey, loginPwdEnc, 256);
         klb_assert(loginPwdEncLen > 0, "platform.encryptAES128CBC failed");
 
 		// and do base64
@@ -539,10 +539,10 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	CKLBNetAPIKeyChain& kc = CKLBNetAPIKeyChain::getInstance();
 
 	// TODO
-	const char* headers[13];
+	const char* headers[14];
 
 	// For values above
-	char* alldata = new char[1280];
+	char* alldata = new char[2560];
 	char* os_data = alldata;
 	char* os_version = alldata + 128;
 	char* time_zone = alldata + 256;
@@ -553,6 +553,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	char* region = bundle_version + 256;
 	char* xmc = region + 64;
 	char* user_id = xmc + 128;
+    char* bundle_id = xmc + 128;
 
 	// Process authorize string
 	authorize = new char[1024];
@@ -573,6 +574,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	sprintf(client_version, "Client-Version: %s", kc.getClient());
 	sprintf(region, "Region: %s", kc.getRegion());
 	sprintf(os_version, "OS-Version: %s", pfif.platform().getPlatform());
+    sprintf(bundle_id, "X-BUNDLE-ID: %s", pfif.platform().getBundleId());
 
 	// User-ID
 	const char* uid = kc.getUserID();
@@ -582,6 +584,18 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	else
 		sprintf(user_id, "User-ID: %s", uid);
 
+// TODO: move Win32 out
+#if defined(__ANDROID__) || defined(_WIN32)
+    const char* os = "OS: Android";
+    const char* platform_type = "Platform-Type: 2";
+#elif defined(TARGET_OS_IOS)
+    const char* os = "OS: iOS";
+    const char* platform_type = "Platform-Type: 1";
+#else
+    const char* os = "OS: Unknown";
+    const char* platform_type = "Platform-Type: 114514";
+#endif
+
 	// Set header
 	headers[0] = "API-Model: straightforward";
 	headers[1] = application_id;
@@ -589,13 +603,14 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	headers[3] = bundle_version;
 	headers[4] = client_version;
 	headers[5] = "Debug: 1";
-	headers[6] = "OS: Android";
+	headers[6] = os;
 	headers[7] = os_version;
-	headers[8] = "Platform-Type: 2";
+	headers[8] = platform_type;
 	headers[9] = region;
 	headers[10] = xmc;
 	headers[11] = user_id;
-	headers[12] = NULL;
+    headers[12] = bundle_id;
+	headers[13] = NULL;
 
 	m_http->setHeader(headers);
 
@@ -604,9 +619,9 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	}
 
 #ifdef DEBUG
-	int bodyLen = strlen(data);
-	u32 tmpLen = bodyLen <= 16000 ? bodyLen + 1 : 16000;
-	u32 endLen = bodyLen <= 16000 ? bodyLen + 1 : 16100;
+	size_t bodyLen = strlen(data);
+	size_t tmpLen = bodyLen <= 16000 ? bodyLen + 1 : 16000;
+	size_t endLen = bodyLen <= 16000 ? bodyLen + 1 : 16100;
 	char* tmpBuf = KLBNEWA(char, endLen);
 	memcpy(tmpBuf, data, tmpLen);
 	tmpBuf[tmpLen - 1] = 0;

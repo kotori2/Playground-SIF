@@ -118,7 +118,7 @@ CiOSPlatform::CiOSPlatform(UIViewController<UIAlertViewDelegate/*,SKProductsRequ
 	NSArray * aOsVersions = [[[UIDevice currentDevice]systemVersion] componentsSeparatedByString:@"."];
 	NSInteger iOsVersionMajor = [[aOsVersions objectAtIndex:0] intValue];
 	NSInteger iOsVersionMinor = [[aOsVersions objectAtIndex:1] intValue];
-	sprintf(m_platform, "iOS %s %s %d.%d",
+	sprintf(m_platform, "%s %s %d.%d",
             [platform UTF8String],
 			[modelname UTF8String],
 			(int)iOsVersionMajor,
@@ -198,6 +198,10 @@ const char* CiOSPlatform::getBundleVersion() {
     //set version string here instead of xcode project setting
     //const char* bundle_version = "6.9.1";
     return [[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"] cStringUsingEncoding:NSUTF8StringEncoding];
+}
+
+const char* CiOSPlatform::getBundleId() {
+    return [[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleIdentifier"] cStringUsingEncoding:NSUTF8StringEncoding];
 }
 
 	ITmpFile *
@@ -1347,7 +1351,7 @@ int CiOSPlatform::HMAC_SHA1(const char* input, const char* key, int keyLen, char
     const char* tmp = bin2hex(rawHash, 20);
     memcpy(retbuf, tmp, 40);
     retbuf[40] = 0;
-    //delete [] tmp;
+    delete [] tmp;
     delete ctx;
     return 0;
 }

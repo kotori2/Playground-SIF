@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -303,6 +303,7 @@ public:
     
     // バンドルバージョン取得
     virtual const char* getBundleVersion() = 0;
+    virtual const char* getBundleId() = 0;
 
 	//! ナノ秒時刻取得
 	/*!

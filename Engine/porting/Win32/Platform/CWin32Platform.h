@@ -79,6 +79,7 @@ public:
     
     // バンドルバージョン取得
     const char* getBundleVersion();
+	const char* getBundleId();
 
 	//! ストリーム取得
 	IReadStream* openReadStream(const char* fileName, bool decrypt);

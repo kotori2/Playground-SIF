@@ -184,6 +184,11 @@ CAndroidRequest::getBundleVersion() {
     return m_bundleVersion;
 }
 
+const char*
+CAndroidRequest::getBundleId() {
+    return "DUMMY PLACEHOLDER";
+}
+
 ITmpFile *
 CAndroidRequest::openTmpFile(const char * tmpPath)
 {

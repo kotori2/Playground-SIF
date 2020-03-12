@@ -51,6 +51,7 @@
 #include "FontRendering.h"
 
 constexpr auto BUNDLE_VERSION = "6.10.1";
+constexpr auto BUNDLE_ID = "win32.lovelive";
 
 bool CWin32Platform::g_useDecryption = true;
 bool CWin32Platform::g_ignoreError = false;
@@ -190,6 +191,11 @@ CWin32Platform::nanotime()
 const char*
 CWin32Platform::getBundleVersion() {
     return BUNDLE_VERSION;
+}
+
+const char*
+CWin32Platform::getBundleId() {
+    return BUNDLE_ID;
 }
 
 bool CWin32Platform::useEncryption() {
