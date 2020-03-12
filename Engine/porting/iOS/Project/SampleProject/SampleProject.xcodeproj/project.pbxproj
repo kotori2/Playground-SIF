@@ -7,7 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		17729FCE17C316F400D4E765 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17729FCD17C316F400D4E765 /* Default-568h@2x.png */; };
+		073C8A832418DB07008B6474 /* m_class in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A422418DAFD008B6474 /* m_class */; };
+		073C8A842418DB07008B6474 /* m_download in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A432418DAFD008B6474 /* m_download */; };
+		073C8A852418DB07008B6474 /* m_menu in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A442418DAFD008B6474 /* m_menu */; };
+		073C8A862418DB07008B6474 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A452418DAFD008B6474 /* assets */; };
+		073C8A872418DB07008B6474 /* m_login in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A462418DAFD008B6474 /* m_login */; };
+		073C8A882418DB07008B6474 /* m_battle_event in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A472418DAFD008B6474 /* m_battle_event */; };
+		073C8A892418DB07008B6474 /* m_unit in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A482418DAFD008B6474 /* m_unit */; };
+		073C8A8A2418DB07008B6474 /* m_quest in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A492418DAFE008B6474 /* m_quest */; };
+		073C8A8B2418DB07008B6474 /* m_sns in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A4A2418DAFE008B6474 /* m_sns */; };
+		073C8A8C2418DB07008B6474 /* m_ranking in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A4B2418DAFF008B6474 /* m_ranking */; };
+		073C8A8D2418DB07008B6474 /* Update.lua in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A4C2418DAFF008B6474 /* Update.lua */; };
+		073C8A8E2418DB07008B6474 /* GPUDMLprob.otf in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A4D2418DAFF008B6474 /* GPUDMLprob.otf */; };
+		073C8A8F2418DB07008B6474 /* pl_assets in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A4E2418DB00008B6474 /* pl_assets */; };
+		073C8A902418DB07008B6474 /* m_top in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A4F2418DB00008B6474 /* m_top */; };
+		073C8A912418DB07008B6474 /* m_friends in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A502418DB00008B6474 /* m_friends */; };
+		073C8A922418DB07008B6474 /* m_live in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A512418DB00008B6474 /* m_live */; };
+		073C8A932418DB07008B6474 /* m_basicsettings in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A522418DB00008B6474 /* m_basicsettings */; };
+		073C8A942418DB07008B6474 /* MTLmr3m.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A532418DB00008B6474 /* MTLmr3m.ttf */; };
+		073C8A952418DB07008B6474 /* m_history in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A542418DB00008B6474 /* m_history */; };
+		073C8A962418DB07008B6474 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A552418DB01008B6474 /* lib */; };
+		073C8A972418DB07008B6474 /* m_achievement in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A562418DB01008B6474 /* m_achievement */; };
+		073C8A982418DB07008B6474 /* m_exchange in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A572418DB01008B6474 /* m_exchange */; };
+		073C8A992418DB07008B6474 /* start_old.lua in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A582418DB01008B6474 /* start_old.lua */; };
+		073C8A9A2418DB07008B6474 /* m_album in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A592418DB01008B6474 /* m_album */; };
+		073C8A9B2418DB07008B6474 /* m_notice in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A5A2418DB01008B6474 /* m_notice */; };
+		073C8A9C2418DB07008B6474 /* m_idol_skill in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A5B2418DB01008B6474 /* m_idol_skill */; };
+		073C8A9D2418DB07008B6474 /* m_duel in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A5C2418DB02008B6474 /* m_duel */; };
+		073C8A9E2418DB07008B6474 /* m_live_adjust in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A5D2418DB02008B6474 /* m_live_adjust */; };
+		073C8A9F2418DB07008B6474 /* m_stamp in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A5E2418DB02008B6474 /* m_stamp */; };
+		073C8AA02418DB07008B6474 /* pl_bootstrap in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A5F2418DB02008B6474 /* pl_bootstrap */; };
+		073C8AA12418DB07008B6474 /* m_background in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A602418DB02008B6474 /* m_background */; };
+		073C8AA22418DB07008B6474 /* pl_common in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A612418DB02008B6474 /* pl_common */; };
+		073C8AA32418DB07008B6474 /* m_scenario_menu in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A622418DB02008B6474 /* m_scenario_menu */; };
+		073C8AA42418DB07008B6474 /* pl_ui in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A632418DB02008B6474 /* pl_ui */; };
+		073C8AA52418DB07008B6474 /* m_reward in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A642418DB03008B6474 /* m_reward */; };
+		073C8AA62418DB07008B6474 /* db in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A652418DB03008B6474 /* db */; };
+		073C8AA72418DB07008B6474 /* m_location in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A662418DB03008B6474 /* m_location */; };
+		073C8AA82418DB07008B6474 /* pl_live in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A672418DB03008B6474 /* pl_live */; };
+		073C8AA92418DB07008B6474 /* m_challenge in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A682418DB03008B6474 /* m_challenge */; };
+		073C8AAA2418DB07008B6474 /* m_boot in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A692418DB03008B6474 /* m_boot */; };
+		073C8AAB2418DB07008B6474 /* m_collab in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A6A2418DB03008B6474 /* m_collab */; };
+		073C8AAC2418DB07008B6474 /* m_hint in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A6B2418DB04008B6474 /* m_hint */; };
+		073C8AAD2418DB07008B6474 /* formula in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A6C2418DB04008B6474 /* formula */; };
+		073C8AAE2418DB07008B6474 /* m_player_profile in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A6D2418DB04008B6474 /* m_player_profile */; };
+		073C8AAF2418DB07008B6474 /* m_award in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A6E2418DB04008B6474 /* m_award */; };
+		073C8AB02418DB07008B6474 /* Maintenance.lua in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A6F2418DB04008B6474 /* Maintenance.lua */; };
+		073C8AB12418DB07008B6474 /* m_secretbox in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A702418DB04008B6474 /* m_secretbox */; };
+		073C8AB22418DB07008B6474 /* m_event in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A712418DB04008B6474 /* m_event */; };
+		073C8AB32418DB07008B6474 /* config in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A722418DB04008B6474 /* config */; };
+		073C8AB42418DB07008B6474 /* m_live_custom in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A732418DB04008B6474 /* m_live_custom */; };
+		073C8AB52418DB07008B6474 /* pl_live_menu in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A742418DB05008B6474 /* pl_live_menu */; };
+		073C8AB62418DB07008B6474 /* start.lua in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A752418DB05008B6474 /* start.lua */; };
+		073C8AB72418DB07008B6474 /* m_sandbox in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A762418DB05008B6474 /* m_sandbox */; };
+		073C8AB82418DB07008B6474 /* m_team in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A772418DB05008B6474 /* m_team */; };
+		073C8AB92418DB07008B6474 /* m_favorite_ranking in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A782418DB05008B6474 /* m_favorite_ranking */; };
+		073C8ABA2418DB07008B6474 /* m_scenario in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A792418DB05008B6474 /* m_scenario */; };
+		073C8ABB2418DB07008B6474 /* m_live_menu in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A7A2418DB05008B6474 /* m_live_menu */; };
+		073C8ABC2418DB07008B6474 /* m_festival in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A7B2418DB05008B6474 /* m_festival */; };
+		073C8ABD2418DB07008B6474 /* m_debug in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A7C2418DB06008B6474 /* m_debug */; };
+		073C8ABE2418DB07008B6474 /* m_shop in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A7D2418DB06008B6474 /* m_shop */; };
+		073C8ABF2418DB07008B6474 /* m_tutorial in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A7E2418DB06008B6474 /* m_tutorial */; };
+		073C8AC02418DB07008B6474 /* m_item in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A7F2418DB06008B6474 /* m_item */; };
+		073C8AC12418DB07008B6474 /* common in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A802418DB06008B6474 /* common */; };
+		073C8AC22418DB07008B6474 /* m_arcade in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A812418DB06008B6474 /* m_arcade */; };
+		073C8AC32418DB07008B6474 /* m_online in Resources */ = {isa = PBXBuildFile; fileRef = 073C8A822418DB06008B6474 /* m_online */; };
+		073C8AC92418E033008B6474 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 073C8AC82418E033008B6474 /* Images.xcassets */; };
+		073C8ACD2418E5FF008B6474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 073C8ACC2418E5FF008B6474 /* LaunchScreen.storyboard */; };
+		073C8AD32418F564008B6474 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073C8AD22418F564008B6474 /* WebKit.framework */; };
+		0765A276240EB320000747CC /* DownloadClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A272240EB320000747CC /* DownloadClient.cpp */; };
+		0765A277240EB320000747CC /* DownloadQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A273240EB320000747CC /* DownloadQueue.cpp */; };
+		0765A278240EB320000747CC /* DownloadManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A275240EB320000747CC /* DownloadManager.cpp */; };
 		17729FD517C3216A00D4E765 /* CSampleProjectEntrance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17729FCF17C31E2000D4E765 /* CSampleProjectEntrance.cpp */; };
 		3287A67E174C699300DF0E35 /* utf8.c in Sources */ = {isa = PBXBuildFile; fileRef = 3287A67C174C699300DF0E35 /* utf8.c */; };
 		3287AC7B174C90D700DF0E35 /* autofit.c in Sources */ = {isa = PBXBuildFile; fileRef = 3287AAD1174C90D500DF0E35 /* autofit.c */; };
@@ -69,7 +139,6 @@
 		35D82D1915FD9308003BC008 /* CKLBFormGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35D82D1715FD9308003BC008 /* CKLBFormGroup.cpp */; };
 		35DC44481670940100492E6E /* CKLBLibRegistrator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35DC44461670940100492E6E /* CKLBLibRegistrator.cpp */; };
 		35E358D916154B470092EB1E /* CKLBLifeCtrlTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35E358D716154B470092EB1E /* CKLBLifeCtrlTask.cpp */; };
-		35E358E716154D460092EB1E /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E358E616154D460092EB1E /* icon@2x.png */; };
 		5178CDAA15D4ACE200FC40B1 /* CKLBLanguageDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5178CDA615D4ACE200FC40B1 /* CKLBLanguageDatabase.cpp */; };
 		5178CDAC15D4ACE200FC40B1 /* DataSet_JSonDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5178CDA815D4ACE200FC40B1 /* DataSet_JSonDB.cpp */; };
 		5178CDB015D4AD3600FC40B1 /* Dictionnary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5178CDAE15D4AD3600FC40B1 /* Dictionnary.cpp */; };
@@ -266,67 +335,7 @@
 		8EEF3C941594180900FAFBC8 /* CKLBLuaLibAPP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF3C921594180900FAFBC8 /* CKLBLuaLibAPP.cpp */; };
 		8EF9B09215AEE033000DAFEE /* CKLBTexturePacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EF9B09015AEE033000DAFEE /* CKLBTexturePacker.cpp */; };
 		8EFEBE8615FEEAF3003EB0DF /* CKLBPauseCtrl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EFEBE8415FEEAF3003EB0DF /* CKLBPauseCtrl.cpp */; };
-		B0A50A80153425AE008CCF28 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A50A7F153425AE008CCF28 /* Default@2x.png */; };
 		B1B806D7152C416300A8717A /* CKLBUISimpleItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1B806D5152C416300A8717A /* CKLBUISimpleItem.cpp */; };
-		F50BA84923D9A743008A30A6 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F50BA84823D9A731008A30A6 /* libcrypto.a */; };
-		F50BA84E23D9A804008A30A6 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F50BA84D23D9A804008A30A6 /* libssl.a */; };
-		F5494CAA23CEBE0E00B5E19B /* m_boot in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7123CEBE0400B5E19B /* m_boot */; };
-		F5494CAB23CEBE0E00B5E19B /* m_achievement in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7223CEBE0400B5E19B /* m_achievement */; };
-		F5494CAC23CEBE0E00B5E19B /* m_notice in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7323CEBE0400B5E19B /* m_notice */; };
-		F5494CAD23CEBE0E00B5E19B /* m_shop in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7423CEBE0400B5E19B /* m_shop */; };
-		F5494CAE23CEBE0E00B5E19B /* m_sandbox in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7523CEBE0500B5E19B /* m_sandbox */; };
-		F5494CAF23CEBE0E00B5E19B /* m_secretbox in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7623CEBE0500B5E19B /* m_secretbox */; };
-		F5494CB023CEBE0E00B5E19B /* Update.lua in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7723CEBE0500B5E19B /* Update.lua */; };
-		F5494CB123CEBE0E00B5E19B /* m_award in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7823CEBE0500B5E19B /* m_award */; };
-		F5494CB223CEBE0E00B5E19B /* MTLmr3m.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7923CEBE0500B5E19B /* MTLmr3m.ttf */; };
-		F5494CB323CEBE0E00B5E19B /* m_ranking in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7A23CEBE0500B5E19B /* m_ranking */; };
-		F5494CB423CEBE0E00B5E19B /* db in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7B23CEBE0500B5E19B /* db */; };
-		F5494CB523CEBE0E00B5E19B /* start.lua in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7C23CEBE0500B5E19B /* start.lua */; };
-		F5494CB623CEBE0E00B5E19B /* m_live_adjust in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7D23CEBE0500B5E19B /* m_live_adjust */; };
-		F5494CB723CEBE0E00B5E19B /* m_live in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7E23CEBE0500B5E19B /* m_live */; };
-		F5494CB823CEBE0E00B5E19B /* m_scenario_menu in Resources */ = {isa = PBXBuildFile; fileRef = F5494C7F23CEBE0500B5E19B /* m_scenario_menu */; };
-		F5494CB923CEBE0E00B5E19B /* m_scenario in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8023CEBE0600B5E19B /* m_scenario */; };
-		F5494CBA23CEBE0E00B5E19B /* m_live_menu in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8123CEBE0600B5E19B /* m_live_menu */; };
-		F5494CBB23CEBE0E00B5E19B /* m_location in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8223CEBE0600B5E19B /* m_location */; };
-		F5494CBC23CEBE0E00B5E19B /* m_stamp in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8323CEBE0600B5E19B /* m_stamp */; };
-		F5494CBD23CEBE0E00B5E19B /* m_album in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8423CEBE0600B5E19B /* m_album */; };
-		F5494CBE23CEBE0E00B5E19B /* m_exchange in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8523CEBE0600B5E19B /* m_exchange */; };
-		F5494CBF23CEBE0E00B5E19B /* m_player_profile in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8623CEBE0600B5E19B /* m_player_profile */; };
-		F5494CC023CEBE0E00B5E19B /* assets in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8723CEBE0600B5E19B /* assets */; };
-		F5494CC123CEBE0E00B5E19B /* m_tutorial in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8823CEBE0600B5E19B /* m_tutorial */; };
-		F5494CC223CEBE0E00B5E19B /* m_reward in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8923CEBE0600B5E19B /* m_reward */; };
-		F5494CC323CEBE0E00B5E19B /* m_event in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8A23CEBE0700B5E19B /* m_event */; };
-		F5494CC423CEBE0E00B5E19B /* m_hint in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8B23CEBE0700B5E19B /* m_hint */; };
-		F5494CC523CEBE0E00B5E19B /* m_history in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8C23CEBE0700B5E19B /* m_history */; };
-		F5494CC623CEBE0E00B5E19B /* m_favorite_ranking in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8D23CEBE0800B5E19B /* m_favorite_ranking */; };
-		F5494CC723CEBE0E00B5E19B /* m_menu in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8E23CEBE0800B5E19B /* m_menu */; };
-		F5494CC823CEBE0E00B5E19B /* m_sns in Resources */ = {isa = PBXBuildFile; fileRef = F5494C8F23CEBE0800B5E19B /* m_sns */; };
-		F5494CC923CEBE0E00B5E19B /* m_basicsettings in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9023CEBE0900B5E19B /* m_basicsettings */; };
-		F5494CCA23CEBE0E00B5E19B /* formula in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9123CEBE0900B5E19B /* formula */; };
-		F5494CCB23CEBE0E00B5E19B /* Maintenance.lua in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9223CEBE0900B5E19B /* Maintenance.lua */; };
-		F5494CCC23CEBE0E00B5E19B /* m_collab in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9323CEBE0900B5E19B /* m_collab */; };
-		F5494CCD23CEBE0E00B5E19B /* m_challenge in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9423CEBE0A00B5E19B /* m_challenge */; };
-		F5494CCE23CEBE0E00B5E19B /* m_battle_event in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9523CEBE0A00B5E19B /* m_battle_event */; };
-		F5494CCF23CEBE0E00B5E19B /* m_idol_skill in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9623CEBE0A00B5E19B /* m_idol_skill */; };
-		F5494CD023CEBE0E00B5E19B /* common in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9723CEBE0A00B5E19B /* common */; };
-		F5494CD123CEBE0E00B5E19B /* m_item in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9823CEBE0B00B5E19B /* m_item */; };
-		F5494CD223CEBE0E00B5E19B /* m_arcade in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9923CEBE0B00B5E19B /* m_arcade */; };
-		F5494CD323CEBE0E00B5E19B /* m_debug in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9A23CEBE0B00B5E19B /* m_debug */; };
-		F5494CD423CEBE0E00B5E19B /* m_download in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9B23CEBE0B00B5E19B /* m_download */; };
-		F5494CD523CEBE0E00B5E19B /* m_top in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9C23CEBE0C00B5E19B /* m_top */; };
-		F5494CD623CEBE0E00B5E19B /* m_duel in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9D23CEBE0C00B5E19B /* m_duel */; };
-		F5494CD723CEBE0E00B5E19B /* m_class in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9E23CEBE0C00B5E19B /* m_class */; };
-		F5494CD823CEBE0E00B5E19B /* m_online in Resources */ = {isa = PBXBuildFile; fileRef = F5494C9F23CEBE0C00B5E19B /* m_online */; };
-		F5494CD923CEBE0E00B5E19B /* m_login in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA023CEBE0C00B5E19B /* m_login */; };
-		F5494CDA23CEBE0E00B5E19B /* m_live_custom in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA123CEBE0D00B5E19B /* m_live_custom */; };
-		F5494CDB23CEBE0E00B5E19B /* m_quest in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA223CEBE0D00B5E19B /* m_quest */; };
-		F5494CDC23CEBE0E00B5E19B /* m_unit in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA323CEBE0D00B5E19B /* m_unit */; };
-		F5494CDD23CEBE0E00B5E19B /* m_festival in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA423CEBE0D00B5E19B /* m_festival */; };
-		F5494CDE23CEBE0E00B5E19B /* lib in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA523CEBE0D00B5E19B /* lib */; };
-		F5494CDF23CEBE0E00B5E19B /* m_background in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA623CEBE0D00B5E19B /* m_background */; };
-		F5494CE023CEBE0E00B5E19B /* m_friends in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA723CEBE0E00B5E19B /* m_friends */; };
-		F5494CE123CEBE0E00B5E19B /* config in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA823CEBE0E00B5E19B /* config */; };
-		F5494CE223CEBE0E00B5E19B /* m_team in Resources */ = {isa = PBXBuildFile; fileRef = F5494CA923CEBE0E00B5E19B /* m_team */; };
 		F58D7EBE23CEBB87006FE311 /* CN_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EB423CEBB86006FE311 /* CN_Decrypter.cc */; };
 		F58D7EBF23CEBB87006FE311 /* Helper.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EB523CEBB86006FE311 /* Helper.cc */; };
 		F58D7EC023CEBB87006FE311 /* V1_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EB623CEBB86006FE311 /* V1_Decrypter.cc */; };
@@ -336,7 +345,6 @@
 		F58D7EC423CEBB87006FE311 /* EN_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EBC23CEBB86006FE311 /* EN_Decrypter.cc */; };
 		F58D7EC523CEBB87006FE311 /* V3_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = F58D7EBD23CEBB87006FE311 /* V3_Decrypter.cc */; };
 		F5AD7DE123D003AF00297BFB /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DDF23D003AF00297BFB /* RSA.m */; };
-		F5AD7DE723D0077000297BFB /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AD7DE623D0077000297BFB /* AESCipher.m */; };
 		F5FA4D3C23D02FF500EBEE24 /* SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5FA4D3823D02FF400EBEE24 /* SHA1.cpp */; };
 		F5FA4D3D23D02FF500EBEE24 /* HMAC_SHA1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5FA4D3B23D02FF500EBEE24 /* HMAC_SHA1.cpp */; };
 		F5FA4D3E23D0323C00EBEE24 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0A2B3414D12C02007E98B3 /* AVFoundation.framework */; };
@@ -351,7 +359,82 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		17729FCD17C316F400D4E765 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		073C8A422418DAFD008B6474 /* m_class */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_class; sourceTree = "<group>"; };
+		073C8A432418DAFD008B6474 /* m_download */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_download; sourceTree = "<group>"; };
+		073C8A442418DAFD008B6474 /* m_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_menu; sourceTree = "<group>"; };
+		073C8A452418DAFD008B6474 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		073C8A462418DAFD008B6474 /* m_login */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_login; sourceTree = "<group>"; };
+		073C8A472418DAFD008B6474 /* m_battle_event */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_battle_event; sourceTree = "<group>"; };
+		073C8A482418DAFD008B6474 /* m_unit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_unit; sourceTree = "<group>"; };
+		073C8A492418DAFE008B6474 /* m_quest */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_quest; sourceTree = "<group>"; };
+		073C8A4A2418DAFE008B6474 /* m_sns */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_sns; sourceTree = "<group>"; };
+		073C8A4B2418DAFF008B6474 /* m_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_ranking; sourceTree = "<group>"; };
+		073C8A4C2418DAFF008B6474 /* Update.lua */ = {isa = PBXFileReference; lastKnownFileType = file; path = Update.lua; sourceTree = "<group>"; };
+		073C8A4D2418DAFF008B6474 /* GPUDMLprob.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GPUDMLprob.otf; sourceTree = "<group>"; };
+		073C8A4E2418DB00008B6474 /* pl_assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pl_assets; sourceTree = "<group>"; };
+		073C8A4F2418DB00008B6474 /* m_top */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_top; sourceTree = "<group>"; };
+		073C8A502418DB00008B6474 /* m_friends */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_friends; sourceTree = "<group>"; };
+		073C8A512418DB00008B6474 /* m_live */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_live; sourceTree = "<group>"; };
+		073C8A522418DB00008B6474 /* m_basicsettings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_basicsettings; sourceTree = "<group>"; };
+		073C8A532418DB00008B6474 /* MTLmr3m.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MTLmr3m.ttf; sourceTree = "<group>"; };
+		073C8A542418DB00008B6474 /* m_history */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_history; sourceTree = "<group>"; };
+		073C8A552418DB01008B6474 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
+		073C8A562418DB01008B6474 /* m_achievement */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_achievement; sourceTree = "<group>"; };
+		073C8A572418DB01008B6474 /* m_exchange */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_exchange; sourceTree = "<group>"; };
+		073C8A582418DB01008B6474 /* start_old.lua */ = {isa = PBXFileReference; lastKnownFileType = file; path = start_old.lua; sourceTree = "<group>"; };
+		073C8A592418DB01008B6474 /* m_album */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_album; sourceTree = "<group>"; };
+		073C8A5A2418DB01008B6474 /* m_notice */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_notice; sourceTree = "<group>"; };
+		073C8A5B2418DB01008B6474 /* m_idol_skill */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_idol_skill; sourceTree = "<group>"; };
+		073C8A5C2418DB02008B6474 /* m_duel */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_duel; sourceTree = "<group>"; };
+		073C8A5D2418DB02008B6474 /* m_live_adjust */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_live_adjust; sourceTree = "<group>"; };
+		073C8A5E2418DB02008B6474 /* m_stamp */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_stamp; sourceTree = "<group>"; };
+		073C8A5F2418DB02008B6474 /* pl_bootstrap */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pl_bootstrap; sourceTree = "<group>"; };
+		073C8A602418DB02008B6474 /* m_background */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_background; sourceTree = "<group>"; };
+		073C8A612418DB02008B6474 /* pl_common */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pl_common; sourceTree = "<group>"; };
+		073C8A622418DB02008B6474 /* m_scenario_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_scenario_menu; sourceTree = "<group>"; };
+		073C8A632418DB02008B6474 /* pl_ui */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pl_ui; sourceTree = "<group>"; };
+		073C8A642418DB03008B6474 /* m_reward */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_reward; sourceTree = "<group>"; };
+		073C8A652418DB03008B6474 /* db */ = {isa = PBXFileReference; lastKnownFileType = folder; path = db; sourceTree = "<group>"; };
+		073C8A662418DB03008B6474 /* m_location */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_location; sourceTree = "<group>"; };
+		073C8A672418DB03008B6474 /* pl_live */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pl_live; sourceTree = "<group>"; };
+		073C8A682418DB03008B6474 /* m_challenge */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_challenge; sourceTree = "<group>"; };
+		073C8A692418DB03008B6474 /* m_boot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_boot; sourceTree = "<group>"; };
+		073C8A6A2418DB03008B6474 /* m_collab */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_collab; sourceTree = "<group>"; };
+		073C8A6B2418DB04008B6474 /* m_hint */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_hint; sourceTree = "<group>"; };
+		073C8A6C2418DB04008B6474 /* formula */ = {isa = PBXFileReference; lastKnownFileType = folder; path = formula; sourceTree = "<group>"; };
+		073C8A6D2418DB04008B6474 /* m_player_profile */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_player_profile; sourceTree = "<group>"; };
+		073C8A6E2418DB04008B6474 /* m_award */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_award; sourceTree = "<group>"; };
+		073C8A6F2418DB04008B6474 /* Maintenance.lua */ = {isa = PBXFileReference; lastKnownFileType = file; path = Maintenance.lua; sourceTree = "<group>"; };
+		073C8A702418DB04008B6474 /* m_secretbox */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_secretbox; sourceTree = "<group>"; };
+		073C8A712418DB04008B6474 /* m_event */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_event; sourceTree = "<group>"; };
+		073C8A722418DB04008B6474 /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; path = config; sourceTree = "<group>"; };
+		073C8A732418DB04008B6474 /* m_live_custom */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_live_custom; sourceTree = "<group>"; };
+		073C8A742418DB05008B6474 /* pl_live_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pl_live_menu; sourceTree = "<group>"; };
+		073C8A752418DB05008B6474 /* start.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = start.lua; sourceTree = "<group>"; };
+		073C8A762418DB05008B6474 /* m_sandbox */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_sandbox; sourceTree = "<group>"; };
+		073C8A772418DB05008B6474 /* m_team */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_team; sourceTree = "<group>"; };
+		073C8A782418DB05008B6474 /* m_favorite_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_favorite_ranking; sourceTree = "<group>"; };
+		073C8A792418DB05008B6474 /* m_scenario */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_scenario; sourceTree = "<group>"; };
+		073C8A7A2418DB05008B6474 /* m_live_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_live_menu; sourceTree = "<group>"; };
+		073C8A7B2418DB05008B6474 /* m_festival */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_festival; sourceTree = "<group>"; };
+		073C8A7C2418DB06008B6474 /* m_debug */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_debug; sourceTree = "<group>"; };
+		073C8A7D2418DB06008B6474 /* m_shop */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_shop; sourceTree = "<group>"; };
+		073C8A7E2418DB06008B6474 /* m_tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_tutorial; sourceTree = "<group>"; };
+		073C8A7F2418DB06008B6474 /* m_item */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_item; sourceTree = "<group>"; };
+		073C8A802418DB06008B6474 /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; path = common; sourceTree = "<group>"; };
+		073C8A812418DB06008B6474 /* m_arcade */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_arcade; sourceTree = "<group>"; };
+		073C8A822418DB06008B6474 /* m_online */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m_online; sourceTree = "<group>"; };
+		073C8AC82418E033008B6474 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		073C8ACC2418E5FF008B6474 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		073C8AD02418EC18008B6474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		073C8AD12418EC18008B6474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		073C8AD22418F564008B6474 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		0765A270240EB320000747CC /* DownloadQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownloadQueue.h; path = ../../../../source/HTTP/DownloadQueue.h; sourceTree = "<group>"; };
+		0765A271240EB320000747CC /* DownloadClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownloadClient.h; path = ../../../../source/HTTP/DownloadClient.h; sourceTree = "<group>"; };
+		0765A272240EB320000747CC /* DownloadClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DownloadClient.cpp; path = ../../../../source/HTTP/DownloadClient.cpp; sourceTree = "<group>"; };
+		0765A273240EB320000747CC /* DownloadQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DownloadQueue.cpp; path = ../../../../source/HTTP/DownloadQueue.cpp; sourceTree = "<group>"; };
+		0765A274240EB320000747CC /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownloadManager.h; path = ../../../../source/HTTP/DownloadManager.h; sourceTree = "<group>"; };
+		0765A275240EB320000747CC /* DownloadManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DownloadManager.cpp; path = ../../../../source/HTTP/DownloadManager.cpp; sourceTree = "<group>"; };
 		17729FCF17C31E2000D4E765 /* CSampleProjectEntrance.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSampleProjectEntrance.cpp; sourceTree = "<group>"; };
 		17729FD017C31E2000D4E765 /* CSampleProjectEntrance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSampleProjectEntrance.h; sourceTree = "<group>"; };
 		3287A67C174C699300DF0E35 /* utf8.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf8.c; sourceTree = "<group>"; };
@@ -442,7 +525,6 @@
 		3287AA5D174C760200DF0E35 /* tttags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tttags.h; sourceTree = "<group>"; };
 		3287AA5E174C760200DF0E35 /* ttunpat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ttunpat.h; sourceTree = "<group>"; };
 		3287AA5F174C760200DF0E35 /* ft2build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ft2build.h; sourceTree = "<group>"; };
-		3287AAB0174C88B900DF0E35 /* MTLmr3m.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MTLmr3m.ttf; path = ../../../../fonts/MTLmr3m.ttf; sourceTree = "<group>"; };
 		3287AAD1174C90D500DF0E35 /* autofit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autofit.c; sourceTree = "<group>"; };
 		3287AADA174C90D600DF0E35 /* ftbase.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftbase.c; sourceTree = "<group>"; };
 		3287AADC174C90D600DF0E35 /* ftbbox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftbbox.c; sourceTree = "<group>"; };
@@ -522,7 +604,6 @@
 		35DC44471670940100492E6E /* CKLBLibRegistrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBLibRegistrator.h; sourceTree = "<group>"; };
 		35E358D716154B470092EB1E /* CKLBLifeCtrlTask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKLBLifeCtrlTask.cpp; sourceTree = "<group>"; };
 		35E358D816154B470092EB1E /* CKLBLifeCtrlTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBLifeCtrlTask.h; sourceTree = "<group>"; };
-		35E358E616154D460092EB1E /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		35E358E816154FDC0092EB1E /* CKLBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBObject.h; sourceTree = "<group>"; };
 		5178CDA615D4ACE200FC40B1 /* CKLBLanguageDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CKLBLanguageDatabase.cpp; path = ../../../../source/Database/CKLBLanguageDatabase.cpp; sourceTree = "<group>"; };
 		5178CDA715D4ACE200FC40B1 /* CKLBLanguageDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKLBLanguageDatabase.h; path = ../../../../source/Database/CKLBLanguageDatabase.h; sourceTree = "<group>"; };
@@ -560,7 +641,7 @@
 		6FFE2311176B065B003B3F9F /* hash_sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hash_sha1.c; path = ../../../../libs/sha1/hash_sha1.c; sourceTree = "<group>"; };
 		806355A2169ED88A0088D141 /* CKLBAsyncLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKLBAsyncLoader.cpp; sourceTree = "<group>"; };
 		806355A3169ED88A0088D141 /* CKLBAsyncLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBAsyncLoader.h; sourceTree = "<group>"; };
-		8E0A29DF14D12A6E007E98B3 /* Sample Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sample Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E0A29DF14D12A6E007E98B3 /* Playground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Playground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E0A29E314D12A6E007E98B3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8E0A29E514D12A6E007E98B3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8E0A29E714D12A6E007E98B3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -568,8 +649,6 @@
 		8E0A29ED14D12A6E007E98B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8E0A29EF14D12A6E007E98B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8E0A29F114D12A6E007E98B3 /* SampleProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SampleProject-Prefix.pch"; sourceTree = "<group>"; };
-		8E0A29F914D12A6E007E98B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
-		8E0A29FC14D12A6E007E98B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		8E0A2A0414D12A6E007E98B3 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		8E0A2B3314D12C02007E98B3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8E0A2B3414D12C02007E98B3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -595,7 +674,7 @@
 		8E251D1C15247CEF00D4A56E /* CKLBUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBUtility.h; sourceTree = "<group>"; };
 		8E2C4106153699F10093FAB0 /* CKLBJsonItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CKLBJsonItem.cpp; path = ../../../../source/HTTP/CKLBJsonItem.cpp; sourceTree = SOURCE_ROOT; };
 		8E2C4107153699F10093FAB0 /* CKLBJsonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKLBJsonItem.h; path = ../../../../source/HTTP/CKLBJsonItem.h; sourceTree = SOURCE_ROOT; };
-		8E2C4108153699F10093FAB0 /* CKLBNetAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CKLBNetAPI.cpp; path = ../../../../source/HTTP/CKLBNetAPI.cpp; sourceTree = SOURCE_ROOT; usesTabs = 1; };
+		8E2C4108153699F10093FAB0 /* CKLBNetAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CKLBNetAPI.cpp; path = ../../../../source/HTTP/CKLBNetAPI.cpp; sourceTree = SOURCE_ROOT; };
 		8E2C4109153699F10093FAB0 /* CKLBNetAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKLBNetAPI.h; path = ../../../../source/HTTP/CKLBNetAPI.h; sourceTree = SOURCE_ROOT; };
 		8E2EBBE715908EB30007C449 /* CKLBUIRubberBand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKLBUIRubberBand.cpp; sourceTree = "<group>"; };
 		8E2EBBE815908EB30007C449 /* CKLBUIRubberBand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBUIRubberBand.h; sourceTree = "<group>"; };
@@ -912,72 +991,8 @@
 		8EF9B09115AEE033000DAFEE /* CKLBTexturePacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBTexturePacker.h; sourceTree = "<group>"; };
 		8EFEBE8415FEEAF3003EB0DF /* CKLBPauseCtrl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKLBPauseCtrl.cpp; sourceTree = "<group>"; };
 		8EFEBE8515FEEAF3003EB0DF /* CKLBPauseCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBPauseCtrl.h; sourceTree = "<group>"; };
-		B0A50A7F153425AE008CCF28 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		B1B806D5152C416300A8717A /* CKLBUISimpleItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKLBUISimpleItem.cpp; sourceTree = "<group>"; };
 		B1B806D6152C416300A8717A /* CKLBUISimpleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLBUISimpleItem.h; sourceTree = "<group>"; };
-		F50BA84323D9A60A008A30A6 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../openssl/lib/libcrypto.a; sourceTree = "<group>"; };
-		F50BA84423D9A60A008A30A6 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../openssl/lib/libssl.a; sourceTree = "<group>"; };
-		F50BA84723D9A731008A30A6 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../openssl/libssl.a; sourceTree = "<group>"; };
-		F50BA84823D9A731008A30A6 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../openssl/libcrypto.a; sourceTree = "<group>"; };
-		F50BA84B23D9A7FD008A30A6 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../openssl/libcrypto.a; sourceTree = "<group>"; };
-		F50BA84D23D9A804008A30A6 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../openssl/libssl.a; sourceTree = "<group>"; };
-		F5494C7123CEBE0400B5E19B /* m_boot */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_boot; path = ../../../../OSX/sif/m_boot; sourceTree = "<group>"; };
-		F5494C7223CEBE0400B5E19B /* m_achievement */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_achievement; path = ../../../../OSX/sif/m_achievement; sourceTree = "<group>"; };
-		F5494C7323CEBE0400B5E19B /* m_notice */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_notice; path = ../../../../OSX/sif/m_notice; sourceTree = "<group>"; };
-		F5494C7423CEBE0400B5E19B /* m_shop */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_shop; path = ../../../../OSX/sif/m_shop; sourceTree = "<group>"; };
-		F5494C7523CEBE0500B5E19B /* m_sandbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_sandbox; path = ../../../../OSX/sif/m_sandbox; sourceTree = "<group>"; };
-		F5494C7623CEBE0500B5E19B /* m_secretbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_secretbox; path = ../../../../OSX/sif/m_secretbox; sourceTree = "<group>"; };
-		F5494C7723CEBE0500B5E19B /* Update.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = Update.lua; path = ../../../../OSX/sif/Update.lua; sourceTree = "<group>"; };
-		F5494C7823CEBE0500B5E19B /* m_award */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_award; path = ../../../../OSX/sif/m_award; sourceTree = "<group>"; };
-		F5494C7923CEBE0500B5E19B /* MTLmr3m.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MTLmr3m.ttf; path = ../../../../OSX/sif/MTLmr3m.ttf; sourceTree = "<group>"; };
-		F5494C7A23CEBE0500B5E19B /* m_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_ranking; path = ../../../../OSX/sif/m_ranking; sourceTree = "<group>"; };
-		F5494C7B23CEBE0500B5E19B /* db */ = {isa = PBXFileReference; lastKnownFileType = folder; name = db; path = ../../../../OSX/sif/db; sourceTree = "<group>"; };
-		F5494C7C23CEBE0500B5E19B /* start.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = start.lua; path = ../../../../OSX/sif/start.lua; sourceTree = "<group>"; };
-		F5494C7D23CEBE0500B5E19B /* m_live_adjust */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_adjust; path = ../../../../OSX/sif/m_live_adjust; sourceTree = "<group>"; };
-		F5494C7E23CEBE0500B5E19B /* m_live */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live; path = ../../../../OSX/sif/m_live; sourceTree = "<group>"; };
-		F5494C7F23CEBE0500B5E19B /* m_scenario_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_scenario_menu; path = ../../../../OSX/sif/m_scenario_menu; sourceTree = "<group>"; };
-		F5494C8023CEBE0600B5E19B /* m_scenario */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_scenario; path = ../../../../OSX/sif/m_scenario; sourceTree = "<group>"; };
-		F5494C8123CEBE0600B5E19B /* m_live_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_menu; path = ../../../../OSX/sif/m_live_menu; sourceTree = "<group>"; };
-		F5494C8223CEBE0600B5E19B /* m_location */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_location; path = ../../../../OSX/sif/m_location; sourceTree = "<group>"; };
-		F5494C8323CEBE0600B5E19B /* m_stamp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_stamp; path = ../../../../OSX/sif/m_stamp; sourceTree = "<group>"; };
-		F5494C8423CEBE0600B5E19B /* m_album */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_album; path = ../../../../OSX/sif/m_album; sourceTree = "<group>"; };
-		F5494C8523CEBE0600B5E19B /* m_exchange */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_exchange; path = ../../../../OSX/sif/m_exchange; sourceTree = "<group>"; };
-		F5494C8623CEBE0600B5E19B /* m_player_profile */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_player_profile; path = ../../../../OSX/sif/m_player_profile; sourceTree = "<group>"; };
-		F5494C8723CEBE0600B5E19B /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../../../OSX/sif/assets; sourceTree = "<group>"; };
-		F5494C8823CEBE0600B5E19B /* m_tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_tutorial; path = ../../../../OSX/sif/m_tutorial; sourceTree = "<group>"; };
-		F5494C8923CEBE0600B5E19B /* m_reward */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_reward; path = ../../../../OSX/sif/m_reward; sourceTree = "<group>"; };
-		F5494C8A23CEBE0700B5E19B /* m_event */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_event; path = ../../../../OSX/sif/m_event; sourceTree = "<group>"; };
-		F5494C8B23CEBE0700B5E19B /* m_hint */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_hint; path = ../../../../OSX/sif/m_hint; sourceTree = "<group>"; };
-		F5494C8C23CEBE0700B5E19B /* m_history */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_history; path = ../../../../OSX/sif/m_history; sourceTree = "<group>"; };
-		F5494C8D23CEBE0800B5E19B /* m_favorite_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_favorite_ranking; path = ../../../../OSX/sif/m_favorite_ranking; sourceTree = "<group>"; };
-		F5494C8E23CEBE0800B5E19B /* m_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_menu; path = ../../../../OSX/sif/m_menu; sourceTree = "<group>"; };
-		F5494C8F23CEBE0800B5E19B /* m_sns */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_sns; path = ../../../../OSX/sif/m_sns; sourceTree = "<group>"; };
-		F5494C9023CEBE0900B5E19B /* m_basicsettings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_basicsettings; path = ../../../../OSX/sif/m_basicsettings; sourceTree = "<group>"; };
-		F5494C9123CEBE0900B5E19B /* formula */ = {isa = PBXFileReference; lastKnownFileType = folder; name = formula; path = ../../../../OSX/sif/formula; sourceTree = "<group>"; };
-		F5494C9223CEBE0900B5E19B /* Maintenance.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = Maintenance.lua; path = ../../../../OSX/sif/Maintenance.lua; sourceTree = "<group>"; };
-		F5494C9323CEBE0900B5E19B /* m_collab */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_collab; path = ../../../../OSX/sif/m_collab; sourceTree = "<group>"; };
-		F5494C9423CEBE0A00B5E19B /* m_challenge */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_challenge; path = ../../../../OSX/sif/m_challenge; sourceTree = "<group>"; };
-		F5494C9523CEBE0A00B5E19B /* m_battle_event */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_battle_event; path = ../../../../OSX/sif/m_battle_event; sourceTree = "<group>"; };
-		F5494C9623CEBE0A00B5E19B /* m_idol_skill */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_idol_skill; path = ../../../../OSX/sif/m_idol_skill; sourceTree = "<group>"; };
-		F5494C9723CEBE0A00B5E19B /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = common; path = ../../../../OSX/sif/common; sourceTree = "<group>"; };
-		F5494C9823CEBE0B00B5E19B /* m_item */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_item; path = ../../../../OSX/sif/m_item; sourceTree = "<group>"; };
-		F5494C9923CEBE0B00B5E19B /* m_arcade */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_arcade; path = ../../../../OSX/sif/m_arcade; sourceTree = "<group>"; };
-		F5494C9A23CEBE0B00B5E19B /* m_debug */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_debug; path = ../../../../OSX/sif/m_debug; sourceTree = "<group>"; };
-		F5494C9B23CEBE0B00B5E19B /* m_download */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_download; path = ../../../../OSX/sif/m_download; sourceTree = "<group>"; };
-		F5494C9C23CEBE0C00B5E19B /* m_top */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_top; path = ../../../../OSX/sif/m_top; sourceTree = "<group>"; };
-		F5494C9D23CEBE0C00B5E19B /* m_duel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_duel; path = ../../../../OSX/sif/m_duel; sourceTree = "<group>"; };
-		F5494C9E23CEBE0C00B5E19B /* m_class */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_class; path = ../../../../OSX/sif/m_class; sourceTree = "<group>"; };
-		F5494C9F23CEBE0C00B5E19B /* m_online */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_online; path = ../../../../OSX/sif/m_online; sourceTree = "<group>"; };
-		F5494CA023CEBE0C00B5E19B /* m_login */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_login; path = ../../../../OSX/sif/m_login; sourceTree = "<group>"; };
-		F5494CA123CEBE0D00B5E19B /* m_live_custom */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_custom; path = ../../../../OSX/sif/m_live_custom; sourceTree = "<group>"; };
-		F5494CA223CEBE0D00B5E19B /* m_quest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_quest; path = ../../../../OSX/sif/m_quest; sourceTree = "<group>"; };
-		F5494CA323CEBE0D00B5E19B /* m_unit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_unit; path = ../../../../OSX/sif/m_unit; sourceTree = "<group>"; };
-		F5494CA423CEBE0D00B5E19B /* m_festival */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_festival; path = ../../../../OSX/sif/m_festival; sourceTree = "<group>"; };
-		F5494CA523CEBE0D00B5E19B /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = ../../../../OSX/sif/lib; sourceTree = "<group>"; };
-		F5494CA623CEBE0D00B5E19B /* m_background */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_background; path = ../../../../OSX/sif/m_background; sourceTree = "<group>"; };
-		F5494CA723CEBE0E00B5E19B /* m_friends */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_friends; path = ../../../../OSX/sif/m_friends; sourceTree = "<group>"; };
-		F5494CA823CEBE0E00B5E19B /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; name = config; path = ../../../../OSX/sif/config; sourceTree = "<group>"; };
-		F5494CA923CEBE0E00B5E19B /* m_team */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_team; path = ../../../../OSX/sif/m_team; sourceTree = "<group>"; };
 		F58D7EB223CEBB2D006FE311 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		F58D7EB423CEBB86006FE311 /* CN_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CN_Decrypter.cc; path = ../../source/Core/HonokaMiku/CN_Decrypter.cc; sourceTree = "<group>"; };
 		F58D7EB523CEBB86006FE311 /* Helper.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Helper.cc; path = ../../source/Core/HonokaMiku/Helper.cc; sourceTree = "<group>"; };
@@ -989,11 +1004,8 @@
 		F58D7EBB23CEBB86006FE311 /* TW_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TW_Decrypter.cc; path = ../../source/Core/HonokaMiku/TW_Decrypter.cc; sourceTree = "<group>"; };
 		F58D7EBC23CEBB86006FE311 /* EN_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EN_Decrypter.cc; path = ../../source/Core/HonokaMiku/EN_Decrypter.cc; sourceTree = "<group>"; };
 		F58D7EBD23CEBB87006FE311 /* V3_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = V3_Decrypter.cc; path = ../../source/Core/HonokaMiku/V3_Decrypter.cc; sourceTree = "<group>"; };
-		F5AD7DD023CF7B2100297BFB /* Sample Application.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Sample Application.entitlements"; sourceTree = "<group>"; };
 		F5AD7DDF23D003AF00297BFB /* RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSA.m; path = ../../RSA/RSA.m; sourceTree = "<group>"; };
 		F5AD7DE023D003AF00297BFB /* RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSA.h; path = ../../RSA/RSA.h; sourceTree = "<group>"; };
-		F5AD7DE323D003DB00297BFB /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AESCipher.h; path = ../../AESCipher/AESCipher.h; sourceTree = "<group>"; };
-		F5AD7DE623D0077000297BFB /* AESCipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AESCipher.m; path = ../../AESCipher/AESCipher.m; sourceTree = "<group>"; };
 		F5FA4D3723D02FF400EBEE24 /* SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHA1.h; path = ../../crypto/SHA1.h; sourceTree = "<group>"; };
 		F5FA4D3823D02FF400EBEE24 /* SHA1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SHA1.cpp; path = ../../crypto/SHA1.cpp; sourceTree = "<group>"; };
 		F5FA4D3923D02FF400EBEE24 /* bin2hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bin2hex.h; path = ../../crypto/bin2hex.h; sourceTree = "<group>"; };
@@ -1022,18 +1034,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F4AD67A17003DF1007699EF /* libcurl.a in Frameworks */,
-				F50BA84E23D9A804008A30A6 /* libssl.a in Frameworks */,
 				3500F79D164221EC005228DC /* libz.dylib in Frameworks */,
 				8EE212CB15DDFE5F006694A1 /* CoreMedia.framework in Frameworks */,
 				8EE212C915DDFDDF006694A1 /* MediaPlayer.framework in Frameworks */,
 				8EC9671F15AD7943008FCDEF /* Security.framework in Frameworks */,
+				073C8AD32418F564008B6474 /* WebKit.framework in Frameworks */,
 				8E0A29E614D12A6E007E98B3 /* Foundation.framework in Frameworks */,
 				8E409752159D906A0063BD85 /* CoreFoundation.framework in Frameworks */,
 				8E40974D159D8B490063BD85 /* CoreAudio.framework in Frameworks */,
 				8E0A2B3714D12C02007E98B3 /* AudioToolbox.framework in Frameworks */,
 				8E0A2B3914D12C02007E98B3 /* OpenGLES.framework in Frameworks */,
 				8E0A2B3A14D12C02007E98B3 /* QuartzCore.framework in Frameworks */,
-				F50BA84923D9A743008A30A6 /* libcrypto.a in Frameworks */,
 				8E0A29E414D12A6E007E98B3 /* UIKit.framework in Frameworks */,
 				F5FA4D3E23D0323C00EBEE24 /* AVFoundation.framework in Frameworks */,
 				8E0A29E814D12A6E007E98B3 /* CoreGraphics.framework in Frameworks */,
@@ -1043,6 +1054,78 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		073C8A412418DA4E008B6474 /* ProjectResources */ = {
+			isa = PBXGroup;
+			children = (
+				073C8A452418DAFD008B6474 /* assets */,
+				073C8A802418DB06008B6474 /* common */,
+				073C8A722418DB04008B6474 /* config */,
+				073C8A652418DB03008B6474 /* db */,
+				073C8A6C2418DB04008B6474 /* formula */,
+				073C8A4D2418DAFF008B6474 /* GPUDMLprob.otf */,
+				073C8A552418DB01008B6474 /* lib */,
+				073C8A562418DB01008B6474 /* m_achievement */,
+				073C8A592418DB01008B6474 /* m_album */,
+				073C8A812418DB06008B6474 /* m_arcade */,
+				073C8A6E2418DB04008B6474 /* m_award */,
+				073C8A602418DB02008B6474 /* m_background */,
+				073C8A522418DB00008B6474 /* m_basicsettings */,
+				073C8A472418DAFD008B6474 /* m_battle_event */,
+				073C8A692418DB03008B6474 /* m_boot */,
+				073C8A682418DB03008B6474 /* m_challenge */,
+				073C8A422418DAFD008B6474 /* m_class */,
+				073C8A6A2418DB03008B6474 /* m_collab */,
+				073C8A7C2418DB06008B6474 /* m_debug */,
+				073C8A432418DAFD008B6474 /* m_download */,
+				073C8A5C2418DB02008B6474 /* m_duel */,
+				073C8A712418DB04008B6474 /* m_event */,
+				073C8A572418DB01008B6474 /* m_exchange */,
+				073C8A782418DB05008B6474 /* m_favorite_ranking */,
+				073C8A7B2418DB05008B6474 /* m_festival */,
+				073C8A502418DB00008B6474 /* m_friends */,
+				073C8A6B2418DB04008B6474 /* m_hint */,
+				073C8A542418DB00008B6474 /* m_history */,
+				073C8A5B2418DB01008B6474 /* m_idol_skill */,
+				073C8A7F2418DB06008B6474 /* m_item */,
+				073C8A512418DB00008B6474 /* m_live */,
+				073C8A5D2418DB02008B6474 /* m_live_adjust */,
+				073C8A732418DB04008B6474 /* m_live_custom */,
+				073C8A7A2418DB05008B6474 /* m_live_menu */,
+				073C8A662418DB03008B6474 /* m_location */,
+				073C8A462418DAFD008B6474 /* m_login */,
+				073C8A442418DAFD008B6474 /* m_menu */,
+				073C8A5A2418DB01008B6474 /* m_notice */,
+				073C8A822418DB06008B6474 /* m_online */,
+				073C8A6D2418DB04008B6474 /* m_player_profile */,
+				073C8A492418DAFE008B6474 /* m_quest */,
+				073C8A4B2418DAFF008B6474 /* m_ranking */,
+				073C8A642418DB03008B6474 /* m_reward */,
+				073C8A762418DB05008B6474 /* m_sandbox */,
+				073C8A792418DB05008B6474 /* m_scenario */,
+				073C8A622418DB02008B6474 /* m_scenario_menu */,
+				073C8A702418DB04008B6474 /* m_secretbox */,
+				073C8A7D2418DB06008B6474 /* m_shop */,
+				073C8A4A2418DAFE008B6474 /* m_sns */,
+				073C8A5E2418DB02008B6474 /* m_stamp */,
+				073C8A772418DB05008B6474 /* m_team */,
+				073C8A4F2418DB00008B6474 /* m_top */,
+				073C8A7E2418DB06008B6474 /* m_tutorial */,
+				073C8A482418DAFD008B6474 /* m_unit */,
+				073C8A6F2418DB04008B6474 /* Maintenance.lua */,
+				073C8A532418DB00008B6474 /* MTLmr3m.ttf */,
+				073C8A4E2418DB00008B6474 /* pl_assets */,
+				073C8A5F2418DB02008B6474 /* pl_bootstrap */,
+				073C8A612418DB02008B6474 /* pl_common */,
+				073C8A672418DB03008B6474 /* pl_live */,
+				073C8A742418DB05008B6474 /* pl_live_menu */,
+				073C8A632418DB02008B6474 /* pl_ui */,
+				073C8A582418DB01008B6474 /* start_old.lua */,
+				073C8A752418DB05008B6474 /* start.lua */,
+				073C8A4C2418DAFF008B6474 /* Update.lua */,
+			);
+			path = ProjectResources;
+			sourceTree = "<group>";
+		};
 		3287A67B174C699300DF0E35 /* utf8_converter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1419,14 +1502,9 @@
 		8E0A29D414D12A6E007E98B3 = {
 			isa = PBXGroup;
 			children = (
-				F5494C7023CEBDA900B5E19B /* SIF */,
-				17729FCD17C316F400D4E765 /* Default-568h@2x.png */,
+				073C8A412418DA4E008B6474 /* ProjectResources */,
 				6F4AD67917003DF1007699EF /* libcurl.a */,
-				F50BA84B23D9A7FD008A30A6 /* libcrypto.a */,
-				F50BA84D23D9A804008A30A6 /* libssl.a */,
 				FCFB03D316AEAAFE00E81C9C /* Sound */,
-				35E358E616154D460092EB1E /* icon@2x.png */,
-				8E3CEEF8152C3775008C7EC1 /* ProjectResources */,
 				8E87612C15201A3500B36A2C /* UserTask */,
 				8EA65E14155D0FF00066E306 /* LuaLib */,
 				8E842FB41532D11700C4800E /* HTTP */,
@@ -1450,7 +1528,7 @@
 		8E0A29E014D12A6E007E98B3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8E0A29DF14D12A6E007E98B3 /* Sample Application.app */,
+				8E0A29DF14D12A6E007E98B3 /* Playground.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1458,10 +1536,7 @@
 		8E0A29E214D12A6E007E98B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F50BA84323D9A60A008A30A6 /* libcrypto.a */,
-				F50BA84823D9A731008A30A6 /* libcrypto.a */,
-				F50BA84423D9A60A008A30A6 /* libssl.a */,
-				F50BA84723D9A731008A30A6 /* libssl.a */,
+				073C8AD22418F564008B6474 /* WebKit.framework */,
 				3500F79C164221EC005228DC /* libz.dylib */,
 				8EE212CA15DDFE5F006694A1 /* CoreMedia.framework */,
 				8EE212C815DDFDDF006694A1 /* MediaPlayer.framework */,
@@ -1483,10 +1558,11 @@
 		8E0A29E914D12A6E007E98B3 /* SampleProject */ = {
 			isa = PBXGroup;
 			children = (
-				F5AD7DD023CF7B2100297BFB /* Sample Application.entitlements */,
 				8E0A29F814D12A6E007E98B3 /* ViewController_iPhone.xib */,
 				8E0A29FB14D12A6E007E98B3 /* ViewController_iPad.xib */,
+				073C8AC82418E033008B6474 /* Images.xcassets */,
 				8E0A29EA14D12A6E007E98B3 /* Supporting Files */,
+				073C8ACC2418E5FF008B6474 /* LaunchScreen.storyboard */,
 			);
 			path = SampleProject;
 			sourceTree = "<group>";
@@ -1494,7 +1570,6 @@
 		8E0A29EA14D12A6E007E98B3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B0A50A7F153425AE008CCF28 /* Default@2x.png */,
 				8E0A29EB14D12A6E007E98B3 /* SampleProject-Info.plist */,
 				8E0A29EC14D12A6E007E98B3 /* InfoPlist.strings */,
 				8E0A29EF14D12A6E007E98B3 /* main.m */,
@@ -1529,17 +1604,15 @@
 			name = Database;
 			sourceTree = SOURCE_ROOT;
 		};
-		8E3CEEF8152C3775008C7EC1 /* ProjectResources */ = {
-			isa = PBXGroup;
-			children = (
-				3287AAB0174C88B900DF0E35 /* MTLmr3m.ttf */,
-			);
-			name = ProjectResources;
-			sourceTree = "<group>";
-		};
 		8E842FB41532D11700C4800E /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
+				0765A272240EB320000747CC /* DownloadClient.cpp */,
+				0765A271240EB320000747CC /* DownloadClient.h */,
+				0765A275240EB320000747CC /* DownloadManager.cpp */,
+				0765A274240EB320000747CC /* DownloadManager.h */,
+				0765A273240EB320000747CC /* DownloadQueue.cpp */,
+				0765A270240EB320000747CC /* DownloadQueue.h */,
 				6F4AD675170038AF007699EF /* MultithreadedNetwork.cpp */,
 				6F4AD676170038AF007699EF /* MultithreadedNetwork.h */,
 				3500F7A9164222B4005228DC /* CKLBUpdate.cpp */,
@@ -1654,7 +1727,6 @@
 		8E875F87152014D300B36A2C /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				F5AD7DE223D003D000297BFB /* AESCipher */,
 				F5AD7DDB23CFF98F00297BFB /* rsa */,
 				F5AD7DD323CFF50700297BFB /* crypto */,
 				6FFE230F176B064B003B3F9F /* sha1 */,
@@ -2086,70 +2158,6 @@
 			name = ScrollMgr;
 			sourceTree = "<group>";
 		};
-		F5494C7023CEBDA900B5E19B /* SIF */ = {
-			isa = PBXGroup;
-			children = (
-				F5494C8723CEBE0600B5E19B /* assets */,
-				F5494C9723CEBE0A00B5E19B /* common */,
-				F5494CA823CEBE0E00B5E19B /* config */,
-				F5494C7B23CEBE0500B5E19B /* db */,
-				F5494C9123CEBE0900B5E19B /* formula */,
-				F5494CA523CEBE0D00B5E19B /* lib */,
-				F5494C7223CEBE0400B5E19B /* m_achievement */,
-				F5494C8423CEBE0600B5E19B /* m_album */,
-				F5494C9923CEBE0B00B5E19B /* m_arcade */,
-				F5494C7823CEBE0500B5E19B /* m_award */,
-				F5494CA623CEBE0D00B5E19B /* m_background */,
-				F5494C9023CEBE0900B5E19B /* m_basicsettings */,
-				F5494C9523CEBE0A00B5E19B /* m_battle_event */,
-				F5494C7123CEBE0400B5E19B /* m_boot */,
-				F5494C9423CEBE0A00B5E19B /* m_challenge */,
-				F5494C9E23CEBE0C00B5E19B /* m_class */,
-				F5494C9323CEBE0900B5E19B /* m_collab */,
-				F5494C9A23CEBE0B00B5E19B /* m_debug */,
-				F5494C9B23CEBE0B00B5E19B /* m_download */,
-				F5494C9D23CEBE0C00B5E19B /* m_duel */,
-				F5494C8A23CEBE0700B5E19B /* m_event */,
-				F5494C8523CEBE0600B5E19B /* m_exchange */,
-				F5494C8D23CEBE0800B5E19B /* m_favorite_ranking */,
-				F5494CA423CEBE0D00B5E19B /* m_festival */,
-				F5494CA723CEBE0E00B5E19B /* m_friends */,
-				F5494C8B23CEBE0700B5E19B /* m_hint */,
-				F5494C8C23CEBE0700B5E19B /* m_history */,
-				F5494C9623CEBE0A00B5E19B /* m_idol_skill */,
-				F5494C9823CEBE0B00B5E19B /* m_item */,
-				F5494C7E23CEBE0500B5E19B /* m_live */,
-				F5494C7D23CEBE0500B5E19B /* m_live_adjust */,
-				F5494CA123CEBE0D00B5E19B /* m_live_custom */,
-				F5494C8123CEBE0600B5E19B /* m_live_menu */,
-				F5494C8223CEBE0600B5E19B /* m_location */,
-				F5494CA023CEBE0C00B5E19B /* m_login */,
-				F5494C8E23CEBE0800B5E19B /* m_menu */,
-				F5494C7323CEBE0400B5E19B /* m_notice */,
-				F5494C9F23CEBE0C00B5E19B /* m_online */,
-				F5494C8623CEBE0600B5E19B /* m_player_profile */,
-				F5494CA223CEBE0D00B5E19B /* m_quest */,
-				F5494C7A23CEBE0500B5E19B /* m_ranking */,
-				F5494C8923CEBE0600B5E19B /* m_reward */,
-				F5494C7523CEBE0500B5E19B /* m_sandbox */,
-				F5494C8023CEBE0600B5E19B /* m_scenario */,
-				F5494C7F23CEBE0500B5E19B /* m_scenario_menu */,
-				F5494C7623CEBE0500B5E19B /* m_secretbox */,
-				F5494C7423CEBE0400B5E19B /* m_shop */,
-				F5494C8F23CEBE0800B5E19B /* m_sns */,
-				F5494C8323CEBE0600B5E19B /* m_stamp */,
-				F5494CA923CEBE0E00B5E19B /* m_team */,
-				F5494C9C23CEBE0C00B5E19B /* m_top */,
-				F5494C8823CEBE0600B5E19B /* m_tutorial */,
-				F5494CA323CEBE0D00B5E19B /* m_unit */,
-				F5494C9223CEBE0900B5E19B /* Maintenance.lua */,
-				F5494C7923CEBE0500B5E19B /* MTLmr3m.ttf */,
-				F5494C7C23CEBE0500B5E19B /* start.lua */,
-				F5494C7723CEBE0500B5E19B /* Update.lua */,
-			);
-			path = SIF;
-			sourceTree = "<group>";
-		};
 		F58D7EB323CEBB32006FE311 /* HonokaMiku */ = {
 			isa = PBXGroup;
 			children = (
@@ -2188,15 +2196,6 @@
 			name = rsa;
 			sourceTree = "<group>";
 		};
-		F5AD7DE223D003D000297BFB /* AESCipher */ = {
-			isa = PBXGroup;
-			children = (
-				F5AD7DE623D0077000297BFB /* AESCipher.m */,
-				F5AD7DE323D003DB00297BFB /* AESCipher.h */,
-			);
-			name = AESCipher;
-			sourceTree = "<group>";
-		};
 		FCFB03D316AEAAFE00E81C9C /* Sound */ = {
 			isa = PBXGroup;
 			children = (
@@ -2224,7 +2223,7 @@
 			);
 			name = SampleProject;
 			productName = GameEngine;
-			productReference = 8E0A29DF14D12A6E007E98B3 /* Sample Application.app */;
+			productReference = 8E0A29DF14D12A6E007E98B3 /* Playground.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2233,15 +2232,15 @@
 		8E0A29D614D12A6E007E98B3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 1130;
 			};
 			buildConfigurationList = 8E0A29D914D12A6E007E98B3 /* Build configuration list for PBXProject "SampleProject" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 8E0A29D414D12A6E007E98B3;
 			productRefGroup = 8E0A29E014D12A6E007E98B3 /* Products */;
@@ -2258,69 +2257,76 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5494CD623CEBE0E00B5E19B /* m_duel in Resources */,
-				F5494CB423CEBE0E00B5E19B /* db in Resources */,
-				F5494CC923CEBE0E00B5E19B /* m_basicsettings in Resources */,
-				F5494CD723CEBE0E00B5E19B /* m_class in Resources */,
-				F5494CAE23CEBE0E00B5E19B /* m_sandbox in Resources */,
-				F5494CC723CEBE0E00B5E19B /* m_menu in Resources */,
-				F5494CDE23CEBE0E00B5E19B /* lib in Resources */,
-				F5494CD923CEBE0E00B5E19B /* m_login in Resources */,
-				F5494CAD23CEBE0E00B5E19B /* m_shop in Resources */,
-				F5494CBA23CEBE0E00B5E19B /* m_live_menu in Resources */,
-				F5494CAB23CEBE0E00B5E19B /* m_achievement in Resources */,
-				F5494CBE23CEBE0E00B5E19B /* m_exchange in Resources */,
-				F5494CB723CEBE0E00B5E19B /* m_live in Resources */,
-				F5494CCC23CEBE0E00B5E19B /* m_collab in Resources */,
-				F5494CB223CEBE0E00B5E19B /* MTLmr3m.ttf in Resources */,
+				073C8ABE2418DB07008B6474 /* m_shop in Resources */,
+				073C8AAF2418DB07008B6474 /* m_award in Resources */,
+				073C8A972418DB07008B6474 /* m_achievement in Resources */,
+				073C8A932418DB07008B6474 /* m_basicsettings in Resources */,
+				073C8A992418DB07008B6474 /* start_old.lua in Resources */,
+				073C8AA32418DB07008B6474 /* m_scenario_menu in Resources */,
+				073C8AB82418DB07008B6474 /* m_team in Resources */,
+				073C8ABB2418DB07008B6474 /* m_live_menu in Resources */,
+				073C8AAA2418DB07008B6474 /* m_boot in Resources */,
+				073C8AC92418E033008B6474 /* Images.xcassets in Resources */,
+				073C8AA92418DB07008B6474 /* m_challenge in Resources */,
+				073C8AB72418DB07008B6474 /* m_sandbox in Resources */,
+				073C8A892418DB07008B6474 /* m_unit in Resources */,
+				073C8A852418DB07008B6474 /* m_menu in Resources */,
+				073C8AA62418DB07008B6474 /* db in Resources */,
+				073C8AAE2418DB07008B6474 /* m_player_profile in Resources */,
 				8E0A29EE14D12A6E007E98B3 /* InfoPlist.strings in Resources */,
-				F5494CB523CEBE0E00B5E19B /* start.lua in Resources */,
-				F5494CAC23CEBE0E00B5E19B /* m_notice in Resources */,
-				F5494CCA23CEBE0E00B5E19B /* formula in Resources */,
-				F5494CB823CEBE0E00B5E19B /* m_scenario_menu in Resources */,
-				F5494CCD23CEBE0E00B5E19B /* m_challenge in Resources */,
+				073C8A982418DB07008B6474 /* m_exchange in Resources */,
+				073C8A9E2418DB07008B6474 /* m_live_adjust in Resources */,
+				073C8A912418DB07008B6474 /* m_friends in Resources */,
+				073C8A8D2418DB07008B6474 /* Update.lua in Resources */,
 				8E0A29FA14D12A6E007E98B3 /* ViewController_iPhone.xib in Resources */,
-				F5494CE123CEBE0E00B5E19B /* config in Resources */,
-				F5494CBC23CEBE0E00B5E19B /* m_stamp in Resources */,
-				F5494CB323CEBE0E00B5E19B /* m_ranking in Resources */,
-				F5494CD223CEBE0E00B5E19B /* m_arcade in Resources */,
-				F5494CC023CEBE0E00B5E19B /* assets in Resources */,
-				F5494CD323CEBE0E00B5E19B /* m_debug in Resources */,
-				F5494CAF23CEBE0E00B5E19B /* m_secretbox in Resources */,
-				F5494CDB23CEBE0E00B5E19B /* m_quest in Resources */,
-				F5494CDD23CEBE0E00B5E19B /* m_festival in Resources */,
-				F5494CE023CEBE0E00B5E19B /* m_friends in Resources */,
+				073C8ABF2418DB07008B6474 /* m_tutorial in Resources */,
+				073C8A882418DB07008B6474 /* m_battle_event in Resources */,
+				073C8AB02418DB07008B6474 /* Maintenance.lua in Resources */,
+				073C8AA82418DB07008B6474 /* pl_live in Resources */,
+				073C8A962418DB07008B6474 /* lib in Resources */,
+				073C8AA22418DB07008B6474 /* pl_common in Resources */,
+				073C8AA02418DB07008B6474 /* pl_bootstrap in Resources */,
 				8E0A29FD14D12A6E007E98B3 /* ViewController_iPad.xib in Resources */,
-				B0A50A80153425AE008CCF28 /* Default@2x.png in Resources */,
-				F5494CC623CEBE0E00B5E19B /* m_favorite_ranking in Resources */,
-				F5494CB123CEBE0E00B5E19B /* m_award in Resources */,
-				F5494CD123CEBE0E00B5E19B /* m_item in Resources */,
-				F5494CD823CEBE0E00B5E19B /* m_online in Resources */,
-				F5494CDF23CEBE0E00B5E19B /* m_background in Resources */,
-				F5494CC523CEBE0E00B5E19B /* m_history in Resources */,
-				F5494CBD23CEBE0E00B5E19B /* m_album in Resources */,
-				F5494CDA23CEBE0E00B5E19B /* m_live_custom in Resources */,
-				F5494CB923CEBE0E00B5E19B /* m_scenario in Resources */,
-				35E358E716154D460092EB1E /* icon@2x.png in Resources */,
-				F5494CD523CEBE0E00B5E19B /* m_top in Resources */,
-				F5494CC123CEBE0E00B5E19B /* m_tutorial in Resources */,
-				F5494CBF23CEBE0E00B5E19B /* m_player_profile in Resources */,
-				F5494CC423CEBE0E00B5E19B /* m_hint in Resources */,
-				F5494CC223CEBE0E00B5E19B /* m_reward in Resources */,
-				F5494CCB23CEBE0E00B5E19B /* Maintenance.lua in Resources */,
-				F5494CCE23CEBE0E00B5E19B /* m_battle_event in Resources */,
-				F5494CBB23CEBE0E00B5E19B /* m_location in Resources */,
-				F5494CAA23CEBE0E00B5E19B /* m_boot in Resources */,
-				F5494CCF23CEBE0E00B5E19B /* m_idol_skill in Resources */,
-				17729FCE17C316F400D4E765 /* Default-568h@2x.png in Resources */,
-				F5494CD423CEBE0E00B5E19B /* m_download in Resources */,
-				F5494CE223CEBE0E00B5E19B /* m_team in Resources */,
-				F5494CC323CEBE0E00B5E19B /* m_event in Resources */,
-				F5494CC823CEBE0E00B5E19B /* m_sns in Resources */,
-				F5494CD023CEBE0E00B5E19B /* common in Resources */,
-				F5494CB023CEBE0E00B5E19B /* Update.lua in Resources */,
-				F5494CDC23CEBE0E00B5E19B /* m_unit in Resources */,
-				F5494CB623CEBE0E00B5E19B /* m_live_adjust in Resources */,
+				073C8AC02418DB07008B6474 /* m_item in Resources */,
+				073C8ABD2418DB07008B6474 /* m_debug in Resources */,
+				073C8A922418DB07008B6474 /* m_live in Resources */,
+				073C8A952418DB07008B6474 /* m_history in Resources */,
+				073C8A832418DB07008B6474 /* m_class in Resources */,
+				073C8A862418DB07008B6474 /* assets in Resources */,
+				073C8AB52418DB07008B6474 /* pl_live_menu in Resources */,
+				073C8A9F2418DB07008B6474 /* m_stamp in Resources */,
+				073C8ABA2418DB07008B6474 /* m_scenario in Resources */,
+				073C8A8E2418DB07008B6474 /* GPUDMLprob.otf in Resources */,
+				073C8A9B2418DB07008B6474 /* m_notice in Resources */,
+				073C8AAD2418DB07008B6474 /* formula in Resources */,
+				073C8A9A2418DB07008B6474 /* m_album in Resources */,
+				073C8A872418DB07008B6474 /* m_login in Resources */,
+				073C8AC12418DB07008B6474 /* common in Resources */,
+				073C8AB42418DB07008B6474 /* m_live_custom in Resources */,
+				073C8AA72418DB07008B6474 /* m_location in Resources */,
+				073C8A8F2418DB07008B6474 /* pl_assets in Resources */,
+				073C8ACD2418E5FF008B6474 /* LaunchScreen.storyboard in Resources */,
+				073C8A842418DB07008B6474 /* m_download in Resources */,
+				073C8AC22418DB07008B6474 /* m_arcade in Resources */,
+				073C8AA42418DB07008B6474 /* pl_ui in Resources */,
+				073C8A8B2418DB07008B6474 /* m_sns in Resources */,
+				073C8AB62418DB07008B6474 /* start.lua in Resources */,
+				073C8AAC2418DB07008B6474 /* m_hint in Resources */,
+				073C8A9D2418DB07008B6474 /* m_duel in Resources */,
+				073C8AB92418DB07008B6474 /* m_favorite_ranking in Resources */,
+				073C8AC32418DB07008B6474 /* m_online in Resources */,
+				073C8A942418DB07008B6474 /* MTLmr3m.ttf in Resources */,
+				073C8ABC2418DB07008B6474 /* m_festival in Resources */,
+				073C8A902418DB07008B6474 /* m_top in Resources */,
+				073C8AB12418DB07008B6474 /* m_secretbox in Resources */,
+				073C8AAB2418DB07008B6474 /* m_collab in Resources */,
+				073C8A8A2418DB07008B6474 /* m_quest in Resources */,
+				073C8A9C2418DB07008B6474 /* m_idol_skill in Resources */,
+				073C8AB32418DB07008B6474 /* config in Resources */,
+				073C8AA12418DB07008B6474 /* m_background in Resources */,
+				073C8AB22418DB07008B6474 /* m_event in Resources */,
+				073C8A8C2418DB07008B6474 /* m_ranking in Resources */,
+				073C8AA52418DB07008B6474 /* m_reward in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2331,6 +2337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0765A276240EB320000747CC /* DownloadClient.cpp in Sources */,
 				6F4AD67817003BAB007699EF /* MultithreadedNetwork.cpp in Sources */,
 				8E0A29F014D12A6E007E98B3 /* main.m in Sources */,
 				8E876090152015D100B36A2C /* CBuffer.cpp in Sources */,
@@ -2377,6 +2384,7 @@
 				8E8760E11520188000B36A2C /* CompositeManagement.cpp in Sources */,
 				8E8760E31520188B00B36A2C /* NodeAnimationAsset.cpp in Sources */,
 				8E8760E41520189500B36A2C /* TextureManagement.cpp in Sources */,
+				0765A277240EB320000747CC /* DownloadQueue.cpp in Sources */,
 				8E8760E6152018CE00B36A2C /* CKLBNodeVirtualDocument.cpp in Sources */,
 				8E8760E7152018D200B36A2C /* CKLBScoreNode.cpp in Sources */,
 				8E8760E8152018D500B36A2C /* CKLBSplineNode.cpp in Sources */,
@@ -2459,7 +2467,6 @@
 				8EA65E1E155D10490066E306 /* CKLBTextInputNode.cpp in Sources */,
 				8ECC289A156B4CD10022D683 /* CKLBLuaLibBIN.cpp in Sources */,
 				8ECC289B156B4CD10022D683 /* CKLBLuaLibCONV.cpp in Sources */,
-				F5AD7DE723D0077000297BFB /* AESCipher.m in Sources */,
 				8ECC289C156B4CD10022D683 /* CKLBLuaLibDATA.cpp in Sources */,
 				8ECC289D156B4CD10022D683 /* CKLBLuaLibDB.cpp in Sources */,
 				8ECC289E156B4CD10022D683 /* CKLBLuaLibGL.cpp in Sources */,
@@ -2566,6 +2573,7 @@
 				3287AC9E174C90D700DF0E35 /* ftsystem.c in Sources */,
 				3287ACA0174C90D700DF0E35 /* fttype1.c in Sources */,
 				3287ACA2174C90D700DF0E35 /* ftwinfnt.c in Sources */,
+				0765A278240EB320000747CC /* DownloadManager.cpp in Sources */,
 				3287ACA3174C90D700DF0E35 /* ftxf86.c in Sources */,
 				3287ACA6174C90D700DF0E35 /* bdf.c in Sources */,
 				3287ACB0174C90D700DF0E35 /* ftcache.c in Sources */,
@@ -2610,7 +2618,7 @@
 		8E0A29F814D12A6E007E98B3 /* ViewController_iPhone.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8E0A29F914D12A6E007E98B3 /* en */,
+				073C8AD02418EC18008B6474 /* Base */,
 			);
 			name = ViewController_iPhone.xib;
 			sourceTree = "<group>";
@@ -2618,7 +2626,7 @@
 		8E0A29FB14D12A6E007E98B3 /* ViewController_iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8E0A29FC14D12A6E007E98B3 /* en */,
+				073C8AD12418EC18008B6474 /* Base */,
 			);
 			name = ViewController_iPad.xib;
 			sourceTree = "<group>";
@@ -2630,27 +2638,47 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2659,13 +2687,14 @@
 		80C120D91682F365009C09EC /* Debug Opt */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_ENTITLEMENTS = "SampleProject/Sample Application.entitlements";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_ASSET_PATHS = "../../../OSX/sif/m_history ../../../OSX/sif/m_unit ../../../OSX/sif/assets ../../../OSX/sif/m_sns ../../../OSX/sif/m_scenario_menu ../../../OSX/sif/common ../../../OSX/sif/m_hint ../../../OSX/sif/m_online ../../../OSX/sif/Maintenance.lua ../../../OSX/sif/m_festival ../../../OSX/sif/m_idol_skill ../../../OSX/sif/m_tutorial ../../../OSX/sif/m_sandbox ../../../OSX/sif/m_event ../../../OSX/sif/m_top ../../../OSX/sif/lib ../../../OSX/sif/m_challenge ../../../OSX/sif/m_battle_event ../../../OSX/sif/m_class ../../../OSX/sif/m_shop ../../../OSX/sif/m_notice ../../../OSX/sif/m_reward ../../../OSX/sif/start.lua ../../../OSX/sif/Update.lua ../../../OSX/sif/m_team ../../../OSX/sif/m_download ../../../OSX/sif/m_player_profile ../../../OSX/sif/m_live ../../../OSX/sif/m_item ../../../OSX/sif/m_quest ../../../OSX/sif/formula ../../../OSX/sif/m_duel ../../../OSX/sif/config ../../../OSX/sif/m_live_custom ../../../OSX/sif/m_friends ../../../OSX/sif/m_collab ../../../OSX/sif/m_ranking ../../../OSX/sif/m_debug ../../../OSX/sif/m_album ../../../OSX/sif/m_favorite_ranking ../../../OSX/sif/m_location ../../../OSX/sif/m_scenario ../../../OSX/sif/m_stamp ../../../OSX/sif/MTLmr3m.ttf ../../../OSX/sif/m_background ../../../OSX/sif/m_login ../../../OSX/sif/m_basicsettings ../../../OSX/sif/m_award ../../../OSX/sif/m_arcade ../../../OSX/sif/m_exchange ../../../OSX/sif/m_boot ../../../OSX/sif/m_achievement ../../../OSX/sif/db ../../../OSX/sif/m_menu ../../../OSX/sif/m_secretbox ../../../OSX/sif/m_live_menu ../../../OSX/sif/m_live_adjust";
+				CURRENT_PROJECT_VERSION = 6.10.2;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = A3VQ954R33;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2676,6 +2705,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 					FT2_BUILD_LIBRARY,
+					GLES_SILENCE_DEPRECATION,
 				);
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"DEBUG=1",
@@ -2684,7 +2714,7 @@
 				HEADER_SEARCH_PATHS = "";
 				"HEADER_SEARCH_PATHS[arch=*]" = "\"$(SRCROOT)/../../../../libs/freeType/include\"";
 				INFOPLIST_FILE = "SampleProject/SampleProject-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2692,12 +2722,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../curl/ios-dev/lib\"",
 					"\"$(SRCROOT)/../..\"",
-					"\"$(SRCROOT)/../../openssl\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = misaki.LLSIF;
-				PRODUCT_NAME = "Sample Application";
+				MARKETING_VERSION = 6.10.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.apache.playground-sif";
+				PRODUCT_NAME = Playground;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/Cellar/openssl@1.1/1.1.1d/include/";
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Debug Opt";
@@ -2706,27 +2736,47 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2736,22 +2786,40 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2762,13 +2830,14 @@
 		8E0A2A1614D12A6E007E98B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_ENTITLEMENTS = "SampleProject/Sample Application.entitlements";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_ASSET_PATHS = "../../../OSX/sif/m_history ../../../OSX/sif/m_unit ../../../OSX/sif/assets ../../../OSX/sif/m_sns ../../../OSX/sif/m_scenario_menu ../../../OSX/sif/common ../../../OSX/sif/m_hint ../../../OSX/sif/m_online ../../../OSX/sif/Maintenance.lua ../../../OSX/sif/m_festival ../../../OSX/sif/m_idol_skill ../../../OSX/sif/m_tutorial ../../../OSX/sif/m_sandbox ../../../OSX/sif/m_event ../../../OSX/sif/m_top ../../../OSX/sif/lib ../../../OSX/sif/m_challenge ../../../OSX/sif/m_battle_event ../../../OSX/sif/m_class ../../../OSX/sif/m_shop ../../../OSX/sif/m_notice ../../../OSX/sif/m_reward ../../../OSX/sif/start.lua ../../../OSX/sif/Update.lua ../../../OSX/sif/m_team ../../../OSX/sif/m_download ../../../OSX/sif/m_player_profile ../../../OSX/sif/m_live ../../../OSX/sif/m_item ../../../OSX/sif/m_quest ../../../OSX/sif/formula ../../../OSX/sif/m_duel ../../../OSX/sif/config ../../../OSX/sif/m_live_custom ../../../OSX/sif/m_friends ../../../OSX/sif/m_collab ../../../OSX/sif/m_ranking ../../../OSX/sif/m_debug ../../../OSX/sif/m_album ../../../OSX/sif/m_favorite_ranking ../../../OSX/sif/m_location ../../../OSX/sif/m_scenario ../../../OSX/sif/m_stamp ../../../OSX/sif/MTLmr3m.ttf ../../../OSX/sif/m_background ../../../OSX/sif/m_login ../../../OSX/sif/m_basicsettings ../../../OSX/sif/m_award ../../../OSX/sif/m_arcade ../../../OSX/sif/m_exchange ../../../OSX/sif/m_boot ../../../OSX/sif/m_achievement ../../../OSX/sif/db ../../../OSX/sif/m_menu ../../../OSX/sif/m_secretbox ../../../OSX/sif/m_live_menu ../../../OSX/sif/m_live_adjust";
+				CURRENT_PROJECT_VERSION = 6.10.2;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = A3VQ954R33;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2782,15 +2851,19 @@
 					FT2_BUILD_LIBRARY,
 					"DEBUG=1",
 					"$(inherited)",
+					GLES_SILENCE_DEPRECATION,
 				);
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "";
-				"HEADER_SEARCH_PATHS[arch=*]" = "\"$(SRCROOT)/../../../../libs/freeType/include\"";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"\"$(SRCROOT)/../../../../libs/freeType/include\"",
+					"\"$(SRCROOT)/../../../../source/Core\"",
+				);
 				INFOPLIST_FILE = "SampleProject/SampleProject-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2798,12 +2871,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../curl/ios-dev/lib\"",
 					"\"$(SRCROOT)/../..\"",
-					"\"$(SRCROOT)/../../openssl\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = misaki.LLSIF;
-				PRODUCT_NAME = "Sample Application";
+				MARKETING_VERSION = 6.10.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.apache.playground-sif";
+				PRODUCT_NAME = Playground;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/Cellar/openssl@1.1/1.1.1d/include/";
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2811,13 +2884,14 @@
 		8E0A2A1714D12A6E007E98B3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_ENTITLEMENTS = "SampleProject/Sample Application.entitlements";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_ASSET_PATHS = "../../../OSX/sif/m_history ../../../OSX/sif/m_unit ../../../OSX/sif/assets ../../../OSX/sif/m_sns ../../../OSX/sif/m_scenario_menu ../../../OSX/sif/common ../../../OSX/sif/m_hint ../../../OSX/sif/m_online ../../../OSX/sif/Maintenance.lua ../../../OSX/sif/m_festival ../../../OSX/sif/m_idol_skill ../../../OSX/sif/m_tutorial ../../../OSX/sif/m_sandbox ../../../OSX/sif/m_event ../../../OSX/sif/m_top ../../../OSX/sif/lib ../../../OSX/sif/m_challenge ../../../OSX/sif/m_battle_event ../../../OSX/sif/m_class ../../../OSX/sif/m_shop ../../../OSX/sif/m_notice ../../../OSX/sif/m_reward ../../../OSX/sif/start.lua ../../../OSX/sif/Update.lua ../../../OSX/sif/m_team ../../../OSX/sif/m_download ../../../OSX/sif/m_player_profile ../../../OSX/sif/m_live ../../../OSX/sif/m_item ../../../OSX/sif/m_quest ../../../OSX/sif/formula ../../../OSX/sif/m_duel ../../../OSX/sif/config ../../../OSX/sif/m_live_custom ../../../OSX/sif/m_friends ../../../OSX/sif/m_collab ../../../OSX/sif/m_ranking ../../../OSX/sif/m_debug ../../../OSX/sif/m_album ../../../OSX/sif/m_favorite_ranking ../../../OSX/sif/m_location ../../../OSX/sif/m_scenario ../../../OSX/sif/m_stamp ../../../OSX/sif/MTLmr3m.ttf ../../../OSX/sif/m_background ../../../OSX/sif/m_login ../../../OSX/sif/m_basicsettings ../../../OSX/sif/m_award ../../../OSX/sif/m_arcade ../../../OSX/sif/m_exchange ../../../OSX/sif/m_boot ../../../OSX/sif/m_achievement ../../../OSX/sif/db ../../../OSX/sif/m_menu ../../../OSX/sif/m_secretbox ../../../OSX/sif/m_live_menu ../../../OSX/sif/m_live_adjust";
+				CURRENT_PROJECT_VERSION = 6.10.2;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = A3VQ954R33;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -2827,10 +2901,11 @@
 					OPENGL2_OFF,
 					FT2_BUILD_LIBRARY,
 					"$(inherited)",
+					GLES_SILENCE_DEPRECATION,
 				);
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../../libs/freeType/include\"";
 				INFOPLIST_FILE = "SampleProject/SampleProject-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2838,12 +2913,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../curl/ios-appstore/lib\"",
 					"\"$(SRCROOT)/../..\"",
-					"\"$(SRCROOT)/../../openssl\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = misaki.LLSIF;
-				PRODUCT_NAME = "Sample Application";
+				MARKETING_VERSION = 6.10.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.apache.playground-sif";
+				PRODUCT_NAME = Playground;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/Cellar/openssl@1.1/1.1.1d/include/";
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
