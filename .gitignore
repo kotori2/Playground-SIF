@@ -35,9 +35,15 @@ __MACOSX/
 /Engine/porting/Android/GameEngine-android/assets/AppAssets.zip
 /Engine/porting/Android/GameEngine-android/assets/version
 
-# iOS 
+# iOS/macOS
+/Engine/porting/iOS/Project/SampleProject/SampleProject.xcodeproj/project.xcworkspace/xcuserdata/
 /Engine/porting/iOS/Project/SampleProject/SampleProject.xcodeproj/xcuserdata/
+/Engine/porting/iOS/Project/SampleProject/Resources/
+/Engine/porting/iOS/Project/SampleProject/ProjectResources/
 /Engine/porting/OSX/sif/
+/Engine/porting/OSX/Playground.xcodeproj/project.xcworkspace/
+/Engine/porting/OSX/Playground.xcodeproj/xcuserdata/
+/Engine/porting/OSX/SIF-Resources/
 
 # Windows stuffs
 /Engine/porting/Win32/Output/Debug/OSSGameLibraryWin32.*

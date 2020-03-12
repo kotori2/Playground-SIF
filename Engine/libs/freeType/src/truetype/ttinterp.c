@@ -1671,9 +1671,9 @@
           FT_F26Dot6  x, y;
 
 
-          x = TT_MulFix14( CUR.tt_metrics.x_ratio,
+          x = TT_MulFix14( (FT_UInt)CUR.tt_metrics.x_ratio,
                            CUR.GS.projVector.x );
-          y = TT_MulFix14( CUR.tt_metrics.y_ratio,
+          y = TT_MulFix14( (FT_UInt)CUR.tt_metrics.y_ratio,
                            CUR.GS.projVector.y );
           CUR.tt_metrics.ratio = TT_VecLen( x, y );
         }
@@ -5643,7 +5643,7 @@
 
   Fail:
     CUR.GS.loop = 1;
-    CUR.new_top = CUR.args;
+    CUR.new_top = (FT_UInt)CUR.args;
   }
 
 
@@ -5859,7 +5859,7 @@
 
   Fail:
     CUR.GS.loop = 1;
-    CUR.new_top = CUR.args;
+    CUR.new_top = (FT_UInt)CUR.args;
   }
 
 
@@ -6104,7 +6104,7 @@
 
   Fail:
     CUR.GS.loop = 1;
-    CUR.new_top = CUR.args;
+    CUR.new_top = (FT_UInt)CUR.args;
   }
 
 
@@ -6726,7 +6726,7 @@
 
   Fail:
     CUR.GS.loop = 1;
-    CUR.new_top = CUR.args;
+    CUR.new_top = (FT_UInt)CUR.args;
   }
 
 
@@ -6986,7 +6986,7 @@
 
   Fail:
     CUR.GS.loop = 1;
-    CUR.new_top = CUR.args;
+    CUR.new_top = (FT_UInt)CUR.args;
   }
 
 
@@ -7422,7 +7422,7 @@
     }
 
   Fail:
-    CUR.new_top = CUR.args;
+    CUR.new_top = (FT_UInt)CUR.args;
   }
 
 
@@ -7518,7 +7518,7 @@
     }
 
   Fail:
-    CUR.new_top = CUR.args;
+    CUR.new_top = (FT_UInt)CUR.args;
   }
 
 

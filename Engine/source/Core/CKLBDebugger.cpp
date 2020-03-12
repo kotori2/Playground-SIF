@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -83,7 +83,7 @@ void CKLBDebuggerContext::returnResult4(u32 commandID, u32 value) {
 }
 
 void CKLBDebuggerContext::returnResultString(u32 commandID, const char* string) {
-	int length = strlen(string) + 1;
+	int length = (u32)strlen(string) + 1;
 	u8* pRes = m_pCommunicator->allocateResult(commandID, 4 + length);
 	if (pRes) {
 		writeU32(pRes, length); pRes += 4;

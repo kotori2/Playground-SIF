@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +98,7 @@ CKLBAsyncLoader::init(CKLBTask* pTask, const char** assets, u32 count, u32 datas
     if(!m_callback) { return false; }
 
 	// Properties definition
-	if(!setupPropertyList((const char**)CKLBAsyncLoader::ms_propItems,SizeOfArray(ms_propItems))) {
+	if(!setupPropertyList((const char**)CKLBAsyncLoader::ms_propItems, (int)SizeOfArray(ms_propItems))) {
 		return false;
 	}
 

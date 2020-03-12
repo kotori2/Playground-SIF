@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -428,7 +428,7 @@ static float _mainScreenScale = -1.0f;
 }
 
 // WebViewによるロードが失敗した
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+- (void)webView:(WKWebView *)webView didFailNavigation:(NSError *)error {
     
     CPFInterface::getInstance().platform().logging(">>>>>>>>> [web view] didFailLoadWithError %@", error);
     
@@ -442,7 +442,7 @@ static float _mainScreenScale = -1.0f;
 }
 
 // WebViewによるロードが開始された
-- (void)webViewDidStartLoad:(UIWebView*)webView {
+- (void)didStartProvisionalNavigation:(WKWebView*)webView {
     // 対象となるWidgetを検索する
     CiOSWebWidget * pWidget = CiOSWebWidget::searchWidget(webView);
     // native call の処理を記述。
@@ -451,7 +451,7 @@ static float _mainScreenScale = -1.0f;
 }
 
 // WebViewによるロードが終わった
-- (void)webViewDidFinishLoad:(UIWebView*)webView {
+- (void)didFinishNavigation:(WKWebView*)webView {
     // 対象となるWidgetを検索する
     CiOSWebWidget * pWidget = CiOSWebWidget::searchWidget(webView);
     // native call の処理を記述。
@@ -459,8 +459,8 @@ static float _mainScreenScale = -1.0f;
     CPFInterface::getInstance().platform().logging(">>>>>>>>> [web view] webViewDidFinishLoad");
 }
 
-- (BOOL)webView:(UIWebView *)webView
-        shouldStartLoadWithRequest:(NSURLRequest *)request
+- (BOOL)webView:(WKWebView *)webView
+        decidePolicyForNavigationAction:(NSURLRequest *)request
         navigationType:(UIWebViewNavigationType)navigationType {
     // ページ内遷移でカスタムヘッダが削られる事があるので、
     // 無い場合は付け足して投げ直す

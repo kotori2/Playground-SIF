@@ -10,7 +10,7 @@
 #import <sys/types.h>
 #import <sys/sysctl.h>
 // *** start including openssl ***
-#include <openssl/sha.h>
+#include "openssl/sha.h"
 #include <openssl/hmac.h>
 #include <openssl/rsa.h>
 #include <openssl/pem.h>
@@ -37,7 +37,10 @@
 CiOSPlatform *CiOSPlatform::m_instance = 0;
 
 CiOSPlatform::CiOSPlatform(EAGLView *pView, float scale)
-: m_pView(pView), m_scale(scale) {
+: m_pView(pView)
+, m_scale(scale)
+, m_bNoDefaultFont(false)
+{
 	//-----機種取得
 	size_t size;
 	sysctlbyname("hw.machine", NULL, &size, NULL, 0);
@@ -398,7 +401,7 @@ s64 CiOSPlatform::getElapsedTime(void) {
 }
 
 bool CiOSPlatform::registerFont(const char *logicalName, const char *physFile, bool default_) {
-	return true;
+	return FontObject::registerFont(logicalName, physFile, default_) | m_bNoDefaultFont;
 }
 
 void *CiOSPlatform::getFont(int size, const char *fontName, float *pAscent) {
@@ -420,10 +423,10 @@ void CiOSPlatform::deleteFontSystem(void *pFont) {
 
 bool CiOSPlatform::renderText(const char *utf8String, void *pFont, u32 color,
                               u16 width, u16 height, u8 *pBuffer8888,
-                              s16 stride, s16 base_x, s16 base_y, bool use4444) {
+                              s16 stride, s16 base_x, s16 base_y, u8 embolden, bool use4444) {
 	FontObject *pObjFont = (FontObject *)pFont;
 	if (pObjFont) {
-		pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, use4444);
+		pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, use4444, bold);
 	}
 	return true;
 }
@@ -936,19 +939,19 @@ bool CiOSPlatform::icreateEmptyFile(const char *name) {
 	return false;
 }
 
-int CiOSPlatform::HMAC_SHA1(const char* content, const char* key, char* retbuf)
+int CiOSPlatform::HMAC_SHA1(const char* string, const char* key, int keyLen, char* retbuf)
 {
-    u8* hash = HMAC(EVP_sha1(), key, strlen(key), (const unsigned char*)content, strlen(content), NULL, NULL);
+    u8* hash = HMAC(EVP_sha1(), key, keyLen, (const unsigned char*)string, strlen(string), NULL, NULL);
     char* ptr = retbuf;
     for (int i = 0; i < 20; i++)
     {
         sprintf(ptr, "%02x", hash[i]);
         ptr += strlen(ptr);
     }
-    return strlen(retbuf);
+    return (int)strlen(retbuf);
 }
 
-int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int* outLen)
+int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, const char* key, unsigned char* out, int outLen)
 {
     EVP_CIPHER_CTX* ctx;
 	int len;
@@ -962,6 +965,8 @@ int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, cons
 		if (ctx) EVP_CIPHER_CTX_free(ctx);
 		return 0;
 	}
+    
+    int resultLen = 0;
 
 	// put iv into beginning
 	// we don't need to encrypt it
@@ -975,23 +980,40 @@ int CiOSPlatform::encryptAES128CBC(const char* plaintext, int plaintextLen, cons
 	if (EVP_EncryptUpdate(ctx, out + 16, &len, (u8*)plaintext, plaintextLen) == 0)
 		goto fail;
 
-	*outLen = len + 16; // include IV length
+	resultLen = len + 16; // include IV length
 	if (EVP_EncryptFinal_ex(ctx, out + len + 16, &len) == 0)
 		goto fail;
-	*outLen += len;
+	resultLen += len;
 
 	/* Clean up */
 	EVP_CIPHER_CTX_free(ctx);
-	return 1;
+	return resultLen;
 }
 
-int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int* outLen)
+int CiOSPlatform::decryptAES128CBC(unsigned const char* ciphertext, int ciphertextLen, const char* key, char* out, int outLen){
+    return 0;
+}
+
+int CiOSPlatform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen)
 {
 	FILE* publicKey = fopen("public.pem", "rb");
 	klb_assert(publicKey, "public.pem not exist");
 	RSA* rsa = RSA_new();
 	rsa = PEM_read_RSA_PUBKEY(publicKey, &rsa, NULL, NULL);
 	fclose(publicKey);
-	*outLen = RSA_public_encrypt(plaintextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
-	return 1;
+    int len = RSA_public_encrypt(plaintextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
+	
+    return len;
+}
+
+bool CiOSPlatform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash){
+    return 0;
+}
+
+int CiOSPlatform::getRandomBytes(char* out, int len){
+    return 0;
+}
+
+int CiOSPlatform::getAuthSecret(char* out, int len){
+    return 0;
 }

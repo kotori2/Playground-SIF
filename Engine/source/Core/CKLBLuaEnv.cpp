@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -541,7 +541,7 @@ CKLBLuaEnv::loadScript(const char *scriptUrl)
     }
 
     // 最後まで読む
-    int ret = pRds->readBlock(buf, ssize);
+    int ret = pRds->readBlock(buf, (u32)ssize);
     delete pRds;
 	buf[ ssize ] = 0;
     if(ret == 0) { return false; }

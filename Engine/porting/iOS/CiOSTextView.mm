@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -85,13 +85,22 @@ float rectMargin = 8.0f;
     if([[self text] length] == 0 && [[self m_placeHolder] length] > 0)
     {
         [m_placeHolderColor set];
+        
+        // Make a copy of the default paragraph style
+        NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        // Set line break mode
+        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        // Set text alignment
+        paragraphStyle.alignment = self.textAlignment;
+
+        NSDictionary *attributes = @{ NSFontAttributeName: self.font,
+                            NSParagraphStyleAttributeName: paragraphStyle };
+
         [m_placeHolder drawInRect:CGRectMake(rectMargin,
                                              rectMargin,
                                              self.frame.size.width - (rectMargin * 2),
                                              self.frame.size.height - (rectMargin * 2))
-                         withFont:self.font
-                    lineBreakMode:UILineBreakModeClip
-                        alignment:self.textAlignment];
+                   withAttributes:attributes];
     }
     
     // 表示

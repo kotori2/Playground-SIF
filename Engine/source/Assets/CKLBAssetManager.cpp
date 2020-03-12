@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -800,7 +800,7 @@ CKLBAbstractAsset::allocateName(void* ptr, u32 size)
 bool 
 CKLBAbstractAsset::setNameDirect(const char* name) 
 {
-	int size = strlen(name) + 1;
+	int size = (int)strlen(name) + 1;
 	char* buf = KLBNEWA(char, size);
 	if (buf) {
 		memcpy(buf,name,size);

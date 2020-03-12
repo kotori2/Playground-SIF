@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -1621,7 +1621,7 @@ void CKLBNode::kickAnimation(const char* animName,u32* refCounterPtr, bool doBle
 #include "CKLBUIScrollBar.h"
 #include "CKLBUICanvas.h"
 #include "CKLBUIScale9.h"
-#include <CKLBUILabel.h>
+#include "CKLBUILabel.h"
 
 /*static*/char		CKLBCompositeAsset::tmpBuff[TMP_COMPOSITE_ASSET_STR_BUFFSIZE];
 /*static*/char*		CKLBCompositeAsset::ptrBuff;
@@ -2227,7 +2227,7 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 				CKLBUIGroup * tsk = CKLBUIGroup::create(
 					pParentTask, 
 					parent,
-					/*newPrio,*/ // Guillaume :  Order is not used anymore in Group
+					newPrio,
 					templateDef->x,
 					templateDef->y);
 

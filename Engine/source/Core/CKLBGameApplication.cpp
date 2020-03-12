@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -122,9 +122,9 @@ CKLBGameApplication::getPhysicalScreenHeight()
 bool
 CKLBGameApplication::setFilePath(const char * strPath)
 {
-	int len = (!strPath) ? 0 : strlen(strPath);
+	size_t len = (!strPath) ? 0 : strlen(strPath);
 	const char * ptr = (!len) ? "start.lua" : strPath;
-	len = strlen(ptr) + sizeof("file://install/");
+	len = strlen(ptr) + (size_t)sizeof("file://install/");
 	char * buf = KLBNEWA(char, len + 1);
 	sprintf(buf, "file://install/%s", ptr);
 	m_bootFile = (const char *)buf;
@@ -250,7 +250,7 @@ void
 CKLBGameApplication::controlEvent(EVENT_TYPE type, IWidget * pWidget,
 									size_t datasize1, void * pData1, size_t datasize2, void * pData2)
 {
-    CKLBOSCtrlQueue::getInstance().addQueue(type, pWidget, datasize1, pData1, datasize2, pData2);
+    CKLBOSCtrlQueue::getInstance().addQueue(type, pWidget, (u32)datasize1, pData1, (u32)datasize2, pData2);
 }
 
 bool

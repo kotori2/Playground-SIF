@@ -90,5 +90,5 @@ CiOSSysResource::getDevID(char * retBuf, int maxlen)
         sprintf(ptr, "%02x", (int)m_devId[i]);
         ptr += strlen(ptr);
     }
-    return strlen(retBuf);
+    return (uint32_t)strlen(retBuf);
 }

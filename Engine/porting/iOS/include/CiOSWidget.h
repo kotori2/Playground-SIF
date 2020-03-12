@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +24,7 @@
 
 #import <MediaPlayer/MediaPlayer.h>
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 #include "CiOSPlatform.h"
 #import "CiOSWebView.h"
 #import "CiOSMovieView.h"
@@ -164,7 +165,7 @@ public:
     inline void setFirst() { m_bFirst = false; }
     
     // 指定された UIWebView を持つ CiOSWebWidget を検索
-    static CiOSWebWidget * searchWidget(UIWebView * pWebView);
+    static CiOSWebWidget * searchWidget(WKWebView * pWebView);
 
 private:
     void set_move(int x, int y, int width, int height);

@@ -4,12 +4,6 @@
 #define UIShader_h
 #include "CKLBUITask.h"
 
-enum {
-	SHADER_ANIM,
-	PSHADER_VALUE,
-
-};
-
 class CKLBUIShader : public CKLBUITask
 {
 	friend class CKLBTaskFactory<CKLBUIShader>;
@@ -18,8 +12,10 @@ private:
 	virtual ~CKLBUIShader();
 
 	bool initCore();
+	bool init();
 public:
 	virtual u32 getClassID();
+	static CKLBUIShader* create();
 	bool initUI(CLuaState& lua);
 	int commandUI(CLuaState& lua, int argc, int cmd);
 
@@ -27,6 +23,7 @@ public:
 	void dieUI();
 
 private:
+	const char*			m_shaderName;
 	static	PROP_V2		ms_propItems[];
 };
 

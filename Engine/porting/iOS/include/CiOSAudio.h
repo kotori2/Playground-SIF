@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -276,7 +276,7 @@ private:
     AudioStreamBasicDescription         m_clientFormat;
     SInt64                              m_totalFrames;
     
-    AudioUnitSampleType             **  m_playBuffer;
+    SInt32                          **  m_playBuffer;
     
     CiOSAudioSession                *   m_begin;
     CiOSAudioSession                *   m_end;

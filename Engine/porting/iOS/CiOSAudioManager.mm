@@ -392,7 +392,7 @@ void CiOSAudioManager::SetSEMasterVolume( float _vol )
 bool CiOSAudioManager::isMusicPlayerPlaying( void )
 {
     // IPlatformRequest *pform = CiOSPlatform::getInstance();
-    MPMusicPlaybackState ipodState = [[MPMusicPlayerController iPodMusicPlayer] playbackState];
+    MPMusicPlaybackState ipodState = [[MPMusicPlayerController systemMusicPlayer] playbackState];
     // MPMusicPlaybackState appliState = [[MPMusicPlayerController applicationMusicPlayer] playbackState];
     
     //MPMediaItem *ipodMusicItem = [[MPMusicPlayerController iPodMusicPlayer] nowPlayingItem];

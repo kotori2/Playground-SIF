@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -96,7 +96,7 @@ CKLBBinArray::loadAsset(const char * path)
 		delete pStream;
 		return false;
 	}
-	pStream->readBlock(pBuf, size);
+	pStream->readBlock(pBuf, (u32)size);
 	delete pStream;
 
 	m_size = size;

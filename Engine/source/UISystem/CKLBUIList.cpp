@@ -1547,6 +1547,46 @@ CKLBUIList::commandUI(CLuaState& lua, int argc, int cmd)
 		break;
 	case UI_LIST_GET_ITEMCOUNT:			ret = cmdGetItemCount(lua,argc);		break;
 	case UI_LIST_GET_ITEMFORM:			ret = cmdGetItemForm(lua,argc);			break;
+	case UI_LIST_BAR_ENABLE_SHOW_UPDATE: {
+		DEBUG_PRINT("UI_LIST_BAR_ENABLE_SHOW_UPDATE not implemented yet");
+		lua.printStack();
+		break;
+	}
+	case UI_LIST_SET_ITEM_UPDATE_CALLBACK: {
+		DEBUG_PRINT("UI_LIST_SET_ITEM_UPDATE_CALLBACK not implemented yet");
+		lua.retBool(false);
+		break;
+	}
+	case UI_LIST_IS_ACTIVE_ITEM: {
+		// no idea how to mark current active item
+		// because there is no UI_LIST command when we select an item
+		DEBUG_PRINT("UI_LIST_IS_ACTIVE_ITEM not implemented yet");
+		lua.retBoolean(false);
+		break;
+	}
+	case UI_LIST_SET_DRAG_CALLBACK: {
+		DEBUG_PRINT("UI_LIST_SET_DRAG_CALLBACK not implemented yet");
+		lua.retBool(false);
+		break;
+	}
+	case UI_LIST_SHOW_SCROLLBAR: { // warning: not tested
+		m_scrBar.setVisible(true);
+		break;
+	}
+	case UI_LIST_HIDE_SCROLLBAR: { // warning: not tested
+		m_scrBar.setVisible(false);
+		break;
+	}
+	case UI_LIST_SET_TEMPLATE: { // 25.02.2020 not used in the game
+		DEBUG_PRINT("UI_LIST_SET_TEMPLATE not implemented yet");
+		lua.printStack();
+		break;
+	}
+	case UI_LIST_GET_DYNAMICIDSTRING: { // 25.02.2020 not used in the game
+		DEBUG_PRINT("UI_LIST_GET_DYNAMICIDSTRING not implemented yet");
+		lua.printStack();
+		break;
+	}
 	}
 	return ret;
 }

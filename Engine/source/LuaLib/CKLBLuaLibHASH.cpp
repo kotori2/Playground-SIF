@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,7 +39,7 @@ CKLBLuaLibHASH::luaHashSha1(lua_State * L)
 	char hash_buf[41];
 	SHA1Context sha;
 	SHA1Reset(&sha);
-	SHA1Input(&sha, reinterpret_cast<unsigned char const*>(src), strlen(src));
+	SHA1Input(&sha, reinterpret_cast<unsigned char const*>(src), (u32)strlen(src));
 	if (!SHA1Result(&sha)) {
 		return 0;
 	}

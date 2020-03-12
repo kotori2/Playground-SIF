@@ -134,7 +134,7 @@ int wind_utf8ucs4(const char *in, unsigned *out, unsigned *out_len)
 		}
 		o++;
 	}
-	*out_len = o;
+	*out_len = (uint32_t)o;
 	return 0;
 }
 

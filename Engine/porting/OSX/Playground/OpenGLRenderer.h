@@ -54,7 +54,7 @@
 	GLuint m_defaultFBOName;
 }
 
-- (id)initWithDefaultFBO:(GLuint)defaultFBOName;
+- (id)init;
 - (void)resizeWithWidth:(GLuint)width AndHeight:(GLuint)height;
 - (void)render;
 - (void)dealloc;

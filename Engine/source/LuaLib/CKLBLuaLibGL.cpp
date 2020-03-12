@@ -50,12 +50,19 @@ CKLBLuaLibGL::addLibrary()
 	addFunction("GL_GetPhysicalSize",		CKLBLuaLibGL::luaGLGetPhysicalSize		);
 	addFunction("GL_IsSafeAreaScreen",		CKLBLuaLibGL::luaGLIsSafeAreaScreen		);
 	addFunction("GL_ComputeMatrixFromToRect",CKLBLuaLibGL::luaGLComputeMatrixFromToRect);
-	addFunction("GL_CreateShader",			CKLBLuaLibGL::luaGLCreateShader);
+	addFunction("GL_CreateShader",			CKLBLuaLibGL::luaGLCreateShader			);
+	addFunction("GL_StackShaderParam",		CKLBLuaLibGL::luaGLStackShaderParam		);
+}
+
+int CKLBLuaLibGL::luaGLStackShaderParam(lua_State * L)
+{
+	return 0;
 }
 
 int CKLBLuaLibGL::luaGLCreateShader(lua_State* L) {
 	CLuaState lua(L);
-	lua.retBool(false);
+	DEBUG_PRINT("GL_CreateShader not implemented yet");
+	lua.retBool(true);
 	return 1;
 }
 

@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -209,7 +209,7 @@ CKLBLuaPropTask::getPropertyByScript(lua_State * L)
 					s32 i;
 					if (prop->getter.g) {
 						getGenIntT fct = prop->getter.g;
-						i = (*this.*fct)(prop->offset);
+						i = (*this.*fct)((u32)prop->offset);
 					} else {
 						klb_assertAlways("Dynamic type always work with getter/setter");
 						i = 0; // Compiler Warning
