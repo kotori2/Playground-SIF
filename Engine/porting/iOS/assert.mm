@@ -34,24 +34,35 @@ void assertFunction(int line, const char* file, const char* msg,...) {
     sprintf(alertBuf, "Assert l.%i in %s : %s", line, file, pszBuf);
     NSString * alert_msg = [NSString stringWithCString:alertBuf encoding:NSUTF8StringEncoding];
 
-	NSLog(@"%s", alertBuf); 
+	NSLog(@"%s", alertBuf);
     
     CiOSPlatform * pPlatform = CiOSPlatform::getInstance();
+    
+    __block BOOL done = NO;
+    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Assertion"
                                                                              message:alert_msg
                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    UILabel *message = alertController.view.subviews[0].subviews[0].subviews[0].subviews[0].subviews[0].subviews[2];
+    message.textAlignment = NSTextAlignmentLeft;
 
     UIAlertAction *abortButton = [UIAlertAction actionWithTitle:@"abort"
                                                     style:UIAlertActionStyleDefault
-                                                  handler:^(UIAlertAction *action) {
-                                                    abort();
-                                                  }];
-
+                                                  handler:^(UIAlertAction *action) { abort(); }];
     [alertController addAction:abortButton];
-
+#ifdef DEBUG
+    UIAlertAction *ignoreButton = [UIAlertAction actionWithTitle:@"ignore"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction *action) { done = YES; }];
+    [alertController addAction:ignoreButton];
+#endif
+    
     [pPlatform->m_pViewController presentViewController:alertController animated:YES completion:nil];
     
-    // TODO: crash the game once alert generated.
+    /*while(!done){
+        [NSThread sleepForTimeInterval:0.2];
+    }*/
+    // TODO: pause the game once alert generated.
 }
     
 void msgBox(char * log) {
