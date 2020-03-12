@@ -24,8 +24,9 @@
 #include <sys/mount.h>
 #import <mach/mach_time.h>
 #import <CommonCrypto/CommonDigest.h>
-#import <CommonCrypto/CommonRandom.h>
+#import <CommonCrypto/CommonCryptor.h>
 #import <Security/Security.h>
+#import <Security/SecBase.h>
 #import <StoreKit/StoreKit.h>
 #import <sys/xattr.h>
 #import <sys/types.h>
@@ -198,15 +199,15 @@ CiOSPlatform::logging(const char * format, ...)
 
 const char* CiOSPlatform::getBundleVersion() {
     //set version string here instead of xcode project setting
-    const char* bundle_version = "6.9.1";
-    return /*[[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"] cStringUsingEncoding:NSUTF8StringEncoding]*/ bundle_version;
+    //const char* bundle_version = "6.9.1";
+    return [[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"] cStringUsingEncoding:NSUTF8StringEncoding];
 }
 
 	ITmpFile *
 CiOSPlatform::openTmpFile(const char * tmpPath)
 {
 	const char * target = "file://external/";
-	int len = strlen(target);
+	size_t len = strlen(target);
 	if(!strncmp(tmpPath, target, len)) {
 		// 平成24年11月27日(火)
 		// CiOSTmpFileのファイルパスの解決の仕方が'file://'を抜いた状態で解釈するため、
@@ -231,7 +232,7 @@ const char* getFullNativePath(const char* path) {
 bool
 CiOSPlatform::removeFileOrFolder(const char* filePath) {
 	const char * target = "file://external/";
-	int len = strlen(target);
+	size_t len = strlen(target);
 	if(!strncmp(filePath, target, len)) {
 		return deleteFiles(filePath);
 	} else {
@@ -247,7 +248,7 @@ void
 CiOSPlatform::removeTmpFile(const char *tmpPath)
 {
 	const char * target = "file://external/";
-	int len = strlen(target);
+	size_t len = strlen(target);
 	if(!strncmp(tmpPath, target, len)) {
 		const char * fullpath = CiOSPathConv::getInstance().fullpath(tmpPath + 7);
 		remove(fullpath);
@@ -566,11 +567,11 @@ CiOSPlatform::deleteFontSystem(void * pFont)
 	bool
 CiOSPlatform::renderText(const char *utf8String, void *pFont, u32 color,
 		u16 width, u16 height, u8 *pBuffer8888, 
-		s16 stride, s16 base_x, s16 base_y, bool use4444)
+		s16 stride, s16 base_x, s16 base_y, u8 embolden, bool use4444)
 {
     FontObject* pObjFont = (FontObject*)pFont;
     if (pObjFont) {
-        pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, use4444);
+        pObjFont->renderText(base_x, base_y, utf8String, pBuffer8888, color, width, height, stride, embolden, use4444);
     }
 	return true;
 }
@@ -727,15 +728,24 @@ CiOSPlatform::callApplication(IPlatformRequest::APP_TYPE type, ...)
                 NSString *body    = [NSString stringWithCString: va_arg(ap, const char *) encoding:NSUTF8StringEncoding];
 
                 NSString *url = [[NSString alloc]initWithFormat:@"mailto:%@?subject=%@&body=%@", addr, subject, body];
-                url = [[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]stringByReplacingOccurrencesOfString:@"+" withString:@"%2B%"];
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+                NSCharacterSet *set = [NSCharacterSet URLHostAllowedCharacterSet];
+                url = [[url stringByAddingPercentEncodingWithAllowedCharacters:set]stringByReplacingOccurrencesOfString:@"+" withString:@"%2B%"];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:^(BOOL success) {
+                    if (success) {
+                         //NSLog(@"Opened url");
+                    }
+                }];
             }
             break;
         case IPlatformRequest::APP_BROWSER:
             {
                 NSString *urlString = [NSString stringWithCString: va_arg(ap, const char *) encoding:NSUTF8StringEncoding];
                 NSURL *url = [NSURL URLWithString:urlString];
-                [[UIApplication sharedApplication] openURL:url];
+                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+                    if (success) {
+                         //NSLog(@"Opened url");
+                    }
+                }];
             }
             break;
         case IPlatformRequest::APP_UPDATE:
@@ -743,7 +753,11 @@ CiOSPlatform::callApplication(IPlatformRequest::APP_TYPE type, ...)
                 const char * search_key = va_arg(ap, const char *);
                 NSString * url_str = [NSString stringWithFormat:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftwareUpdate?id=%s&mt=8", search_key];
                 NSURL *url = [NSURL URLWithString:url_str];
-                [[UIApplication sharedApplication] openURL:url];
+                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+                    if (success) {
+                         //NSLog(@"Opened url");
+                    }
+                }];
             }
             break;
         default:
@@ -863,7 +877,7 @@ CiOSPlatform::getDevID(char * retBuf, int maxlen)
 CiOSPlatform::setKeyChain(const char * service_name, const char * key, const char * value)
 {
 	bool result = true;
-	int len = strlen(value);
+	size_t len = strlen(value);
 	NSString * service = [NSString stringWithUTF8String:service_name];
 	NSString * nskey = [NSString stringWithUTF8String:key];
 
@@ -999,10 +1013,10 @@ CiOSPlatform::delSecureDataPW(const char *service_name)
 	int
 CiOSPlatform::sha512(const char * string, char * buf, int maxlen)
 {
-	int len = strlen(string);
+	size_t len = strlen(string);
 	NSData * data = [NSData dataWithBytes:string length:len];
 	uint8_t digest[CC_SHA512_DIGEST_LENGTH];
-	CC_SHA512(data.bytes, data.length, digest);
+	CC_SHA512(data.bytes, (uint32_t)data.length, digest);
 	NSMutableString * output = [NSMutableString stringWithCapacity:CC_SHA512_DIGEST_LENGTH * 2];
 	for(int i = 0; i < CC_SHA512_DIGEST_LENGTH; i++) {
 		[output appendFormat:@"%02x",digest[i]];
@@ -1298,23 +1312,23 @@ void		CiOSPlatform::ifclose	(void* file) {
 }
 
 int			CiOSPlatform::ifseek	(void* file, long int offset, int origin) {
-	return fseek((FILE*)file,offset,origin);
+	return (u32)fseek((FILE*)file,offset,origin);
 }
 
 u32			CiOSPlatform::ifread	(void* ptr, u32 size, u32 count, void* file ) {
-	return fread(ptr, size, count, (FILE*)file);
+	return (u32)fread(ptr, size, count, (FILE*)file);
 }
 
 u32			CiOSPlatform::ifwrite	(const void * ptr, u32 size, u32 count, void* file) {
-	return fwrite(ptr, size, count, (FILE*)file);
+	return (u32)fwrite(ptr, size, count, (FILE*)file);
 }
 
 int			CiOSPlatform::ifflush	(void* file) {
-	return fflush((FILE*)file);
+	return (u32)fflush((FILE*)file);
 }
 
 long int	CiOSPlatform::iftell	(void* file) {
-	return ftell((FILE*)file);
+	return (u32)ftell((FILE*)file);
 }
 
 bool CiOSPlatform::icreateEmptyFile(const char* name) {
