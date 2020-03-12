@@ -330,8 +330,10 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
             
 			size_t zipEntry = 0;
 			char zipPath[64];
-			sprintf(zipPath, "external/tmpDL/%d.zip", that->m_queue.queueIds[i]); // TODO: Maybe place the format stuffs in somewhere else?
-			CUnZip* unzip = KLBNEWC(CUnZip, (zipPath));
+			sprintf(zipPath, "file://external/tmpDL/%d.zip", that->m_queue.queueIds[i]); // TODO: Maybe place the format stuffs in somewhere else?
+			IPlatformRequest& platform = CPFInterface::getInstance().platform();
+            const char* zipPathFull = platform.getFullPath(zipPath);
+            CUnZip* unzip = KLBNEWC(CUnZip, (zipPathFull));
 
 			// wait for file write
 			for (int j = 0; j < 10; j++) {
@@ -339,7 +341,7 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 					// use this for now since i don't want to add platfrom code
 					// 32ms is about 2 frames
 					std::this_thread::sleep_for(std::chrono::milliseconds(32));
-					unzip->Open(zipPath);
+					unzip->Open(zipPathFull);
 				} else {
 					break;
 				}
