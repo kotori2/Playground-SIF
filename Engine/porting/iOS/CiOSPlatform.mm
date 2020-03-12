@@ -18,6 +18,8 @@
 //
 //
 #include <iostream>
+#include <dirent.h>
+#include <sys/stat.h>
 #include <pthread.h>
 #include <time.h>
 #include <sys/param.h>
@@ -214,7 +216,27 @@ CiOSPlatform::openTmpFile(const char * tmpPath)
 		// CiOSTmpFileのファイルパスの解決の仕方が'file://'を抜いた状態で解釈するため、
 		// CiOSTmpFileへ渡すファイルパスのprefixを'file://'分進めて渡しています。
 		tmpPath = tmpPath + 7;
-		CiOSTmpFile * pTmpFile = new CiOSTmpFile(tmpPath);
+        const char* m_fullpath = CiOSPathConv::getInstance().fullpath(tmpPath);
+        
+        //Create folder recursively
+        const char* ptr = m_fullpath;
+        for (int i = 1; i < strlen(ptr); i++) {
+            if (ptr[i] == '/') {
+                char* folder = (char*)malloc(sizeof(char) * i + 2);
+                strncpy(folder, ptr, i + 1);
+                folder[i + 1] = 0;
+                if (!opendir(folder)){
+                    DEBUG_PRINT("Create folder %s", folder);
+                    if (mkdir(folder, S_IRWXU | S_IRWXG)) {
+                        DEBUG_PRINT("Failed to create folder %s", folder);
+                        break;
+                    }
+                }
+                free(folder);
+            }
+        }
+        
+        CiOSTmpFile * pTmpFile = new CiOSTmpFile(tmpPath);
 		if(!pTmpFile->isReady()) {
 			delete pTmpFile;
 			pTmpFile = 0;
