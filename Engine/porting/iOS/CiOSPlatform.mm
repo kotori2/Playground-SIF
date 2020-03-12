@@ -216,10 +216,10 @@ CiOSPlatform::openTmpFile(const char * tmpPath)
 		// CiOSTmpFileのファイルパスの解決の仕方が'file://'を抜いた状態で解釈するため、
 		// CiOSTmpFileへ渡すファイルパスのprefixを'file://'分進めて渡しています。
 		tmpPath = tmpPath + 7;
-        const char* m_fullpath = CiOSPathConv::getInstance().fullpath(tmpPath);
+        const char* fullpath = CiOSPathConv::getInstance().fullpath(tmpPath);
         
         //Create folder recursively
-        const char* ptr = m_fullpath;
+        const char* ptr = fullpath;
         for (int i = 1; i < strlen(ptr); i++) {
             if (ptr[i] == '/') {
                 char* folder = (char*)malloc(sizeof(char) * i + 2);
@@ -237,6 +237,7 @@ CiOSPlatform::openTmpFile(const char * tmpPath)
                 free(folder);
             }
         }
+        delete [] fullpath;
         
         CiOSTmpFile * pTmpFile = new CiOSTmpFile(tmpPath);
 		if(!pTmpFile->isReady()) {
