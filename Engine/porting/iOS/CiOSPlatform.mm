@@ -225,7 +225,8 @@ CiOSPlatform::openTmpFile(const char * tmpPath)
                 char* folder = (char*)malloc(sizeof(char) * i + 2);
                 strncpy(folder, ptr, i + 1);
                 folder[i + 1] = 0;
-                if (!opendir(folder)){
+                DIR *d = opendir(folder);
+                if (!d && ENOENT == errno){
                     DEBUG_PRINT("Create folder %s", folder);
                     if (mkdir(folder, S_IRWXU | S_IRWXG)) {
                         DEBUG_PRINT("Failed to create folder %s", folder);
