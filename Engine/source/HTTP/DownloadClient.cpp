@@ -71,7 +71,7 @@ DownloadClient::execute(u32 deltaT)
 {
 	// update status every 20 frames
 	m_executeCount++;
-	if (m_executeCount >= 20 || m_isFinished) {
+	if (m_executeCount >= 20) {
 		m_executeCount = 0;
 		DownloadManager* instance = DownloadManager::getInstance(this);
 		double speed = instance->getTotalSpeed();
@@ -82,6 +82,13 @@ DownloadClient::execute(u32 deltaT)
 		CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
         return;
 	}
+    
+    if (m_isFinished) {
+        // Both download and unzip finished
+        CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
+        CKLBScriptEnv::getInstance().call_eventUpdateComplete(m_callbackFinish, this);
+        return;
+    }
     
     if(m_callback_queue.empty()) return;
     DOWNLOAD_CALLBACK_ITEM q = m_callback_queue.front();
@@ -109,12 +116,6 @@ DownloadClient::execute(u32 deltaT)
         default:
             klb_assertAlways("Wrong download queue callback type");
     }
-
-	if (m_isFinished) {
-		// Both download and unzip finished
-		CKLBScriptEnv::getInstance().call_eventUpdateComplete(m_callbackFinish, this);
-        return;
-	}
 }
 
 void
