@@ -553,7 +553,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	char* region = bundle_version + 256;
 	char* xmc = region + 64;
 	char* user_id = xmc + 128;
-    char* bundle_id = xmc + 128;
+    char* bundle_id = user_id + 128;
 
 	// Process authorize string
 	authorize = new char[1024];
