@@ -587,7 +587,7 @@
 		35887017161EF3D400A762C8 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "../../NSData+Base64.m"; sourceTree = "<group>"; };
 		3588701A161EF3FB00A762C8 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "../porting/iOS/include/NSData+Base64.h"; sourceTree = "<group>"; };
 		358D828E1603119400F42F62 /* msg_pack_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = msg_pack_parser.c; sourceTree = "<group>"; };
-		35916A33163FDFF0003E24D1 /* CiOSTmpFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CiOSTmpFile.cpp; path = ../CiOSTmpFile.cpp; sourceTree = "<group>"; };
+		35916A33163FDFF0003E24D1 /* CiOSTmpFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CiOSTmpFile.cpp; path = ../../CiOSTmpFile.cpp; sourceTree = "<group>"; };
 		35916A36163FDFF7003E24D1 /* CiOSTmpFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CiOSTmpFile.h; sourceTree = "<group>"; };
 		35916A37163FE004003E24D1 /* ITmpFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITmpFile.h; sourceTree = "<group>"; };
 		35916A38163FE018003E24D1 /* CKLBSprite3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CKLBSprite3D.cpp; sourceTree = "<group>"; };
@@ -2040,6 +2040,7 @@
 				8E8760B21520167300B36A2C /* include */,
 				FCFB820716D320EE00EE24D9 /* AppDelegate.mm */,
 				FCD31D7416AFC6CA00BBDC8F /* CiOSWidget.mm */,
+				35916A33163FDFF0003E24D1 /* CiOSTmpFile.cpp */,
 				FCE1382216C115D800A2E2C0 /* CiOSAudioManager.mm */,
 				FCD7B85C16B0D522009AAF20 /* CiOSTextView.mm */,
 				8EE0FE9D15EDDF6600DFA4FE /* CiOSSysResource.mm */,
@@ -2066,7 +2067,6 @@
 			isa = PBXGroup;
 			children = (
 				FCFB820B16D3210400EE24D9 /* AppDelegate.h */,
-				35916A33163FDFF0003E24D1 /* CiOSTmpFile.cpp */,
 				FCE1382616C115E900A2E2C0 /* CiOSAudioManager.h */,
 				35916A36163FDFF7003E24D1 /* CiOSTmpFile.h */,
 				8EE212C715DDFD7C006694A1 /* CiOSMovieView.h */,
