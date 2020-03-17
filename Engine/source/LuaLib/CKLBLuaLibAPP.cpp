@@ -42,7 +42,7 @@ int
 CKLBLuaLibAPP::luaGetPhysicalMem(lua_State * L)
 {
 	CLuaState lua(L);
-	int argc = lua.numArgs();
+	//int argc = lua.numArgs();
 
 	u32 value = CPFInterface::getInstance().platform().getPhysicalMemKB();
 	if (value >= 0x1000000) {

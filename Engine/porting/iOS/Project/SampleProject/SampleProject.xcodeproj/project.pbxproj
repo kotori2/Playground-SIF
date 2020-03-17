@@ -2693,7 +2693,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6.10.2;
+				CURRENT_PROJECT_VERSION = 6.11;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = A3VQ954R33;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -2723,7 +2723,7 @@
 					"\"$(SRCROOT)/../../curl/ios-dev/lib\"",
 					"\"$(SRCROOT)/../..\"",
 				);
-				MARKETING_VERSION = 6.10.2;
+				MARKETING_VERSION = 6.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.apache.playground-sif";
 				PRODUCT_NAME = Playground;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2836,7 +2836,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6.10.2;
+				CURRENT_PROJECT_VERSION = 6.11;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = A3VQ954R33;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -2872,7 +2872,7 @@
 					"\"$(SRCROOT)/../../curl/ios-dev/lib\"",
 					"\"$(SRCROOT)/../..\"",
 				);
-				MARKETING_VERSION = 6.10.2;
+				MARKETING_VERSION = 6.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.apache.playground-sif";
 				PRODUCT_NAME = Playground;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2890,7 +2890,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6.10.2;
+				CURRENT_PROJECT_VERSION = 6.11;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = A3VQ954R33;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -2914,7 +2914,7 @@
 					"\"$(SRCROOT)/../../curl/ios-appstore/lib\"",
 					"\"$(SRCROOT)/../..\"",
 				);
-				MARKETING_VERSION = 6.10.2;
+				MARKETING_VERSION = 6.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.apache.playground-sif";
 				PRODUCT_NAME = Playground;
 				PROVISIONING_PROFILE_SPECIFIER = "";
