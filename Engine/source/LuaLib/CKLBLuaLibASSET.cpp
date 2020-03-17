@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -293,7 +293,7 @@ CKLBLuaLibASSET::luaGetAssetPathIfNotExist(lua_State* L)
 	klb_assert(!strstr(filePath, ".mp3") || !strstr(filePath, ".ogg"), "Never use a .ogg or .mp3 extension. Audio Asset have none, automatically detected inside");
 
 	char* assetPath = KLBNEWA(char, strlen(filePath) + 14);
-	char* audioAssetPath = KLBNEWA(char, strlen(assetPath + 5));
+	char* audioAssetPath = KLBNEWA(char, strlen(filePath) + 14 + 5);
 	sprintf(assetPath, "asset://%s", filePath);
 
 	if (!strstr(filePath, ".texb") && !strstr(filePath, ".imag")) {
