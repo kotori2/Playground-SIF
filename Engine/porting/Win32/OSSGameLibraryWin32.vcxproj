@@ -119,38 +119,38 @@
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(ProjectDir)3rdparty\openssl\lib;$(ProjectDir)3rdparty\Lame\libs64;$(ProjectDir)3rdparty\LuaEdit\libs64;$(ProjectDir)3rdparty\directx\libs64;$(LibraryPath)</LibraryPath>
     <IntDir>$(Platform)\$(Configuration)\obj</IntDir>
-    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\zlib\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CSharp|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(ProjectDir)3rdparty\openssl\lib;$(ProjectDir)3rdparty\Lame\libs;$(ProjectDir)3rdparty\LuaEdit\libs;$(ProjectDir)3rdparty\directx\libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\zlib\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CSharp|x64'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(ProjectDir)3rdparty\openssl\lib;$(ProjectDir)3rdparty\Lame\libs64;$(ProjectDir)3rdparty\LuaEdit\libs64;$(ProjectDir)3rdparty\directx\libs64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\zlib\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
     <LibraryPath>$(ProjectDir)3rdparty\openssl\lib;$(ProjectDir)3rdparty\Lame\libs;$(ProjectDir)3rdparty\LuaEdit\libs;$(ProjectDir)3rdparty\directx\libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\zlib\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>$(ProjectDir)3rdparty\openssl\lib;$(ProjectDir)3rdparty\Lame\libs64;$(ProjectDir)3rdparty\LuaEdit\libs64;$(ProjectDir)3rdparty\directx\libs64;$(LibraryPath)</LibraryPath>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\zlib\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Cpp|Win32'">
     <LibraryPath>$(ProjectDir)3rdparty\openssl\lib;$(ProjectDir)3rdparty\Lame\libs;$(ProjectDir)3rdparty\LuaEdit\libs;$(ProjectDir)3rdparty\directx\libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\zlib\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Cpp|x64'">
     <LibraryPath>$(ProjectDir)3rdparty\openssl\lib;$(ProjectDir)3rdparty\Lame\libs64;$(ProjectDir)3rdparty\LuaEdit\libs64;$(ProjectDir)3rdparty\directx\libs64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\zlib\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

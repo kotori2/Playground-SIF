@@ -46,6 +46,8 @@ __MACOSX/
 /Engine/porting/OSX/SIF-Resources/
 
 # Windows stuffs
+/Engine/porting/Win32/Output/Debug/gl*.dll
+/Engine/porting/Win32/Output/Release/gl*.dll
 /Engine/porting/Win32/Output/Debug/OSSGameLibraryWin32.*
 /Engine/porting/Win32/Output/Release/OSSGameLibraryWin32.*
 /Engine/porting/Win32/Output/Debug/SampleProject.*
@@ -56,6 +58,8 @@ __MACOSX/
 /Engine/porting/Win32/x64/Release/SampleProject.*
 /Engine/porting/Win32/Debug/
 /Engine/porting/Win32/Release/
+/Engine/porting/Win32/x64/Debug/gl*.dll
+/Engine/porting/Win32/x64/Release/gl*.dll
 /Engine/porting/Win32/x64/Debug/obj/
 /Engine/porting/Win32/x64/Release/obj/
 /Engine/porting/Win32/SampleProject/Debug/
