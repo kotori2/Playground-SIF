@@ -113,7 +113,7 @@
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(ProjectDir)3rdparty\openssl\lib;$(ProjectDir)3rdparty\Lame\libs;$(ProjectDir)3rdparty\LuaEdit\libs;$(ProjectDir)3rdparty\directx\libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Output\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)3rdparty\Lame\includes;$(ProjectDir)3rdparty\libvorbis\include;$(ProjectDir)3rdparty\openssl\include;$(ProjectDir)3rdparty\zlib\include;$(ProjectDir)3rdparty\libogg\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
