@@ -127,7 +127,7 @@ CKLBLuaLibASSET::luaGetAssetInfo(lua_State * L)
 	}
 	const char * asset_name = lua.getString(1);
 	u32 handle;
-	CKLBImageAsset * pAsset = (CKLBImageAsset *)CKLBUtility::loadAssetScript(asset_name, &handle);
+	CKLBImageAsset * pAsset = (CKLBImageAsset *)CKLBUtility::loadAssetScript(asset_name, &handle, NULL, false, true);
 	if(!pAsset) {
 		lua.retNil();
 		lua.retNil();

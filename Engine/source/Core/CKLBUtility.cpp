@@ -298,9 +298,9 @@ CKLBUtility::deleteSplitString(const char ** split_arr)
 }
 
 CKLBAsset *
-CKLBUtility::loadAssetScript(const char * asset, u32 * handle, IKLBAssetPlugin* plugIn, bool bSimple)
+CKLBUtility::loadAssetScript(const char * asset, u32 * handle, IKLBAssetPlugin* plugIn, bool bSimple, bool skipMdl)
 {
-	CKLBAsset * pAsset = loadAsset(asset, handle, plugIn, bSimple);
+	CKLBAsset * pAsset = loadAsset(asset, handle, plugIn, bSimple, skipMdl);
 	if(!pAsset) {
 		return NULL;
 	}
@@ -320,7 +320,7 @@ CKLBUtility::readAsset(u8 * stream, u32 streamSize, u32 * handle, IKLBAssetPlugi
 }
 
 CKLBAsset *
-CKLBUtility::loadAsset(const char * asset, u32 * handle, IKLBAssetPlugin* plugIn, bool bSimple)
+CKLBUtility::loadAsset(const char * asset, u32 * handle, IKLBAssetPlugin* plugIn, bool bSimple, bool skipMdl)
 {
 	CKLBAssetManager& pAssetManager = CKLBAssetManager::getInstance();
 	// CPFInterface& pfif = CPFInterface::getInstance();
@@ -328,7 +328,11 @@ CKLBUtility::loadAsset(const char * asset, u32 * handle, IKLBAssetPlugin* plugIn
 
 	pAsset = (CKLBAsset *)pAssetManager.loadAssetByFileName(asset, plugIn);
 
+	// if skipMdl == true, then we won't create an placeholder for it.
 	if (!pAsset) {
+		if (skipMdl) {
+			return NULL;
+		}
 		// Asset not found. Load placeholder if available
 		CKLBAbstractAsset* temp = pAssetManager.loadAssetByFileName(pAssetManager.getPlaceHolder());
 

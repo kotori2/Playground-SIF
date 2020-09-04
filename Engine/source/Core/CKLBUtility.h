@@ -86,10 +86,10 @@ public:
 	static CKLBAsset * readAsset(u8 * stream, u32 streamSize,u32 * handle, IKLBAssetPlugin * plugIn = NULL);
 
 	// asset のロード(ハンドル登録も行う)
-	static CKLBAsset * loadAsset(const char * asset, u32 * handle, IKLBAssetPlugin* plugIn = NULL, bool bSimple = false);
+	static CKLBAsset * loadAsset(const char * asset, u32 * handle, IKLBAssetPlugin* plugIn = NULL, bool bSimple = false, bool skipMdl = false);
 
 	// loadAsset に失敗したらScriptのレベルでエラーを出す
-	static CKLBAsset * loadAssetScript(const char * asset, u32 * handle, IKLBAssetPlugin* plugIn = NULL, bool bSimple = false);
+	static CKLBAsset * loadAssetScript(const char * asset, u32 * handle, IKLBAssetPlugin* plugIn = NULL, bool bSimple = false, bool skipMdl = false);
 
 	// asset をロードし、ノードを生成する(同時にハンドル登録も行う)
 	static CKLBNode * createNode(const char * asset, u32 order, u32 * handle, IKLBAssetPlugin* plugIn = NULL);
