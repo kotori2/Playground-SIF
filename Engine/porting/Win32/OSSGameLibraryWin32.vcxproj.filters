@@ -116,10 +116,10 @@
       <UniqueIdentifier>{71ac4154-9ec9-41da-a978-3b5de0e105b7}</UniqueIdentifier>
     </Filter>
     <Filter Include="libs\libogg">
-      <UniqueIdentifier>{5d7b5044-6dca-4eed-ab42-511e00f034ce}</UniqueIdentifier>
+      <UniqueIdentifier>{4cd9768c-68ba-4391-872c-3b229eddb2b3}</UniqueIdentifier>
     </Filter>
     <Filter Include="libs\libvorbis">
-      <UniqueIdentifier>{4df44d7c-589f-4f37-808a-fa1c7228463c}</UniqueIdentifier>
+      <UniqueIdentifier>{d740fc60-95de-4742-9391-5ad436b8afdf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -382,12 +382,6 @@
     </ClInclude>
     <ClInclude Include="..\..\source\SystemTask\CKLBOSCtrlEvent.h">
       <Filter>SystemTask</Filter>
-    </ClInclude>
-    <ClInclude Include="Lame\BladeMP3EncDLL.h">
-      <Filter>libs\mp3lame</Filter>
-    </ClInclude>
-    <ClInclude Include="Lame\lame.h">
-      <Filter>libs\mp3lame</Filter>
     </ClInclude>
     <ClInclude Include="Platform\CWin32MP3.h">
       <Filter>Platform</Filter>
@@ -703,6 +697,153 @@
     </ClInclude>
     <ClInclude Include="..\..\source\UISystem\CKLBUIPolygon.h">
       <Filter>Source Files\UISystem\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\backends.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\bitrate.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\books\coupled\res_books_51.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\books\coupled\res_books_stereo.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\books\floor\floor_books.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\books\uncoupled\res_books_uncoupled.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\codebook.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\codec_internal.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\envelope.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\highlevel.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\lookup.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\lookup_data.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\lpc.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\lsp.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\masking.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\mdct.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\misc.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\floor_all.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\psych_11.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\psych_16.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\psych_44.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\psych_8.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\residue_16.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\residue_44.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\residue_44p51.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\residue_44u.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\residue_8.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\setup_11.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\setup_16.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\setup_22.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\setup_32.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\setup_44.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\setup_44p51.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\setup_44u.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\setup_8.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\modes\setup_X.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\os.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\psy.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\registry.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\scales.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\smallft.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\src\window.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libogg\include\ogg\ogg.h">
+      <Filter>libs\libogg</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libogg\include\ogg\os_types.h">
+      <Filter>libs\libogg</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\include\vorbis\codec.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\include\vorbis\vorbisenc.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\libvorbis\include\vorbis\vorbisfile.h">
+      <Filter>libs\libvorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\Lame\includes\BladeMP3EncDLL.h">
+      <Filter>libs\mp3lame</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdparty\Lame\includes\lame.h">
+      <Filter>libs\mp3lame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1843,78 +1984,6 @@
     <ClCompile Include="Platform\CWin32OGG.cpp">
       <Filter>Platform</Filter>
     </ClCompile>
-    <ClCompile Include="Vorbis\libogg\src\bitwise.c">
-      <Filter>libs\libogg</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libogg\src\framing.c">
-      <Filter>libs\libogg</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\analysis.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\bitrate.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\block.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\codebook.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\envelope.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\floor0.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\floor1.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\info.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\lookup.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\lpc.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\lsp.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\mapping0.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\mdct.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\psy.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\registry.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\res0.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\sharedbook.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\smallft.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\synthesis.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\vorbisenc.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\vorbisfile.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="Vorbis\libvorbis\lib\window.c">
-      <Filter>libs\libvorbis</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\UISystem\CKLBUIShader.cpp">
       <Filter>Source Files\UISystem\Task</Filter>
     </ClCompile>
@@ -2037,6 +2106,78 @@
     </ClCompile>
     <ClCompile Include="..\..\source\UISystem\CKLBUIPolygon.cpp">
       <Filter>Source Files\UISystem\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libogg\src\bitwise.c">
+      <Filter>libs\libogg</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libogg\src\framing.c">
+      <Filter>libs\libogg</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\analysis.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\bitrate.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\block.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\codebook.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\envelope.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\floor0.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\floor1.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\info.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\lookup.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\lpc.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\lsp.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\mapping0.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\mdct.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\psy.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\registry.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\res0.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\sharedbook.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\smallft.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\synthesis.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\vorbisenc.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\vorbisfile.c">
+      <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="3rdparty\libvorbis\src\window.c">
+      <Filter>libs\libvorbis</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

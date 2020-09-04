@@ -63,6 +63,7 @@ __MACOSX/
 /Engine/porting/Win32/SampleProject/x64/Debug/
 /Engine/porting/Win32/SampleProject/x64/Release/
 /Engine/porting/Win32/.vs/
+/Engine/porting/Win32/gamefile/
 
 # object files things
 *.exe
@@ -72,5 +73,4 @@ __MACOSX/
 *.a
 !libcurl.a
 *.so
-*.dll
 *.xcsettings
