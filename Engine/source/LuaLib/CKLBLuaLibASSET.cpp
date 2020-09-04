@@ -188,10 +188,10 @@ CKLBLuaLibASSET::luaGetNMAssetSize(lua_State * L)
 	CLuaState lua(L);
 	IPlatformRequest& platform = CPFInterface::getInstance().platform();
 	assetSize = lua.getInt(1);
-	char* result = (char*)malloc(assetSize);
+	char* result = KLBNEWA(char, assetSize);
 	platform.getRandomBytes(result, assetSize);
 	lua_pushlstring(L, result, assetSize);
-	free(result);
+	KLBDELETEA(result);
 	return 1;
 }
 
@@ -216,7 +216,7 @@ CKLBLuaLibASSET::luaSetNMAsset(lua_State * L)
 	}
 	const char* str1 = lua.getString(1);
 	const char* str2 = lua.getString(2);
-	char* result	 = (char*)malloc(assetSize);
+	char* result	 = KLBNEWA(char, assetSize);
 	for (int i = 0; i < assetSize; i++) {
 		result[i] = str1[i] ^ str2[i];
 	}
@@ -225,7 +225,7 @@ CKLBLuaLibASSET::luaSetNMAsset(lua_State * L)
 		lua_pushlstring(L, result, 16);
 	else
 		lua_pushlstring(L, result, assetSize);
-	free(result);
+	KLBDELETEA(result);
 	return 1;
 }
 

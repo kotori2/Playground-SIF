@@ -180,13 +180,13 @@ CKLBGameApplication::initNMAsset()
 		m_NMAssetKeyLen = m_decryptedBaseKey[0] ;
 	}
 
-	if (m_NMAssetKey) { free(m_NMAssetKey); }
-	m_NMAssetKey = (char*)malloc(sizeof(char) * (m_NMAssetKeyLen + 1));
+	if (m_NMAssetKey) { delete[] m_NMAssetKey; }
+	m_NMAssetKey = new char[m_NMAssetKeyLen + 1];
 	klb_assert(m_NMAssetKey, "Failed to allocate memory");
 
 	memset(m_NMAssetKey, 0, sizeof(char) * (m_NMAssetKeyLen + 1));
 	for (int i = 0; i < m_NMAssetKeyLen; i++) {
-		m_NMAssetKey[i] = (char)m_decryptedBaseKey[i + 1];
+		m_NMAssetKey[i] = m_decryptedBaseKey[i + 1] & 0xff;
 	}
 }
 
