@@ -77,6 +77,10 @@ public:
 
 	void changeUV(float x, float y, float width, float height);
 
+	inline bool changeAssetW(const char* asset) {
+		return changeAsset(asset);
+	}
+
 	inline bool changeAsset(const char* asset, bool useOrigSize = false) {
 		bool bResult = setAsset(asset, useOrigSize);
 		m_pNode->markUpMatrix();
