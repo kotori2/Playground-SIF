@@ -356,6 +356,7 @@
     <ClInclude Include="..\..\source\Assets\CKLBTexturePacker.h" />
     <ClInclude Include="..\..\source\Assets\NodeAnimationAsset.h" />
     <ClInclude Include="..\..\source\Assets\TextureManagement.h" />
+    <ClInclude Include="..\..\source\Core\AdManager.h" />
     <ClInclude Include="..\..\source\Core\ArrayAllocator.h" />
     <ClInclude Include="..\..\source\Core\CKLBAction.h" />
     <ClInclude Include="..\..\source\Core\CKLBAppProperty.h" />
@@ -2112,6 +2113,7 @@
     <ClCompile Include="..\..\source\Assets\CompositeManagement.cpp" />
     <ClCompile Include="..\..\source\Assets\NodeAnimationAsset.cpp" />
     <ClCompile Include="..\..\source\Assets\TextureManagement.cpp" />
+    <ClCompile Include="..\..\source\Core\AdManager.cpp" />
     <ClCompile Include="..\..\source\Core\CKLBAppProperty.cpp" />
     <ClCompile Include="..\..\source\Core\CKLBAsyncFilecopy.cpp" />
     <ClCompile Include="..\..\source\Core\CKLBAsyncLoader.cpp" />

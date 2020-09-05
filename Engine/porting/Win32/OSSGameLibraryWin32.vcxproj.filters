@@ -845,6 +845,9 @@
     <ClInclude Include="3rdparty\Lame\includes\lame.h">
       <Filter>libs\mp3lame</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\Core\AdManager.h">
+      <Filter>Source Files\UtilTask</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\Animation\CKLBSystem.cpp">
@@ -2178,6 +2181,9 @@
     </ClCompile>
     <ClCompile Include="3rdparty\libvorbis\src\window.c">
       <Filter>libs\libvorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\Core\AdManager.cpp">
+      <Filter>Source Files\UtilTask</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

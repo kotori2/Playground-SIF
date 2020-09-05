@@ -197,6 +197,7 @@ typedef long long unsigned int u64;
 #define CLS_DOWNLOADCLIENT              (84| CLS_KLBUSERTASK)
 #define CLS_NOTIFICATIONMANAGER         (85| CLS_KLBUSERTASK | CLS_NONVISUALTASK)
 #define CLS_MICRODL                     (86| CLS_KLBUSERTASK)
+#define CLS_ADMANAGER                   (87| CLS_KLBUSERTASK)
 
 //
 // Engine Assets

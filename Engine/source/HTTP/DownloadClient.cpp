@@ -152,6 +152,7 @@ DownloadClient::create()
 bool
 DownloadClient::initScript(CLuaState& lua)
 {
+	klb_assert(lua.numArgs() == 7, "No valid amount of args for DownloadClient");
 	const char* callbackDownloadFinish	= lua.getString(1);
 	const char* callbackUnzipStart		= lua.getString(2);
 	const char* callbackUnzipFinish		= lua.getString(3);

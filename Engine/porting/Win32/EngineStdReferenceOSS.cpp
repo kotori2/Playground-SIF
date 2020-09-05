@@ -23,6 +23,7 @@
 #include "EngineStdReference.h"
 
 // Utility Task
+#include "AdManager.h"
 #include "NotificationManager.h"
 #include "CKLBGenericTask.h"
 #include "CKLBIntervalTimer.h"
@@ -75,6 +76,7 @@ bool EngineTaskReference()
 	bool bResult = true;
 
 	// Utility Task
+	bResult = bResult && getFactoryFunc<AdManager>();
 	bResult = bResult && getFactoryFunc<NotificationManager>();
 	bResult = bResult && getFactoryFunc<CKLBGenericTask>();
 	bResult = bResult && getFactoryFunc<CKLBIntervalTimer>();
