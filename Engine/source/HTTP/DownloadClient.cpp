@@ -40,13 +40,17 @@ DownloadClient::DownloadClient()
 , m_queue()
 , m_unzipThread(NULL)
 , m_isFinished(false)
+, m_isError(false)
 {
-
+	auto &pfif = CPFInterface::getInstance().platform();
+	m_mutex = pfif.allocMutex();
 }
 
 DownloadClient::~DownloadClient()
 {
 	this->killAllThreads();
+	auto& pfif = CPFInterface::getInstance().platform();
+	pfif.freeMutex(m_mutex);
 }
 
 void
@@ -90,9 +94,15 @@ DownloadClient::execute(u32 deltaT)
         return;
     }
     
-    if(m_callback_queue.empty()) return;
+	auto& pfif = CPFInterface::getInstance().platform();
+	pfif.mutexLock(m_mutex);
+	if (m_callback_queue.empty()) {
+		pfif.mutexUnlock(m_mutex);
+		return;
+	}
     DOWNLOAD_CALLBACK_ITEM q = m_callback_queue.front();
     m_callback_queue.pop();
+	pfif.mutexUnlock(m_mutex);
     
     switch(q.type){
         case DOWNLOAD_CLIENT_CALLBACK_ERROR:

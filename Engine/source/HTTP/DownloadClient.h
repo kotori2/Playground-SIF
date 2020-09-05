@@ -95,6 +95,8 @@ private:
         queueId(-1) {}
     };
     std::queue<DOWNLOAD_CALLBACK_ITEM> m_callback_queue;
+
+	void* m_mutex;
 };
 
 #endif
