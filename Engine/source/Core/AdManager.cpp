@@ -71,9 +71,9 @@ AdManager::commandScript(CLuaState& lua) {
 
 	switch (cmd) {
 	case AD_PRELOAD:
-		DEBUG_PRINT("AD_PRELOAD is not implemented");
+		DEBUG_PRINT("AD_PRELOAD is not implemented"); break;
 	case AD_SHOW:
-		DEBUG_PRINT("AD_SHOW is not implemented");
+		DEBUG_PRINT("AD_SHOW is not implemented"); break;
 	default:
 		klb_assertAlways("AdManager: Unknown command: %d", cmd);
 	}

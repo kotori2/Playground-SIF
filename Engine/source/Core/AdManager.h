@@ -17,7 +17,7 @@ private:
 	bool init(CKLBTask* pTask, const char* pause, const char* resume);
 public:
 	static AdManager* create();
-	u32 AdManager::getClassID();
+	u32 getClassID();
 	bool initScript(CLuaState& lua);
 	int commandScript(CLuaState& lua);
 	void execute(u32 deltaT);
