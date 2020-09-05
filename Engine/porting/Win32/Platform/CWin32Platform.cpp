@@ -1195,29 +1195,28 @@ bool CWin32Platform::icreateEmptyFile(const char* name) {
 
 void*	CWin32Platform::allocMutex		()
 {
-	CRITICAL_SECTION* pSection = new CRITICAL_SECTION();
-	if (pSection) {
-		InitializeCriticalSection(pSection);
-	}
-	return pSection;
+	auto *mutex = new SRWLOCK();
+	InitializeSRWLock(mutex);
+	return mutex;
 }
 
 void	CWin32Platform::freeMutex		(void* mutex)
 {
 	if (mutex) {
-		DeleteCriticalSection((CRITICAL_SECTION*)mutex); 
 		delete mutex;
 	}
 }
 
 void	CWin32Platform::mutexLock		(void* mutex)
 {
-	if (mutex) { EnterCriticalSection((CRITICAL_SECTION*)mutex); }
+	if (mutex) { 
+		AcquireSRWLockExclusive((SRWLOCK*)mutex);
+	}
 }
 
 void	CWin32Platform::mutexUnlock		(void* mutex)
 {
-	if (mutex) { LeaveCriticalSection((CRITICAL_SECTION*)mutex); }
+	if (mutex) { ReleaseSRWLockExclusive((SRWLOCK*)mutex); }
 }
 
 void*	CWin32Platform::allocEventLock	()

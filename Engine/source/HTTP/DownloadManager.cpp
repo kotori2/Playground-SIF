@@ -17,11 +17,6 @@ DownloadManager::DownloadManager() :
     if(!s_waiting)      s_waiting = pfif.allocMutex();
     if(!s_threadCount)  s_threadCount = pfif.allocMutex();
     if(!s_thread)       s_thread = pfif.allocMutex();
-
-    // unlock all mutex
-    pfif.mutexUnlock(s_waiting);
-    pfif.mutexUnlock(s_threadCount);
-    pfif.mutexUnlock(s_thread);
 }
 
 DownloadManager* 
