@@ -208,8 +208,12 @@ CKLBUIGroup::commandUI(CLuaState& lua, int argc, int cmd)
 		break;
 	case UI_GROUP_GET_SIZE:
 		{
-			DEBUG_PRINT("UI_GROUP_GET_SIZE not implemented yet");
-			ret = 1;
+			DEBUG_PRINT("UI_GROUP_GET_SIZE not properly implemented.");
+			// On official client it just read 2 members and reply.
+			// Not figured out how it works yet.
+			lua.retFloat(100);
+			lua.retFloat(100);
+			ret = 2;
 		}
 		break;
 	}
