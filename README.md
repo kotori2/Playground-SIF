@@ -1,17 +1,22 @@
-# Playground OSS
+# Playground - SIF
 
-This is the 'Playground' game engine and is released in open source under Apache License v2.0.
+Playground-SIF is a fork from [PlaygroundOSS](https://github.com/KLab/PlaygroundOSS), which aims to run LoveLive School Idol Festival with our own engine.
 
- * All the needed documentation is in the /Doc folder.
- * Source code are under the /Engine folder.
- * Tool to compile a sample project is under /Tools folder.
- * Sample showing the scripting APIs are available under the /Tutorial folder.
+## Current Progress
 
-Other folders (CSharpVersion, SampleProject) are more related to prototype features or detailed implementations.
+### Short term goals
+- [x] Boot into game
+- [x] Login to official server
+- [x] Download assets
+- [ ] Webview
+- [x] Play live show
+- [ ] Finish live show (Polygon2)
 
-To get started, please read the /Doc/Project.md
-
-The dev team.
+### Long term goals
+ - Anchor related UI (Story, Scouting etc)
+ - Guideline buttons (on live menu etc)
+ - Android & iOS support
+ - ...
 
 ## Build Status
 [![Build Status](https://api.travis-ci.org/kotori2/Playground-SIF.svg?branch=master)](https://travis-ci.org/kotori2/Playground-SIF)
@@ -19,7 +24,7 @@ The dev team.
 
 
 ## LICENSE
-'Playground OSS' is released under Apache Software License, Version 2.0 (Apache 2.0). Please refer http://www.apache.org/licenses/LICENSE-2.0 file for detail.
+TBD
 
 
 ---------------------------------------------------------------------------
