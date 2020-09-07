@@ -426,6 +426,11 @@ CKLBUIScore::commandUI(CLuaState& lua, int argc, int cmd)
 				ret = 1;
 				break;
 			}
+			// 0 = nil
+			if (lua.getType(3) == 0) {
+				DEBUG_PRINT("Got nil in UI_SCORE_SET");
+				break;
+			}
 			int value = lua.getInt(3);
 			if(m_bCountClip && value >= m_maxvalue) value = m_maxvalue - 1;
 			setValue(value);
