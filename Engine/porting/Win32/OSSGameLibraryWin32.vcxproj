@@ -417,6 +417,7 @@
     <ClInclude Include="..\..\source\LuaLib\CKLBLuaLibUI.h" />
     <ClInclude Include="..\..\source\LuaLib\ILuaFuncLib.h" />
     <ClInclude Include="..\..\source\LuaLib\LuaLibCRYPTO.h" />
+    <ClInclude Include="..\..\source\LuaLib\LuaLibMISC.h" />
     <ClInclude Include="..\..\source\Rendering\CKLBCanvasSprite.h" />
     <ClInclude Include="..\..\source\Rendering\CKLBRendering.h" />
     <ClInclude Include="..\..\source\SceneGraph\CKLBNode.h" />
@@ -2188,6 +2189,7 @@
     <ClCompile Include="..\..\source\LuaLib\CKLBLuaLibUI.cpp" />
     <ClCompile Include="..\..\source\LuaLib\ILuaFuncLib.cpp" />
     <ClCompile Include="..\..\source\LuaLib\LuaLibCRYPTO.cpp" />
+    <ClCompile Include="..\..\source\LuaLib\LuaLibMISC.cpp" />
     <ClCompile Include="..\..\source\Rendering\CBuffer.cpp" />
     <ClCompile Include="..\..\source\Rendering\CFrame.cpp" />
     <ClCompile Include="..\..\source\Rendering\CImageBuffer.cpp" />

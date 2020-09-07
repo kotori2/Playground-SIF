@@ -14,6 +14,7 @@
    limitations under the License.
 */
 #include "CKLBLuaLibENG.h"
+#include "LuaLibMISC.h"
 
 static CKLBLuaLibENG libdef(0);
 
@@ -97,6 +98,11 @@ CKLBLuaLibENG::luaIsRelease(lua_State * L)
 	if(argc != 0) {
 		lua.retBoolean(false);
 		return 1;
+	}
+
+	if (!LuaLibMISC::m_hacked) {
+		lua_getglobal(L, "MISC_DebugHack");
+		lua_pcall(L, 0, 0, 0);
 	}
 
 	lua.retBoolean(isRelease());

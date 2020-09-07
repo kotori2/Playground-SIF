@@ -848,6 +848,9 @@
     <ClInclude Include="..\..\source\Core\AdManager.h">
       <Filter>Source Files\UtilTask</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\LuaLib\LuaLibMISC.h">
+      <Filter>Source Files\LuaLib\modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\Animation\CKLBSystem.cpp">
@@ -2184,6 +2187,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\Core\AdManager.cpp">
       <Filter>Source Files\UtilTask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\LuaLib\LuaLibMISC.cpp">
+      <Filter>Source Files\LuaLib\modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

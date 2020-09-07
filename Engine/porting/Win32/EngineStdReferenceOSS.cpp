@@ -150,6 +150,7 @@ bool EngineTaskReference()
 #include "CKLBLuaLibUI.h"
 
 #include "LuaLibCRYPTO.h"
+#include "LuaLibMISC.h"
 
 #include "CKLBAppProperty.h"
 
@@ -183,6 +184,7 @@ bool EngineLuaFuncReference()
 	bResult = bResult && getFuncRegister<CKLBLuaLibUPDATE>();
 	bResult = bResult && getFuncRegister<CKLBLuaLibPackerControl>();
 	bResult = bResult && getFuncRegister<LuaLibCRYPTO>();
+	bResult = bResult && getFuncRegister<LuaLibMISC>();
 	bResult = bResult && (0 != CKLBAppScriptIF::setValue);
 
 	return bResult;
