@@ -24,7 +24,6 @@ Playground-SIF is a fork from [PlaygroundOSS](https://github.com/KLab/Playground
 
 
 ## LICENSE
-TBD
-
+This project is released under GPLv3. You can find full license text [here](https://www.gnu.org/licenses/gpl-3.0.html)
 
 ---------------------------------------------------------------------------
