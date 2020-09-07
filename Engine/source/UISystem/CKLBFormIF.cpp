@@ -408,8 +408,13 @@ CKLBFormIF::updateStandardNode(CLuaState& lua, int argc, int base, int subcmd, C
 
 	case FORM_NODE_GET_TRANS:
 		{
-			klb_assertAlways("Not implemented");
-			result = false;
+			float x = pNode->getTranslateX();
+			float y = pNode->getTranslateY();
+			lua.retFloat(x);
+			lua.retFloat(y);
+
+			ret = 2;
+			result = true;
 		}
 		break;
 
