@@ -23,6 +23,8 @@
 #include "CLuaState.h"
 #include "CKLBLuaEnv.h"
 #include "CKLBTask.h"
+#include <queue>
+#include <functional>
 
 
 /*!
@@ -34,6 +36,9 @@
 class CKLBLuaScript : public CKLBTask
 {
 private:
+    static std::queue<std::function<void()>> m_callback_queue;
+    static void* m_lock;
+private:
     CKLBLuaScript ();
     ~CKLBLuaScript();
 
@@ -44,6 +49,7 @@ public:
 
     void execute(u32 deltaT);
     void die    ();
+    static void enqueue(std::function<void()> func);
 
 	u32 getClassID();
 };

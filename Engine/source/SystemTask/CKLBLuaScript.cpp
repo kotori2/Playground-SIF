@@ -19,9 +19,17 @@
 
 #include "CKLBLuaScript.h"
 
+std::queue<std::function<void()>> CKLBLuaScript::m_callback_queue;
+void* CKLBLuaScript::m_lock;
 
-CKLBLuaScript::CKLBLuaScript() : CKLBTask() {}
-CKLBLuaScript::~CKLBLuaScript() {}
+CKLBLuaScript::CKLBLuaScript() : CKLBTask() {
+    IPlatformRequest& platform = CPFInterface::getInstance().platform();
+    m_lock = platform.allocMutex();
+}
+CKLBLuaScript::~CKLBLuaScript() {
+    IPlatformRequest& platform = CPFInterface::getInstance().platform();
+    platform.freeMutex(m_lock);
+}
 
 bool
 CKLBLuaScript::onPause(bool /*bPause*/)
@@ -34,12 +42,27 @@ CKLBLuaScript::execute(u32 deltaT)
 {
     CKLBLuaEnv& env = CKLBLuaEnv::getInstance();
     env.execScript(deltaT);
+
+    IPlatformRequest& platform = CPFInterface::getInstance().platform();
+    platform.mutexLock(m_lock);
+    if (!m_callback_queue.empty()) {
+        auto func = m_callback_queue.front();
+        m_callback_queue.pop();
+        func();
+    }
+    platform.mutexUnlock(m_lock);
+
 }
 
 void
 CKLBLuaScript::die() {
     // Lua実行環境終了
     //CKLBLuaEnv::getInstance().finishLuaEnv();
+}
+
+void CKLBLuaScript::enqueue(std::function<void()> func)
+{
+    m_callback_queue.push(func);
 }
 
 

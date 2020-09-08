@@ -1,5 +1,6 @@
 
 #include "DownloadClient.h"
+#include "CKLBLuaScript.h"
 #include "CUnZip.h"
 
 enum {
@@ -77,20 +78,32 @@ DownloadClient::execute(u32 deltaT)
 	m_executeCount++;
 	if (m_executeCount >= 20) {
 		m_executeCount = 0;
-		DownloadManager* instance = DownloadManager::getInstance(this);
-		double speed = instance->getTotalSpeed();
-		CKLBScriptEnv::getInstance().call_eventUpdateKbps(m_callbackKbps, this, 0, speed);
+		
+		CKLBLuaScript::enqueue([=]() {
+			DownloadManager* instance = DownloadManager::getInstance(this);
+			double speed = instance->getTotalSpeed();
+			CKLBScriptEnv::getInstance().call_eventUpdateKbps(m_callbackKbps, this, 0, speed);
+		});
+		
 		// progress should be called here to prevent
 		// your network is too fast and downloaded a
 		// file before download stage appear
-		CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
+		CKLBLuaScript::enqueue([=]() {
+			CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
+		});
         return;
 	}
     
-    if (m_isFinished) {
+    if (m_isFinished && m_callback_queue.empty()) {
         // Both download and unzip finished
-        CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
-        CKLBScriptEnv::getInstance().call_eventUpdateComplete(m_callbackFinish, this);
+
+		CKLBLuaScript::enqueue([=]() {
+			CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, NULL, m_downloadedCount, m_unzippedCount);
+		});
+		CKLBLuaScript::enqueue([=]() {
+			CKLBScriptEnv::getInstance().call_eventUpdateComplete(m_callbackFinish, NULL);
+		});
+		m_isFinished = false;
         return;
     }
     
