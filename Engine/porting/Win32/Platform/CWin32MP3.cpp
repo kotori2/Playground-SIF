@@ -57,6 +57,10 @@ CWin32MP3::~CWin32MP3()
 		lame_close(m_lgf);
 		m_lgf = 0;
 	}
+
+	if (m_ogg_buffer) {
+		delete[] m_ogg_buffer;
+	}
 }
 
 bool
