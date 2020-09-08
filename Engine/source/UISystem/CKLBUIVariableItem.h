@@ -97,6 +97,8 @@ private:
 	void getUV      (CKLBImageAsset * pTex);		// テクスチャからUV値を取り込んでおく
 	void getSize    (CKLBImageAsset * pTex);	    // テクスチャからオリジナルサイズを取得する。
 	bool setAsset   (const char * asset, bool useOrigSize = false);
+	void notifyAssetUpdate(const char* asset);
+
 private:
 	CKLBImageAsset	*	m_pTex;
 	u32					m_handle;

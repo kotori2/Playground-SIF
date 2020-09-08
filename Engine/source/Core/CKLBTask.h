@@ -186,6 +186,11 @@ public:
 	void interposeTimer(CKLBTask* pTimer);
 
 	virtual u32 getClassID();
+
+    // refresh asset after mdl finished
+    virtual void notifyAssetUpdate(const char* asset) {
+        ; //do nothing
+    }
 protected:
     //! コンストラクタ
     /*!
@@ -406,6 +411,7 @@ public:
 
 	inline s64 getStartTime	()				{ return m_startTime;	}
 	inline s64 getScriptTime()				{ return m_scriptTime;	}
+    void notifyAssetRefresh(const char* asset);
 
 private:
     //! タスクを指定されたフェーズの実行リストに登録する

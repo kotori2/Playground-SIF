@@ -562,3 +562,14 @@ CKLBTask::interposeTimer(CKLBTask* pTimer) {
 		m_pParent	= pTimer;
 	}
 }
+
+void CKLBTaskMgr::notifyAssetRefresh(const char* asset) {
+    for (int i = 0; i < CKLBTask::P_MAX; i++) {
+        TASK_LIST list = m_lstTask[i];
+        for (CKLBTask* task = list.begin; task != NULL; task = task->m_pExeNext) {
+            if (task->getTaskType() == CKLBTask::TASK_LUA_UI) {
+                task->notifyAssetUpdate(asset);
+            }
+        }
+    }
+}

@@ -469,3 +469,18 @@ CKLBUIVariableItem::commandUI(CLuaState& lua, int argc, int cmd)
 	}
 	return ret;
 }
+
+void CKLBUIVariableItem::notifyAssetUpdate(const char* asset) {
+	if (m_asset != NULL && !strncmp(m_asset, "asset://", 8)) {
+		/*IPlatformRequest& pf = CPFInterface::getInstance().platform();
+		const char* fullPath = pf.getFullPath(asset);
+		const char* origPath = pf.getFullPath(m_asset);
+		if (origPath != NULL && !strcmp(fullPath, origPath)) {*/
+		const char* tmp = CKLBUtility::copyString(m_asset);
+		setAsset(tmp); //传进来的是texb，判断是不是同一个texb回头再写吧
+		KLBDELETEA(tmp);
+		/*}
+		KLBDELETEA(fullPath);
+		KLBDELETEA(origPath);*/
+	}
+}

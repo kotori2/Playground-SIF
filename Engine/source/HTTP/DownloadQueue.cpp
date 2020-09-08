@@ -90,6 +90,13 @@ void MicroDownload::MainLoop(int )
 			
 			// callback
 			scriptenv.call_eventMdlFinish(mdl->callback, mdl->filename, mdl->url, true, status_code);
+			const char* dot = strrchr(mdl->filename, '.');
+			// only refresh when the file is not audio
+			if (dot && !(
+				(dot[1] == 'o' && dot[2] == 'g' && dot[3] == 'g') ||
+				(dot[1] == 'm' && dot[2] == 'p' && dot[3] == '3'))) {
+				CKLBTaskMgr::getInstance().notifyAssetRefresh(mdl->filename);
+			}
 
 			delete mdl;
 		}
