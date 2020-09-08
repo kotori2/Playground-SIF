@@ -82,14 +82,14 @@ DownloadClient::execute(u32 deltaT)
 		CKLBLuaScript::enqueue([=]() {
 			DownloadManager* instance = DownloadManager::getInstance(this);
 			double speed = instance->getTotalSpeed();
-			CKLBScriptEnv::getInstance().call_eventUpdateKbps(m_callbackKbps, this, 0, speed);
+			CKLBScriptEnv::getInstance().call_eventUpdateKbps(m_callbackKbps, NULL, 0, speed);
 		});
 		
 		// progress should be called here to prevent
 		// your network is too fast and downloaded a
 		// file before download stage appear
 		CKLBLuaScript::enqueue([=]() {
-			CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, this, m_downloadedCount, m_unzippedCount);
+			CKLBScriptEnv::getInstance().call_eventUpdateProgress(m_callbackProgress, NULL, m_downloadedCount, m_unzippedCount);
 		});
         return;
 	}
