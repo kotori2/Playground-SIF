@@ -47,7 +47,7 @@ void
 DownloadManager::runNextTask(int tid)
 {
     IPlatformRequest& pfif = CPFInterface::getInstance().platform();
-    // alwasy looking for new task to execute
+    // always looking for new task to execute
     while (true)
     {
         Task task;

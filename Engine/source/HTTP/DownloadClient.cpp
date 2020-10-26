@@ -363,7 +363,7 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 			// wait for file write
 			for (int j = 0; j < 10; j++) {
 				if (!unzip->getStatus()) {
-					// use this for now since i don't want to add platfrom code
+					// use this for now since i don't want to add platform code
 					// 32ms is about 2 frames
 					std::this_thread::sleep_for(std::chrono::milliseconds(32));
 					unzip->Open(zipPathFull);
@@ -408,9 +408,7 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 			KLBDELETE(unzip);
 			unzip = NULL;
 			// delete tmp zip file
-			char pfPath[80];
-			sprintf(pfPath, "file://%s", zipPath);
-			CPFInterface::getInstance().platform().removeTmpFile(pfPath);
+			CPFInterface::getInstance().platform().removeTmpFile(zipPath);
             
             q.type = DOWNLOAD_CLIENT_CALLBACK_UNZIP_FINISH;
             q.queueId = that->m_queue.queueIds[i];
