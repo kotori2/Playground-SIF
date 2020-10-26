@@ -2224,12 +2224,15 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 			break;
 		case GROUP_CLASSID:
 			{
-				CKLBUIGroup * tsk = CKLBUIGroup::create(
-					pParentTask, 
+				CKLBUIGroup* tsk = CKLBUIGroup::create(
+					pParentTask,
 					parent,
 					newPrio,
 					templateDef->x,
-					templateDef->y);
+					templateDef->y,
+					templateDef->width,
+					templateDef->height
+				);
 
 				setupTask(templateDef,tsk);
 

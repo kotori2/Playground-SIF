@@ -74,22 +74,22 @@ CKLBUIGroup::getClassID()
 }
 
 CKLBUIGroup*
-CKLBUIGroup::create(CKLBUITask* pParent, CKLBNode* pNode, u32 order, float x, float y) {
+CKLBUIGroup::create(CKLBUITask* pParent, CKLBNode* pNode, u32 order, float x, float y, float width, float height) {
 	CKLBUIGroup* pTask = KLBNEW(CKLBUIGroup);
     if(!pTask) { return NULL; }
-	if(!pTask->init(pParent, pNode, order, x, y)) {
+	if(!pTask->init(pParent, pNode, order, x, y, width, height)) {
 		KLBDELETE(pTask);
-		return NULL;
+		return NULL; 
 	}
 	return pTask;
 }
 
 bool
-CKLBUIGroup::init(CKLBUITask* pParent, CKLBNode* pNode, u32 order, float x, float y) {
+CKLBUIGroup::init(CKLBUITask* pParent, CKLBNode* pNode, u32 order, float x, float y, float width, float height) {
 	if(!setupNode()) return false;
 
 	// ユーザ定義初期化を呼び、初期化に失敗したら終了。
-	bool bResult = initCore(order, x, y);
+	bool bResult = initCore(order, x, y, width, height);
 
 	// 初期化処理終了後の登録。失敗時の処理も適切に行う。
 	bResult = registUI(pParent, bResult);
@@ -101,14 +101,16 @@ CKLBUIGroup::init(CKLBUITask* pParent, CKLBNode* pNode, u32 order, float x, floa
 }
 
 bool
-CKLBUIGroup::initCore(u32 order, float x, float y)
+CKLBUIGroup::initCore(u32 order, float x, float y, float width, float height)
 {
 	if (!setupPropertyList((const char**)ms_propItems,SizeOfArray(ms_propItems))) {
 		return false;
 	}
 
 	setInitPos(x, y);
-	m_order = order;
+	m_order  = order;
+	m_width  = width;
+	m_height = height;
 	return true;
 }
 
@@ -117,12 +119,11 @@ CKLBUIGroup::initUI(CLuaState& lua)
 {
 	int argc = lua.numArgs();
 	if(argc < ARG_REQUIRE || argc > ARG_NUMS) return false;
-
 	u32 order = lua.getInt(ARG_ORDER);
 	float x = lua.getFloat(ARG_X);
 	float y = lua.getFloat(ARG_Y);
 	// getNode()->setTranslate(getNum(PR_X), getNum(PR_Y));
-	return initCore(order, x, y);
+	return initCore(order, x, y, 0, 0);
 }
 
 void
@@ -208,11 +209,8 @@ CKLBUIGroup::commandUI(CLuaState& lua, int argc, int cmd)
 		break;
 	case UI_GROUP_GET_SIZE:
 		{
-			DEBUG_PRINT("UI_GROUP_GET_SIZE not properly implemented.");
-			// On official client it just read 2 members and reply.
-			// Not figured out how it works yet.
-			lua.retFloat(100);
-			lua.retFloat(100);
+			lua.retFloat(m_width);
+			lua.retFloat(m_height);
 			ret = 2;
 		}
 		break;

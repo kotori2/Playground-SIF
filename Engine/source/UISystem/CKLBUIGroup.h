@@ -34,12 +34,12 @@ private:
 	CKLBUIGroup();
 	virtual ~CKLBUIGroup();
 
-	bool init(CKLBUITask* parent, CKLBNode* pNode, u32 order, float x, float y);
-	bool initCore(u32 order, float x, float y);
+	bool init(CKLBUITask* parent, CKLBNode* pNode, u32 order, float x, float y, float width, float height);
+	bool initCore(u32 order, float x, float y, float width, float height);
 public:
 	u32 getClassID();
 
-	static CKLBUIGroup* create(CKLBUITask* parent, CKLBNode* pNode, u32 order, float x, float y);
+	static CKLBUIGroup* create(CKLBUITask* parent, CKLBNode* pNode, u32 order, float x, float y, float width, float height);
 	bool initUI     (CLuaState& lua);
 	int  commandUI  (CLuaState& lua, int argc, int cmd);
 	void execute    (u32 deltaT);
@@ -53,6 +53,9 @@ public:
 	inline virtual u32 getOrder() { return m_order; }
 private:
 	u32					m_order;
+	
+	float				m_width;
+	float				m_height;
 
 	CKLBNodeAnimPack	m_animpack;
 	static	PROP_V2		ms_propItems[];
