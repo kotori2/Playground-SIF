@@ -1622,6 +1622,7 @@ void CKLBNode::kickAnimation(const char* animName,u32* refCounterPtr, bool doBle
 #include "CKLBUICanvas.h"
 #include "CKLBUIScale9.h"
 #include "CKLBUILabel.h"
+#include <CKLBDrawTask.h>
 
 /*static*/char		CKLBCompositeAsset::tmpBuff[TMP_COMPOSITE_ASSET_STR_BUFFSIZE];
 /*static*/char*		CKLBCompositeAsset::ptrBuff;
@@ -1778,6 +1779,7 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 	bool res					= true; // Success by default.
 	CKLBNode* pNode				= NULL;
 	CKLBAssetManager& pAssetMgr = CKLBAssetManager::getInstance();
+	CKLBDrawResource& draw		= CKLBDrawResource::getInstance();
 	CKLBAsset* pAsset[____END_ASSET];
 
 	// Flag to avoid composite refering to itself.
@@ -1830,23 +1832,45 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 	}
 
 	u32 newPrio = priorityOffset + templateDef->priority;
+	
+	// coordinate calculation
+	int anchorFlags = 0;
+	if (templateDef->anchor != 205) {
+		anchorFlags += templateDef->anchor;
+		templateDef->anchor = 0;
+	}
+	if (templateDef->anchorX != 205) {
+		anchorFlags += templateDef->anchorX;
+		templateDef->anchorX = 0;
+	}
+	if (templateDef->anchorY != 205) {
+		anchorFlags += templateDef->anchorY;
+		templateDef->anchorY = 0;
+	}
 
-	// THIS IS A REALLY DIRTY WORKAROUND
-	// HERE WE ADJUST TO VALUES, NOT VALUES TO US 
-	if (templateDef->anchor == 2 && templateDef->anchorY == 16 && (
-		// spash text and footer
-		templateDef->y == 640 || templateDef->y == 100)
-		) {
-		templateDef->y = 0;
+	if (anchorFlags & 4) {
+		// in the official client causes an "Invalid Width" error
 	}
-	else if (templateDef->anchor == 2 && templateDef->anchorY == 16 && templateDef->y == -640 && templateDef->height) {
-		// navi
-		templateDef->y = 640 - templateDef->height;
+
+	if (anchorFlags & 8) {
+		templateDef->x -= draw.ox();
 	}
-	else if (templateDef->anchor == 2 && templateDef->anchorY == 16 && templateDef->y == 194) {
-		// secretbox
-		templateDef->y = 640 - templateDef->y;
+	if (anchorFlags & 16) {
+		templateDef->y -= draw.oy();
 	}
+	if (anchorFlags & 32) {
+		// templateDef->x -= draw.ox() * 2;
+	}
+	if (anchorFlags & 64) {
+		// templateDef->y -= draw.oy() * 2;
+	}
+	if (anchorFlags & 1) {
+		templateDef->x = (templateDef->x * -1) - (templateDef->classID == BUTTON_CLASSID ? templateDef->sw : templateDef->width) - 1;
+	}
+	if (anchorFlags & 2) {
+		templateDef->y = (templateDef->y * -1) - (templateDef->classID == BUTTON_CLASSID ? templateDef->sh : templateDef->height) - 1;
+	}
+
 	klb_assert(
 		   ((((s64)priorityOffset + (s64)templateDef->priority)>>32) != 0)
 		|| ((((s64)priorityOffset + (s64)templateDef->priority)>>32) != -1), "Overflow or underflow");

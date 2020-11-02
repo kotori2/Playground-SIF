@@ -147,7 +147,7 @@ int CKLBLuaLibGL::luaGLReloadTexture (lua_State * L) {
 int CKLBLuaLibGL::luaGLGetHorizontalBorder	(lua_State * L) {
 	CLuaState lua(L);
 	CKLBDrawResource& draw = CKLBDrawResource::getInstance();
-	lua.retInt(draw.ox());
+	lua.retInt(draw.ox()); // TODO: must return a float value
 	return 1;
 }
 
@@ -155,7 +155,7 @@ int CKLBLuaLibGL::luaGLGetHorizontalBorder	(lua_State * L) {
 int CKLBLuaLibGL::luaGLGetVerticalBorder	(lua_State * L) {
 	CLuaState lua(L);
 	CKLBDrawResource& draw = CKLBDrawResource::getInstance();
-	lua.retInt(draw.oy());
+	lua.retInt(draw.oy()); // TODO: must return a float value
 	return 1;
 }
 
