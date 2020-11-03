@@ -214,18 +214,16 @@ CKLBLuaLibASSET::luaSetNMAsset(lua_State * L)
 		lua.retBool(false);
 		return 0;
 	}
-	const char* str1 = lua.getString(1);
-	const char* str2 = lua.getString(2);
-	char* result	 = KLBNEWA(char, assetSize);
-	for (int i = 0; i < assetSize; i++) {
+	size_t str1Len = 0;
+	size_t str2Len = 0;
+	const char* str1 = luaL_checklstring(L, 1, &str1Len);
+	const char* str2 = luaL_checklstring(L, 2, &str2Len);
+	size_t resultLen = str1Len > str2Len ? str2Len : str1Len;
+	char* result = KLBNEWA(char, resultLen);
+	for (int i = 0; i < resultLen; i++) {
 		result[i] = str1[i] ^ str2[i];
 	}
-	
-	if (strlen(str1) == 16 || strlen(str2) == 16)
-		lua_pushlstring(L, result, 16);
-	else
-		lua_pushlstring(L, result, assetSize);
-	KLBDELETEA(result);
+	lua_pushlstring(L, result, resultLen);
 	return 1;
 }
 
