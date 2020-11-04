@@ -198,6 +198,9 @@ CKLBInnerDef::CKLBInnerDef()
 ,cliph		(0)
 ,width		(0)
 ,height		(0)
+,anchor		(0)
+,anchorX	(0)
+,anchorY	(0)
 ,id			(0)
 ,anim		(NULL)
 ,xscale		(1.0f)
@@ -1834,20 +1837,7 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 	u32 newPrio = priorityOffset + templateDef->priority;
 	
 	// coordinate calculation
-	int anchorFlags = 0;
-	if (templateDef->anchor != 205) {
-		anchorFlags += templateDef->anchor;
-		templateDef->anchor = 0;
-	}
-	if (templateDef->anchorX != 205) {
-		anchorFlags += templateDef->anchorX;
-		templateDef->anchorX = 0;
-	}
-	if (templateDef->anchorY != 205) {
-		anchorFlags += templateDef->anchorY;
-		templateDef->anchorY = 0;
-	}
-
+	int anchorFlags = templateDef->anchor + templateDef->anchorX + templateDef->anchorY;
 	if (anchorFlags & 4) {
 		// in the official client causes an "Invalid Width" error
 	}
@@ -2228,7 +2218,7 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 					newPrio,
 					templateDef->x,
 					templateDef->y,
-					templateDef->width, 
+					templateDef->width,
 					templateDef->height,
 					templateDef->assets[0] ? addAssetPrefix(filterDB(templateDef->assets[0]->string)) : NULL
 					);
