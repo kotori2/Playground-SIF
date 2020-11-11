@@ -580,7 +580,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	const char* uid = kc.getUserID();
 
 	if (uid == NULL)
-		user_id = NULL;
+		sprintf(user_id, "User-ID: ");
 	else
 		sprintf(user_id, "User-ID: %s", uid);
 
@@ -614,11 +614,10 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 
 	m_http->setHeader(headers);
 
-	for (int i = 0; i < 11; i++) {
+#ifdef DEBUG
+	for (int i = 0; i < 13; i++) {
 		DEBUG_PRINT("[HTTP HEADER] %s", headers[i]);
 	}
-
-#ifdef DEBUG
 	size_t bodyLen = strlen(data);
 	size_t tmpLen = bodyLen <= 16000 ? bodyLen + 1 : 16000;
 	size_t endLen = bodyLen <= 16000 ? bodyLen + 1 : 16100;
