@@ -224,6 +224,7 @@ CKLBLuaLibASSET::luaSetNMAsset(lua_State * L)
 		result[i] = str1[i] ^ str2[i];
 	}
 	lua_pushlstring(L, result, resultLen);
+	KLBDELETEA(result);
 	return 1;
 }
 
