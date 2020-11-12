@@ -743,7 +743,7 @@ FT_GlyphSlot FontObject::renderChar(u32 unicode, u8 embolden) {
 	// initialize stroker, so you can create outline font
 	FT_Stroker stroker;
 	FT_Stroker_New(FontObject::s_library, &stroker);
-	FT_Stroker_Set(stroker, embolden << 3, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
+	FT_Stroker_Set(stroker, embolden << 2, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
 	auto error = FT_Load_Glyph(m_face, glyph_index, FT_LOAD_DEFAULT);
 	FT_Glyph glyph;
 	FT_Get_Glyph(m_face->glyph, &glyph);
