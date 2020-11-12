@@ -44,6 +44,7 @@ CKLBLuaLibGL::addLibrary()
 	addFunction("GL_Unloadtexture",			CKLBLuaLibGL::luaGLUnloadTexture		);
 	addFunction("GL_Reloadtexture",			CKLBLuaLibGL::luaGLReloadTexture		);
 	addFunction("GL_DoScreenShot",			CKLBLuaLibGL::luaGLDoScreenShot			);
+	addFunction("GL_GetResolution",			CKLBLuaLibGL::luaGLGetResolution		);
 	addFunction("GL_GetScreenScale",		CKLBLuaLibGL::luaGLGetScreenScale		);
 	addFunction("GL_GetRenderingAPI",		CKLBLuaLibGL::luaGLGetRenderingAPI		);
 	addFunction("GL_GetUnsafeAreaSize",		CKLBLuaLibGL::luaGLGetUnsafeAreaSize	);
@@ -52,10 +53,20 @@ CKLBLuaLibGL::addLibrary()
 	addFunction("GL_ComputeMatrixFromToRect",CKLBLuaLibGL::luaGLComputeMatrixFromToRect);
 	addFunction("GL_CreateShader",			CKLBLuaLibGL::luaGLCreateShader			);
 	addFunction("GL_StackShaderParam",		CKLBLuaLibGL::luaGLStackShaderParam		);
+	addFunction("GL_BGBorder",				CKLBLuaLibGL::luaGLBGBorder				);
+}
+
+int CKLBLuaLibGL::luaGLBGBorder(lua_State* L)
+{
+	DEBUG_PRINT("GL_BGBorder is not implemented yet");
+	// same as UI_Cover (task that also is not implemented)
+	// parentTask, prio, asset, repeatX_bool, repeatY_bool, scaleX, scaleY, holeWidth, holeHeight 
+	return 0;
 }
 
 int CKLBLuaLibGL::luaGLStackShaderParam(lua_State * L)
 {
+	DEBUG_PRINT("GL_StackShaderParam not implemented yet");
 	return 0;
 }
 
@@ -91,6 +102,8 @@ int CKLBLuaLibGL::luaGLComputeMatrixFromToRect(lua_State* L) {
 
 int CKLBLuaLibGL::luaGLIsSafeAreaScreen(lua_State* L) {
 	CLuaState lua(L);
+	// return true if unsafeX and unsafeY == 0
+	// force return false for now because it require GL_GetUniformScaleFromSafeToSafe function
 	lua.retBool(false);
 	return 1;
 }
@@ -107,7 +120,22 @@ int CKLBLuaLibGL::luaGLGetPhysicalSize(lua_State* L)
 int CKLBLuaLibGL::luaGLGetUnsafeAreaSize(lua_State* L)
 {
 	CLuaState lua(L);
-	lua.retInt(0);
+	CKLBDrawResource& draw = CKLBDrawResource::getInstance();
+	int pos = lua.getInt(1);
+	switch (pos) {
+	case 0:
+	case 1: {
+		// left and right
+		lua.retInt(draw.unsafeX());
+		break;
+	}
+	case 2: 
+	case 3: {
+		// top and bottom
+		lua.retInt(draw.unsafeY());
+		break;
+	}
+	}
 	return 1;
 }
 
@@ -116,6 +144,15 @@ int CKLBLuaLibGL::luaGLGetRenderingAPI(lua_State* L)
 	CLuaState lua(L);
 	lua.retInt(2);
 	return 1;
+}
+
+int CKLBLuaLibGL::luaGLGetResolution(lua_State* L)
+{
+	CLuaState lua(L);
+	CKLBDrawResource& draw = CKLBDrawResource::getInstance();
+	lua.retInt(draw.width());
+	lua.retInt(draw.height());
+	return 2;
 }
 
 int CKLBLuaLibGL::luaGLGetScreenScale(lua_State * L)
@@ -147,7 +184,7 @@ int CKLBLuaLibGL::luaGLReloadTexture (lua_State * L) {
 int CKLBLuaLibGL::luaGLGetHorizontalBorder	(lua_State * L) {
 	CLuaState lua(L);
 	CKLBDrawResource& draw = CKLBDrawResource::getInstance();
-	lua.retInt(draw.ox()); // TODO: must return a float value
+	lua.retFloat(draw.borderX());
 	return 1;
 }
 
@@ -155,7 +192,7 @@ int CKLBLuaLibGL::luaGLGetHorizontalBorder	(lua_State * L) {
 int CKLBLuaLibGL::luaGLGetVerticalBorder	(lua_State * L) {
 	CLuaState lua(L);
 	CKLBDrawResource& draw = CKLBDrawResource::getInstance();
-	lua.retInt(draw.oy()); // TODO: must return a float value
+	lua.retFloat(draw.borderY());
 	return 1;
 }
 

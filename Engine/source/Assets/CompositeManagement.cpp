@@ -1839,20 +1839,20 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 	// coordinate calculation
 	int anchorFlags = templateDef->anchor + templateDef->anchorX + templateDef->anchorY;
 	if (anchorFlags & 4) {
-		// in the official client causes an "Invalid Width" error
+		// TODO
 	}
 
 	if (anchorFlags & 8) {
-		templateDef->x -= draw.ox();
+		templateDef->x -= draw.borderX();
 	}
 	if (anchorFlags & 16) {
-		templateDef->y -= draw.oy();
+		templateDef->y -= draw.borderY();
 	}
 	if (anchorFlags & 32) {
-		// templateDef->x -= draw.ox() * 2;
+		templateDef->x -= draw.borderX() + draw.unsafeX();
 	}
 	if (anchorFlags & 64) {
-		// templateDef->y -= draw.oy() * 2;
+		templateDef->y -= draw.borderX() + draw.unsafeY();
 	}
 	if (anchorFlags & 1) {
 		templateDef->x = (templateDef->x * -1) - (templateDef->classID == BUTTON_CLASSID ? templateDef->sw : templateDef->width) - 1;

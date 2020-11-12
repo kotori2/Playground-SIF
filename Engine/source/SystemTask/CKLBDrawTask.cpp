@@ -39,8 +39,6 @@ CKLBDrawResource::setBorderless(bool hasNoBorder) {
 bool
 CKLBDrawResource::setLogicalResolution(int width, int height, float * other_matrix)
 {
-	m_width = width;
-	m_height = height;
 	/*
 	GLfloat matrix[16] = {
 		(2.0f/m_width),	0.0f,					0.0f,	0.0f,
@@ -49,29 +47,50 @@ CKLBDrawResource::setLogicalResolution(int width, int height, float * other_matr
 		-1.0f,			1.0f,					1.0f,	1.0f, };
 	*/
 
-	float scaleX = (float)m_phisical_width  / (float)m_width;
-	float scaleY = (float)m_phisical_height / (float)m_height;
-	m_scaleX = scaleX;
-	m_scaleY = scaleY;
+	if (width < 1) width = 1;
+	if (height < 1) height = 1;
+	m_width = width;
+	m_height = height;
 
-	m_scale = (scaleX < scaleY) ? scaleX : scaleY;
+	m_unsafeX = max((float)(m_phisical_width + (m_phisical_height * -16.0f) / 9.0f) * 0.5f, 0);
+	m_unsafeY = 0; // TODO?
 
-	m_vp_width	= m_width * m_scale;
+	int safeWidth = m_phisical_width - m_unsafeX * 2;
+	int safeHeight = m_phisical_height - m_unsafeY * 2;
+
+	// should we keep the original scale (phisical_width / m_width)?
+	m_scaleX = (float)safeWidth  / (float)m_width;
+	m_scaleY = (float)safeHeight / (float)m_height;
+	m_scale = (m_scaleX < m_scaleY) ? m_scaleX : m_scaleY;
+
+	m_vp_width = m_width * m_scale;
 	m_vp_height = m_height * m_scale;
 
-	// 画面内の原点位置 m_ox, m_oy を計算
-	m_ox = (m_phisical_width  - m_vp_width ) / 2;
-	m_oy = (m_phisical_height - m_vp_height) / 2;
+	m_ox = (safeWidth - m_vp_width) / 2;
+	m_oy = (safeHeight - m_vp_height) / 2;
+
+	m_borderX = m_ox * (1.0f / m_scale);
+	m_borderY = m_oy * (1.0f / m_scale);
+
+	float screenBorderX = m_unsafeX + m_ox;
+	float screenBorderY = m_unsafeY + m_oy;
 
 	// Select if 0,0 in coordinate is screen physical 0,0
-	float glTX		= m_hasBorder ? -1.0f				: (-1.0f) + ((m_phisical_width  - (m_width  * m_scale)) / (float)m_phisical_width );
-	float glTY		= m_hasBorder ? +1.0f				: (+1.0f) - ((m_phisical_height - (m_height * m_scale)) / (float)m_phisical_height);
+	float glTX = -1.0f;
+	float glTY = +1.0f;
 
-	// Viewport pixel count width/height same as logical size ?
-	// Yes : has border
-	// No  : is borderless
-	float glScaleX	= m_hasBorder ? (2.0/m_width)		: (( 2.0f/m_width )*m_scale) / scaleX;
-	float glScaleY	= m_hasBorder ? (-2.0f/m_height)	: ((-2.0f/m_height)*m_scale) / scaleY;
+	float glScaleX = +2.0f / m_width;
+	float glScaleY = -2.0f / m_height;
+
+	if (!m_hasBorder) {
+		glTX = (-1.0f) + (screenBorderX * (2.0f / m_phisical_width));
+		glTY = (+1.0f) - (screenBorderY * (2.0f / m_phisical_height));
+
+		// Viewport pixel count width/height is not same as logical size
+		glScaleX = (m_scale * +2.0f) / m_phisical_width;
+		glScaleY = (m_scale * -2.0f) / m_phisical_height;
+	}
+
 
 	GLfloat matrix[16] = {
 		glScaleX,	0.0f,		0.0f,	0.0f,
@@ -86,7 +105,7 @@ CKLBDrawResource::setLogicalResolution(int width, int height, float * other_matr
 
 	// Perform centering and scaling at GL matrix level.
 	if (m_hasBorder) {
-		dglViewport(m_ox, m_oy, m_vp_width, m_vp_height);
+		dglViewport(screenBorderX, screenBorderY, m_vp_width, m_vp_height);
 	} else {
 		dglViewport(0, 0, m_phisical_width, m_phisical_height);
 	}

@@ -39,8 +39,14 @@ public:
 	inline const int ox         () const { return m_ox;         }
 	inline const int oy         () const { return m_oy;         }
 
-	inline const int scaleX		() const { return m_scaleX;		}
-	inline const int scaleY		() const { return m_scaleY;		}
+	inline const float scaleX		() const { return m_scaleX;		}
+	inline const float scaleY		() const { return m_scaleY;		}
+
+	inline const float borderX	() const { return m_borderX;	}
+	inline const float borderY	() const { return m_borderY;	}
+
+	inline const float unsafeX	() const { return m_unsafeX;	}
+	inline const float unsafeY	() const { return m_unsafeY;	}
 
 	bool initResource(bool rotation, int width, int height);
 	void freeResource();
@@ -52,8 +58,8 @@ public:
 	bool setLogicalResolution(int width, int height, float * other_matrix = 0);
 
 	inline void convPointing(int x, int y, int& cx, int& cy) {
-		cx = (int)((x - m_ox) / m_scale);
-		cy = (int)((y - m_oy) / m_scale);
+		cx = (int)((x - m_ox - m_unsafeX) / m_scale);
+		cy = (int)((y - m_oy - m_unsafeY) / m_scale);
 	}
 
 	// 論理座標系上の長さを物理座標系上の長さに変換する
@@ -64,8 +70,8 @@ public:
 
 	// 論理座標を物理デバイス座標に変換する(OSコントロールの位置変換等に使用)
 	inline void toPhisicalPosition(int lx, int ly, int& px, int& py) {
-		px = (int)(lx * m_scale) + m_ox;
-		py = (int)(ly * m_scale) + m_oy;
+		px = (int)(lx * m_scale) + m_ox + m_unsafeX;
+		py = (int)(ly * m_scale) + m_oy + m_unsafeY;
 	}
 	// 論理座標系上のサイズを物理デバイス座標系上のサイズに変換する
 	inline void toPhisicalSize(int lw, int lh, int& pw, int& ph) {
@@ -114,6 +120,10 @@ private:
 	float		m_scale;	// 論理解像度に対する物理画面の倍率
 	float		m_scaleX;
 	float		m_scaleY;
+	float		m_borderX;
+	float		m_borderY;
+	float		m_unsafeX;
+	float		m_unsafeY;
 	CKLBNode*	m_gpRootNode;
 };
 
