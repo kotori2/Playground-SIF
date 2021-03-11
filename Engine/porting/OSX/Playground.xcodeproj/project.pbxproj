@@ -7,8 +7,72 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0704565C25FA0CE700F141FA /* start_old.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0704565B25FA0CE700F141FA /* start_old.lua */; };
 		0704566625FA0F0D00F141FA /* LuaLibMISC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0704566525FA0F0D00F141FA /* LuaLibMISC.cpp */; };
+		0704574325FA13ED00F141FA /* m_exchange in Resources */ = {isa = PBXBuildFile; fileRef = 0704570225FA13E500F141FA /* m_exchange */; };
+		0704574425FA13ED00F141FA /* m_shop in Resources */ = {isa = PBXBuildFile; fileRef = 0704570325FA13E500F141FA /* m_shop */; };
+		0704574525FA13ED00F141FA /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 0704570425FA13E500F141FA /* lib */; };
+		0704574625FA13ED00F141FA /* m_basicsettings in Resources */ = {isa = PBXBuildFile; fileRef = 0704570525FA13E500F141FA /* m_basicsettings */; };
+		0704574725FA13ED00F141FA /* m_album in Resources */ = {isa = PBXBuildFile; fileRef = 0704570625FA13E500F141FA /* m_album */; };
+		0704574825FA13ED00F141FA /* m_stamp in Resources */ = {isa = PBXBuildFile; fileRef = 0704570725FA13E500F141FA /* m_stamp */; };
+		0704574925FA13ED00F141FA /* pl_ui in Resources */ = {isa = PBXBuildFile; fileRef = 0704570825FA13E500F141FA /* pl_ui */; };
+		0704574A25FA13ED00F141FA /* MTLmr3m.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0704570925FA13E500F141FA /* MTLmr3m.ttf */; };
+		0704574B25FA13ED00F141FA /* common in Resources */ = {isa = PBXBuildFile; fileRef = 0704570A25FA13E500F141FA /* common */; };
+		0704574C25FA13ED00F141FA /* pl_live in Resources */ = {isa = PBXBuildFile; fileRef = 0704570B25FA13E500F141FA /* pl_live */; };
+		0704574D25FA13ED00F141FA /* m_notice in Resources */ = {isa = PBXBuildFile; fileRef = 0704570C25FA13E600F141FA /* m_notice */; };
+		0704574E25FA13ED00F141FA /* m_live_adjust in Resources */ = {isa = PBXBuildFile; fileRef = 0704570D25FA13E600F141FA /* m_live_adjust */; };
+		0704574F25FA13ED00F141FA /* start.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0704570E25FA13E600F141FA /* start.lua */; };
+		0704575025FA13ED00F141FA /* m_friends in Resources */ = {isa = PBXBuildFile; fileRef = 0704570F25FA13E600F141FA /* m_friends */; };
+		0704575125FA13ED00F141FA /* m_tutorial in Resources */ = {isa = PBXBuildFile; fileRef = 0704571025FA13E600F141FA /* m_tutorial */; };
+		0704575225FA13ED00F141FA /* m_festival in Resources */ = {isa = PBXBuildFile; fileRef = 0704571125FA13E600F141FA /* m_festival */; };
+		0704575325FA13ED00F141FA /* config in Resources */ = {isa = PBXBuildFile; fileRef = 0704571225FA13E600F141FA /* config */; };
+		0704575425FA13ED00F141FA /* m_quest in Resources */ = {isa = PBXBuildFile; fileRef = 0704571325FA13E600F141FA /* m_quest */; };
+		0704575525FA13ED00F141FA /* m_idol_skill in Resources */ = {isa = PBXBuildFile; fileRef = 0704571425FA13E700F141FA /* m_idol_skill */; };
+		0704575625FA13ED00F141FA /* m_location in Resources */ = {isa = PBXBuildFile; fileRef = 0704571525FA13E700F141FA /* m_location */; };
+		0704575725FA13ED00F141FA /* m_sns in Resources */ = {isa = PBXBuildFile; fileRef = 0704571625FA13E700F141FA /* m_sns */; };
+		0704575825FA13ED00F141FA /* Maintenance.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0704571725FA13E700F141FA /* Maintenance.lua */; };
+		0704575925FA13ED00F141FA /* m_top in Resources */ = {isa = PBXBuildFile; fileRef = 0704571825FA13E700F141FA /* m_top */; };
+		0704575A25FA13ED00F141FA /* m_event in Resources */ = {isa = PBXBuildFile; fileRef = 0704571925FA13E700F141FA /* m_event */; };
+		0704575B25FA13ED00F141FA /* m_online in Resources */ = {isa = PBXBuildFile; fileRef = 0704571A25FA13E700F141FA /* m_online */; };
+		0704575C25FA13ED00F141FA /* m_reward in Resources */ = {isa = PBXBuildFile; fileRef = 0704571B25FA13E700F141FA /* m_reward */; };
+		0704575D25FA13ED00F141FA /* m_ranking in Resources */ = {isa = PBXBuildFile; fileRef = 0704571C25FA13E700F141FA /* m_ranking */; };
+		0704575E25FA13ED00F141FA /* m_favorite_ranking in Resources */ = {isa = PBXBuildFile; fileRef = 0704571D25FA13E700F141FA /* m_favorite_ranking */; };
+		0704575F25FA13ED00F141FA /* m_class in Resources */ = {isa = PBXBuildFile; fileRef = 0704571E25FA13E700F141FA /* m_class */; };
+		0704576025FA13ED00F141FA /* pl_bootstrap in Resources */ = {isa = PBXBuildFile; fileRef = 0704571F25FA13E700F141FA /* pl_bootstrap */; };
+		0704576125FA13ED00F141FA /* m_unit in Resources */ = {isa = PBXBuildFile; fileRef = 0704572025FA13E800F141FA /* m_unit */; };
+		0704576225FA13ED00F141FA /* pl_live_menu in Resources */ = {isa = PBXBuildFile; fileRef = 0704572125FA13E800F141FA /* pl_live_menu */; };
+		0704576325FA13ED00F141FA /* Update.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0704572225FA13E800F141FA /* Update.lua */; };
+		0704576425FA13ED00F141FA /* m_battle_event in Resources */ = {isa = PBXBuildFile; fileRef = 0704572325FA13E800F141FA /* m_battle_event */; };
+		0704576525FA13ED00F141FA /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 0704572425FA13E800F141FA /* assets */; };
+		0704576625FA13ED00F141FA /* m_boot in Resources */ = {isa = PBXBuildFile; fileRef = 0704572525FA13E800F141FA /* m_boot */; };
+		0704576725FA13ED00F141FA /* m_download in Resources */ = {isa = PBXBuildFile; fileRef = 0704572625FA13E800F141FA /* m_download */; };
+		0704576825FA13ED00F141FA /* m_team in Resources */ = {isa = PBXBuildFile; fileRef = 0704572725FA13E900F141FA /* m_team */; };
+		0704576925FA13ED00F141FA /* pl_common in Resources */ = {isa = PBXBuildFile; fileRef = 0704572825FA13E900F141FA /* pl_common */; };
+		0704576A25FA13ED00F141FA /* db in Resources */ = {isa = PBXBuildFile; fileRef = 0704572925FA13E900F141FA /* db */; };
+		0704576B25FA13ED00F141FA /* m_login in Resources */ = {isa = PBXBuildFile; fileRef = 0704572A25FA13EA00F141FA /* m_login */; };
+		0704576C25FA13ED00F141FA /* m_live in Resources */ = {isa = PBXBuildFile; fileRef = 0704572B25FA13EA00F141FA /* m_live */; };
+		0704576D25FA13ED00F141FA /* m_background in Resources */ = {isa = PBXBuildFile; fileRef = 0704572C25FA13EA00F141FA /* m_background */; };
+		0704576E25FA13ED00F141FA /* m_arena in Resources */ = {isa = PBXBuildFile; fileRef = 0704572D25FA13EA00F141FA /* m_arena */; };
+		0704576F25FA13ED00F141FA /* formula in Resources */ = {isa = PBXBuildFile; fileRef = 0704572E25FA13EA00F141FA /* formula */; };
+		0704577025FA13ED00F141FA /* m_hint in Resources */ = {isa = PBXBuildFile; fileRef = 0704572F25FA13EA00F141FA /* m_hint */; };
+		0704577125FA13ED00F141FA /* m_player_profile in Resources */ = {isa = PBXBuildFile; fileRef = 0704573025FA13EB00F141FA /* m_player_profile */; };
+		0704577225FA13ED00F141FA /* m_item in Resources */ = {isa = PBXBuildFile; fileRef = 0704573125FA13EB00F141FA /* m_item */; };
+		0704577325FA13ED00F141FA /* m_menu in Resources */ = {isa = PBXBuildFile; fileRef = 0704573225FA13EB00F141FA /* m_menu */; };
+		0704577425FA13ED00F141FA /* m_history in Resources */ = {isa = PBXBuildFile; fileRef = 0704573325FA13EB00F141FA /* m_history */; };
+		0704577525FA13ED00F141FA /* m_secretbox in Resources */ = {isa = PBXBuildFile; fileRef = 0704573425FA13EB00F141FA /* m_secretbox */; };
+		0704577625FA13ED00F141FA /* m_arcade in Resources */ = {isa = PBXBuildFile; fileRef = 0704573525FA13EB00F141FA /* m_arcade */; };
+		0704577725FA13ED00F141FA /* m_challenge in Resources */ = {isa = PBXBuildFile; fileRef = 0704573625FA13EB00F141FA /* m_challenge */; };
+		0704577825FA13ED00F141FA /* GPUDMLprob.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0704573725FA13EC00F141FA /* GPUDMLprob.otf */; };
+		0704577925FA13ED00F141FA /* m_achievement in Resources */ = {isa = PBXBuildFile; fileRef = 0704573825FA13EC00F141FA /* m_achievement */; };
+		0704577A25FA13ED00F141FA /* m_collab in Resources */ = {isa = PBXBuildFile; fileRef = 0704573925FA13EC00F141FA /* m_collab */; };
+		0704577B25FA13ED00F141FA /* m_scenario in Resources */ = {isa = PBXBuildFile; fileRef = 0704573A25FA13EC00F141FA /* m_scenario */; };
+		0704577C25FA13ED00F141FA /* m_live_custom in Resources */ = {isa = PBXBuildFile; fileRef = 0704573B25FA13EC00F141FA /* m_live_custom */; };
+		0704577D25FA13ED00F141FA /* m_debug in Resources */ = {isa = PBXBuildFile; fileRef = 0704573C25FA13EC00F141FA /* m_debug */; };
+		0704577E25FA13ED00F141FA /* m_duel in Resources */ = {isa = PBXBuildFile; fileRef = 0704573D25FA13EC00F141FA /* m_duel */; };
+		0704577F25FA13ED00F141FA /* pl_assets in Resources */ = {isa = PBXBuildFile; fileRef = 0704573E25FA13ED00F141FA /* pl_assets */; };
+		0704578025FA13ED00F141FA /* m_award in Resources */ = {isa = PBXBuildFile; fileRef = 0704573F25FA13ED00F141FA /* m_award */; };
+		0704578125FA13ED00F141FA /* m_scenario_menu in Resources */ = {isa = PBXBuildFile; fileRef = 0704574025FA13ED00F141FA /* m_scenario_menu */; };
+		0704578225FA13ED00F141FA /* m_live_menu in Resources */ = {isa = PBXBuildFile; fileRef = 0704574125FA13ED00F141FA /* m_live_menu */; };
+		0704578325FA13ED00F141FA /* start_old.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0704574225FA13ED00F141FA /* start_old.lua */; };
 		0765A169240EA964000747CC /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0765A167240EA94B000747CC /* libcrypto.a */; };
 		0765A175240EAA00000747CC /* V1_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A16B240EA9FF000747CC /* V1_Decrypter.cc */; };
 		0765A176240EAA00000747CC /* V3_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A16C240EA9FF000747CC /* V3_Decrypter.cc */; };
@@ -21,63 +85,6 @@
 		0765A183240EAA29000747CC /* DownloadQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A17E240EAA29000747CC /* DownloadQueue.cpp */; };
 		0765A184240EAA29000747CC /* DownloadClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A180240EAA29000747CC /* DownloadClient.cpp */; };
 		0765A185240EAA29000747CC /* DownloadManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0765A181240EAA29000747CC /* DownloadManager.cpp */; };
-		07BCF99B2415903700B27902 /* MTLmr3m.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9612415902F00B27902 /* MTLmr3m.ttf */; };
-		07BCF99C2415903700B27902 /* Update.lua in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9622415903000B27902 /* Update.lua */; };
-		07BCF99D2415903700B27902 /* m_location in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9632415903000B27902 /* m_location */; };
-		07BCF99E2415903700B27902 /* m_team in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9642415903000B27902 /* m_team */; };
-		07BCF99F2415903700B27902 /* m_shop in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9652415903000B27902 /* m_shop */; };
-		07BCF9A02415903700B27902 /* Maintenance.lua in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9662415903000B27902 /* Maintenance.lua */; };
-		07BCF9A12415903700B27902 /* m_online in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9672415903000B27902 /* m_online */; };
-		07BCF9A22415903700B27902 /* m_favorite_ranking in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9682415903000B27902 /* m_favorite_ranking */; };
-		07BCF9A32415903700B27902 /* m_duel in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9692415903000B27902 /* m_duel */; };
-		07BCF9A42415903700B27902 /* m_basicsettings in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF96A2415903000B27902 /* m_basicsettings */; };
-		07BCF9A52415903700B27902 /* m_ranking in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF96B2415903000B27902 /* m_ranking */; };
-		07BCF9A62415903700B27902 /* m_notice in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF96C2415903000B27902 /* m_notice */; };
-		07BCF9A72415903700B27902 /* m_event in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF96D2415903000B27902 /* m_event */; };
-		07BCF9A82415903700B27902 /* m_reward in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF96E2415903000B27902 /* m_reward */; };
-		07BCF9A92415903700B27902 /* m_menu in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF96F2415903000B27902 /* m_menu */; };
-		07BCF9AA2415903700B27902 /* m_battle_event in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9702415903100B27902 /* m_battle_event */; };
-		07BCF9AB2415903700B27902 /* m_challenge in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9712415903100B27902 /* m_challenge */; };
-		07BCF9AC2415903700B27902 /* m_hint in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9722415903100B27902 /* m_hint */; };
-		07BCF9AD2415903700B27902 /* m_arcade in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9732415903100B27902 /* m_arcade */; };
-		07BCF9AE2415903700B27902 /* m_item in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9742415903100B27902 /* m_item */; };
-		07BCF9AF2415903700B27902 /* m_debug in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9752415903100B27902 /* m_debug */; };
-		07BCF9B02415903700B27902 /* formula in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9762415903100B27902 /* formula */; };
-		07BCF9B12415903700B27902 /* m_festival in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9772415903100B27902 /* m_festival */; };
-		07BCF9B22415903700B27902 /* db in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9782415903100B27902 /* db */; };
-		07BCF9B32415903700B27902 /* m_background in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9792415903100B27902 /* m_background */; };
-		07BCF9B42415903700B27902 /* m_login in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF97A2415903100B27902 /* m_login */; };
-		07BCF9B52415903700B27902 /* m_player_profile in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF97B2415903200B27902 /* m_player_profile */; };
-		07BCF9B62415903700B27902 /* m_scenario_menu in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF97C2415903200B27902 /* m_scenario_menu */; };
-		07BCF9B72415903700B27902 /* m_sandbox in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF97D2415903200B27902 /* m_sandbox */; };
-		07BCF9B82415903700B27902 /* m_boot in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF97E2415903200B27902 /* m_boot */; };
-		07BCF9B92415903700B27902 /* m_achievement in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF97F2415903200B27902 /* m_achievement */; };
-		07BCF9BA2415903700B27902 /* m_live_custom in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9802415903200B27902 /* m_live_custom */; };
-		07BCF9BB2415903700B27902 /* m_unit in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9812415903200B27902 /* m_unit */; };
-		07BCF9BC2415903700B27902 /* m_exchange in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9822415903200B27902 /* m_exchange */; };
-		07BCF9BD2415903700B27902 /* m_friends in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9832415903300B27902 /* m_friends */; };
-		07BCF9BE2415903700B27902 /* m_stamp in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9842415903300B27902 /* m_stamp */; };
-		07BCF9BF2415903700B27902 /* GPUDMLprob.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9852415903300B27902 /* GPUDMLprob.otf */; };
-		07BCF9C02415903700B27902 /* m_scenario in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9862415903300B27902 /* m_scenario */; };
-		07BCF9C12415903700B27902 /* start.lua in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9872415903300B27902 /* start.lua */; };
-		07BCF9C22415903700B27902 /* m_live_menu in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9882415903300B27902 /* m_live_menu */; };
-		07BCF9C32415903700B27902 /* m_tutorial in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9892415903300B27902 /* m_tutorial */; };
-		07BCF9C42415903700B27902 /* m_quest in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF98A2415903300B27902 /* m_quest */; };
-		07BCF9C52415903700B27902 /* m_top in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF98B2415903400B27902 /* m_top */; };
-		07BCF9C72415903700B27902 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF98D2415903400B27902 /* assets */; };
-		07BCF9C82415903700B27902 /* m_history in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF98E2415903400B27902 /* m_history */; };
-		07BCF9C92415903700B27902 /* m_secretbox in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF98F2415903400B27902 /* m_secretbox */; };
-		07BCF9CA2415903700B27902 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9902415903400B27902 /* lib */; };
-		07BCF9CB2415903700B27902 /* m_live in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9912415903500B27902 /* m_live */; };
-		07BCF9CC2415903700B27902 /* m_collab in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9922415903500B27902 /* m_collab */; };
-		07BCF9CD2415903700B27902 /* common in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9932415903500B27902 /* common */; };
-		07BCF9CE2415903700B27902 /* m_sns in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9942415903500B27902 /* m_sns */; };
-		07BCF9CF2415903700B27902 /* m_download in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9952415903600B27902 /* m_download */; };
-		07BCF9D02415903700B27902 /* m_class in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9962415903600B27902 /* m_class */; };
-		07BCF9D12415903700B27902 /* m_live_adjust in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9972415903600B27902 /* m_live_adjust */; };
-		07BCF9D22415903700B27902 /* m_album in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9982415903600B27902 /* m_album */; };
-		07BCF9D32415903700B27902 /* m_award in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9992415903600B27902 /* m_award */; };
-		07BCF9D42415903700B27902 /* m_idol_skill in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF99A2415903700B27902 /* m_idol_skill */; };
 		32127067182530650027C57E /* CSampleProjectEntrance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32127065182530650027C57E /* CSampleProjectEntrance.cpp */; };
 		3212706A182532090027C57E /* CKLBDeviceKeyEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32127068182532090027C57E /* CKLBDeviceKeyEvent.cpp */; };
 		3212706E18253C800027C57E /* FileDelete.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3212706C18253C800027C57E /* FileDelete.cpp */; };
@@ -812,9 +819,73 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0704565B25FA0CE700F141FA /* start_old.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = start_old.lua; path = "SIF-Resources/start_old.lua"; sourceTree = "<group>"; };
 		0704566425FA0F0D00F141FA /* LuaLibMISC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LuaLibMISC.h; path = ../../../source/LuaLib/LuaLibMISC.h; sourceTree = "<group>"; };
 		0704566525FA0F0D00F141FA /* LuaLibMISC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LuaLibMISC.cpp; path = ../../../source/LuaLib/LuaLibMISC.cpp; sourceTree = "<group>"; };
+		0704570225FA13E500F141FA /* m_exchange */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_exchange; path = "SIF-Resources/m_exchange"; sourceTree = "<group>"; };
+		0704570325FA13E500F141FA /* m_shop */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_shop; path = "SIF-Resources/m_shop"; sourceTree = "<group>"; };
+		0704570425FA13E500F141FA /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = "SIF-Resources/lib"; sourceTree = "<group>"; };
+		0704570525FA13E500F141FA /* m_basicsettings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_basicsettings; path = "SIF-Resources/m_basicsettings"; sourceTree = "<group>"; };
+		0704570625FA13E500F141FA /* m_album */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_album; path = "SIF-Resources/m_album"; sourceTree = "<group>"; };
+		0704570725FA13E500F141FA /* m_stamp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_stamp; path = "SIF-Resources/m_stamp"; sourceTree = "<group>"; };
+		0704570825FA13E500F141FA /* pl_ui */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pl_ui; path = "SIF-Resources/pl_ui"; sourceTree = "<group>"; };
+		0704570925FA13E500F141FA /* MTLmr3m.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MTLmr3m.ttf; path = "SIF-Resources/MTLmr3m.ttf"; sourceTree = "<group>"; };
+		0704570A25FA13E500F141FA /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = common; path = "SIF-Resources/common"; sourceTree = "<group>"; };
+		0704570B25FA13E500F141FA /* pl_live */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pl_live; path = "SIF-Resources/pl_live"; sourceTree = "<group>"; };
+		0704570C25FA13E600F141FA /* m_notice */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_notice; path = "SIF-Resources/m_notice"; sourceTree = "<group>"; };
+		0704570D25FA13E600F141FA /* m_live_adjust */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_adjust; path = "SIF-Resources/m_live_adjust"; sourceTree = "<group>"; };
+		0704570E25FA13E600F141FA /* start.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = start.lua; path = "SIF-Resources/start.lua"; sourceTree = "<group>"; };
+		0704570F25FA13E600F141FA /* m_friends */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_friends; path = "SIF-Resources/m_friends"; sourceTree = "<group>"; };
+		0704571025FA13E600F141FA /* m_tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_tutorial; path = "SIF-Resources/m_tutorial"; sourceTree = "<group>"; };
+		0704571125FA13E600F141FA /* m_festival */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_festival; path = "SIF-Resources/m_festival"; sourceTree = "<group>"; };
+		0704571225FA13E600F141FA /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; name = config; path = "SIF-Resources/config"; sourceTree = "<group>"; };
+		0704571325FA13E600F141FA /* m_quest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_quest; path = "SIF-Resources/m_quest"; sourceTree = "<group>"; };
+		0704571425FA13E700F141FA /* m_idol_skill */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_idol_skill; path = "SIF-Resources/m_idol_skill"; sourceTree = "<group>"; };
+		0704571525FA13E700F141FA /* m_location */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_location; path = "SIF-Resources/m_location"; sourceTree = "<group>"; };
+		0704571625FA13E700F141FA /* m_sns */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_sns; path = "SIF-Resources/m_sns"; sourceTree = "<group>"; };
+		0704571725FA13E700F141FA /* Maintenance.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = Maintenance.lua; path = "SIF-Resources/Maintenance.lua"; sourceTree = "<group>"; };
+		0704571825FA13E700F141FA /* m_top */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_top; path = "SIF-Resources/m_top"; sourceTree = "<group>"; };
+		0704571925FA13E700F141FA /* m_event */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_event; path = "SIF-Resources/m_event"; sourceTree = "<group>"; };
+		0704571A25FA13E700F141FA /* m_online */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_online; path = "SIF-Resources/m_online"; sourceTree = "<group>"; };
+		0704571B25FA13E700F141FA /* m_reward */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_reward; path = "SIF-Resources/m_reward"; sourceTree = "<group>"; };
+		0704571C25FA13E700F141FA /* m_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_ranking; path = "SIF-Resources/m_ranking"; sourceTree = "<group>"; };
+		0704571D25FA13E700F141FA /* m_favorite_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_favorite_ranking; path = "SIF-Resources/m_favorite_ranking"; sourceTree = "<group>"; };
+		0704571E25FA13E700F141FA /* m_class */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_class; path = "SIF-Resources/m_class"; sourceTree = "<group>"; };
+		0704571F25FA13E700F141FA /* pl_bootstrap */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pl_bootstrap; path = "SIF-Resources/pl_bootstrap"; sourceTree = "<group>"; };
+		0704572025FA13E800F141FA /* m_unit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_unit; path = "SIF-Resources/m_unit"; sourceTree = "<group>"; };
+		0704572125FA13E800F141FA /* pl_live_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pl_live_menu; path = "SIF-Resources/pl_live_menu"; sourceTree = "<group>"; };
+		0704572225FA13E800F141FA /* Update.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = Update.lua; path = "SIF-Resources/Update.lua"; sourceTree = "<group>"; };
+		0704572325FA13E800F141FA /* m_battle_event */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_battle_event; path = "SIF-Resources/m_battle_event"; sourceTree = "<group>"; };
+		0704572425FA13E800F141FA /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = "SIF-Resources/assets"; sourceTree = "<group>"; };
+		0704572525FA13E800F141FA /* m_boot */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_boot; path = "SIF-Resources/m_boot"; sourceTree = "<group>"; };
+		0704572625FA13E800F141FA /* m_download */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_download; path = "SIF-Resources/m_download"; sourceTree = "<group>"; };
+		0704572725FA13E900F141FA /* m_team */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_team; path = "SIF-Resources/m_team"; sourceTree = "<group>"; };
+		0704572825FA13E900F141FA /* pl_common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pl_common; path = "SIF-Resources/pl_common"; sourceTree = "<group>"; };
+		0704572925FA13E900F141FA /* db */ = {isa = PBXFileReference; lastKnownFileType = folder; name = db; path = "SIF-Resources/db"; sourceTree = "<group>"; };
+		0704572A25FA13EA00F141FA /* m_login */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_login; path = "SIF-Resources/m_login"; sourceTree = "<group>"; };
+		0704572B25FA13EA00F141FA /* m_live */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live; path = "SIF-Resources/m_live"; sourceTree = "<group>"; };
+		0704572C25FA13EA00F141FA /* m_background */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_background; path = "SIF-Resources/m_background"; sourceTree = "<group>"; };
+		0704572D25FA13EA00F141FA /* m_arena */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_arena; path = "SIF-Resources/m_arena"; sourceTree = "<group>"; };
+		0704572E25FA13EA00F141FA /* formula */ = {isa = PBXFileReference; lastKnownFileType = folder; name = formula; path = "SIF-Resources/formula"; sourceTree = "<group>"; };
+		0704572F25FA13EA00F141FA /* m_hint */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_hint; path = "SIF-Resources/m_hint"; sourceTree = "<group>"; };
+		0704573025FA13EB00F141FA /* m_player_profile */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_player_profile; path = "SIF-Resources/m_player_profile"; sourceTree = "<group>"; };
+		0704573125FA13EB00F141FA /* m_item */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_item; path = "SIF-Resources/m_item"; sourceTree = "<group>"; };
+		0704573225FA13EB00F141FA /* m_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_menu; path = "SIF-Resources/m_menu"; sourceTree = "<group>"; };
+		0704573325FA13EB00F141FA /* m_history */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_history; path = "SIF-Resources/m_history"; sourceTree = "<group>"; };
+		0704573425FA13EB00F141FA /* m_secretbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_secretbox; path = "SIF-Resources/m_secretbox"; sourceTree = "<group>"; };
+		0704573525FA13EB00F141FA /* m_arcade */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_arcade; path = "SIF-Resources/m_arcade"; sourceTree = "<group>"; };
+		0704573625FA13EB00F141FA /* m_challenge */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_challenge; path = "SIF-Resources/m_challenge"; sourceTree = "<group>"; };
+		0704573725FA13EC00F141FA /* GPUDMLprob.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GPUDMLprob.otf; path = "SIF-Resources/GPUDMLprob.otf"; sourceTree = "<group>"; };
+		0704573825FA13EC00F141FA /* m_achievement */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_achievement; path = "SIF-Resources/m_achievement"; sourceTree = "<group>"; };
+		0704573925FA13EC00F141FA /* m_collab */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_collab; path = "SIF-Resources/m_collab"; sourceTree = "<group>"; };
+		0704573A25FA13EC00F141FA /* m_scenario */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_scenario; path = "SIF-Resources/m_scenario"; sourceTree = "<group>"; };
+		0704573B25FA13EC00F141FA /* m_live_custom */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_custom; path = "SIF-Resources/m_live_custom"; sourceTree = "<group>"; };
+		0704573C25FA13EC00F141FA /* m_debug */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_debug; path = "SIF-Resources/m_debug"; sourceTree = "<group>"; };
+		0704573D25FA13EC00F141FA /* m_duel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_duel; path = "SIF-Resources/m_duel"; sourceTree = "<group>"; };
+		0704573E25FA13ED00F141FA /* pl_assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pl_assets; path = "SIF-Resources/pl_assets"; sourceTree = "<group>"; };
+		0704573F25FA13ED00F141FA /* m_award */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_award; path = "SIF-Resources/m_award"; sourceTree = "<group>"; };
+		0704574025FA13ED00F141FA /* m_scenario_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_scenario_menu; path = "SIF-Resources/m_scenario_menu"; sourceTree = "<group>"; };
+		0704574125FA13ED00F141FA /* m_live_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_menu; path = "SIF-Resources/m_live_menu"; sourceTree = "<group>"; };
+		0704574225FA13ED00F141FA /* start_old.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = start_old.lua; path = "SIF-Resources/start_old.lua"; sourceTree = "<group>"; };
 		0765A167240EA94B000747CC /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "openssl-1.1.1c/lib/libcrypto.a"; sourceTree = "<group>"; };
 		0765A16B240EA9FF000747CC /* V1_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = V1_Decrypter.cc; path = ../../../source/Core/HonokaMiku/V1_Decrypter.cc; sourceTree = "<group>"; };
 		0765A16C240EA9FF000747CC /* V3_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = V3_Decrypter.cc; path = ../../../source/Core/HonokaMiku/V3_Decrypter.cc; sourceTree = "<group>"; };
@@ -832,63 +903,6 @@
 		0765A180240EAA29000747CC /* DownloadClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DownloadClient.cpp; path = ../../../source/HTTP/DownloadClient.cpp; sourceTree = "<group>"; };
 		0765A181240EAA29000747CC /* DownloadManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DownloadManager.cpp; path = ../../../source/HTTP/DownloadManager.cpp; sourceTree = "<group>"; };
 		0765A182240EAA29000747CC /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownloadManager.h; path = ../../../source/HTTP/DownloadManager.h; sourceTree = "<group>"; };
-		07BCF9612415902F00B27902 /* MTLmr3m.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MTLmr3m.ttf; path = "SIF-Resources/MTLmr3m.ttf"; sourceTree = "<group>"; };
-		07BCF9622415903000B27902 /* Update.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = Update.lua; path = "SIF-Resources/Update.lua"; sourceTree = "<group>"; };
-		07BCF9632415903000B27902 /* m_location */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_location; path = "SIF-Resources/m_location"; sourceTree = "<group>"; };
-		07BCF9642415903000B27902 /* m_team */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_team; path = "SIF-Resources/m_team"; sourceTree = "<group>"; };
-		07BCF9652415903000B27902 /* m_shop */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_shop; path = "SIF-Resources/m_shop"; sourceTree = "<group>"; };
-		07BCF9662415903000B27902 /* Maintenance.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = Maintenance.lua; path = "SIF-Resources/Maintenance.lua"; sourceTree = "<group>"; };
-		07BCF9672415903000B27902 /* m_online */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_online; path = "SIF-Resources/m_online"; sourceTree = "<group>"; };
-		07BCF9682415903000B27902 /* m_favorite_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_favorite_ranking; path = "SIF-Resources/m_favorite_ranking"; sourceTree = "<group>"; };
-		07BCF9692415903000B27902 /* m_duel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_duel; path = "SIF-Resources/m_duel"; sourceTree = "<group>"; };
-		07BCF96A2415903000B27902 /* m_basicsettings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_basicsettings; path = "SIF-Resources/m_basicsettings"; sourceTree = "<group>"; };
-		07BCF96B2415903000B27902 /* m_ranking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_ranking; path = "SIF-Resources/m_ranking"; sourceTree = "<group>"; };
-		07BCF96C2415903000B27902 /* m_notice */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_notice; path = "SIF-Resources/m_notice"; sourceTree = "<group>"; };
-		07BCF96D2415903000B27902 /* m_event */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_event; path = "SIF-Resources/m_event"; sourceTree = "<group>"; };
-		07BCF96E2415903000B27902 /* m_reward */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_reward; path = "SIF-Resources/m_reward"; sourceTree = "<group>"; };
-		07BCF96F2415903000B27902 /* m_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_menu; path = "SIF-Resources/m_menu"; sourceTree = "<group>"; };
-		07BCF9702415903100B27902 /* m_battle_event */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_battle_event; path = "SIF-Resources/m_battle_event"; sourceTree = "<group>"; };
-		07BCF9712415903100B27902 /* m_challenge */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_challenge; path = "SIF-Resources/m_challenge"; sourceTree = "<group>"; };
-		07BCF9722415903100B27902 /* m_hint */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_hint; path = "SIF-Resources/m_hint"; sourceTree = "<group>"; };
-		07BCF9732415903100B27902 /* m_arcade */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_arcade; path = "SIF-Resources/m_arcade"; sourceTree = "<group>"; };
-		07BCF9742415903100B27902 /* m_item */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_item; path = "SIF-Resources/m_item"; sourceTree = "<group>"; };
-		07BCF9752415903100B27902 /* m_debug */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_debug; path = "SIF-Resources/m_debug"; sourceTree = "<group>"; };
-		07BCF9762415903100B27902 /* formula */ = {isa = PBXFileReference; lastKnownFileType = folder; name = formula; path = "SIF-Resources/formula"; sourceTree = "<group>"; };
-		07BCF9772415903100B27902 /* m_festival */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_festival; path = "SIF-Resources/m_festival"; sourceTree = "<group>"; };
-		07BCF9782415903100B27902 /* db */ = {isa = PBXFileReference; lastKnownFileType = folder; name = db; path = "SIF-Resources/db"; sourceTree = "<group>"; };
-		07BCF9792415903100B27902 /* m_background */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_background; path = "SIF-Resources/m_background"; sourceTree = "<group>"; };
-		07BCF97A2415903100B27902 /* m_login */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_login; path = "SIF-Resources/m_login"; sourceTree = "<group>"; };
-		07BCF97B2415903200B27902 /* m_player_profile */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_player_profile; path = "SIF-Resources/m_player_profile"; sourceTree = "<group>"; };
-		07BCF97C2415903200B27902 /* m_scenario_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_scenario_menu; path = "SIF-Resources/m_scenario_menu"; sourceTree = "<group>"; };
-		07BCF97D2415903200B27902 /* m_sandbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_sandbox; path = "SIF-Resources/m_sandbox"; sourceTree = "<group>"; };
-		07BCF97E2415903200B27902 /* m_boot */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_boot; path = "SIF-Resources/m_boot"; sourceTree = "<group>"; };
-		07BCF97F2415903200B27902 /* m_achievement */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_achievement; path = "SIF-Resources/m_achievement"; sourceTree = "<group>"; };
-		07BCF9802415903200B27902 /* m_live_custom */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_custom; path = "SIF-Resources/m_live_custom"; sourceTree = "<group>"; };
-		07BCF9812415903200B27902 /* m_unit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_unit; path = "SIF-Resources/m_unit"; sourceTree = "<group>"; };
-		07BCF9822415903200B27902 /* m_exchange */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_exchange; path = "SIF-Resources/m_exchange"; sourceTree = "<group>"; };
-		07BCF9832415903300B27902 /* m_friends */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_friends; path = "SIF-Resources/m_friends"; sourceTree = "<group>"; };
-		07BCF9842415903300B27902 /* m_stamp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_stamp; path = "SIF-Resources/m_stamp"; sourceTree = "<group>"; };
-		07BCF9852415903300B27902 /* GPUDMLprob.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GPUDMLprob.otf; path = "SIF-Resources/GPUDMLprob.otf"; sourceTree = "<group>"; };
-		07BCF9862415903300B27902 /* m_scenario */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_scenario; path = "SIF-Resources/m_scenario"; sourceTree = "<group>"; };
-		07BCF9872415903300B27902 /* start.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = start.lua; path = "SIF-Resources/start.lua"; sourceTree = "<group>"; };
-		07BCF9882415903300B27902 /* m_live_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_menu; path = "SIF-Resources/m_live_menu"; sourceTree = "<group>"; };
-		07BCF9892415903300B27902 /* m_tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_tutorial; path = "SIF-Resources/m_tutorial"; sourceTree = "<group>"; };
-		07BCF98A2415903300B27902 /* m_quest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_quest; path = "SIF-Resources/m_quest"; sourceTree = "<group>"; };
-		07BCF98B2415903400B27902 /* m_top */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_top; path = "SIF-Resources/m_top"; sourceTree = "<group>"; };
-		07BCF98D2415903400B27902 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = "SIF-Resources/assets"; sourceTree = "<group>"; };
-		07BCF98E2415903400B27902 /* m_history */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_history; path = "SIF-Resources/m_history"; sourceTree = "<group>"; };
-		07BCF98F2415903400B27902 /* m_secretbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_secretbox; path = "SIF-Resources/m_secretbox"; sourceTree = "<group>"; };
-		07BCF9902415903400B27902 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = "SIF-Resources/lib"; sourceTree = "<group>"; };
-		07BCF9912415903500B27902 /* m_live */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live; path = "SIF-Resources/m_live"; sourceTree = "<group>"; };
-		07BCF9922415903500B27902 /* m_collab */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_collab; path = "SIF-Resources/m_collab"; sourceTree = "<group>"; };
-		07BCF9932415903500B27902 /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = common; path = "SIF-Resources/common"; sourceTree = "<group>"; };
-		07BCF9942415903500B27902 /* m_sns */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_sns; path = "SIF-Resources/m_sns"; sourceTree = "<group>"; };
-		07BCF9952415903600B27902 /* m_download */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_download; path = "SIF-Resources/m_download"; sourceTree = "<group>"; };
-		07BCF9962415903600B27902 /* m_class */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_class; path = "SIF-Resources/m_class"; sourceTree = "<group>"; };
-		07BCF9972415903600B27902 /* m_live_adjust */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_adjust; path = "SIF-Resources/m_live_adjust"; sourceTree = "<group>"; };
-		07BCF9982415903600B27902 /* m_album */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_album; path = "SIF-Resources/m_album"; sourceTree = "<group>"; };
-		07BCF9992415903600B27902 /* m_award */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_award; path = "SIF-Resources/m_award"; sourceTree = "<group>"; };
-		07BCF99A2415903700B27902 /* m_idol_skill */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_idol_skill; path = "SIF-Resources/m_idol_skill"; sourceTree = "<group>"; };
 		32127065182530650027C57E /* CSampleProjectEntrance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSampleProjectEntrance.cpp; path = ../../../../SampleProject/game/CSampleProjectEntrance.cpp; sourceTree = "<group>"; };
 		32127066182530650027C57E /* CSampleProjectEntrance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSampleProjectEntrance.h; path = ../../../../SampleProject/game/CSampleProjectEntrance.h; sourceTree = "<group>"; };
 		32127068182532090027C57E /* CKLBDeviceKeyEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CKLBDeviceKeyEvent.cpp; path = ../../../source/SystemTask/CKLBDeviceKeyEvent.cpp; sourceTree = "<group>"; };
@@ -1651,64 +1665,71 @@
 		327C0BA6179A39A9007B7F42 /* ProjectResources */ = {
 			isa = PBXGroup;
 			children = (
-				07BCF98D2415903400B27902 /* assets */,
-				07BCF9932415903500B27902 /* common */,
-				07BCF9782415903100B27902 /* db */,
-				07BCF9762415903100B27902 /* formula */,
-				07BCF9852415903300B27902 /* GPUDMLprob.otf */,
-				07BCF9902415903400B27902 /* lib */,
-				07BCF97F2415903200B27902 /* m_achievement */,
-				07BCF9982415903600B27902 /* m_album */,
-				07BCF9732415903100B27902 /* m_arcade */,
-				07BCF9992415903600B27902 /* m_award */,
-				07BCF9792415903100B27902 /* m_background */,
-				07BCF96A2415903000B27902 /* m_basicsettings */,
-				07BCF9702415903100B27902 /* m_battle_event */,
-				07BCF97E2415903200B27902 /* m_boot */,
-				07BCF9712415903100B27902 /* m_challenge */,
-				07BCF9962415903600B27902 /* m_class */,
-				07BCF9922415903500B27902 /* m_collab */,
-				07BCF9752415903100B27902 /* m_debug */,
-				07BCF9952415903600B27902 /* m_download */,
-				07BCF9692415903000B27902 /* m_duel */,
-				07BCF96D2415903000B27902 /* m_event */,
-				07BCF9822415903200B27902 /* m_exchange */,
-				07BCF9682415903000B27902 /* m_favorite_ranking */,
-				07BCF9772415903100B27902 /* m_festival */,
-				07BCF9832415903300B27902 /* m_friends */,
-				07BCF9722415903100B27902 /* m_hint */,
-				07BCF98E2415903400B27902 /* m_history */,
-				07BCF99A2415903700B27902 /* m_idol_skill */,
-				07BCF9742415903100B27902 /* m_item */,
-				07BCF9912415903500B27902 /* m_live */,
-				07BCF9972415903600B27902 /* m_live_adjust */,
-				07BCF9802415903200B27902 /* m_live_custom */,
-				07BCF9882415903300B27902 /* m_live_menu */,
-				07BCF9632415903000B27902 /* m_location */,
-				07BCF97A2415903100B27902 /* m_login */,
-				07BCF96F2415903000B27902 /* m_menu */,
-				07BCF96C2415903000B27902 /* m_notice */,
-				07BCF9672415903000B27902 /* m_online */,
-				07BCF97B2415903200B27902 /* m_player_profile */,
-				07BCF98A2415903300B27902 /* m_quest */,
-				07BCF96B2415903000B27902 /* m_ranking */,
-				07BCF96E2415903000B27902 /* m_reward */,
-				07BCF97D2415903200B27902 /* m_sandbox */,
-				07BCF9862415903300B27902 /* m_scenario */,
-				07BCF97C2415903200B27902 /* m_scenario_menu */,
-				07BCF98F2415903400B27902 /* m_secretbox */,
-				07BCF9652415903000B27902 /* m_shop */,
-				07BCF9942415903500B27902 /* m_sns */,
-				07BCF9842415903300B27902 /* m_stamp */,
-				07BCF9642415903000B27902 /* m_team */,
-				07BCF98B2415903400B27902 /* m_top */,
-				07BCF9892415903300B27902 /* m_tutorial */,
-				07BCF9812415903200B27902 /* m_unit */,
-				07BCF9662415903000B27902 /* Maintenance.lua */,
-				07BCF9612415902F00B27902 /* MTLmr3m.ttf */,
-				07BCF9872415903300B27902 /* start.lua */,
-				07BCF9622415903000B27902 /* Update.lua */,
-				0704565B25FA0CE700F141FA /* start_old.lua */,
+				0704572425FA13E800F141FA /* assets */,
+				0704570A25FA13E500F141FA /* common */,
+				0704571225FA13E600F141FA /* config */,
+				0704572925FA13E900F141FA /* db */,
+				0704572E25FA13EA00F141FA /* formula */,
+				0704573725FA13EC00F141FA /* GPUDMLprob.otf */,
+				0704570425FA13E500F141FA /* lib */,
+				0704573825FA13EC00F141FA /* m_achievement */,
+				0704570625FA13E500F141FA /* m_album */,
+				0704573525FA13EB00F141FA /* m_arcade */,
+				0704572D25FA13EA00F141FA /* m_arena */,
+				0704573F25FA13ED00F141FA /* m_award */,
+				0704572C25FA13EA00F141FA /* m_background */,
+				0704570525FA13E500F141FA /* m_basicsettings */,
+				0704572325FA13E800F141FA /* m_battle_event */,
+				0704572525FA13E800F141FA /* m_boot */,
+				0704573625FA13EB00F141FA /* m_challenge */,
+				0704571E25FA13E700F141FA /* m_class */,
+				0704573925FA13EC00F141FA /* m_collab */,
+				0704573C25FA13EC00F141FA /* m_debug */,
+				0704572625FA13E800F141FA /* m_download */,
+				0704573D25FA13EC00F141FA /* m_duel */,
+				0704571925FA13E700F141FA /* m_event */,
+				0704570225FA13E500F141FA /* m_exchange */,
+				0704571D25FA13E700F141FA /* m_favorite_ranking */,
+				0704571125FA13E600F141FA /* m_festival */,
+				0704570F25FA13E600F141FA /* m_friends */,
+				0704572F25FA13EA00F141FA /* m_hint */,
+				0704573325FA13EB00F141FA /* m_history */,
+				0704571425FA13E700F141FA /* m_idol_skill */,
+				0704573125FA13EB00F141FA /* m_item */,
+				0704572B25FA13EA00F141FA /* m_live */,
+				0704570D25FA13E600F141FA /* m_live_adjust */,
+				0704573B25FA13EC00F141FA /* m_live_custom */,
+				0704574125FA13ED00F141FA /* m_live_menu */,
+				0704571525FA13E700F141FA /* m_location */,
+				0704572A25FA13EA00F141FA /* m_login */,
+				0704573225FA13EB00F141FA /* m_menu */,
+				0704570C25FA13E600F141FA /* m_notice */,
+				0704571A25FA13E700F141FA /* m_online */,
+				0704573025FA13EB00F141FA /* m_player_profile */,
+				0704571325FA13E600F141FA /* m_quest */,
+				0704571C25FA13E700F141FA /* m_ranking */,
+				0704571B25FA13E700F141FA /* m_reward */,
+				0704573A25FA13EC00F141FA /* m_scenario */,
+				0704574025FA13ED00F141FA /* m_scenario_menu */,
+				0704573425FA13EB00F141FA /* m_secretbox */,
+				0704570325FA13E500F141FA /* m_shop */,
+				0704571625FA13E700F141FA /* m_sns */,
+				0704570725FA13E500F141FA /* m_stamp */,
+				0704572725FA13E900F141FA /* m_team */,
+				0704571825FA13E700F141FA /* m_top */,
+				0704571025FA13E600F141FA /* m_tutorial */,
+				0704572025FA13E800F141FA /* m_unit */,
+				0704571725FA13E700F141FA /* Maintenance.lua */,
+				0704570925FA13E500F141FA /* MTLmr3m.ttf */,
+				0704573E25FA13ED00F141FA /* pl_assets */,
+				0704571F25FA13E700F141FA /* pl_bootstrap */,
+				0704572825FA13E900F141FA /* pl_common */,
+				0704570B25FA13E500F141FA /* pl_live */,
+				0704572125FA13E800F141FA /* pl_live_menu */,
+				0704570825FA13E500F141FA /* pl_ui */,
+				0704574225FA13ED00F141FA /* start_old.lua */,
+				0704570E25FA13E600F141FA /* start.lua */,
+				0704572225FA13E800F141FA /* Update.lua */,
 			);
 			name = ProjectResources;
 			sourceTree = "<group>";
@@ -3003,69 +3024,76 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07BCF9B12415903700B27902 /* m_festival in Resources */,
-				07BCF99F2415903700B27902 /* m_shop in Resources */,
-				07BCF9A42415903700B27902 /* m_basicsettings in Resources */,
-				07BCF9A12415903700B27902 /* m_online in Resources */,
-				07BCF9A32415903700B27902 /* m_duel in Resources */,
-				07BCF9BE2415903700B27902 /* m_stamp in Resources */,
-				07BCF9C92415903700B27902 /* m_secretbox in Resources */,
-				07BCF9CD2415903700B27902 /* common in Resources */,
-				07BCF9A02415903700B27902 /* Maintenance.lua in Resources */,
-				07BCF9A22415903700B27902 /* m_favorite_ranking in Resources */,
+				0704577E25FA13ED00F141FA /* m_duel in Resources */,
+				0704576A25FA13ED00F141FA /* db in Resources */,
+				0704575925FA13ED00F141FA /* m_top in Resources */,
+				0704575F25FA13ED00F141FA /* m_class in Resources */,
+				0704576725FA13ED00F141FA /* m_download in Resources */,
+				0704574C25FA13ED00F141FA /* pl_live in Resources */,
+				0704575C25FA13ED00F141FA /* m_reward in Resources */,
+				0704578125FA13ED00F141FA /* m_scenario_menu in Resources */,
+				0704576925FA13ED00F141FA /* pl_common in Resources */,
+				0704577C25FA13ED00F141FA /* m_live_custom in Resources */,
+				0704578025FA13ED00F141FA /* m_award in Resources */,
+				0704575025FA13ED00F141FA /* m_friends in Resources */,
+				0704576025FA13ED00F141FA /* pl_bootstrap in Resources */,
+				0704577F25FA13ED00F141FA /* pl_assets in Resources */,
+				0704574F25FA13ED00F141FA /* start.lua in Resources */,
 				327C0B94179A3944007B7F42 /* InfoPlist.strings in Resources */,
-				07BCF9C82415903700B27902 /* m_history in Resources */,
-				07BCF99B2415903700B27902 /* MTLmr3m.ttf in Resources */,
-				07BCF9B62415903700B27902 /* m_scenario_menu in Resources */,
-				07BCF99E2415903700B27902 /* m_team in Resources */,
-				07BCF9D22415903700B27902 /* m_album in Resources */,
-				07BCF9B02415903700B27902 /* formula in Resources */,
+				0704576225FA13ED00F141FA /* pl_live_menu in Resources */,
+				0704577725FA13ED00F141FA /* m_challenge in Resources */,
+				0704577225FA13ED00F141FA /* m_item in Resources */,
+				0704574325FA13ED00F141FA /* m_exchange in Resources */,
+				0704577525FA13ED00F141FA /* m_secretbox in Resources */,
+				0704576825FA13ED00F141FA /* m_team in Resources */,
+				0704574525FA13ED00F141FA /* lib in Resources */,
+				0704576325FA13ED00F141FA /* Update.lua in Resources */,
+				0704576625FA13ED00F141FA /* m_boot in Resources */,
+				0704575525FA13ED00F141FA /* m_idol_skill in Resources */,
+				0704575825FA13ED00F141FA /* Maintenance.lua in Resources */,
+				0704577425FA13ED00F141FA /* m_history in Resources */,
+				0704575325FA13ED00F141FA /* config in Resources */,
+				0704577625FA13ED00F141FA /* m_arcade in Resources */,
+				0704577D25FA13ED00F141FA /* m_debug in Resources */,
+				0704576425FA13ED00F141FA /* m_battle_event in Resources */,
 				327C0B9A179A3945007B7F42 /* Credits.rtf in Resources */,
-				07BCF9CB2415903700B27902 /* m_live in Resources */,
-				07BCF9B42415903700B27902 /* m_login in Resources */,
-				07BCF9D12415903700B27902 /* m_live_adjust in Resources */,
-				07BCF9BA2415903700B27902 /* m_live_custom in Resources */,
-				07BCF9CC2415903700B27902 /* m_collab in Resources */,
+				0704575225FA13ED00F141FA /* m_festival in Resources */,
 				327C0BA0179A3945007B7F42 /* MainMenu.xib in Resources */,
-				07BCF9BD2415903700B27902 /* m_friends in Resources */,
-				07BCF9B22415903700B27902 /* db in Resources */,
+				0704575B25FA13ED00F141FA /* m_online in Resources */,
+				0704577025FA13ED00F141FA /* m_hint in Resources */,
+				0704577325FA13ED00F141FA /* m_menu in Resources */,
+				0704577B25FA13ED00F141FA /* m_scenario in Resources */,
+				0704574D25FA13ED00F141FA /* m_notice in Resources */,
+				0704575E25FA13ED00F141FA /* m_favorite_ranking in Resources */,
+				0704574E25FA13ED00F141FA /* m_live_adjust in Resources */,
+				0704577125FA13ED00F141FA /* m_player_profile in Resources */,
+				0704574425FA13ED00F141FA /* m_shop in Resources */,
+				0704576C25FA13ED00F141FA /* m_live in Resources */,
+				0704575A25FA13ED00F141FA /* m_event in Resources */,
+				0704576525FA13ED00F141FA /* assets in Resources */,
+				0704576E25FA13ED00F141FA /* m_arena in Resources */,
+				0704576125FA13ED00F141FA /* m_unit in Resources */,
+				0704578325FA13ED00F141FA /* start_old.lua in Resources */,
+				0704577925FA13ED00F141FA /* m_achievement in Resources */,
+				0704574A25FA13ED00F141FA /* MTLmr3m.ttf in Resources */,
+				0704574B25FA13ED00F141FA /* common in Resources */,
+				0704576B25FA13ED00F141FA /* m_login in Resources */,
+				0704574925FA13ED00F141FA /* pl_ui in Resources */,
 				327C0CF8179A3F34007B7F42 /* shaderSource.inl in Resources */,
-				07BCF9AB2415903700B27902 /* m_challenge in Resources */,
-				07BCF9B92415903700B27902 /* m_achievement in Resources */,
+				0704574625FA13ED00F141FA /* m_basicsettings in Resources */,
+				0704575625FA13ED00F141FA /* m_location in Resources */,
+				0704576D25FA13ED00F141FA /* m_background in Resources */,
+				0704574725FA13ED00F141FA /* m_album in Resources */,
+				0704576F25FA13ED00F141FA /* formula in Resources */,
+				0704578225FA13ED00F141FA /* m_live_menu in Resources */,
+				0704577A25FA13ED00F141FA /* m_collab in Resources */,
+				0704574825FA13ED00F141FA /* m_stamp in Resources */,
+				0704575425FA13ED00F141FA /* m_quest in Resources */,
+				0704575125FA13ED00F141FA /* m_tutorial in Resources */,
+				0704577825FA13ED00F141FA /* GPUDMLprob.otf in Resources */,
 				3284FE91179A4F6600B0CA20 /* important.txt in Resources */,
-				07BCF9AF2415903700B27902 /* m_debug in Resources */,
-				07BCF9C22415903700B27902 /* m_live_menu in Resources */,
-				07BCF9C72415903700B27902 /* assets in Resources */,
-				07BCF9A82415903700B27902 /* m_reward in Resources */,
-				07BCF99C2415903700B27902 /* Update.lua in Resources */,
-				07BCF9A92415903700B27902 /* m_menu in Resources */,
-				07BCF99D2415903700B27902 /* m_location in Resources */,
-				07BCF9BB2415903700B27902 /* m_unit in Resources */,
-				07BCF9C32415903700B27902 /* m_tutorial in Resources */,
-				07BCF9B32415903700B27902 /* m_background in Resources */,
-				07BCF9B82415903700B27902 /* m_boot in Resources */,
-				07BCF9AC2415903700B27902 /* m_hint in Resources */,
-				07BCF9CF2415903700B27902 /* m_download in Resources */,
-				07BCF9B72415903700B27902 /* m_sandbox in Resources */,
-				07BCF9B52415903700B27902 /* m_player_profile in Resources */,
-				07BCF9C52415903700B27902 /* m_top in Resources */,
-				07BCF9D02415903700B27902 /* m_class in Resources */,
-				07BCF9A72415903700B27902 /* m_event in Resources */,
-				07BCF9C02415903700B27902 /* m_scenario in Resources */,
-				07BCF9AE2415903700B27902 /* m_item in Resources */,
-				07BCF9D32415903700B27902 /* m_award in Resources */,
-				07BCF9AD2415903700B27902 /* m_arcade in Resources */,
-				07BCF9AA2415903700B27902 /* m_battle_event in Resources */,
-				07BCF9C12415903700B27902 /* start.lua in Resources */,
-				07BCF9A52415903700B27902 /* m_ranking in Resources */,
-				07BCF9CA2415903700B27902 /* lib in Resources */,
-				0704565C25FA0CE700F141FA /* start_old.lua in Resources */,
-				07BCF9D42415903700B27902 /* m_idol_skill in Resources */,
-				07BCF9BF2415903700B27902 /* GPUDMLprob.otf in Resources */,
-				07BCF9BC2415903700B27902 /* m_exchange in Resources */,
-				07BCF9CE2415903700B27902 /* m_sns in Resources */,
-				07BCF9C42415903700B27902 /* m_quest in Resources */,
-				07BCF9A62415903700B27902 /* m_notice in Resources */,
+				0704575725FA13ED00F141FA /* m_sns in Resources */,
+				0704575D25FA13ED00F141FA /* m_ranking in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

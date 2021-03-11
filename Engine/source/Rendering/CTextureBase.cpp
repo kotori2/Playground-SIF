@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -175,7 +175,7 @@ bool	CTextureBase::updateTexture(s32 x, s32 y, s32 width, s32 height, void* data
 				data);
 	}
 
-	if (dglGetError()) {
+	if (GLenum e = dglGetError()) {
 		klb_assertAlways("Invalid texture update");
 		return false;
 	} else {

@@ -11,11 +11,11 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	CPFInterface& pfif = CPFInterface::getInstance();
-	CiOSPlatform * pPlatform = new CiOSPlatform(nullptr, 1.0f);
-    pfif.setPlatformRequest(pPlatform);
+	//CPFInterface& pfif = CPFInterface::getInstance();
+	//CiOSPlatform * pPlatform = new CiOSPlatform(nullptr, 1.0f);
+    //pfif.setPlatformRequest(pPlatform);
     
-    GameSetup();
+    //GameSetup();
     
     NSLog(@"app launched");
 }
