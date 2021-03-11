@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,8 @@
 #include "CKLBDrawTask.h"
 #include "CKLBObject.h"
 #include "KLBPlatformMetrics.h"
+#include <algorithm>
+
 ;
 CKLBDrawResource::CKLBDrawResource()
 :m_allowLog		(false)
@@ -52,7 +54,7 @@ CKLBDrawResource::setLogicalResolution(int width, int height, float * other_matr
 	m_width = width;
 	m_height = height;
 
-	m_unsafeX = max((float)(m_phisical_width + (m_phisical_height * -16.0f) / 9.0f) * 0.5f, 0);
+	m_unsafeX = std::max((float)(m_phisical_width + (m_phisical_height * -16.0f) / 9.0f) * 0.5f, 0.0f);
 	m_unsafeY = 0; // TODO?
 
 	int safeWidth = m_phisical_width - m_unsafeX * 2;

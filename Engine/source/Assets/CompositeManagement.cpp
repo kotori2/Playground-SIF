@@ -1625,7 +1625,7 @@ void CKLBNode::kickAnimation(const char* animName,u32* refCounterPtr, bool doBle
 #include "CKLBUICanvas.h"
 #include "CKLBUIScale9.h"
 #include "CKLBUILabel.h"
-#include <CKLBDrawTask.h>
+#include "CKLBDrawTask.h"
 
 /*static*/char		CKLBCompositeAsset::tmpBuff[TMP_COMPOSITE_ASSET_STR_BUFFSIZE];
 /*static*/char*		CKLBCompositeAsset::ptrBuff;

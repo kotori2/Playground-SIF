@@ -1,4 +1,4 @@
-﻿/* 
+/* 
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,7 @@
 #include "CKLBLuaLibENG.h"
 #include "LuaLibMISC.h"
 
+bool LuaLibMISC::m_hacked = false;
 static CKLBLuaLibENG libdef(0);
 
 s64  CKLBLuaLibENG::ms_timers[SCRIPT_TIMER_COUNT];
