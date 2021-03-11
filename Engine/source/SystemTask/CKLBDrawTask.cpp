@@ -17,6 +17,9 @@
 #include "CKLBObject.h"
 #include "KLBPlatformMetrics.h"
 #include <algorithm>
+#ifdef max
+#undef max
+#endif
 
 ;
 CKLBDrawResource::CKLBDrawResource()

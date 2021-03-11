@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0704565C25FA0CE700F141FA /* start_old.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0704565B25FA0CE700F141FA /* start_old.lua */; };
+		0704566625FA0F0D00F141FA /* LuaLibMISC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0704566525FA0F0D00F141FA /* LuaLibMISC.cpp */; };
 		0765A169240EA964000747CC /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0765A167240EA94B000747CC /* libcrypto.a */; };
 		0765A175240EAA00000747CC /* V1_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A16B240EA9FF000747CC /* V1_Decrypter.cc */; };
 		0765A176240EAA00000747CC /* V3_Decrypter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0765A16C240EA9FF000747CC /* V3_Decrypter.cc */; };
@@ -810,6 +812,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0704565B25FA0CE700F141FA /* start_old.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = start_old.lua; path = "SIF-Resources/start_old.lua"; sourceTree = "<group>"; };
+		0704566425FA0F0D00F141FA /* LuaLibMISC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LuaLibMISC.h; path = ../../../source/LuaLib/LuaLibMISC.h; sourceTree = "<group>"; };
+		0704566525FA0F0D00F141FA /* LuaLibMISC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LuaLibMISC.cpp; path = ../../../source/LuaLib/LuaLibMISC.cpp; sourceTree = "<group>"; };
 		0765A167240EA94B000747CC /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "openssl-1.1.1c/lib/libcrypto.a"; sourceTree = "<group>"; };
 		0765A16B240EA9FF000747CC /* V1_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = V1_Decrypter.cc; path = ../../../source/Core/HonokaMiku/V1_Decrypter.cc; sourceTree = "<group>"; };
 		0765A16C240EA9FF000747CC /* V3_Decrypter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = V3_Decrypter.cc; path = ../../../source/Core/HonokaMiku/V3_Decrypter.cc; sourceTree = "<group>"; };
@@ -1703,6 +1708,7 @@
 				07BCF9612415902F00B27902 /* MTLmr3m.ttf */,
 				07BCF9872415903300B27902 /* start.lua */,
 				07BCF9622415903000B27902 /* Update.lua */,
+				0704565B25FA0CE700F141FA /* start_old.lua */,
 			);
 			name = ProjectResources;
 			sourceTree = "<group>";
@@ -1729,6 +1735,8 @@
 		327C0BAA179A3A10007B7F42 /* LuaLib */ = {
 			isa = PBXGroup;
 			children = (
+				0704566525FA0F0D00F141FA /* LuaLibMISC.cpp */,
+				0704566425FA0F0D00F141FA /* LuaLibMISC.h */,
 				327C0C92179A3ECB007B7F42 /* CKLBLuaLibAPP.cpp */,
 				327C0C93179A3ECB007B7F42 /* CKLBLuaLibENG.cpp */,
 				327C0C94179A3ECB007B7F42 /* CKLBLuaLibENG.h */,
@@ -3051,6 +3059,7 @@
 				07BCF9C12415903700B27902 /* start.lua in Resources */,
 				07BCF9A52415903700B27902 /* m_ranking in Resources */,
 				07BCF9CA2415903700B27902 /* lib in Resources */,
+				0704565C25FA0CE700F141FA /* start_old.lua in Resources */,
 				07BCF9D42415903700B27902 /* m_idol_skill in Resources */,
 				07BCF9BF2415903700B27902 /* GPUDMLprob.otf in Resources */,
 				07BCF9BC2415903700B27902 /* m_exchange in Resources */,
@@ -3304,6 +3313,7 @@
 				32840074179A4FB300B0CA20 /* ftglyph.c in Sources */,
 				32840075179A4FB300B0CA20 /* ftgxval.c in Sources */,
 				32840076179A4FB300B0CA20 /* ftinit.c in Sources */,
+				0704566625FA0F0D00F141FA /* LuaLibMISC.cpp in Sources */,
 				32840077179A4FB300B0CA20 /* ftlcdfil.c in Sources */,
 				32840079179A4FB300B0CA20 /* ftmm.c in Sources */,
 				3284007B179A4FB300B0CA20 /* ftotval.c in Sources */,

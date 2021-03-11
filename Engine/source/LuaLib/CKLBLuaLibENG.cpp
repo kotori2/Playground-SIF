@@ -16,7 +16,6 @@
 #include "CKLBLuaLibENG.h"
 #include "LuaLibMISC.h"
 
-bool LuaLibMISC::m_hacked = false;
 static CKLBLuaLibENG libdef(0);
 
 s64  CKLBLuaLibENG::ms_timers[SCRIPT_TIMER_COUNT];
