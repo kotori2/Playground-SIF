@@ -62,7 +62,6 @@
 		07BCF9C32415903700B27902 /* m_tutorial in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF9892415903300B27902 /* m_tutorial */; };
 		07BCF9C42415903700B27902 /* m_quest in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF98A2415903300B27902 /* m_quest */; };
 		07BCF9C52415903700B27902 /* m_top in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF98B2415903400B27902 /* m_top */; };
-		07BCF9C62415903700B27902 /* config in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF98C2415903400B27902 /* config */; };
 		07BCF9C72415903700B27902 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF98D2415903400B27902 /* assets */; };
 		07BCF9C82415903700B27902 /* m_history in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF98E2415903400B27902 /* m_history */; };
 		07BCF9C92415903700B27902 /* m_secretbox in Resources */ = {isa = PBXBuildFile; fileRef = 07BCF98F2415903400B27902 /* m_secretbox */; };
@@ -866,12 +865,11 @@
 		07BCF9842415903300B27902 /* m_stamp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_stamp; path = "SIF-Resources/m_stamp"; sourceTree = "<group>"; };
 		07BCF9852415903300B27902 /* GPUDMLprob.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GPUDMLprob.otf; path = "SIF-Resources/GPUDMLprob.otf"; sourceTree = "<group>"; };
 		07BCF9862415903300B27902 /* m_scenario */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_scenario; path = "SIF-Resources/m_scenario"; sourceTree = "<group>"; };
-		07BCF9872415903300B27902 /* start.lua */ = {isa = PBXFileReference; lastKnownFileType = file; name = start.lua; path = "SIF-Resources/start.lua"; sourceTree = "<group>"; };
+		07BCF9872415903300B27902 /* start.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = start.lua; path = "SIF-Resources/start.lua"; sourceTree = "<group>"; };
 		07BCF9882415903300B27902 /* m_live_menu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_live_menu; path = "SIF-Resources/m_live_menu"; sourceTree = "<group>"; };
 		07BCF9892415903300B27902 /* m_tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_tutorial; path = "SIF-Resources/m_tutorial"; sourceTree = "<group>"; };
 		07BCF98A2415903300B27902 /* m_quest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_quest; path = "SIF-Resources/m_quest"; sourceTree = "<group>"; };
 		07BCF98B2415903400B27902 /* m_top */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_top; path = "SIF-Resources/m_top"; sourceTree = "<group>"; };
-		07BCF98C2415903400B27902 /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; name = config; path = "SIF-Resources/config"; sourceTree = "<group>"; };
 		07BCF98D2415903400B27902 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = "SIF-Resources/assets"; sourceTree = "<group>"; };
 		07BCF98E2415903400B27902 /* m_history */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_history; path = "SIF-Resources/m_history"; sourceTree = "<group>"; };
 		07BCF98F2415903400B27902 /* m_secretbox */ = {isa = PBXFileReference; lastKnownFileType = folder; name = m_secretbox; path = "SIF-Resources/m_secretbox"; sourceTree = "<group>"; };
@@ -1650,7 +1648,6 @@
 			children = (
 				07BCF98D2415903400B27902 /* assets */,
 				07BCF9932415903500B27902 /* common */,
-				07BCF98C2415903400B27902 /* config */,
 				07BCF9782415903100B27902 /* db */,
 				07BCF9762415903100B27902 /* formula */,
 				07BCF9852415903300B27902 /* GPUDMLprob.otf */,
@@ -3052,7 +3049,6 @@
 				07BCF9AD2415903700B27902 /* m_arcade in Resources */,
 				07BCF9AA2415903700B27902 /* m_battle_event in Resources */,
 				07BCF9C12415903700B27902 /* start.lua in Resources */,
-				07BCF9C62415903700B27902 /* config in Resources */,
 				07BCF9A52415903700B27902 /* m_ranking in Resources */,
 				07BCF9CA2415903700B27902 /* lib in Resources */,
 				07BCF9D42415903700B27902 /* m_idol_skill in Resources */,

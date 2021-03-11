@@ -137,7 +137,11 @@ void CiOSPlatform::logging(const char *format, ...) {
 }
 
 const char *CiOSPlatform::getBundleVersion() {
-	return [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] cStringUsingEncoding:NSUTF8StringEncoding];
+    return [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] cStringUsingEncoding:NSUTF8StringEncoding];
+}
+
+const char *CiOSPlatform::getBundleId() {
+    return "dummy";
 }
 
 ITmpFile *CiOSPlatform::openTmpFile(const char *tmpPath) {

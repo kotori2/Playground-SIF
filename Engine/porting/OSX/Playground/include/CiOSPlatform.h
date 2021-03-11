@@ -28,7 +28,8 @@ public:
 	void detailedLogging(const char *basefile, const char *functionName, int lineNo, const char *format, ...);
 	void logging(const char *format, ...);
     
-	const char *getBundleVersion();
+    const char *getBundleVersion();
+    const char *getBundleId();
     
 	//! Use Encryption for disk I/O
 	virtual bool useEncryption();
