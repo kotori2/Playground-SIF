@@ -36,6 +36,7 @@ CKLBLuaLibAPP::addLibrary()
 	addFunction("APP_GetPhysicalMem",		CKLBLuaLibAPP::luaGetPhysicalMem);
 	addFunction("APP_DateTimeNow",			CKLBLuaLibAPP::luaDateTimeNow);
 	addFunction("APP_SetIdleTimerActivity", CKLBLuaLibAPP::luaSetIdleTimerActivity);
+	addFunction("APP_GetBundleID",			CKLBLuaLibAPP::luaGetBundleId);
 }
 
 int
@@ -136,5 +137,14 @@ CKLBLuaLibAPP::luaSetIdleTimerActivity(lua_State * L)
 {
 	// arg 1 is boolean
 	DEBUG_PRINT("APP_SetIdleTimerActivity not implemented yet");
+	return 1;
+}
+
+int
+CKLBLuaLibAPP::luaGetBundleId(lua_State* L)
+{
+	CLuaState lua(L);
+	IPlatformRequest& platform = CPFInterface::getInstance().platform();
+	lua.retString(platform.getBundleId());
 	return 1;
 }
