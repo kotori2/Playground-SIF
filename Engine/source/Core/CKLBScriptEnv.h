@@ -145,6 +145,9 @@ public:
 	void call_netAPI_versionUp		(const char* funcName, CKLBObjectScriptable* obj, const char* clientVer, const char* serverVer);
 	void call_assetNotFound			(const char* funcName, const char* file);
 
+	// Platform callback
+	void call_attResult				(const char* funcName, int result);
+
 };
 
 #endif

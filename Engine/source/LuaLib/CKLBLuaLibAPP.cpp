@@ -14,12 +14,16 @@
    limitations under the License.
 */
 #include "CKLBLuaLibAPP.h"
+#include "CKLBScriptEnv.h"	
 #include <ctime>
 
 static ILuaFuncLib::DEFCONST luaConst[] = {
 	{ "APP_MAIL",		IPlatformRequest::APP_MAIL },		// 各環境のメールアプリ
 	{ "APP_BROWSER",	IPlatformRequest::APP_BROWSER },	// 各環境のブラウザアプリ
 	{ "APP_UPDATE",		IPlatformRequest::APP_UPDATE },		// 各環境のアップデートアプリ
+	{ "APP_SETTINGS",	IPlatformRequest::APP_SETTINGS },	// Location permission
+	{ "APP_MAP",		IPlatformRequest::APP_MAP },		// Location related
+	{ "APP_ATT",		IPlatformRequest::APP_ATT },		// iOS allow track window
 	{ 0, 0 }
 };
 
@@ -37,6 +41,7 @@ CKLBLuaLibAPP::addLibrary()
 	addFunction("APP_DateTimeNow",			CKLBLuaLibAPP::luaDateTimeNow);
 	addFunction("APP_SetIdleTimerActivity", CKLBLuaLibAPP::luaSetIdleTimerActivity);
 	addFunction("APP_GetBundleID",			CKLBLuaLibAPP::luaGetBundleId);
+	addFunction("SBP_setUserDefaults",		CKLBLuaLibAPP::luaSetUserDefaults);
 }
 
 int
@@ -92,7 +97,19 @@ CKLBLuaLibAPP::luaCallApplication(lua_State * L)
 			result = pForm.callApplication(type, search_key);
 		}
 		break;
+	case IPlatformRequest::APP_ATT:
+		{
+			const char* callback = lua.getString(2);
+			bool is_request = lua.getBool(3);  // true == request permission, false == check permission
+			const char* request_type = is_request ? "request permission" : "check permission";
+			DEBUG_PRINT("APP_CallApplication: APP_ATT: %s => ATT_REJECTED", request_type);
+
+			// TODO: Fill this permission
+			CKLBScriptEnv::getInstance().call_attResult(callback, IPlatformRequest::ATT_REJECTED);
+		}
+		break;
 	default:
+		DEBUG_PRINT("APP_CallApplication: %d is not implemented", type);
 		break;
 	}
 	lua.retBoolean(result);
@@ -147,4 +164,15 @@ CKLBLuaLibAPP::luaGetBundleId(lua_State* L)
 	IPlatformRequest& platform = CPFInterface::getInstance().platform();
 	lua.retString(platform.getBundleId());
 	return 1;
+}
+
+int
+CKLBLuaLibAPP::luaSetUserDefaults(lua_State* L)
+{
+	CLuaState lua(L);
+	const char* permission_name = lua.getString(1);
+	bool granted = lua.getBool(2);
+	const char* granted_text = granted ? "true" : "false";
+	DEBUG_PRINT("SBP_setUserDefaults: %s, %s", permission_name, granted_text);
+	return 0;
 }

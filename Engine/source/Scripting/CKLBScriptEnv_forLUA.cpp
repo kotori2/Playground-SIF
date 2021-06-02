@@ -451,5 +451,11 @@ void CKLBScriptEnv::call_assetNotFound(const char* funcName, const char* file)
 	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
 	lua.callback(funcName, "SS", file + 8, file);
 }
+
+void CKLBScriptEnv::call_attResult(const char* funcName, int result) {
+	if (!funcName) { return; }
+	CLuaState& lua = CKLBLuaEnv::getInstance().getState();
+	lua.callback(funcName, "I", result);
+}
 #endif
 #endif

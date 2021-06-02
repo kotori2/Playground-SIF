@@ -582,6 +582,16 @@ public:
 		APP_MAIL,
 		APP_BROWSER,
 		APP_UPDATE,		// アプリケーションのアップデートが可能なアプリ(iOSならAppStore)
+		APP_SETTINGS,
+		APP_MAP,
+		APP_ATT
+	};
+
+	enum ATT_RESULT {
+		ATT_UNDEFINED,
+		ATT_RESTRICTED,
+		ATT_REJECTED,
+		ATT_APPROVED,
 	};
 
 	//! OSアプリケーションの起動
