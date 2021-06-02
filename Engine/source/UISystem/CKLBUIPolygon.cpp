@@ -19,7 +19,10 @@ enum {
 	UI_POLYGON_NEWPATH,
 	UI_POLYGON_PUSHPATH,
 	UI_POLYGON_NEWHOLE,
-	UI_POLYGON_ENDHOLE
+	UI_POLYGON_ENDHOLE,
+	UI_POLYGON_BUILD,
+	UI_POLYGON_ADDPOINT,
+	UI_POLYGON_SETTEXTURE,
 };
 
 static IFactory::DEFCMD cmd[] = {
@@ -27,6 +30,9 @@ static IFactory::DEFCMD cmd[] = {
 	{"UI_POLYGON_PUSHPATH",			UI_POLYGON_PUSHPATH		},
 	{"UI_POLYGON_NEWHOLE",			UI_POLYGON_NEWHOLE		},
 	{"UI_POLYGON_ENDHOLE",			UI_POLYGON_ENDHOLE		},
+	{"UI_POLYGON_BUILD",			UI_POLYGON_BUILD		},
+	{"UI_POLYGON_ADDPOINT",			UI_POLYGON_ADDPOINT		},
+	{"UI_POLYGON_SETTEXTURE",		UI_POLYGON_SETTEXTURE	},
 
 	{0, 0 }
 };
@@ -132,10 +138,95 @@ CKLBUIPolygon::initUI(CLuaState& lua)
 int
 CKLBUIPolygon::commandUI(CLuaState& lua, int argc, int cmd)
 {
+	// TODO: Not implemented
 	int ret = 0;
 	switch (cmd)
 	{
-		// TODO: Fill this
+	case UI_POLYGON_NEWPATH:
+	{
+		bool result = false;
+		if (argc == 2) {
+			result = true;
+		}
+		lua.retBoolean(result);
+		ret = 1;
+	}
+	break;
+	case UI_POLYGON_PUSHPATH:
+	{
+		bool result = false;
+		if (argc == 2) {
+			result = true;
+		}
+		lua.retBoolean(result);
+		ret = 1;
+	}
+	break;
+	case UI_POLYGON_NEWHOLE:
+	{
+		bool result = false;
+		if (argc == 2) {
+			result = true;
+		}
+		lua.retBoolean(result);
+		ret = 1;
+	}
+	break;
+	case UI_POLYGON_ENDHOLE:
+	{
+		bool result = false;
+		if (argc == 2) {
+			result = true;
+		}
+		lua.retBoolean(result);
+		ret = 1;
+	}
+	break;
+	case UI_POLYGON_BUILD:
+	{
+		bool result = false;
+		if (argc == 4) {
+			int color = lua.getInt(3);
+			int alpha = lua.getInt(4);
+			result = true;
+		}
+		lua.retBoolean(result);
+		ret = 1;
+	}
+	break;
+	case UI_POLYGON_ADDPOINT:
+	{
+		bool result = false;
+		if (argc == 4) {
+			// Simple point, no color
+			int x = lua.getInt(3);
+			int y = lua.getInt(4);
+			result = true;
+		} else if (argc == 6) {
+			// With color
+			int x = lua.getInt(3);
+			int y = lua.getInt(4);
+			int color = lua.getInt(5);
+			int alpha = lua.getInt(6);
+			result = true;
+		}
+		lua.retBoolean(result);
+		ret = 1;
+	}
+	break;
+	case UI_POLYGON_SETTEXTURE:
+	{
+		bool result = false;
+		if (argc == 5) {
+			const char* texture = lua.getString(3);
+			int visible = lua.getInt(4);
+			bool unknown = lua.getBoolean(5);
+			result = true;
+		}
+		lua.retBoolean(result);
+		ret = 1;
+	}
+	break;
 	}
 	return ret;
 }
