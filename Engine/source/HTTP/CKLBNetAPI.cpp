@@ -308,6 +308,8 @@ CKLBNetAPI::initScript(CLuaState& lua)
 	// arg 6 is max sessions count [not implemented yet]
 	kc.setLanguage(lua.getString(7));
 	kc.setRegion(lua.getString(8));
+	if (lua.isString(9))
+		m_verup_callback = CKLBUtility::copyString(lua.getString(9));
 
 	return init(NULL, lua.getString(5));
 }
