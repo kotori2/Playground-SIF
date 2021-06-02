@@ -50,7 +50,7 @@
 
 #include "FontRendering.h"
 
-constexpr auto BUNDLE_VERSION = "8.0.1";
+constexpr auto BUNDLE_VERSION = "9.0.2";
 constexpr auto BUNDLE_ID = "win32.lovelive";
 
 bool CWin32Platform::g_useDecryption = true;

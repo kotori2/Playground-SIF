@@ -153,6 +153,17 @@ public:
 		}
 		return m_clientKey;
 	}
+
+	inline const char* setLanguage(const char* language) {
+		KLBDELETEA(m_language);
+		if (language) {
+			m_language = CKLBUtility::copyString(language);
+		}
+		else {
+			m_language = NULL;
+		}
+		return m_language;
+	}
     
 	inline const char * getUrl			() const { return m_url;		}
     inline const char * getToken		() const { return m_token;		}
@@ -165,6 +176,7 @@ public:
 	inline const char * getLoginPwd		() const { return m_loginPwd;	}
 	inline const char * getSessionKey	() const { return m_sessionKey; }
 	inline const char * getClientKey	() const { return m_clientKey;	}
+	inline const char * getLanguage		() const { return m_language;	}
 
 	inline int genCmdNumID(char * retBuf, const char * body, time_t timeStamp, int serial) {
 		sprintf(retBuf, "%s-%s.%d.%d",
@@ -194,6 +206,7 @@ private:
 	const char		*	m_loginPwd;		// login_passwd
 	const char		*	m_sessionKey;	
 	const char		*	m_clientKey;	
+	const char		*	m_language;	
 };
 
 #endif

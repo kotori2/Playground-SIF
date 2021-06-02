@@ -538,6 +538,7 @@ bool CKLBHTTPInterface::httpGET(const char * url, bool isProxy)
 // POST発衁
 bool CKLBHTTPInterface::httpPOST(const char * url, bool isProxy)
 {
+	DEBUG_PRINT("[CKLBHTTPInterface::httpPOST]: %s", url);
 	klb_assert(isProxy==false,"Proxy Not supported");
 
 	m_post = true;

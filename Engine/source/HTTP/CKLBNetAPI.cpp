@@ -306,9 +306,8 @@ CKLBNetAPI::initScript(CLuaState& lua)
 	kc.setAppID(lua.getString(4));
 	// arg 5 is name of lua http callback function
 	// arg 6 is max sessions count [not implemented yet]
-	kc.setRegion(lua.getString(7));
-	if (lua.isString(8)) 
-		m_verup_callback = CKLBUtility::copyString(lua.getString(8));
+	kc.setLanguage(lua.getString(7));
+	kc.setRegion(lua.getString(8));
 
 	return init(NULL, lua.getString(5));
 }
@@ -539,7 +538,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	CKLBNetAPIKeyChain& kc = CKLBNetAPIKeyChain::getInstance();
 
 	// TODO
-	const char* headers[14];
+	const char* headers[15];
 
 	// For values above
 	char* alldata = new char[2560];
@@ -554,6 +553,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	char* xmc = region + 64;
 	char* user_id = xmc + 128;
     char* bundle_id = user_id + 128;
+    char* language = bundle_id + 128;
 
 	// Process authorize string
 	authorize = new char[1024];
@@ -575,6 +575,7 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	sprintf(region, "Region: %s", kc.getRegion());
 	sprintf(os_version, "OS-Version: %s", pfif.platform().getPlatform());
     sprintf(bundle_id, "X-BUNDLE-ID: %s", pfif.platform().getBundleId());
+    sprintf(language, "LANG: %s", kc.getLanguage());
 
 	// User-ID
 	const char* uid = kc.getUserID();
@@ -605,17 +606,18 @@ CKLBNetAPI::setHeaders(const char* data, const char* key)
 	headers[5] = "Debug: 1";
 	headers[6] = os;
 	headers[7] = os_version;
-	headers[8] = platform_type;
-	headers[9] = region;
-	headers[10] = xmc;
-	headers[11] = user_id;
-    headers[12] = bundle_id;
-	headers[13] = NULL;
+	headers[8] = language;
+	headers[9] = platform_type;
+	headers[10] = region;
+	headers[11] = xmc;
+    headers[12] = user_id;
+	headers[13] = bundle_id;
+	headers[14] = NULL;
 
 	m_http->setHeader(headers);
 
 #ifdef DEBUG
-	for (int i = 0; i < 13; i++) {
+	for (int i = 0; i < 14; i++) {
 		DEBUG_PRINT("[HTTP HEADER] %s", headers[i]);
 	}
 	size_t bodyLen = strlen(data);
