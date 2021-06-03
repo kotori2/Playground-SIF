@@ -289,7 +289,10 @@ DownloadClient::oneSuccessCallback(int queueId)
     DOWNLOAD_CALLBACK_ITEM q;
     q.type = DOWNLOAD_CLIENT_CALLBACK_DOWNLOAD_FINISH;
     q.queueId = queueId;
+	auto& pfif = CPFInterface::getInstance().platform();
+	pfif.mutexLock(m_mutex);
     m_callback_queue.push(q);
+	pfif.mutexUnlock(m_mutex);
 }
 
 void
@@ -300,7 +303,10 @@ DownloadClient::httpFailureCallback(int statusCode, int errorType)
     q.type = DOWNLOAD_CLIENT_CALLBACK_ERROR;
     q.errorCode = statusCode;
     q.errorType = errorType;
-    m_callback_queue.push(q);
+	auto& pfif = CPFInterface::getInstance().platform();
+	pfif.mutexLock(m_mutex);
+	m_callback_queue.push(q);
+	pfif.mutexUnlock(m_mutex);
 }
 
 void
@@ -341,6 +347,7 @@ s32
 DownloadClient::unzipThread(void* /*pThread*/, void* instance)
 {
 	DownloadClient* that = (DownloadClient*)instance;
+	auto& pfif = CPFInterface::getInstance().platform();
 	// check if there is a downloaded file to unzip
 	while (that->m_unzippedCount < that->m_queue.total) {
 		int i = that->m_unzippedCount;
@@ -351,7 +358,9 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
             DOWNLOAD_CALLBACK_ITEM q;
             q.type = DOWNLOAD_CLIENT_CALLBACK_UNZIP_START;
             q.queueId = that->m_queue.queueIds[i];
-            that->m_callback_queue.push(q);
+			pfif.mutexLock(that->m_mutex);
+			that->m_callback_queue.push(q);
+			pfif.mutexUnlock(that->m_mutex);
             
 			size_t zipEntry = 0;
 			char zipPath[64];
@@ -377,7 +386,9 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
                 q.type = DOWNLOAD_CLIENT_CALLBACK_ERROR;
                 q.errorType = CKLBUPDATE_UNZIP_ERROR;
                 q.errorCode = 1;
-                that->m_callback_queue.push(q);
+				pfif.mutexLock(that->m_mutex);
+				that->m_callback_queue.push(q);
+				pfif.mutexUnlock(that->m_mutex);
                 
 				DEBUG_PRINT("[update] invalid zip file");
 				return 0;
@@ -412,7 +423,9 @@ DownloadClient::unzipThread(void* /*pThread*/, void* instance)
             
             q.type = DOWNLOAD_CLIENT_CALLBACK_UNZIP_FINISH;
             q.queueId = that->m_queue.queueIds[i];
-            that->m_callback_queue.push(q);
+			pfif.mutexLock(that->m_mutex);
+			that->m_callback_queue.push(q);
+			pfif.mutexUnlock(that->m_mutex);
             
 			that->m_unzippedCount++;
 			that->m_queue.unzipped[i] = true;
