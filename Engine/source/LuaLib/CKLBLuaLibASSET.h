@@ -47,6 +47,7 @@ private:
 	static s32	luaRegisterNotFound			(lua_State * L);
 	static s32	luaSetPlaceHolder			(lua_State * L);
 	static s32	luaEnableTextureBorderPatch (lua_State * L);
+	static s32	luaMipmapOnce				(lua_State * L);
 
 	static u32 assetSize;
 };

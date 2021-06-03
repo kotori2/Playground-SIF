@@ -46,6 +46,7 @@ CKLBLuaLibASSET::addLibrary()
 	addFunction("ASSET_setPlaceHolder",			CKLBLuaLibASSET::luaSetPlaceHolder);
 	addFunction("ASSET_killDownload",			CKLBLuaLibASSET::luaKillDownload);
 	addFunction("ASSET_enableTextureBorderPatch", CKLBLuaLibASSET::luaEnableTextureBorderPatch);
+	addFunction("ASSET_MipmapOnce",				CKLBLuaLibASSET::luaMipmapOnce);
 
 	addFunction("Asset_getNMAssetSize",			CKLBLuaLibASSET::luaGetNMAssetSize);
 	addFunction("Asset_getNMAsset",				CKLBLuaLibASSET::luaGetNMAsset);
@@ -375,6 +376,14 @@ CKLBLuaLibASSET::luaEnableTextureBorderPatch(lua_State* L)
 	// arg 1 is boolean
 	DEBUG_PRINT("ASSET_enableTextureBorderPatch not implemented yet");
 	return 1;
+}
+
+s32
+CKLBLuaLibASSET::luaMipmapOnce(lua_State* L)
+{
+	// Convert next loaded image to mipmap
+	DEBUG_PRINT("ASSET_MipmapOnce not implemented yet");
+	return 0;
 }
 
 void CKLBLuaLibASSET::cmdGetImageSize(const char* asset_name, s32* pReturnWidth, s32* pReturnHeight)
