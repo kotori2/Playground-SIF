@@ -787,9 +787,8 @@ CKLBFormIF::updateLabelNode(CLuaState& lua, int argc, int base, int subcmd, CKLB
 		break;
 	case FORM_LBL_SET_COLOR:
 		{
-			int alpha = lua.getInt(4);
-			int color = lua.getInt(5);
-			((CKLBUILabel*)pTask)->setColor(color | (alpha << 24));
+			int color = lua.getInt(base + 1);
+			((CKLBUILabel*)pTask)->setColor(color | (0xff << 24));
 			ret = 1;
 		}
 		break;
