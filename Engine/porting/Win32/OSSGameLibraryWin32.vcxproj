@@ -469,6 +469,7 @@
     <ClInclude Include="..\..\source\UISystem\CKLBUIVariableItem.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBUIWebArea.h" />
     <ClInclude Include="..\..\source\UISystem\CKLBWebViewNode.h" />
+    <ClInclude Include="..\..\source\UISystem\CUICover.h" />
     <ClInclude Include="..\..\source\UISystem\IMgrEntry.h" />
     <ClInclude Include="3rdparty\Lame\includes\BladeMP3EncDLL.h" />
     <ClInclude Include="3rdparty\Lame\includes\lame.h" />
@@ -2266,6 +2267,7 @@
     <ClCompile Include="..\..\source\UISystem\CKLBUIVirtualDoc.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBUIWebArea.cpp" />
     <ClCompile Include="..\..\source\UISystem\CKLBWebViewNode.cpp" />
+    <ClCompile Include="..\..\source\UISystem\CUICover.cpp" />
     <ClCompile Include="..\..\source\UISystem\IMgrEntry.cpp" />
     <ClCompile Include="..\dirent.c" />
     <ClCompile Include="..\FileDelete.cpp" />

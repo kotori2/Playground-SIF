@@ -15,6 +15,7 @@
 */
 #include "CKLBLuaLibGL.h"
 #include "CKLBDrawTask.h"
+#include "CUICover.h"
 #include "TextureManagement.h"
 #include "CKLBTouchPad.h"
 
@@ -58,10 +59,28 @@ CKLBLuaLibGL::addLibrary()
 
 int CKLBLuaLibGL::luaGLBGBorder(lua_State* L)
 {
+	CLuaState lua(L);
 	DEBUG_PRINT("GL_BGBorder is not implemented yet");
-	// same as UI_Cover (task that also is not implemented)
-	// parentTask, prio, asset, repeatX_bool, repeatY_bool, scaleX, scaleY, holeWidth, holeHeight 
-	return 0;
+	if (lua.numArgs() < 10) {
+		lua.retNil();
+		return false;
+	}
+	
+	CKLBUITask* pParent = (lua.isNil(1)) ? NULL : (CKLBUITask*)lua.getPointer(1);
+	u32 priority = lua.getInt(2);
+	const char* asset = lua.getString(3);
+	bool repeat_x = lua.getBool(4);
+	bool repeat_y = lua.getBool(5);
+	float scale_x = lua.getFloat(6);
+	float scale_y = lua.getFloat(7);
+	u32 hole_w = lua.getInt(8);
+	u32 hole_h = lua.getInt(9);
+	bool one_pixel_inner_boarder = lua.getBool(10);
+
+	CUICover* pTask = CUICover::create(pParent, NULL, priority, 0, 0);
+	// TODO: Implement actual process
+	lua.retPointer(pTask);
+	return 1;
 }
 
 int CKLBLuaLibGL::luaGLStackShaderParam(lua_State * L)

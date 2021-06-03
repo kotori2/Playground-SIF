@@ -40,6 +40,7 @@ private:
 	static int setPause			(lua_State * L);
 	static int setManagerPause	(lua_State * L);
 	static int setMatrix		(lua_State * L);
+	static int setRenderState	(lua_State * L);
 };
 
 #endif // CKLBLuaLIbTASK_h

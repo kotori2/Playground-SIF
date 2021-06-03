@@ -49,6 +49,7 @@ CKLBLuaLibTASK::addLibrary()
 
 	// UI
 	addFunction("TASKUI_setMatrix",		CKLBLuaLibTASK::setMatrix);
+	addFunction("TASKUI_setRenderState",CKLBLuaLibTASK::setRenderState);
 }
 
 int
@@ -222,6 +223,17 @@ CKLBLuaLibTASK::setMatrix(lua_State* L)
 	int argc = lua.numArgs();
 	// TODO
 	lua.retBoolean(false);
+	return 1;
+}
+
+// For border
+int
+CKLBLuaLibTASK::setRenderState(lua_State* L)
+{
+	CLuaState lua(L);
+	int argc = lua.numArgs();
+	// TODO
+	lua.retBoolean(true);
 	return 1;
 }
 

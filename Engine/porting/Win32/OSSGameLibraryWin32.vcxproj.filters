@@ -851,6 +851,9 @@
     <ClInclude Include="..\..\source\LuaLib\LuaLibMISC.h">
       <Filter>Source Files\LuaLib\modules</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\UISystem\CUICover.h">
+      <Filter>Source Files\UISystem\Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\Animation\CKLBSystem.cpp">
@@ -2190,6 +2193,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\LuaLib\LuaLibMISC.cpp">
       <Filter>Source Files\LuaLib\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\UISystem\CUICover.cpp">
+      <Filter>Source Files\UISystem\Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
