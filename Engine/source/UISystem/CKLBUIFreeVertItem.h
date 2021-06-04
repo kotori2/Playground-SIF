@@ -79,6 +79,7 @@ private:
 	void setVertColors  ();
 	void setVertices    ();     // 頂点座標値配列から、座標値を設定する
 	void setUV          ();	    // UV値配列から、UV値を設定する。
+	void notifyAssetUpdate(const char* asset);
 
 private:
 	inline void assignVertColors() {

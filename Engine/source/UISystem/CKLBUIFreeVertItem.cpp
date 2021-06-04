@@ -469,3 +469,19 @@ CKLBUIFreeVertItem::setArrUV(CLuaState& lua)
 	}
 	return bResult;
 }
+
+// update asset on microdl
+void 
+CKLBUIFreeVertItem::notifyAssetUpdate(const char* asset) {
+	if (m_asset != NULL && !strncmp(m_asset, "asset://", 8)) {
+		const char* tmp = CKLBUtility::copyString(m_asset);
+		m_pTex = (CKLBImageAsset*)CKLBUtility::loadAssetScript(tmp, &m_handle);
+		if (m_pTex) {
+			setUV(m_pTex);
+			m_pDynSprite->setTexture(m_pTex);
+			assignVertColors();
+			assignUV();
+		}
+		KLBDELETEA(tmp);
+	}
+}

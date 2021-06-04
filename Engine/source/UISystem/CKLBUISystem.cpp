@@ -407,8 +407,9 @@ CKLBUIElement::getAssetName(CKLBUIElement::ASSET_TYPE mode)
 			return m_pDisabled->getName();
 		}
 		break;
+	default:
+		return NULL;
 	}
-	return NULL;
 }
 
 void 
@@ -961,8 +962,9 @@ CKLBUISelectable::getAssetName(CKLBUIElement::ASSET_TYPE mode)
 			return m_pPushed->getName();
 		}
 		break;
+	default:
+		return CKLBUIElement::getAssetName(mode);
 	}
-	return CKLBUIElement::getAssetName(mode);
 }
 
 void 
