@@ -182,10 +182,20 @@ public:
 		CHARTYPE,
 		VOL_AUDIO_UP,
 		VOL_AUDIO_DOWN,
+		DOCK,
 		ANCHOR,
+		MARGIN_DOWN,
+		MARGIN_UP,
+		MARGIN_LEFT,
+		MARGIN_RIGHT,
+		SHADOW_DX,
+		SHADOW_DY,
+		SHADOW_COLOR,
+		SHADOW_BLUR,
 		ANCHOR_X,
 		ANCHOR_Y,
 		FIT,
+		COMMENT = 65534
 	};
 private:
 	bool init();
@@ -324,10 +334,14 @@ public:
 
 	float x;
 	float y;
+
+	u8 dummy[8];
+
 	float xscale;
 	float yscale;
 	float rotation;
 	
+	u32 shadowBlur;
 	u32	layoutInfo;
 	u32 priority;
 	s32 value;
@@ -371,10 +385,11 @@ public:
 	u8	splineVectorSize;
 	u8	volAudioUp;
 	u8	volAudioDown;
+	u8  shadowDX;
+	u8  shadowDY;
 	u8	anchor;
 	u8	anchorX;
 	u8	anchorY;
-	u8	fit;
 
 	u8	flag[4];
 	bool	visible;

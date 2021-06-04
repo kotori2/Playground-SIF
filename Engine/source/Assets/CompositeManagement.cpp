@@ -116,6 +116,10 @@ enum {
 	VARITEM_CLASSID		= 17,
 	GROUP_CLASSID		= 18,
 	TILEDCANVAS_CLASSID	= 19,
+	RECT_CLASSID		= 20,
+	BTNSCALE9_CLASSID	= 21,
+	SHADER_CLASSID		= 22,
+	BUFFER_CLASSID		= 23,
 };
 
 #include "../../libs/JSonParser/api/yajl_parse.h"
@@ -803,7 +807,7 @@ int CKLBCompositeAsset::readInt(long long integerVal)
 	case VOL_AUDIO_DOWN:
 		m_pCurrInnerDef->volAudioDown		= (u8)integerVal;
 		break;
-	case ANCHOR:
+	case ANCHOR: // TODO: Merge anchor(x/y) into one int
 		m_pCurrInnerDef->anchor				= (u8)integerVal;
 		break;
 	case ANCHOR_X:
@@ -812,8 +816,24 @@ int CKLBCompositeAsset::readInt(long long integerVal)
 	case ANCHOR_Y:
 		m_pCurrInnerDef->anchorY			= (u8)integerVal;
 		break;
+	case DOCK:
+		m_pCurrInnerDef->flag[2]			= (u8)integerVal;
+		break;
+	case SHADOW_DX:
+		m_pCurrInnerDef->shadowDX			= (u8)integerVal;
+		break;
+	case SHADOW_DY:
+		m_pCurrInnerDef->shadowDY			= (u8)integerVal;
+		break;
+	case SHADOW_COLOR:// TODO: CHECK ME
+		m_pCurrInnerDef->color				= integerVal >> 8;
+		break;
+	case SHADOW_BLUR:
+		m_pCurrInnerDef->shadowBlur			= integerVal;
+		break;
 	case FIT:
-		m_pCurrInnerDef->fit				= (u8)integerVal;
+		m_pCurrInnerDef->flag[1]			= (u8)integerVal;
+		break;
 	}
     return 1;
 }  
@@ -933,6 +953,18 @@ int CKLBCompositeAsset::readString(const unsigned char * stringVal, size_t strin
 		} else
 		if (strncmp("task_tiledcanvas", (const char*)stringVal, (sizeof("task_tiledcanvas")-1)) == 0) {
 			m_pCurrInnerDef->classID = TILEDCANVAS_CLASSID; 
+		} else
+		if (strncmp("format_rect", (const char*)stringVal, (sizeof("format_rect")-1)) == 0) {
+			m_pCurrInnerDef->classID = RECT_CLASSID; 
+		} else
+		if (strncmp("btnscale9", (const char*)stringVal, (sizeof("btnscale9")-1)) == 0) {
+			m_pCurrInnerDef->classID = BTNSCALE9_CLASSID; 
+		} else
+		if (strncmp("task_shader", (const char*)stringVal, (sizeof("task_shader")-1)) == 0) {
+			m_pCurrInnerDef->classID = SHADER_CLASSID; 
+		} else
+		if (strncmp("task_buffer", (const char*)stringVal, (sizeof("task_buffer")-1)) == 0) {
+			m_pCurrInnerDef->classID = BUFFER_CLASSID; 
 		}
 			
 		break;
@@ -1077,6 +1109,7 @@ static const key_name_value keywords3[] = {
 
 static const key_name_value keywords4[] = {
 	// Size 4
+	{"dock",(sizeof("dock")-1),CKLBCompositeAsset::DOCK},
 	{"loop",(sizeof("loop")-1),CKLBCompositeAsset::ANIM_LOOP},
 	{"name",(sizeof("name")-1),CKLBCompositeAsset::NAME_FIELD},
 	{"text",(sizeof("text")-1),CKLBCompositeAsset::TEXT_FIELD},
@@ -1152,6 +1185,7 @@ static const key_name_value keywords7[] = {
 	{"centery",(sizeof("centery")-1),CKLBCompositeAsset::CENTERY_FIELD},
 	{"checked",(sizeof("checked")-1),CKLBCompositeAsset::FLAG_0_FIELD},
 	{"clipend",(sizeof("clipend")-1),CKLBCompositeAsset::CLIPEND},
+	{"clipend",(sizeof("comment")-1),CKLBCompositeAsset::COMMENT},
 	{"default",(sizeof("default")-1),CKLBCompositeAsset::ASSET_FIELD},
 	{"disable",(sizeof("disable")-1),CKLBCompositeAsset::ASSET_DISABLED_FIELD},
 	{"onclick",(sizeof("onclick")-1),CKLBCompositeAsset::ON_CLICK},
@@ -1196,6 +1230,10 @@ static const key_name_value keywordsOther[] = {
 	{"fromscale",(sizeof("fromscale")-1),CKLBCompositeAsset::ANIM_FROMSCALE},
 	{"fromscalex",(sizeof("fromscalex")-1),CKLBCompositeAsset::ANIM_FROMSCALE_X},
 	{"fromscaley",(sizeof("fromscaley")-1),CKLBCompositeAsset::ANIM_FROMSCALE_Y},
+	{"margindown",(sizeof("margindown")-1),CKLBCompositeAsset::MARGIN_DOWN},
+	{"marginleft",(sizeof("marginleft")-1),CKLBCompositeAsset::MARGIN_LEFT},
+	{"marginright",(sizeof("marginright")-1),CKLBCompositeAsset::MARGIN_RIGHT},
+	{"marginup",(sizeof("marginup")-1),CKLBCompositeAsset::MARGIN_UP},
 	{"maxcommandcount",(sizeof("maxcommandcount")-1),CKLBCompositeAsset::INT_2_FIELD},
 	{"maxindex",(sizeof("maxindex")-1),CKLBCompositeAsset::MAXINDEX},
 	{"maxlength",(sizeof("maxlength")-1),CKLBCompositeAsset::MAXLENGTH},
@@ -1213,6 +1251,10 @@ static const key_name_value keywordsOther[] = {
 	{"rotation",(sizeof("rotation")-1),CKLBCompositeAsset::ROTATION_FIELD},
 	{"scrollbar",(sizeof("scrollbar")-1),CKLBCompositeAsset::GENERIC_FIELD},
 	{"selectcolor",(sizeof("selectcolor")-1),CKLBCompositeAsset::SELECTCOLOR},
+	{"shadowblur",(sizeof("shadowblur")-1),CKLBCompositeAsset::SHADOW_BLUR},
+	{"shadowcolor",(sizeof("shadowcolor")-1),CKLBCompositeAsset::SHADOW_COLOR},
+	{"shadowdx",(sizeof("shadowdx")-1),CKLBCompositeAsset::SHADOW_DX},
+	{"shadowdy",(sizeof("shadowdy")-1),CKLBCompositeAsset::SHADOW_DY},
 	{"slidersize",(sizeof("slidersize")-1),CKLBCompositeAsset::SLIDERSIZE},
 	{"sounddown",(sizeof("sounddown")-1),CKLBCompositeAsset::SOUNDDOWN_FIELD},
 	{"sounddownvolume",(sizeof("sounddownvolume")-1),CKLBCompositeAsset::VOL_AUDIO_DOWN},
