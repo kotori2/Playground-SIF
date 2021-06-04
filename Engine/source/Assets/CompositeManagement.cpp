@@ -760,20 +760,13 @@ int CKLBCompositeAsset::readInt(long long integerVal)
 	case SELECTCOLOR:
 		m_pCurrInnerDef->variable[VAR_SELECTCOLOR]	= (u32)integerVal;
 		break;
-
 	case MAXVERTEX:
 		m_pCurrInnerDef->variable[VAR_MAXVERTEX]	= (u32)integerVal;
 		break;
 	case MAXINDEX:
 		m_pCurrInnerDef->variable[VAR_MAXINDEX]		= (u32)integerVal;
 		break;
-
-	case SPLINE_COUNT:
-		m_pCurrInnerDef->splineCount = (u16)integerVal;
-		break;
-	case SPLINE_LENGTH:
-		m_pCurrInnerDef->splineLength = (u16)integerVal;
-		break;
+	
 	case SPLINE_MASK:
 		m_pCurrInnerDef->splineMask			= ((u16)integerVal) | 3; // Always X&Y
 		{
@@ -786,9 +779,21 @@ int CKLBCompositeAsset::readInt(long long integerVal)
 			m_pCurrInnerDef->splineVectorSize	= size;
 		}
 		break;
+	case SPLINE_COUNT:
+		m_pCurrInnerDef->splineCount = (u16)integerVal;
+		break;
 	case SPLINE_ARRAY:
+		float *spline = m_pCurrInnerDef->spline;
+		if (!spline) return 0;
+		if (!m_currArraySpline || m_currArraySpline >= spline + m_pCurrInnerDef->splineCount * m_pCurrInnerDef->splineVectorSize) {
+			return 0;
+		}
 		*m_currArraySpline++		= (float)integerVal;
 		break;
+	case SPLINE_LENGTH:
+		m_pCurrInnerDef->splineLength = (u16)integerVal;
+		break;
+
 	case GENERIC_FIELD:
 		m_pCurrInnerDef->propertyBag->setPropertyInt(tmpBuff, (s32)integerVal);
 		break;
@@ -806,6 +811,18 @@ int CKLBCompositeAsset::readInt(long long integerVal)
 		break;
 	case VOL_AUDIO_DOWN:
 		m_pCurrInnerDef->volAudioDown		= (u8)integerVal;
+		break;
+	case MARGIN_LEFT:
+		m_pCurrInnerDef->clipx				= (s16)integerVal;  // reuse field
+		break;
+	case MARGIN_UP:
+		m_pCurrInnerDef->clipy				= (s16)integerVal;  // reuse field
+		break;
+	case MARGIN_RIGHT:
+		m_pCurrInnerDef->clipw				= (s16)integerVal;  // reuse field
+		break;
+	case MARGIN_DOWN:
+		m_pCurrInnerDef->cliph				= (s16)integerVal;  // reuse field
 		break;
 	case ANCHOR: // TODO: Merge anchor(x/y) into one int
 		m_pCurrInnerDef->anchor				= (u8)integerVal;
@@ -1872,6 +1889,10 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 				}
 			}
 		}
+	}
+
+	if (templateDef->classID == RECT_CLASSID) {
+		// TODO: handle with form_react
 	}
 
 	u32 newPrio = priorityOffset + templateDef->priority;

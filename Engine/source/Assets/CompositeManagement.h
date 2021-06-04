@@ -377,8 +377,8 @@ public:
 	s16 clipy;
 	s16 clipw;
 	s16 cliph;
-	s16	width;
-	s16 height;
+	s16	width;  // TODO: Remove me
+	s16 height; // TODO: Remove me
 	u16	splineMask;
 	u16	splineCount;
 	u16	splineLength;
@@ -388,8 +388,8 @@ public:
 	u8  shadowDX;
 	u8  shadowDY;
 	u8	anchor;
-	u8	anchorX;
-	u8	anchorY;
+	u8	anchorX; // TODO: Remove me
+	u8	anchorY; // TODO: Remove me
 
 	u8	flag[4];
 	bool	visible;
