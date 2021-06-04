@@ -1,4 +1,4 @@
-﻿/* 
+﻿/*
    Copyright 2013 KLab Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,29 +22,31 @@
 #include "CSoundAnalysis.h"
 #include "CSoundAnalysisMP3.h"
 
+bool SoundAnalysis_OGG(const char*, sSoundAnalysisData*);
 /*
  @brief  サウンドファイルのいろいろな情報を取得
  @param[in]     const char* _path          サウンドファイル名
  @param[out]    sSoundAnalysisData* _data  指定サウンドファイルのいろいろな情報格納用
  @return        void
  */
-bool GetSoundAnalysisData( const char* _path, sSoundAnalysisData* _data )
+bool GetSoundAnalysisData(const char* _path, sSoundAnalysisData* _data)
 {
-    if( _path == NULL || _data == NULL ) return false;
-    
+    if (_path == NULL || _data == NULL) return false;
+
     bool bAnalysis = false;
-    
+
     // 拡張子をチェックしてそれぞれの解析を行う
-    if( strstr(_path, ".mp3") )
+    if (strstr(_path, ".mp3"))
     {
         // MP3
-        bAnalysis = SoundAnalysis_MP3( _path, _data );
+        bAnalysis = SoundAnalysis_MP3(_path, _data);
     }
-    else if( strstr(_path, ".ogg") )
+    else if (strstr(_path, ".ogg"))
     {
         // OGG
+        bAnalysis = SoundAnalysis_OGG(_path, _data);
     }
-    
+
     return bAnalysis;
 }
 
@@ -53,19 +55,15 @@ bool GetSoundAnalysisData( const char* _path, sSoundAnalysisData* _data )
  @param[in] const char* _path   サウンドファイル名
  @return    u32                 指定のサウンドファイルの演奏時間
  */
-u32 GetSoundTotalTime( const char* _path )
+u32 GetSoundTotalTime(const char* _path)
 {
     sSoundAnalysisData data;
     bool bAnalysis = false;
-    
-    bAnalysis = GetSoundAnalysisData( _path, &data );
-    
-    if( bAnalysis ) {
+
+    bAnalysis = GetSoundAnalysisData(_path, &data);
+
+    if (bAnalysis) {
         return (u32)data.m_totalTime;
     }
     return 0;
 }
-
-
-
-
