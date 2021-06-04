@@ -563,17 +563,15 @@ int CKLBCompositeAsset::readInt(long long integerVal)
 		m_pCurrInnerDef->color = (u32)integerVal;
 		break;
 	case WIDTH_FIELD:
-		if (m_root != m_pCurrInnerDef) {
-			m_pCurrInnerDef->width	= (s16)integerVal;
-		} else {
-			m_width = (s16)integerVal;
+		m_pCurrInnerDef->width = (s16)integerVal;
+		if (m_root == m_pCurrInnerDef) {
+			m_width = m_pCurrInnerDef->width;
 		}
 		break;
 	case HEIGHT_FIELD:
-		if (m_root != m_pCurrInnerDef) {
-			m_pCurrInnerDef->height	= (s16)integerVal;
-		} else {
-			m_height = (s16)integerVal;
+		m_pCurrInnerDef->height = (s16)integerVal;
+		if (m_root == m_pCurrInnerDef) {
+			m_height = m_pCurrInnerDef->height;
 		}
 		break;
 	case XSCALE_FIELD:
@@ -1845,20 +1843,23 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 	if (anchorFlags & 8) {
 		templateDef->x -= draw.borderX();
 	}
-	if (anchorFlags & 16) {
-		templateDef->y -= draw.borderY();
-	}
 	if (anchorFlags & 32) {
 		templateDef->x -= draw.borderX() + draw.unsafeX();
+	}
+
+	if (anchorFlags & 16) {
+		templateDef->y -= draw.borderY();
 	}
 	if (anchorFlags & 64) {
 		templateDef->y -= draw.borderX() + draw.unsafeY();
 	}
+
 	if (anchorFlags & 1) {
-		templateDef->x = (templateDef->x * -1) - (templateDef->classID == BUTTON_CLASSID ? templateDef->sw : templateDef->width) - 1;
+		// x = x + parent width - width
+		templateDef->x = (templateDef->x * -1) + parent->getWidth() - (templateDef->classID == BUTTON_CLASSID ? templateDef->sw : templateDef->width);
 	}
 	if (anchorFlags & 2) {
-		templateDef->y = (templateDef->y * -1) - (templateDef->classID == BUTTON_CLASSID ? templateDef->sh : templateDef->height) - 1;
+		templateDef->y = (templateDef->y * -1) + parent->getHeight() - (templateDef->classID == BUTTON_CLASSID ? templateDef->sh : templateDef->height);
 	}
 
 	klb_assert(
@@ -2263,6 +2264,7 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 					pNode = pNewNode;
 					pNewNode->setTag(templateDef);
 					pNewNode->setTranslate(templateDef->x,templateDef->y);
+					pNewNode->setSize(templateDef->width, templateDef->height);
 					pNewNode->setScaleRotation(templateDef->xscale, templateDef->yscale,templateDef->rotation);
 				}
 			}
@@ -2533,6 +2535,7 @@ bool CKLBCompositeAsset::createSubTreeRecursive(u16 groupID, CKLBUITask* pParent
 		if (pNode) {
 			pNode->setTranslate(templateDef->x, templateDef->y);
 			pNode->setScaleRotation(templateDef->xscale, templateDef->yscale,templateDef->rotation);
+			pNode->setSize(templateDef->width, templateDef->height);
 			parent->addNode(pNode);
 		} else {
 			res = false;

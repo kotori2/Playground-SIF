@@ -321,6 +321,11 @@ public:
 		}
 	}
 
+	void		setSize(int width, int height) {
+		m_width = width;
+		m_height = height;
+	}
+
 	#define _epsilon		(0.00001f)
 
 	void		recMatrix			() {
@@ -391,7 +396,9 @@ public:
 
 	inline float getScaleX      ()	{ return m_scaleX;	}
 	inline float getScaleY      ()	{ return m_scaleY;	}
-	inline float getRotation    ()	{ return m_rot;		}
+	inline int	 getWidth				()	{ return m_width;		}
+	inline int	 getHeight			()	{ return m_height;	}
+	inline float getRotation    ()	{ return m_rot;			}
 	inline float getTranslateX  ()	{ return m_matrix.m_matrix[MAT_TX]; }
 	inline float getTranslateY  ()	{ return m_matrix.m_matrix[MAT_TY]; }
 
@@ -499,11 +506,13 @@ protected:	CKLBRenderCommand*	m_renderSlot;
 public:		float				m_rot;
 public:		float				m_scaleX;
 public:		float				m_scaleY;
-protected:	u32					m_renderCount;
+public:		s32					m_width;
+public:		s32					m_height;
+protected:	u32				m_renderCount;
 
-protected:	u16					m_groupID;
+protected:	u16				m_groupID;
 public:		u16					m_status;
-protected:	u16					m_layer;
+protected:	u16				m_layer;
 	// Was necessary in flash and necessary for flash leaf too.
 	// Can reuse in other systems. 
 public:		u16					m_movieID;
