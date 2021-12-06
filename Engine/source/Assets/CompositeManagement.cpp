@@ -783,9 +783,8 @@ int CKLBCompositeAsset::readInt(long long integerVal)
 		m_pCurrInnerDef->splineCount = (u16)integerVal;
 		break;
 	case SPLINE_ARRAY:
-		float *spline = m_pCurrInnerDef->spline;
-		if (!spline) return 0;
-		if (!m_currArraySpline || m_currArraySpline >= spline + m_pCurrInnerDef->splineCount * m_pCurrInnerDef->splineVectorSize) {
+		if (!m_pCurrInnerDef->spline) return 0;
+		if (!m_currArraySpline || m_currArraySpline >= m_pCurrInnerDef->spline + m_pCurrInnerDef->splineCount * m_pCurrInnerDef->splineVectorSize) {
 			return 0;
 		}
 		*m_currArraySpline++		= (float)integerVal;
