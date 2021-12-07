@@ -167,11 +167,12 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(SolutionDir)/Output/$(Configuration)\OSSGameLibraryWin32.lib;wsock32.lib;Ws2_32.lib;Wldap32.lib;opengl32.lib;glu32.lib;$(SolutionDir)3rdparty\ogl\libs\glut32.lib;$(SolutionDir)3rdparty\ogl\libs\glew32.lib;$(SolutionDir)3rdparty\zlib\libs\zlibstat.lib;$(SolutionDir)3rdparty\Lame\libs\libmp3lame.lib;$(SolutionDir)3rdparty\openssl\lib\libcrypto32MD.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
       <AdditionalLibraryDirectories>$(ProjectDir)directx</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls\gl*.dll" "$(OutDir)"</Command>
+      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls\gl*.dll" "$(OutDir)"
+copy "$(OutDir)..\..\3rdparty\Lame\dlls\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -185,12 +186,13 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(SolutionDir)x64\$(Configuration)\OSSGameLibraryWin32.lib;wsock32.lib;Ws2_32.lib;Wldap32.lib;opengl32.lib;glu32.lib;$(SolutionDir)3rdparty\ogl\libs64\glut32.lib;$(SolutionDir)3rdparty\ogl\libs64\glew32.lib;$(SolutionDir)3rdparty\zlib\libs64\zlibstat.lib;$(SolutionDir)3rdparty\Lame\libs64\libmp3lame.lib;$(SolutionDir)3rdparty\openssl\lib\libcrypto64MD.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls64\gl*.dll" "$(OutDir)"</Command>
+      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls64\gl*.dll" "$(OutDir)"
+copy "$(OutDir)..\..\3rdparty\Lame\dlls64\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CSharp|Win32'">
@@ -205,11 +207,12 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(SolutionDir)/Output/$(Configuration)\OSSGameLibraryWin32.lib;wsock32.lib;Ws2_32.lib;Wldap32.lib;opengl32.lib;glu32.lib;$(SolutionDir)3rdparty\ogl\libs\glut32.lib;$(SolutionDir)3rdparty\ogl\libs\glew32.lib;$(SolutionDir)3rdparty\zlib\libs\zlibstat.lib;$(SolutionDir)3rdparty\Lame\libs\libmp3lame.lib;$(SolutionDir)3rdparty\openssl\lib\libcrypto32MD.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
       <AdditionalLibraryDirectories>$(ProjectDir)directx</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls\gl*.dll" "$(OutDir)"</Command>
+      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls\gl*.dll" "$(OutDir)"
+copy "$(OutDir)..\..\3rdparty\Lame\dlls\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CSharp|x64'">
@@ -224,11 +227,12 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(SolutionDir)x64\$(Configuration)\OSSGameLibraryWin32.lib;wsock32.lib;Ws2_32.lib;Wldap32.lib;opengl32.lib;glu32.lib;$(SolutionDir)3rdparty\ogl\libs64\glut32.lib;$(SolutionDir)3rdparty\ogl\libs64\glew32.lib;$(SolutionDir)3rdparty\zlib\libs64\zlibstat.lib;$(SolutionDir)3rdparty\Lame\libs64\libmp3lame.lib;$(SolutionDir)3rdparty\openssl\lib\libcrypto64MD.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
       <AdditionalLibraryDirectories>$(ProjectDir)directx</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls64\gl*.dll" "$(OutDir)"</Command>
+      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls64\gl*.dll" "$(OutDir)"
+copy "$(OutDir)..\..\3rdparty\Lame\dlls64\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -245,12 +249,13 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>$(SolutionDir)/Output/$(Configuration)\OSSGameLibraryWin32.lib;wsock32.lib;Ws2_32.lib;Wldap32.lib;opengl32.lib;glu32.lib;$(SolutionDir)3rdparty\ogl\libs\glut32.lib;$(SolutionDir)3rdparty\ogl\libs\glew32.lib;$(SolutionDir)3rdparty\zlib\libs\zlibstat.lib;$(SolutionDir)3rdparty\Lame\libs\libmp3lame.lib;$(SolutionDir)3rdparty\openssl\lib\libcrypto32MD.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
       <AdditionalLibraryDirectories>$(ProjectDir)directx</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls\gl*.dll" "$(OutDir)"</Command>
+      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls\gl*.dll" "$(OutDir)"
+copy "$(OutDir)..\..\3rdparty\Lame\dlls\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -267,12 +272,13 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>$(SolutionDir)x64\$(Configuration)\OSSGameLibraryWin32.lib;wsock32.lib;Ws2_32.lib;Wldap32.lib;opengl32.lib;glu32.lib;$(SolutionDir)3rdparty\ogl\libs64\glut32.lib;$(SolutionDir)3rdparty\ogl\libs64\glew32.lib;$(SolutionDir)3rdparty\zlib\libs64\zlibstat.lib;$(SolutionDir)3rdparty\Lame\libs64\libmp3lame.lib;$(SolutionDir)3rdparty\openssl\lib\libcrypto64MD.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
       <AdditionalLibraryDirectories>$(ProjectDir)directx</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls64\gl*.dll" "$(OutDir)"</Command>
+      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls64\gl*.dll" "$(OutDir)"
+copy "$(OutDir)..\..\3rdparty\Lame\dlls64\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug CSharp|Win32'">
@@ -314,11 +320,12 @@
     <Link>
       <AdditionalLibraryDirectories>$(ProjectDir)directx</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(SolutionDir)/Output/$(Configuration)\OSSGameLibraryWin32.lib;wsock32.lib;Ws2_32.lib;Wldap32.lib;opengl32.lib;glu32.lib;$(SolutionDir)3rdparty\ogl\libs\glut32.lib;$(SolutionDir)3rdparty\ogl\libs\glew32.lib;$(SolutionDir)3rdparty\zlib\libs\zlibstat.lib;$(SolutionDir)3rdparty\Lame\libs\libmp3lame.lib;$(SolutionDir)3rdparty\openssl\lib\libcrypto32MD.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls\gl*.dll" "$(OutDir)"</Command>
+      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls\gl*.dll" "$(OutDir)"
+copy "$(OutDir)..\..\3rdparty\Lame\dlls\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Cpp|x64'">
@@ -336,11 +343,12 @@
     <Link>
       <AdditionalLibraryDirectories>$(ProjectDir)directx</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(SolutionDir)x64\$(Configuration)\OSSGameLibraryWin32.lib;wsock32.lib;Ws2_32.lib;Wldap32.lib;opengl32.lib;glu32.lib;$(SolutionDir)3rdparty\ogl\libs64\glut32.lib;$(SolutionDir)3rdparty\ogl\libs64\glew32.lib;$(SolutionDir)3rdparty\zlib\libs64\zlibstat.lib;$(SolutionDir)3rdparty\Lame\libs64\libmp3lame.lib;$(SolutionDir)3rdparty\openssl\lib\libcrypto64MD.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls64\gl*.dll" "$(OutDir)"</Command>
+      <Command>copy "$(OutDir)..\..\3rdparty\ogl\dlls64\gl*.dll" "$(OutDir)"
+copy "$(OutDir)..\..\3rdparty\Lame\dlls64\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
