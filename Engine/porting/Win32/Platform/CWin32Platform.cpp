@@ -34,12 +34,12 @@
 #include "CWin32PathConv.h"
 #include "CWin32TmpFile.h"
 
-#include "openssl/sha.h"
-#include "openssl/hmac.h"
-#include "openssl/rsa.h"
-#include "openssl/pem.h"
+#include <openssl/sha.h>
+#include <openssl/hmac.h>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
 #include <openssl/rand.h>
-#include "openssl/applink.c"
+#include <openssl/applink.c>
 
 #pragma comment(lib, "Rpcrt4.lib")
 #ifdef _WIN64
@@ -50,7 +50,7 @@
 
 #include "FontRendering.h"
 
-constexpr auto BUNDLE_VERSION = "9.0.2";
+constexpr auto BUNDLE_VERSION = "9.4";
 constexpr auto BUNDLE_ID = "win32.lovelive";
 
 bool CWin32Platform::g_useDecryption = true;
@@ -77,11 +77,21 @@ CWin32Platform::CWin32Platform(HWND hWnd)
 
 	// OSとバージョンをあらわす文字列を作っておく
 	m_version_string = create_version_string();
+
+	// read public key
+	FILE* publicKey = fopen("public.pem", "rb");
+	klb_assert(publicKey, "public.pem not exist");
+	RSA* rsa = RSA_new();
+	m_rsa = PEM_read_RSA_PUBKEY(publicKey, &rsa, NULL, NULL);
+	fclose(publicKey);
 }
 
 CWin32Platform::~CWin32Platform()
 {
 	delete [] m_version_string;
+	if (m_rsa) {
+		RSA_free(m_rsa);
+	}
 
 	ReleaseDC(m_hWnd, m_hDC);
 	// WinSock 後始末
@@ -1067,17 +1077,14 @@ CWin32Platform::decryptAES128CBC(unsigned const char* ciphertext, int ciphertext
 int
 CWin32Platform::publicKeyEncrypt(unsigned char* plaintext, int plaintextLen, unsigned char* out, int outLen)
 {
-	FILE* publicKey = fopen("public.pem", "rb");
-	klb_assert(publicKey, "public.pem not exist");
-	RSA* rsa = RSA_new();
-	rsa = PEM_read_RSA_PUBKEY(publicKey, &rsa, NULL, NULL);
-	fclose(publicKey);
-	outLen = RSA_public_encrypt(plaintextLen, plaintext, out, rsa, RSA_PKCS1_PADDING);
+	outLen = RSA_public_encrypt(plaintextLen, plaintext, out, m_rsa, RSA_PKCS1_PADDING);
 	return outLen;
 }
 
 bool 
 CWin32Platform::publicKeyVerify(unsigned char* plaintext, int plaintextLen, unsigned char* hash) {
+	/*int result = RSA_verify(NID_sha1, hash, SHA_DIGEST_LENGTH,
+		plaintext, plaintextLen, m_rsa);*/
 	return false; // TODO
 }
 
