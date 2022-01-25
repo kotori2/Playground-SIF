@@ -144,7 +144,7 @@ static float _mainScreenScale = -1.0f;
 }
 
 - (void)onRotation:(NSNotification *)notification {
-    UIDeviceOrientation orientation = [[notification object] orientation];
+    /*CGImagePropertyOrientation orientation = [[notification object] orientation];
     if (orientation == UIDeviceOrientationLandscapeLeft) {
         
     }
@@ -154,7 +154,7 @@ static float _mainScreenScale = -1.0f;
     else if (orientation == UIDeviceOrientationPortrait) {
         
     }
-    orientation = UIDeviceOrientationLandscapeLeft;
+    orientation = UIDeviceOrientationLandscapeLeft;*/
 }
 
 - (void)drawView {    

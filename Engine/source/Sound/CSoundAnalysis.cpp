@@ -41,11 +41,13 @@ bool GetSoundAnalysisData(const char* _path, sSoundAnalysisData* _data)
         // MP3
         bAnalysis = SoundAnalysis_MP3(_path, _data);
     }
+#ifndef __APPLE__
     else if (strstr(_path, ".ogg"))
     {
         // OGG
         bAnalysis = SoundAnalysis_OGG(_path, _data);
     }
+#endif
 
     return bAnalysis;
 }

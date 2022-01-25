@@ -453,9 +453,9 @@ CiOSTextWidget::cmd(int cmd, ...)
                     break;
             }
             if( m_consoleType == E_CONSOLE_TYPE_UITEXTFIELD ) {
-                m_pTextBox.textAlignment = m_alignType;
+                m_pTextBox.textAlignment = NSTextAlignment(m_alignType);
             } else if( m_consoleType == E_CONSOLE_TYPE_UITEXTVIEW ) {
-                m_pTextView.textAlignment = m_alignType;
+                m_pTextView.textAlignment = NSTextAlignment(m_alignType);
             }
             break;
         }
